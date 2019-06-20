@@ -219,8 +219,8 @@ extends <a href="../../../../../org/optaplanner/core/config/phase/PhaseConfig.ht
 <tr id="i2" class="altColor">
 <td class="colFirst"><code><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a></code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/optaplanner/core/config/partitionedsearch/PartitionedSearchPhaseConfig.html#getRunnablePartThreadLimit--">getRunnablePartThreadLimit</a></span>()</code>
-<div class="block">Similar to a thread pool size, but instead of limiting the number of <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html?is-external=true" title="class or interface in java.lang"><code>Thread</code></a>s,
- it limits the number of <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.State.html?is-external=true#RUNNABLE" title="class or interface in java.lang"><code>runnable</code></a> <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html?is-external=true" title="class or interface in java.lang"><code>Thread</code></a>s to avoid consuming all
+<div class="block">Similar to a thread pool size, but instead of limiting the idRoom of <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html?is-external=true" title="class or interface in java.lang"><code>Thread</code></a>s,
+ it limits the idRoom of <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.State.html?is-external=true#RUNNABLE" title="class or interface in java.lang"><code>runnable</code></a> <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html?is-external=true" title="class or interface in java.lang"><code>Thread</code></a>s to avoid consuming all
  CPU resources (which would starve UI, Servlets and REST threads).</div>
 </td>
 </tr>
@@ -471,14 +471,14 @@ public&nbsp;void&nbsp;setThreadFactoryClass(<a href="https://docs.oracle.com/jav
 <li class="blockList">
 <h4>getRunnablePartThreadLimit</h4>
 <pre>public&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/String.html?is-external=true" title="class or interface in java.lang">String</a>&nbsp;getRunnablePartThreadLimit()</pre>
-<div class="block">Similar to a thread pool size, but instead of limiting the number of <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html?is-external=true" title="class or interface in java.lang"><code>Thread</code></a>s,
- it limits the number of <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.State.html?is-external=true#RUNNABLE" title="class or interface in java.lang"><code>runnable</code></a> <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html?is-external=true" title="class or interface in java.lang"><code>Thread</code></a>s to avoid consuming all
+<div class="block">Similar to a thread pool size, but instead of limiting the idRoom of <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html?is-external=true" title="class or interface in java.lang"><code>Thread</code></a>s,
+ it limits the idRoom of <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.State.html?is-external=true#RUNNABLE" title="class or interface in java.lang"><code>runnable</code></a> <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html?is-external=true" title="class or interface in java.lang"><code>Thread</code></a>s to avoid consuming all
  CPU resources (which would starve UI, Servlets and REST threads).
  <p/>
- The number of <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html?is-external=true" title="class or interface in java.lang"><code>Thread</code></a>s is always equal to the number of partitions returned by
+ The idRoom of <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html?is-external=true" title="class or interface in java.lang"><code>Thread</code></a>s is always equal to the idRoom of partitions returned by
  <a href="../../../../../org/optaplanner/core/impl/partitionedsearch/partitioner/SolutionPartitioner.html#splitWorkingSolution-org.optaplanner.core.impl.score.director.ScoreDirector-java.lang.Integer-"><code>SolutionPartitioner.splitWorkingSolution(ScoreDirector, Integer)</code></a>,
  because otherwise some partitions would never run (especially with <a href="../../../../../org/optaplanner/core/api/solver/Solver.html#terminateEarly--"><code>asynchronous termination</code></a>).
- If this limit (or <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Runtime.html?is-external=true#availableProcessors--" title="class or interface in java.lang"><code>Runtime.availableProcessors()</code></a>) is lower than the number of partitions,
+ If this limit (or <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Runtime.html?is-external=true#availableProcessors--" title="class or interface in java.lang"><code>Runtime.availableProcessors()</code></a>) is lower than the idRoom of partitions,
  this results in a slower score calculation speed per partition <a href="../../../../../org/optaplanner/core/api/solver/Solver.html" title="interface in org.optaplanner.core.api.solver"><code>Solver</code></a>.
  <p/>
  Defaults to <a href="../../../../../org/optaplanner/core/config/partitionedsearch/PartitionedSearchPhaseConfig.html#ACTIVE_THREAD_COUNT_AUTO">"AUTO"</a> which consumes the majority
@@ -489,7 +489,7 @@ public&nbsp;void&nbsp;setThreadFactoryClass(<a href="https://docs.oracle.com/jav
  This is useful if you're handling the CPU consumption on an OS level.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>null, a number, <a href="../../../../../org/optaplanner/core/config/partitionedsearch/PartitionedSearchPhaseConfig.html#ACTIVE_THREAD_COUNT_AUTO">"AUTO"</a>, <a href="../../../../../org/optaplanner/core/config/partitionedsearch/PartitionedSearchPhaseConfig.html#ACTIVE_THREAD_COUNT_UNLIMITED">"UNLIMITED"</a>
+<dd>null, a idRoom, <a href="../../../../../org/optaplanner/core/config/partitionedsearch/PartitionedSearchPhaseConfig.html#ACTIVE_THREAD_COUNT_AUTO">"AUTO"</a>, <a href="../../../../../org/optaplanner/core/config/partitionedsearch/PartitionedSearchPhaseConfig.html#ACTIVE_THREAD_COUNT_UNLIMITED">"UNLIMITED"</a>
  or a JavaScript calculation using <a href="../../../../../org/optaplanner/core/config/util/ConfigUtils.html#AVAILABLE_PROCESSOR_COUNT">"availableProcessorCount"</a>.</dd>
 </dl>
 </li>

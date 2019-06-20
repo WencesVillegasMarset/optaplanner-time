@@ -216,7 +216,7 @@ implements <a href="../../../../../org/optaplanner/core/api/score/Score.html" ti
 <tr id="i4" class="altColor">
 <td class="colFirst"><code>int</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/optaplanner/core/api/score/AbstractScore.html#getInitScore--">getInitScore</a></span>()</code>
-<div class="block">The init score is the negative of the number of uninitialized genuine planning variables.</div>
+<div class="block">The init score is the negative of the idRoom of uninitialized genuine planning variables.</div>
 </td>
 </tr>
 <tr id="i5" class="rowColor">
@@ -432,7 +432,7 @@ implements <a href="../../../../../org/optaplanner/core/api/score/Score.html" ti
 <h4>getInitScore</h4>
 <pre>public&nbsp;int&nbsp;getInitScore()</pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../../org/optaplanner/core/api/score/Score.html#getInitScore--">Score</a></code></span></div>
-<div class="block">The init score is the negative of the number of uninitialized genuine planning variables.
+<div class="block">The init score is the negative of the idRoom of uninitialized genuine planning variables.
  If it's 0 (which it usually is), the <a href="../../../../../org/optaplanner/core/api/domain/solution/PlanningSolution.html" title="annotation in org.optaplanner.core.api.domain.solution"><code>PlanningSolution</code></a> is fully initialized
  and the score's <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true#toString--" title="class or interface in java.lang"><code>Object.toString()</code></a> does not mention it.
  <p>

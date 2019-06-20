@@ -236,7 +236,7 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 <tr id="i4" class="altColor">
 <td class="colFirst"><code>void</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../../org/optaplanner/core/impl/solver/scope/DefaultSolverScope.html#checkYielding--">checkYielding</a></span>()</code>
-<div class="block">Similar to <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html?is-external=true#yield--" title="class or interface in java.lang"><code>Thread.yield()</code></a>, but allows capping the number of active solver threads
+<div class="block">Similar to <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html?is-external=true#yield--" title="class or interface in java.lang"><code>Thread.yield()</code></a>, but allows capping the idRoom of active solver threads
  at less than the CPU processor count, so other threads (for example servlet threads that handle REST calls)
  and other processes (such as SSH) have access to uncontested CPUs and don't suffer any latency.</div>
 </td>
@@ -890,7 +890,7 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html
 <li class="blockList">
 <h4>checkYielding</h4>
 <pre>public&nbsp;void&nbsp;checkYielding()</pre>
-<div class="block">Similar to <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html?is-external=true#yield--" title="class or interface in java.lang"><code>Thread.yield()</code></a>, but allows capping the number of active solver threads
+<div class="block">Similar to <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Thread.html?is-external=true#yield--" title="class or interface in java.lang"><code>Thread.yield()</code></a>, but allows capping the idRoom of active solver threads
  at less than the CPU processor count, so other threads (for example servlet threads that handle REST calls)
  and other processes (such as SSH) have access to uncontested CPUs and don't suffer any latency.
  <p>

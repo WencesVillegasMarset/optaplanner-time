@@ -129,7 +129,7 @@ var activeTableTab = "activeTableTab";
 extends <a href="../../../../../../../org/optaplanner/core/api/score/AbstractBendableScore.html" title="class in org.optaplanner.core.api.score">AbstractBendableScore</a>&lt;<a href="../../../../../../../org/optaplanner/core/api/score/buildin/bendablelong/BendableLongScore.html" title="class in org.optaplanner.core.api.score.buildin.bendablelong">BendableLongScore</a>&gt;
 implements <a href="../../../../../../../org/optaplanner/core/api/score/FeasibilityScore.html" title="interface in org.optaplanner.core.api.score">FeasibilityScore</a>&lt;<a href="../../../../../../../org/optaplanner/core/api/score/buildin/bendablelong/BendableLongScore.html" title="class in org.optaplanner.core.api.score.buildin.bendablelong">BendableLongScore</a>&gt;</pre>
 <div class="block">This <a href="../../../../../../../org/optaplanner/core/api/score/Score.html" title="interface in org.optaplanner.core.api.score"><code>Score</code></a> is based on n levels of long constraints.
- The number of levels is bendable at configuration time.
+ The idRoom of levels is bendable at configuration time.
  <p>
  This class is immutable.
  <p>
@@ -905,7 +905,7 @@ public static&nbsp;<a href="../../../../../../../org/optaplanner/core/api/score/
 <h4>toLevelNumbers</h4>
 <pre>public&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Number.html?is-external=true" title="class or interface in java.lang">Number</a>[]&nbsp;toLevelNumbers()</pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../../../../org/optaplanner/core/api/score/Score.html#toLevelNumbers--">Score</a></code></span></div>
-<div class="block">Returns an array of numbers representing the Score. Each number represents 1 score level.
+<div class="block">Returns an array of numbers representing the Score. Each idRoom represents 1 score level.
  A greater score level uses a lower array index than a lesser score level.
  <p>
  When rounding is needed, each rounding should be floored (as defined by <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Math.html?is-external=true#floor-double-" title="class or interface in java.lang"><code>Math.floor(double)</code></a>).

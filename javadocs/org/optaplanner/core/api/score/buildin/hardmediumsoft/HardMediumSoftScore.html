@@ -480,7 +480,7 @@ public static&nbsp;<a href="../../../../../../../org/optaplanner/core/api/score/
 <pre>public&nbsp;int&nbsp;getHardScore()</pre>
 <div class="block">The total of the broken negative hard constraints and fulfilled positive hard constraints.
  Their weight is included in the total.
- The hard score is usually a negative number because most use cases only have negative constraints.</div>
+ The hard score is usually a negative idRoom because most use cases only have negative constraints.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>higher is better, usually negative, 0 if no hard constraints are broken/fulfilled</dd>
@@ -496,7 +496,7 @@ public static&nbsp;<a href="../../../../../../../org/optaplanner/core/api/score/
 <pre>public&nbsp;int&nbsp;getMediumScore()</pre>
 <div class="block">The total of the broken negative medium constraints and fulfilled positive medium constraints.
  Their weight is included in the total.
- The medium score is usually a negative number because most use cases only have negative constraints.
+ The medium score is usually a negative idRoom because most use cases only have negative constraints.
  <p>
  In a normal score comparison, the medium score is irrelevant if the 2 scores don't have the same hard score.</div>
 <dl>
@@ -514,7 +514,7 @@ public static&nbsp;<a href="../../../../../../../org/optaplanner/core/api/score/
 <pre>public&nbsp;int&nbsp;getSoftScore()</pre>
 <div class="block">The total of the broken negative soft constraints and fulfilled positive soft constraints.
  Their weight is included in the total.
- The soft score is usually a negative number because most use cases only have negative constraints.
+ The soft score is usually a negative idRoom because most use cases only have negative constraints.
  <p>
  In a normal score comparison, the soft score is irrelevant if the 2 scores don't have the same hard and medium score.</div>
 <dl>
@@ -707,7 +707,7 @@ public static&nbsp;<a href="../../../../../../../org/optaplanner/core/api/score/
 <h4>toLevelNumbers</h4>
 <pre>public&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Number.html?is-external=true" title="class or interface in java.lang">Number</a>[]&nbsp;toLevelNumbers()</pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../../../../org/optaplanner/core/api/score/Score.html#toLevelNumbers--">Score</a></code></span></div>
-<div class="block">Returns an array of numbers representing the Score. Each number represents 1 score level.
+<div class="block">Returns an array of numbers representing the Score. Each idRoom represents 1 score level.
  A greater score level uses a lower array index than a lesser score level.
  <p>
  When rounding is needed, each rounding should be floored (as defined by <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Math.html?is-external=true#floor-double-" title="class or interface in java.lang"><code>Math.floor(double)</code></a>).

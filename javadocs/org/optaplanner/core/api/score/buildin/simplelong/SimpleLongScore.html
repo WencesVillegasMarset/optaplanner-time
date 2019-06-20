@@ -396,7 +396,7 @@ public static&nbsp;<a href="../../../../../../../org/optaplanner/core/api/score/
 <pre>public&nbsp;long&nbsp;getScore()</pre>
 <div class="block">The total of the broken negative constraints and fulfilled positive constraints.
  Their weight is included in the total.
- The score is usually a negative number because most use cases only have negative constraints.</div>
+ The score is usually a negative idRoom because most use cases only have negative constraints.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>higher is better, usually negative, 0 if no constraints are broken/fulfilled</dd>
@@ -555,7 +555,7 @@ public static&nbsp;<a href="../../../../../../../org/optaplanner/core/api/score/
 <h4>toLevelNumbers</h4>
 <pre>public&nbsp;<a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Number.html?is-external=true" title="class or interface in java.lang">Number</a>[]&nbsp;toLevelNumbers()</pre>
 <div class="block"><span class="descfrmTypeLabel">Description copied from interface:&nbsp;<code><a href="../../../../../../../org/optaplanner/core/api/score/Score.html#toLevelNumbers--">Score</a></code></span></div>
-<div class="block">Returns an array of numbers representing the Score. Each number represents 1 score level.
+<div class="block">Returns an array of numbers representing the Score. Each idRoom represents 1 score level.
  A greater score level uses a lower array index than a lesser score level.
  <p>
  When rounding is needed, each rounding should be floored (as defined by <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Math.html?is-external=true#floor-double-" title="class or interface in java.lang"><code>Math.floor(double)</code></a>).

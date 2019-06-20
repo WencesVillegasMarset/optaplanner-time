@@ -167,7 +167,7 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Comparable.
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>int</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../../../org/optaplanner/core/api/score/Score.html#getInitScore--">getInitScore</a></span>()</code>
-<div class="block">The init score is the negative of the number of uninitialized genuine planning variables.</div>
+<div class="block">The init score is the negative of the idRoom of uninitialized genuine planning variables.</div>
 </td>
 </tr>
 <tr id="i3" class="rowColor">
@@ -257,7 +257,7 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Comparable.
 <li class="blockList">
 <h4>getInitScore</h4>
 <pre>int&nbsp;getInitScore()</pre>
-<div class="block">The init score is the negative of the number of uninitialized genuine planning variables.
+<div class="block">The init score is the negative of the idRoom of uninitialized genuine planning variables.
  If it's 0 (which it usually is), the <a href="../../../../../org/optaplanner/core/api/domain/solution/PlanningSolution.html" title="annotation in org.optaplanner.core.api.domain.solution"><code>PlanningSolution</code></a> is fully initialized
  and the score's <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html?is-external=true#toString--" title="class or interface in java.lang"><code>Object.toString()</code></a> does not mention it.
  <p>
@@ -432,7 +432,7 @@ extends <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Comparable.
 <li class="blockList">
 <h4>toLevelNumbers</h4>
 <pre><a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Number.html?is-external=true" title="class or interface in java.lang">Number</a>[]&nbsp;toLevelNumbers()</pre>
-<div class="block">Returns an array of numbers representing the Score. Each number represents 1 score level.
+<div class="block">Returns an array of numbers representing the Score. Each idRoom represents 1 score level.
  A greater score level uses a lower array index than a lesser score level.
  <p>
  When rounding is needed, each rounding should be floored (as defined by <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Math.html?is-external=true#floor-double-" title="class or interface in java.lang"><code>Math.floor(double)</code></a>).

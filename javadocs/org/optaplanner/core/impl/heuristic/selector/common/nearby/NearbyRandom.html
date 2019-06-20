@@ -164,7 +164,7 @@ var activeTableTab = "activeTableTab";
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>random</code> - never null</dd>
-<dd><code>nearbySize</code> - never negative. The number of available values to select from.
+<dd><code>nearbySize</code> - never negative. The idRoom of available values to select from.
                    Normally this is the size of the value range for a non-chained variable
                    and the size of the value range (= size of the entity list) minus 1 for a chained variable.</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
@@ -182,7 +182,7 @@ var activeTableTab = "activeTableTab";
 <div class="block">Used to limit the RAM memory size of the nearby distance matrix.</div>
 <dl>
 <dt><span class="returnLabel">Returns:</span></dt>
-<dd>one more than the maximum number that <a href="../../../../../../../../org/optaplanner/core/impl/heuristic/selector/common/nearby/NearbyRandom.html#nextInt-java.util.Random-int-"><code>nextInt(Random, int)</code></a> can return,
+<dd>one more than the maximum idRoom that <a href="../../../../../../../../org/optaplanner/core/impl/heuristic/selector/common/nearby/NearbyRandom.html#nextInt-java.util.Random-int-"><code>nextInt(Random, int)</code></a> can return,
  <a href="https://docs.oracle.com/javase/8/docs/api/java/lang/Integer.html?is-external=true#MAX_VALUE" title="class or interface in java.lang"><code>Integer.MAX_VALUE</code></a> if there is none</dd>
 </dl>
 </li>

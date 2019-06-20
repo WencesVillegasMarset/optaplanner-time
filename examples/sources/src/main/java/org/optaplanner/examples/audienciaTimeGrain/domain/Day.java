@@ -8,11 +8,20 @@ import java.util.Locale;
 public class Day{
 
     private int dayOfYear;
+    private long idDay;
     private static final DateTimeFormatter DAY_FORMATTER
             = DateTimeFormatter.ofPattern("E", Locale.ENGLISH);
 
     public int getDayOfYear() {
         return dayOfYear;
+    }
+
+    public long getIdDay() {
+        return idDay;
+    }
+
+    public void setIdDay(long idDay) {
+        this.idDay = idDay;
     }
 
     public void setDayOfYear(int dayOfYear) {

@@ -15,9 +15,18 @@ public class TimeGrain {
 
     private Day day;
     private int startingMinuteOfDay;
+    private int idTimeGrain;
 
     public int getGrainIndex() {
         return grainIndex;
+    }
+
+    public int getIdTimeGrain() {
+        return idTimeGrain;
+    }
+
+    public void setIdTimeGrain(int idTimeGrain) {
+        this.idTimeGrain = idTimeGrain;
     }
 
     public void setGrainIndex(int grainIndex) {

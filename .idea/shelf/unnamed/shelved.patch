@@ -1,0 +1,24 @@
+Index: .idea/misc.xml
+===================================================================
+--- .idea/misc.xml	(revision 26d59b4618b0493c4a9588c02e1e19a840d8cb9f)
++++ .idea/misc.xml	(revision 26d59b4618b0493c4a9588c02e1e19a840d8cb9f)
+@@ -1,4 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="ProjectRootManager" version="2" project-jdk-name="1.8" project-jdk-type="JavaSDK" />
+-</project>
+\ No newline at end of file
+Index: .idea/modules.xml
+===================================================================
+--- .idea/modules.xml	(revision 26d59b4618b0493c4a9588c02e1e19a840d8cb9f)
++++ .idea/modules.xml	(revision 26d59b4618b0493c4a9588c02e1e19a840d8cb9f)
+@@ -1,8 +0,0 @@
+-<?xml version="1.0" encoding="UTF-8"?>
+-<project version="4">
+-  <component name="ProjectModuleManager">
+-    <modules>
+-      <module fileurl="file://$PROJECT_DIR$/.idea/optaplanner-time2.iml" filepath="$PROJECT_DIR$/.idea/optaplanner-time2.iml" />
+-    </modules>
+-  </component>
+-</project>
+\ No newline at end of file

@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="eeb59317-3df1-444c-b4ad-f89ca035c94b" name="Default Changelist" comment="" />
+    <list default="true" id="eeb59317-3df1-444c-b4ad-f89ca035c94b" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/optaplanner-time2.iml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -12,23 +16,70 @@
     <option name="isMigrated" value="true" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/examples/sources/src/main/java/org/optaplanner/examples/meetingscheduling/persistence/MeetingSchedulingXlsxFileIO.java">
+        <entry file="file://$PROJECT_DIR$/examples/sources/src/main/java/org/optaplanner/examples/audienciaTimeGrain/domain/AudienciaScheduleConstraintConfiguration.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-3024">
-              <caret line="153" column="75" selection-start-line="153" selection-start-column="75" selection-end-line="153" selection-end-column="75" />
+            <state relative-caret-position="135">
+              <caret line="9" column="53" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="53" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#2829#2830#0" expanded="true" />
+                <element signature="e#2864#2865#0" expanded="true" />
+                <element signature="e#2933#2934#0" expanded="true" />
+                <element signature="e#2981#2982#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/examples/sources/src/main/resources/org/optaplanner/examples/audienciaTimeGrain/solver/audienciaTimeGrainSolverConfig.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="38" lean-forward="true" selection-start-column="38" selection-end-column="38" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/examples/sources/src/main/java/org/optaplanner/examples/meetingscheduling/app/MeetingSchedulingApp.java">
+        <entry file="file://$PROJECT_DIR$/examples/sources/src/main/resources/org/optaplanner/examples/audienciaTimeGrain/solver/audienciaTimeGrainScoreRules.drl">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="323">
-              <caret line="24" selection-start-line="24" selection-end-line="24" />
+            <state relative-caret-position="399">
+              <caret line="51" column="3" lean-forward="true" selection-start-line="51" selection-start-column="3" selection-end-line="51" selection-end-column="3" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/examples/sources/src/main/java/org/optaplanner/examples/audienciaTimeGrain/domain/AudienciaSchedule.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="247">
+              <caret line="86" lean-forward="true" selection-start-line="86" selection-end-line="86" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/examples/sources/src/main/java/org/optaplanner/examples/meetingscheduling/domain/MeetingConstraintConfiguration.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="224">
+              <caret line="24" column="36" selection-start-line="24" selection-start-column="36" selection-end-line="24" selection-end-column="36" />
               <folding>
-                <element signature="e#0#2071#0" expanded="true" />
+                <element signature="e#0#7612#0" expanded="true" />
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/examples/sources/src/main/java/org/optaplanner/examples/meetingscheduling/domain/MeetingSchedule.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="210">
+              <caret line="32" selection-start-line="32" selection-end-line="33" selection-end-column="67" />
+              <folding>
+                <element signature="e#0#4179#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -38,6 +89,23 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/examples/sources/src/main/java/org/optaplanner/examples/meetingscheduling/domain/MeetingConstraintConfiguration.java" />
+        <option value="$PROJECT_DIR$/examples/sources/src/main/resources/org/optaplanner/examples/meetingscheduling/solver/meetingSchedulingSolverConfig.xml" />
+        <option value="$PROJECT_DIR$/examples/sources/src/main/resources/org/optaplanner/examples/audienciaTimeGrain/solver/audienciaTimeGrainSolverConfig.xml" />
+        <option value="$PROJECT_DIR$/examples/sources/src/main/resources/org/optaplanner/examples/audienciaTimeGrain/solver/audienciaTimeGrainScoreRules.drl" />
+        <option value="$PROJECT_DIR$/examples/sources/src/main/java/org/optaplanner/examples/audienciaTimeGrain/domain/AudienciaScheduleConstraintConfiguration.java" />
+        <option value="$PROJECT_DIR$/examples/sources/src/main/java/org/optaplanner/examples/audienciaTimeGrain/domain/AudienciaSchedule.java" />
+      </list>
+    </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-10" />
@@ -45,128 +113,267 @@
     <option name="width" value="1750" />
     <option name="height" value="980" />
   </component>
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="1" id="Add" />
+  </component>
   <component name="ProjectView">
-    <navigator proportions="" version="1">
+    <navigator currentView="Scope" currentSubView="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope" proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="ProjectPane" />
       <pane id="PackagesPane" />
-      <pane id="Scope" />
-      <pane id="ProjectPane">
-        <subPane>
+      <pane id="Scope">
+        <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
           <expand>
             <path>
-              <item name="optaplanner-time" type="b2602c69:ProjectViewProjectNode" />
-              <item name="optaplanner-time" type="462c0819:PsiDirectoryNode" />
+              <item name="optaplanner-time2" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="~/Desktop/optaplanner-projects/optaplanner-time2" type="442cc68d:ScopeViewTreeModel$RootNode" />
             </path>
             <path>
-              <item name="optaplanner-time" type="b2602c69:ProjectViewProjectNode" />
-              <item name="optaplanner-time" type="462c0819:PsiDirectoryNode" />
-              <item name="examples" type="462c0819:PsiDirectoryNode" />
+              <item name="optaplanner-time2" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="~/Desktop/optaplanner-projects/optaplanner-time2" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="examples" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
             <path>
-              <item name="optaplanner-time" type="b2602c69:ProjectViewProjectNode" />
-              <item name="optaplanner-time" type="462c0819:PsiDirectoryNode" />
-              <item name="examples" type="462c0819:PsiDirectoryNode" />
-              <item name="sources" type="462c0819:PsiDirectoryNode" />
+              <item name="optaplanner-time2" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="~/Desktop/optaplanner-projects/optaplanner-time2" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="examples" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="sources" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
             <path>
-              <item name="optaplanner-time" type="b2602c69:ProjectViewProjectNode" />
-              <item name="optaplanner-time" type="462c0819:PsiDirectoryNode" />
-              <item name="examples" type="462c0819:PsiDirectoryNode" />
-              <item name="sources" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="optaplanner-time2" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="~/Desktop/optaplanner-projects/optaplanner-time2" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="examples" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="sources" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
             <path>
-              <item name="optaplanner-time" type="b2602c69:ProjectViewProjectNode" />
-              <item name="optaplanner-time" type="462c0819:PsiDirectoryNode" />
-              <item name="examples" type="462c0819:PsiDirectoryNode" />
-              <item name="sources" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="optaplanner-time2" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="~/Desktop/optaplanner-projects/optaplanner-time2" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="examples" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="sources" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
             <path>
-              <item name="optaplanner-time" type="b2602c69:ProjectViewProjectNode" />
-              <item name="optaplanner-time" type="462c0819:PsiDirectoryNode" />
-              <item name="examples" type="462c0819:PsiDirectoryNode" />
-              <item name="sources" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="optaplanner-time2" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="~/Desktop/optaplanner-projects/optaplanner-time2" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="examples" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="sources" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
             <path>
-              <item name="optaplanner-time" type="b2602c69:ProjectViewProjectNode" />
-              <item name="optaplanner-time" type="462c0819:PsiDirectoryNode" />
-              <item name="examples" type="462c0819:PsiDirectoryNode" />
-              <item name="sources" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="org" type="462c0819:PsiDirectoryNode" />
+              <item name="optaplanner-time2" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="~/Desktop/optaplanner-projects/optaplanner-time2" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="examples" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="sources" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="org" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
             <path>
-              <item name="optaplanner-time" type="b2602c69:ProjectViewProjectNode" />
-              <item name="optaplanner-time" type="462c0819:PsiDirectoryNode" />
-              <item name="examples" type="462c0819:PsiDirectoryNode" />
-              <item name="sources" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="org" type="462c0819:PsiDirectoryNode" />
-              <item name="optaplanner" type="462c0819:PsiDirectoryNode" />
+              <item name="optaplanner-time2" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="~/Desktop/optaplanner-projects/optaplanner-time2" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="examples" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="sources" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="org" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="optaplanner" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
             <path>
-              <item name="optaplanner-time" type="b2602c69:ProjectViewProjectNode" />
-              <item name="optaplanner-time" type="462c0819:PsiDirectoryNode" />
-              <item name="examples" type="462c0819:PsiDirectoryNode" />
-              <item name="sources" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="org" type="462c0819:PsiDirectoryNode" />
-              <item name="optaplanner" type="462c0819:PsiDirectoryNode" />
-              <item name="examples" type="462c0819:PsiDirectoryNode" />
+              <item name="optaplanner-time2" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="~/Desktop/optaplanner-projects/optaplanner-time2" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="examples" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="sources" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="org" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="optaplanner" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="examples" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
             <path>
-              <item name="optaplanner-time" type="b2602c69:ProjectViewProjectNode" />
-              <item name="optaplanner-time" type="462c0819:PsiDirectoryNode" />
-              <item name="examples" type="462c0819:PsiDirectoryNode" />
-              <item name="sources" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="org" type="462c0819:PsiDirectoryNode" />
-              <item name="optaplanner" type="462c0819:PsiDirectoryNode" />
-              <item name="examples" type="462c0819:PsiDirectoryNode" />
-              <item name="meetingscheduling" type="462c0819:PsiDirectoryNode" />
+              <item name="optaplanner-time2" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="~/Desktop/optaplanner-projects/optaplanner-time2" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="examples" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="sources" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="org" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="optaplanner" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="examples" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="audienciaTimeGrain" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
             <path>
-              <item name="optaplanner-time" type="b2602c69:ProjectViewProjectNode" />
-              <item name="optaplanner-time" type="462c0819:PsiDirectoryNode" />
-              <item name="examples" type="462c0819:PsiDirectoryNode" />
-              <item name="sources" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="org" type="462c0819:PsiDirectoryNode" />
-              <item name="optaplanner" type="462c0819:PsiDirectoryNode" />
-              <item name="examples" type="462c0819:PsiDirectoryNode" />
-              <item name="meetingscheduling" type="462c0819:PsiDirectoryNode" />
-              <item name="app" type="462c0819:PsiDirectoryNode" />
+              <item name="optaplanner-time2" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="~/Desktop/optaplanner-projects/optaplanner-time2" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="examples" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="sources" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="org" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="optaplanner" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="examples" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="audienciaTimeGrain" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="domain" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
             <path>
-              <item name="optaplanner-time" type="b2602c69:ProjectViewProjectNode" />
-              <item name="optaplanner-time" type="462c0819:PsiDirectoryNode" />
-              <item name="examples" type="462c0819:PsiDirectoryNode" />
-              <item name="sources" type="462c0819:PsiDirectoryNode" />
-              <item name="src" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-              <item name="java" type="462c0819:PsiDirectoryNode" />
-              <item name="org" type="462c0819:PsiDirectoryNode" />
-              <item name="optaplanner" type="462c0819:PsiDirectoryNode" />
-              <item name="examples" type="462c0819:PsiDirectoryNode" />
-              <item name="meetingscheduling" type="462c0819:PsiDirectoryNode" />
-              <item name="persistence" type="462c0819:PsiDirectoryNode" />
+              <item name="optaplanner-time2" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="~/Desktop/optaplanner-projects/optaplanner-time2" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="examples" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="sources" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="org" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="optaplanner" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="examples" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="meetingscheduling" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="optaplanner-time2" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="~/Desktop/optaplanner-projects/optaplanner-time2" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="examples" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="sources" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="org" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="optaplanner" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="examples" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="meetingscheduling" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="optaplanner-time2" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="~/Desktop/optaplanner-projects/optaplanner-time2" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="examples" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="sources" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="org" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="optaplanner" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="examples" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="meetingscheduling" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="domain" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="optaplanner-time2" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="~/Desktop/optaplanner-projects/optaplanner-time2" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="examples" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="sources" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="resources" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="optaplanner-time2" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="~/Desktop/optaplanner-projects/optaplanner-time2" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="examples" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="sources" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="resources" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="org" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="optaplanner-time2" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="~/Desktop/optaplanner-projects/optaplanner-time2" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="examples" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="sources" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="resources" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="org" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="optaplanner" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="optaplanner-time2" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="~/Desktop/optaplanner-projects/optaplanner-time2" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="examples" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="sources" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="resources" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="org" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="optaplanner" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="examples" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="optaplanner-time2" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="~/Desktop/optaplanner-projects/optaplanner-time2" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="examples" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="sources" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="resources" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="org" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="optaplanner" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="examples" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="audienciaTimeGrain" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="optaplanner-time2" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="~/Desktop/optaplanner-projects/optaplanner-time2" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="examples" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="sources" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="resources" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="org" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="optaplanner" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="examples" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="audienciaTimeGrain" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="solver" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="optaplanner-time2" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="~/Desktop/optaplanner-projects/optaplanner-time2" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="examples" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="sources" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="resources" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="org" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="optaplanner" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="examples" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="common" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="optaplanner-time2" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="~/Desktop/optaplanner-projects/optaplanner-time2" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="examples" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="sources" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="resources" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="org" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="optaplanner" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="examples" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="meetingscheduling" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="optaplanner-time2" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="~/Desktop/optaplanner-projects/optaplanner-time2" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="examples" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="sources" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="resources" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="org" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="optaplanner" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="examples" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="meetingscheduling" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="solver" type="9f88c78c:ScopeViewTreeModel$FileNode" />
             </path>
           </expand>
           <select />
@@ -175,11 +382,17 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/examples/sources/pom.xml" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/examples/sources/src/main/resources/org/optaplanner/examples/audienciaTimeGrain" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/examples/sources/src/main/resources/org/optaplanner/examples/audienciaTimeGrain" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -212,9 +425,10 @@
     <option name="totallyTimeSpent" value="897000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <frame x="0" y="0" width="1366" height="744" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25302014" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.36060607" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -229,7 +443,7 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="8" />
+      <window_info active="true" anchor="bottom" id="Version Control" order="8" visible="true" weight="0.24512987" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info anchor="bottom" id="Terminal" order="10" />
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
@@ -247,6 +461,49 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+              <option name="COLUMN_ORDER">
+                <list>
+                  <option value="0" />
+                  <option value="1" />
+                  <option value="2" />
+                  <option value="3" />
+                </list>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="RECENT_FILTERS">
+      <map>
+        <entry key="Branch">
+          <value>
+            <list />
+          </value>
+        </entry>
+        <entry key="User">
+          <value>
+            <list />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="LAST_COMMIT_MESSAGE" value="" />
+  </component>
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/examples/sources/src/main/java/org/optaplanner/examples/meetingscheduling/persistence/MeetingSchedulingXlsxFileIO.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -255,13 +512,106 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/examples/sources/src/main/java/org/optaplanner/examples/meetingscheduling/persistence/MeetingSchedulingGenerator.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1980">
+          <folding>
+            <element signature="e#0#16326#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/sources/src/main/java/org/optaplanner/examples/audienciaTimeGrain/domain/Audiencia.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="24" lean-forward="true" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/sources/src/main/resources/org/optaplanner/examples/meetingscheduling/solver/meetingSchedulingSolverConfig.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="67" selection-start-line="5" selection-start-column="67" selection-end-line="5" selection-end-column="74" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/sources/src/main/resources/org/optaplanner/examples/meetingscheduling/solver/meetingSchedulingScoreRules.drl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="42" column="33" lean-forward="true" selection-start-line="42" selection-start-column="33" selection-end-line="42" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/examples/sources/src/main/java/org/optaplanner/examples/meetingscheduling/app/MeetingSchedulingApp.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="323">
-          <caret line="24" selection-start-line="24" selection-end-line="24" />
+        <state relative-caret-position="420">
+          <caret line="50" column="41" selection-start-line="50" selection-start-column="26" selection-end-line="50" selection-end-column="41" />
           <folding>
             <element signature="e#0#2071#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/sources/src/main/java/org/optaplanner/examples/audienciaTimeGrain/app/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="62" column="33" selection-start-line="62" selection-start-column="33" selection-end-line="62" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/sources/src/main/java/org/optaplanner/examples/meetingscheduling/domain/MeetingConstraintConfiguration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="224">
+          <caret line="24" column="36" selection-start-line="24" selection-start-column="36" selection-end-line="24" selection-end-column="36" />
+          <folding>
+            <element signature="e#0#7612#0" expanded="true" />
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/sources/src/main/java/org/optaplanner/examples/meetingscheduling/domain/MeetingSchedule.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="32" selection-start-line="32" selection-end-line="33" selection-end-column="67" />
+          <folding>
+            <element signature="e#0#4179#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/sources/src/main/java/org/optaplanner/examples/audienciaTimeGrain/domain/AudienciaScheduleConstraintConfiguration.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="53" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="53" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2829#2830#0" expanded="true" />
+            <element signature="e#2864#2865#0" expanded="true" />
+            <element signature="e#2933#2934#0" expanded="true" />
+            <element signature="e#2981#2982#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/sources/src/main/java/org/optaplanner/examples/audienciaTimeGrain/domain/AudienciaSchedule.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="86" lean-forward="true" selection-start-line="86" selection-end-line="86" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/sources/src/main/resources/org/optaplanner/examples/audienciaTimeGrain/solver/audienciaTimeGrainSolverConfig.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="38" lean-forward="true" selection-start-column="38" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/examples/sources/src/main/resources/org/optaplanner/examples/audienciaTimeGrain/solver/audienciaTimeGrainScoreRules.drl">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="51" column="3" lean-forward="true" selection-start-line="51" selection-start-column="3" selection-end-line="51" selection-end-column="3" />
         </state>
       </provider>
     </entry>

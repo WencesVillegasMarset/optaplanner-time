@@ -16,8 +16,8 @@ import java.util.List;
 @PlanningSolution
 public class AudienciaSchedule {
 
-//    @ConstraintConfigurationProvider
-//    private AudienciaConstraintConfiguration constraintConfiguration;
+    @ConstraintConfigurationProvider
+    private AudienciaScheduleConstraintConfiguration constraintConfiguration;
 
     @ProblemFactCollectionProperty
     private List<Audiencia> audienciaList;

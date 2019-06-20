@@ -19,13 +19,9 @@ package org.optaplanner.examples.audienciaTimeGrain.solver;
 
 import org.optaplanner.core.api.score.buildin.hardmediumsoft.HardMediumSoftScoreHolder;
 
-import org.optaplanner.examples.audienciaTimeGrain.domain.Attendance;
-import org.optaplanner.examples.audienciaTimeGrain.domain.Meeting;
-import org.optaplanner.examples.audienciaTimeGrain.domain.MeetingAssignment;
-import org.optaplanner.examples.audienciaTimeGrain.domain.MeetingSchedule;
-import org.optaplanner.examples.audienciaTimeGrain.domain.Person;
-import org.optaplanner.examples.audienciaTimeGrain.domain.PreferredAttendance;
-import org.optaplanner.examples.audienciaTimeGrain.domain.RequiredAttendance;
+import org.optaplanner.examples.audienciaTimeGrain.domain.Audiencia;
+import org.optaplanner.examples.audienciaTimeGrain.domain.AudienciaAssignment;
+import org.optaplanner.examples.audienciaTimeGrain.domain.AudienciaSchedule;
 import org.optaplanner.examples.audienciaTimeGrain.domain.Room;
 import org.optaplanner.examples.audienciaTimeGrain.domain.TimeGrain;
 
@@ -45,8 +41,8 @@ end
 
 rule "One TimeGrain break between two consecutive meetings"
     when
-        MeetingAssignment(startingTimeGrain != null,  $leftEnd : getLastTimeGrainIndex())
-        MeetingAssignment(startingTimeGrain != null, $leftEnd == startingTimeGrain.getGrainIndex() - 1)
+        AudienciaAssignment(startingTimeGrain != null,  $leftEnd : getLastTimeGrainIndex())
+        AudienciaAssignment(startingTimeGrain != null, $leftEnd == startingTimeGrain.getGrainIndex() - 1)
     then
         scoreHolder.penalize(kcontext);
 end

@@ -19,8 +19,8 @@ public class AudienciaSchedule {
     @ConstraintConfigurationProvider
     private AudienciaScheduleConstraintConfiguration constraintConfiguration;
 
-    @ProblemFactCollectionProperty
-    private List<Audiencia> audienciaList;
+//    @ProblemFactCollectionProperty
+//    private List<Audiencia> audienciaList;
 
     public AudienciaScheduleConstraintConfiguration getConstraintConfiguration() {
         return constraintConfiguration;
@@ -38,7 +38,6 @@ public class AudienciaSchedule {
     @ValueRangeProvider(id = "roomRange")
     @ProblemFactCollectionProperty
     private List<Room> roomList;
-    @ProblemFactCollectionProperty
 
     @PlanningEntityCollectionProperty
     private List<AudienciaAssignment> audienciaAssignmentList;
@@ -54,13 +53,13 @@ public class AudienciaSchedule {
 //        this.constraintConfiguration = constraintConfiguration;
 //    }
 
-    public List<Audiencia> getAudienciaList() {
-        return audienciaList;
-    }
-
-    public void setAudienciaList(List<Audiencia> audienciaList) {
-        this.audienciaList = audienciaList;
-    }
+//    public List<Audiencia> getAudienciaList() {
+//        return audienciaList;
+//    }
+//
+//    public void setAudienciaList(List<Audiencia> audienciaList) {
+//        this.audienciaList = audienciaList;
+//    }
 
     public List<Day> getDayList() {
         return dayList;

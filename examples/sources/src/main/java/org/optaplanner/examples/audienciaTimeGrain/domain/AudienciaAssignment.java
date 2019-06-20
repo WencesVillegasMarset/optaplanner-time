@@ -10,6 +10,15 @@ public class AudienciaAssignment {
     private Audiencia audiencia;
     private Room room;
     private TimeGrain startingTimeGrain;
+    private int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public void setAudiencia(Audiencia audiencia){
         this.audiencia = audiencia;
@@ -42,6 +51,13 @@ public class AudienciaAssignment {
             return 0;
         }
         return Math.min(end, otherEnd) - Math.max(start, otherStart);
+    }
+
+    public Integer getLastTimeGrainIndex() {
+        if (startingTimeGrain == null) {
+            return null;
+        }
+        return startingTimeGrain.getGrainIndex() + audiencia.getNumTimeGrains() - 1;
     }
 
     @PlanningVariable(valueRangeProviderRefs = {"timeGrainRange"})

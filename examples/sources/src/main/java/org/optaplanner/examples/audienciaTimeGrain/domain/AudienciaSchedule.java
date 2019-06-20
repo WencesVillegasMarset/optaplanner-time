@@ -21,6 +21,15 @@ public class AudienciaSchedule {
 
     @ProblemFactCollectionProperty
     private List<Audiencia> audienciaList;
+
+    public AudienciaScheduleConstraintConfiguration getConstraintConfiguration() {
+        return constraintConfiguration;
+    }
+
+    public void setConstraintConfiguration(AudienciaScheduleConstraintConfiguration constraintConfiguration) {
+        this.constraintConfiguration = constraintConfiguration;
+    }
+
     @ProblemFactCollectionProperty
     private List<Day> dayList;
     @ValueRangeProvider(id = "timeGrainRange")

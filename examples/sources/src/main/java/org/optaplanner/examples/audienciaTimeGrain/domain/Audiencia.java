@@ -10,6 +10,10 @@ public class Audiencia {
         this.numTimeGrains = numTimeGrains;
         this.tipo = tipo;
     }
+    public Audiencia(int idAudiencia, int numTimeGrains){
+        this.idAudiencia = idAudiencia;
+        this.numTimeGrains = numTimeGrains;
+    }
 
     public int getIdAudiencia() {
         return idAudiencia;

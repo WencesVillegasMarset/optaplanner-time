@@ -27,6 +27,23 @@ public class AudienciaAssignment {
         this.startingTimeGrain = startingTimeGrain;
     }
 
+    public int calculateOverlap(AudienciaAssignment other) {
+        if (startingTimeGrain == null || other.getStartingTimeGrain() == null) {
+            return 0;
+        }
+        int start = startingTimeGrain.getGrainIndex();
+        int end = start + audiencia.getNumTimeGrains();
+        int otherStart = other.startingTimeGrain.getGrainIndex();
+        int otherEnd = otherStart + other.audiencia.getNumTimeGrains();
+
+        if (end < otherStart) {
+            return 0;
+        } else if (otherEnd < start) {
+            return 0;
+        }
+        return Math.min(end, otherEnd) - Math.max(start, otherStart);
+    }
+
     @PlanningVariable(valueRangeProviderRefs = {"timeGrainRange"})
     public TimeGrain getStartingTimeGrain(){
         return startingTimeGrain;

@@ -1,0 +1,769 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="d0e6c03b-b6ca-4709-a52f-96286fbf2532" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/../../.idea/optaplanner-time.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../../.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/.name" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__ch_qos_logback_logback_classic_1_2_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__ch_qos_logback_logback_core_1_2_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_annotations_2_9_8.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_core_2_9_8.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_databind_2_9_8.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_github_virtuald_curvesapi_1_04.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_code_findbugs_jsr305_1_3_9.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_errorprone_error_prone_annotations_2_1_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_guava_guava_25_0_jre.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_j2objc_j2objc_annotations_1_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_google_protobuf_protobuf_java_3_6_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_sun_xml_bind_jaxb_core_2_3_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_sun_xml_bind_jaxb_impl_2_3_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__com_thoughtworks_xstream_xstream_1_4_10.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_codec_commons_codec_1_10.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__commons_io_commons_io_2_6.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_activation_activation_1_1_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__javax_xml_stream_stax_api_1_0_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__junit_junit_4_12.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_antlr_antlr_runtime_3_5_2.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_collections4_4_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_lang3_3_8_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_math3_3_4_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_poi_poi_3_17.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_poi_poi_ooxml_3_17.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_poi_poi_ooxml_schemas_3_17.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_xmlbeans_xmlbeans_2_6_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_checkerframework_checker_compat_qual_2_0_0.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_mojo_animal_sniffer_annotations_1_14.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_drools_drools_compiler_7_22_0_Final.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_drools_drools_core_7_22_0_Final.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_drools_drools_decisiontables_7_22_0_Final.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_drools_drools_templates_7_22_0_Final.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_eclipse_jdt_core_compiler_ecj_4_6_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_freemarker_freemarker_2_3_26_jbossorg_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_javax_json_1_0_4.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_hamcrest_hamcrest_core_1_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_javassist_javassist_3_22_0_GA.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jboss_spec_javax_xml_bind_jboss_jaxb_api_2_3_spec_1_0_1_Final.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jdom_jdom_1_1_3.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jfree_jcommon_1_0_23.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_jfree_jfreechart_1_0_19.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_kie_kie_api_7_22_0_Final.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_kie_kie_internal_7_22_0_Final.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_kie_soup_kie_soup_commons_7_22_0_Final.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_kie_soup_kie_soup_maven_support_7_22_0_Final.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_kie_soup_kie_soup_project_datamodel_api_7_22_0_Final.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_kie_soup_kie_soup_project_datamodel_commons_7_22_0_Final.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_mockito_mockito_core_1_10_19.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_mvel_mvel2_2_4_4_Final.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_objenesis_objenesis_2_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_optaplanner_optaplanner_benchmark_7_22_0_Final.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_optaplanner_optaplanner_core_7_22_0_Final.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_optaplanner_optaplanner_persistence_common_7_22_0_Final.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_optaplanner_optaplanner_persistence_jackson_7_22_0_Final.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_optaplanner_optaplanner_persistence_jaxb_7_22_0_Final.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_optaplanner_optaplanner_persistence_xstream_7_22_0_Final.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_optaplanner_optaplanner_test_7_22_0_Final.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_reflections_reflections_0_9_11.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_26.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__xmlpull_xmlpull_1_1_3_1.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Maven__xpp3_xpp3_min_1_1_4c.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/optaplanner-examples.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/app/Main.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/domain/Audiencia.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/domain/AudienciaAssignment.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/logback.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/app/AllExamplesSolutionImporter.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/app/GeneralOptaPlannerBenchmarkApp.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/app/OptaPlannerExamplesApp$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/app/OptaPlannerExamplesApp$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/app/OptaPlannerExamplesApp$3.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/app/OptaPlannerExamplesApp$EmptyIcon.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/app/OptaPlannerExamplesApp$WebExamplesDialog$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/app/OptaPlannerExamplesApp$WebExamplesDialog.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/app/OptaPlannerExamplesApp.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/app/benchmark/generalOptaPlannerBenchmarkConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/app/benchmark/generalOptaPlannerBenchmarkConfigTemplate.xml.ftl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/app/CommonApp$ExtraAction.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/app/CommonApp.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/app/CommonBenchmarkApp$ArgOption.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/app/CommonBenchmarkApp.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/app/LoggingMain.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/business/AlphaNumericStringComparator.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/business/ExtensionFileFilter.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/business/ProblemFileComparator.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/business/SolutionBusiness.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/domain/AbstractPersistable.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/domain/PersistableIdComparator.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/persistence/AbstractPngSolutionImporter$PngInputBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/persistence/AbstractPngSolutionImporter.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/persistence/AbstractSolutionExporter$OutputBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/persistence/AbstractSolutionExporter.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/persistence/AbstractSolutionImporter$InputBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/persistence/AbstractSolutionImporter.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/persistence/AbstractTxtSolutionExporter$TxtOutputBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/persistence/AbstractTxtSolutionExporter.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/persistence/AbstractTxtSolutionImporter$TxtInputBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/persistence/AbstractTxtSolutionImporter.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/persistence/AbstractXlsxSolutionFileIO$AbstractXlsxReader.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/persistence/AbstractXlsxSolutionFileIO$AbstractXlsxWriter.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/persistence/AbstractXlsxSolutionFileIO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/persistence/AbstractXlsxSolutionImporter$XlsxInputBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/persistence/AbstractXlsxSolutionImporter.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/persistence/AbstractXmlSolutionExporter$XmlOutputBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/persistence/AbstractXmlSolutionExporter.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/persistence/AbstractXmlSolutionImporter$XmlInputBuilder.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/persistence/AbstractXmlSolutionImporter.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/persistence/SolutionConverter$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/persistence/SolutionConverter$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/persistence/SolutionConverter.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/persistence/generator/LocationDataGenerator$LocationData.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/persistence/generator/LocationDataGenerator.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/persistence/generator/ProbabilisticDataGenerator.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/persistence/generator/StringDataGenerator.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/solver/drools/functions/LoadBalanceAccumulateFunction$LoadBalanceData.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/solver/drools/functions/LoadBalanceAccumulateFunction$LoadBalanceResult.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/solver/drools/functions/LoadBalanceAccumulateFunction.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/solver/drools/functions/LoadBalanceByCountAccumulateFunction$LoadBalanceByCountData.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/solver/drools/functions/LoadBalanceByCountAccumulateFunction$LoadBalanceByCountResult.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/solver/drools/functions/LoadBalanceByCountAccumulateFunction.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/CommonIcons.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/ConstraintMatchesDialog$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/ConstraintMatchesDialog$ConstraintMatchTotalTableModel.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/ConstraintMatchesDialog.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/OpenBrowserAction.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/SolutionPanel.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/SolverAndPersistenceFrame$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/SolverAndPersistenceFrame$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/SolverAndPersistenceFrame$ExportAction$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/SolverAndPersistenceFrame$ExportAction.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/SolverAndPersistenceFrame$ImportAction$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/SolverAndPersistenceFrame$ImportAction$2.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/SolverAndPersistenceFrame$ImportAction.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/SolverAndPersistenceFrame$OpenAction$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/SolverAndPersistenceFrame$OpenAction.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/SolverAndPersistenceFrame$QuickOpenAction.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/SolverAndPersistenceFrame$SaveAction$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/SolverAndPersistenceFrame$SaveAction.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/SolverAndPersistenceFrame$ShowConstraintMatchesDialogAction.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/SolverAndPersistenceFrame$SolveAction.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/SolverAndPersistenceFrame$SolveWorker.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/SolverAndPersistenceFrame$TerminateSolvingEarlyAction.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/SolverAndPersistenceFrame.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/checkNo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/checkNo.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/checkYes.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/checkYes.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/components/Labeled.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/components/LabeledComboBoxRenderer.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/exampleUsageExplanation.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/exampleUsageExplanation.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/exportAction.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/importAction.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/indictmentHeatMapFalseIcon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/indictmentHeatMapFalseIcon.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/indictmentHeatMapTrueIcon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/indictmentHeatMapTrueIcon.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/latitudelongitude/LatitudeLongitudeTranslator.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/openAction.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/optaPlannerIcon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/pinned.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/pinned.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/refreshScreenDuringSolvingFalseIcon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/refreshScreenDuringSolvingFalseIcon.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/refreshScreenDuringSolvingTrueIcon.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/refreshScreenDuringSolvingTrueIcon.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/saveAction.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/showConstraintMatchesDialogAction.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/solveAction.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/solveAction.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/terminateSolvingEarlyAction.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/terminateSolvingEarlyAction.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/timetable/TimeTableLayout$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/timetable/TimeTableLayout$Cell.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/timetable/TimeTableLayout$Column.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/timetable/TimeTableLayout$ComponentSpan.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/timetable/TimeTableLayout$Row.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/timetable/TimeTableLayout.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/timetable/TimeTableLayoutConstraints.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/timetable/TimeTablePanel$HeaderColumnKey.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/timetable/TimeTablePanel$HeaderRowKey.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/timetable/TimeTablePanel.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/meetingscheduling/app/MeetingSchedulingApp.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/meetingscheduling/domain/Attendance.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/meetingscheduling/domain/Day.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/meetingscheduling/domain/Meeting.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/meetingscheduling/domain/MeetingAssignment.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/meetingscheduling/domain/MeetingConstraintConfiguration.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/meetingscheduling/domain/MeetingSchedule.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/meetingscheduling/domain/Person.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/meetingscheduling/domain/PreferredAttendance.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/meetingscheduling/domain/RequiredAttendance.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/meetingscheduling/domain/Room.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/meetingscheduling/domain/TimeGrain.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/meetingscheduling/persistence/MeetingSchedulingGenerator.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/meetingscheduling/persistence/MeetingSchedulingXlsxFileIO$MeetingSchedulingXlsxReader.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/meetingscheduling/persistence/MeetingSchedulingXlsxFileIO$MeetingSchedulingXlsxWriter.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/meetingscheduling/persistence/MeetingSchedulingXlsxFileIO.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/meetingscheduling/solver/meetingSchedulingScoreRules.drl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/meetingscheduling/solver/meetingSchedulingSolverConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/meetingscheduling/swingui/MeetingSchedulingPanel$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/meetingscheduling/swingui/MeetingSchedulingPanel$MeetingAssignmentAction.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/meetingscheduling/swingui/MeetingSchedulingPanel$OvertimeTimeGrain.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/meetingscheduling/swingui/MeetingSchedulingPanel.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/meetingscheduling/swingui/meetingSchedulingLogo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/meetingscheduling/swingui/meetingSchedulingLogo.svg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/logback-test.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/org/optaplanner/examples/app/GeneralBenchmarkConfigTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/org/optaplanner/examples/common/TestSystemProperties.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/org/optaplanner/examples/common/app/AbstractBenchmarkConfigTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/org/optaplanner/examples/common/app/AbstractConstructionHeuristicTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/org/optaplanner/examples/common/app/AbstractExhaustiveSearchTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/org/optaplanner/examples/common/app/AbstractPhaseTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/org/optaplanner/examples/common/app/AbstractTurtleTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/org/optaplanner/examples/common/app/ImportDirSolveAllTurtleTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/org/optaplanner/examples/common/app/LoggingTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/org/optaplanner/examples/common/app/PlannerBenchmarkTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/org/optaplanner/examples/common/app/RealTimePlanningTurtleTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/org/optaplanner/examples/common/app/SolveAllTurtleTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/org/optaplanner/examples/common/app/SolverPerformanceTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/org/optaplanner/examples/common/app/UnsolvedDirSolveAllTurtleTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/org/optaplanner/examples/common/business/AlphaNumericStringComparatorTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/org/optaplanner/examples/common/persistence/AbstractSolutionImporterTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/org/optaplanner/examples/common/persistence/AbstractTxtSolutionImporterTest$1.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/org/optaplanner/examples/common/persistence/AbstractTxtSolutionImporterTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/org/optaplanner/examples/common/persistence/ImportDataFilesTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/org/optaplanner/examples/common/persistence/OpenDataFilesTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/org/optaplanner/examples/common/persistence/StringDataGeneratorTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/org/optaplanner/examples/common/solver/drools/functions/LoadBalanceByCountAccumulateFunctionTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/org/optaplanner/examples/conferencescheduling/solver/testConferenceSchedulingScoreRules.xlsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/org/optaplanner/examples/examination/data/testExaminationScoreRules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/org/optaplanner/examples/meetingscheduling/app/MeetingSchedulingPerformanceTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/org/optaplanner/examples/meetingscheduling/app/MeetingSchedulingSolveAllTurtleTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/org/optaplanner/examples/meetingscheduling/persistence/MeetingSchedulingOpenDataFilesTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/org/optaplanner/examples/meetingscheduling/solver/MeetingSchedulingScoreConstraintTest.class" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/org/optaplanner/examples/nqueens/persistence/nqueensSimpleBenchmarkConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/org/optaplanner/examples/nqueens/persistence/nqueensSimpleBenchmarkConfigInherited.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/target/test-classes/org/optaplanner/examples/nurserostering/data/testNurseRosteringScoreRules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../../.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/app/AllExamplesSolutionImporter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/app/AllExamplesSolutionImporter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/app/OptaPlannerExamplesApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/app/OptaPlannerExamplesApp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audiencia-timegrain/app/Main.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audiencia-timegrain/domain/Audiencia" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audiencia-timegrain/domain/AudienciaAssignment" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audiencia-timegrain/domain/AudienciaSchedule.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/domain/AudienciaSchedule.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audiencia-timegrain/domain/Day.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/domain/Day.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audiencia-timegrain/domain/Defensor.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/domain/Defensor.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audiencia-timegrain/domain/Fiscal.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/domain/Fiscal.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audiencia-timegrain/domain/Juez.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/domain/Juez.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audiencia-timegrain/domain/Room.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/domain/Room.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audiencia-timegrain/domain/TimeGrain.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/domain/TimeGrain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audiencia-timegrain/domain/Tipo.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/domain/Tipo.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/org/optaplanner/examples/common/app/AbstractConstructionHeuristicTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/optaplanner/examples/common/app/AbstractConstructionHeuristicTest.java" afterDir="false" />
+    </list>
+    <ignored path="$PROJECT_DIR$/classes/" />
+    <ignored path="$PROJECT_DIR$/target/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DefaultGradleProjectSettings">
+    <option name="testRunner" value="GRADLE" />
+    <option name="delegatedBuild" value="true" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/domain/AudienciaSchedule.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="259">
+              <caret line="101" column="25" lean-forward="true" selection-start-line="101" selection-start-column="25" selection-end-line="101" selection-end-column="25" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/app/Main.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="119">
+              <caret line="11" column="32" selection-start-line="11" selection-start-column="32" selection-end-line="11" selection-end-column="32" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/domain/Audiencia.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="17">
+              <caret line="1" selection-start-line="1" selection-end-line="1" />
+              <folding>
+                <element signature="e#450#451#0" expanded="true" />
+                <element signature="e#484#485#0" expanded="true" />
+                <element signature="e#535#536#0" expanded="true" />
+                <element signature="e#581#582#0" expanded="true" />
+                <element signature="e#618#619#0" expanded="true" />
+                <element signature="e#654#655#0" expanded="true" />
+                <element signature="e#709#710#0" expanded="true" />
+                <element signature="e#759#760#0" expanded="true" />
+                <element signature="e#788#789#0" expanded="true" />
+                <element signature="e#815#816#0" expanded="true" />
+                <element signature="e#853#854#0" expanded="true" />
+                <element signature="e#885#886#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/domain/AudienciaAssignment.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="59" lean-forward="true" selection-start-column="59" selection-end-column="59" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#418#419#0" expanded="true" />
+                <element signature="e#460#461#0" expanded="true" />
+                <element signature="e#498#499#0" expanded="true" />
+                <element signature="e#530#531#0" expanded="true" />
+                <element signature="e#568#569#0" expanded="true" />
+                <element signature="e#600#601#0" expanded="true" />
+                <element signature="e#668#669#0" expanded="true" />
+                <element signature="e#726#727#0" expanded="true" />
+                <element signature="e#839#840#0" expanded="true" />
+                <element signature="e#879#880#0" expanded="true" />
+                <element signature="e#970#971#0" expanded="true" />
+                <element signature="e#997#998#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/domain/Day.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="188">
+              <caret line="15" column="5" lean-forward="true" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/domain/Juez.java">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/domain/Fiscal.java">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/domain/Room.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="59" selection-start-column="59" selection-end-column="59" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/domain/TimeGrain.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="85">
+              <caret line="5" column="43" selection-start-line="5" selection-start-column="43" selection-end-line="5" selection-end-column="43" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/domain/Tipo.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="59" selection-start-column="59" selection-end-column="59" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/app/AllExamplesSolutionImporter.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/app/OptaPlannerExamplesApp.java" />
+        <option value="$PROJECT_DIR$/src/test/java/org/optaplanner/examples/common/app/AbstractConstructionHeuristicTest.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audiencia-timegrain/app/Main.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/domain/Room.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/domain/Tipo.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/domain/Day.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/domain/TimeGrain.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/domain/AudienciaAssignment" />
+        <option value="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/domain/AudienciaAssignment.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/domain/Audiencia" />
+        <option value="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/domain/Audiencia.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/domain/AudienciaSchedule.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/app/Main.java" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="-10" />
+    <option name="y" value="-10" />
+    <option name="width" value="1750" />
+    <option name="height" value="980" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="optaplanner-examples" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="optaplanner-examples" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sources" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="optaplanner-examples" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sources" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="optaplanner-examples" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sources" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="optaplanner-examples" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sources" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="examples" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="optaplanner-examples" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sources" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="examples" type="462c0819:PsiDirectoryNode" />
+              <item name="audienciaTimeGrain" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="optaplanner-examples" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sources" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="examples" type="462c0819:PsiDirectoryNode" />
+              <item name="audienciaTimeGrain" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="optaplanner-examples" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sources" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="examples" type="462c0819:PsiDirectoryNode" />
+              <item name="audienciaTimeGrain" type="462c0819:PsiDirectoryNode" />
+              <item name="domain" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="PackagesPane" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/pom.xml" />
+    <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
+    <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager" selected="Application.Main">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.optaplanner.examples.audienciaTimeGrain.app.Main" />
+      <module name="optaplanner-examples" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.optaplanner.examples.audienciaTimeGrain.app.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="MeetingSchedulingApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.optaplanner.examples.meetingscheduling.app.MeetingSchedulingApp" />
+      <module name="optaplanner-examples" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="org.optaplanner.examples.meetingscheduling.app.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+        <item itemvalue="Application.MeetingSchedulingApp" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d0e6c03b-b6ca-4709-a52f-96286fbf2532" name="Default Changelist" comment="" />
+      <created>1561041194525</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1561041194525</updated>
+      <workItem from="1561041199223" duration="1594000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="1594000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Designer" order="0" />
+      <window_info id="UI Designer" order="1" />
+      <window_info id="Capture Tool" order="2" />
+      <window_info id="Favorites" order="3" side_tool="true" />
+      <window_info id="Image Layers" order="4" />
+      <window_info content_ui="combo" id="Project" order="5" visible="true" weight="0.24966443" />
+      <window_info id="Structure" order="6" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="Docker" order="0" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="1" />
+      <window_info anchor="bottom" id="Terminal" order="2" />
+      <window_info anchor="bottom" id="Database Changes" order="3" />
+      <window_info anchor="bottom" id="Event Log" order="4" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="5" />
+      <window_info anchor="bottom" id="Find" order="6" />
+      <window_info active="true" anchor="bottom" id="Run" order="7" visible="true" weight="0.3286119" />
+      <window_info anchor="bottom" id="Debug" order="8" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="9" weight="0.25" />
+      <window_info anchor="bottom" id="Messages" order="10" weight="0.28045326" />
+      <window_info anchor="bottom" id="Inspection" order="11" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="12" />
+      <window_info anchor="right" id="Theme Preview" order="0" />
+      <window_info anchor="right" id="Database" order="1" />
+      <window_info anchor="right" id="Capture Analysis" order="2" />
+      <window_info anchor="right" id="Palette&#9;" order="3" />
+      <window_info anchor="right" id="Maven" order="4" />
+      <window_info anchor="right" id="Palette" order="5" />
+      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="6" type="SLIDING" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="7" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="8" weight="0.25" />
+    </layout>
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optaplanner/examples/app/AllExamplesSolutionImporter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="612">
+          <caret line="50" column="56" selection-start-line="50" selection-start-column="56" selection-end-line="50" selection-end-column="56" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/java/org/optaplanner/examples/common/app/AbstractConstructionHeuristicTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="29" column="72" selection-start-line="29" selection-start-column="72" selection-end-line="29" selection-end-column="72" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optaplanner/examples/app/OptaPlannerExamplesApp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-408">
+          <caret line="104" selection-start-line="104" selection-end-line="104" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optaplanner/examples/meetingscheduling/app/MeetingSchedulingApp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="102">
+          <caret line="25" column="13" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/domain/Defensor.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/domain/Juez.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/domain/Fiscal.java">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/domain/Tipo.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="59" selection-start-column="59" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/domain/Day.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="188">
+          <caret line="15" column="5" lean-forward="true" selection-start-line="15" selection-start-column="5" selection-end-line="15" selection-end-column="5" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/domain/TimeGrain.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" column="43" selection-start-line="5" selection-start-column="43" selection-end-line="5" selection-end-column="43" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/domain/AudienciaAssignment">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/domain/Audiencia">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/domain/Audiencia.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
+          <folding>
+            <element signature="e#450#451#0" expanded="true" />
+            <element signature="e#484#485#0" expanded="true" />
+            <element signature="e#535#536#0" expanded="true" />
+            <element signature="e#581#582#0" expanded="true" />
+            <element signature="e#618#619#0" expanded="true" />
+            <element signature="e#654#655#0" expanded="true" />
+            <element signature="e#709#710#0" expanded="true" />
+            <element signature="e#759#760#0" expanded="true" />
+            <element signature="e#788#789#0" expanded="true" />
+            <element signature="e#815#816#0" expanded="true" />
+            <element signature="e#853#854#0" expanded="true" />
+            <element signature="e#885#886#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/domain/AudienciaAssignment.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="59" lean-forward="true" selection-start-column="59" selection-end-column="59" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#418#419#0" expanded="true" />
+            <element signature="e#460#461#0" expanded="true" />
+            <element signature="e#498#499#0" expanded="true" />
+            <element signature="e#530#531#0" expanded="true" />
+            <element signature="e#568#569#0" expanded="true" />
+            <element signature="e#600#601#0" expanded="true" />
+            <element signature="e#668#669#0" expanded="true" />
+            <element signature="e#726#727#0" expanded="true" />
+            <element signature="e#839#840#0" expanded="true" />
+            <element signature="e#879#880#0" expanded="true" />
+            <element signature="e#970#971#0" expanded="true" />
+            <element signature="e#997#998#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/domain/Room.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="59" selection-start-column="59" selection-end-column="59" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/domain/AudienciaSchedule.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="259">
+          <caret line="101" column="25" lean-forward="true" selection-start-line="101" selection-start-column="25" selection-end-line="101" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/app/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="11" column="32" selection-start-line="11" selection-start-column="32" selection-end-line="11" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

@@ -28,7 +28,6 @@ import org.optaplanner.core.config.constructionheuristic.ConstructionHeuristicPh
 import org.optaplanner.core.config.constructionheuristic.ConstructionHeuristicType;
 import org.optaplanner.core.config.solver.SolverConfig;
 import org.optaplanner.core.config.solver.termination.TerminationConfig;
-import org.optaplanner.examples.curriculumcourse.app.CurriculumCourseApp;
 
 /**
  * @param <Solution_> the solution type, the class with the {@link PlanningSolution} annotation
@@ -37,19 +36,7 @@ public abstract class AbstractConstructionHeuristicTest<Solution_> extends Abstr
 
     protected static <Solution_> Collection<Object[]> buildParameters(CommonApp<Solution_> commonApp,
             String... unsolvedFileNames) {
-        if (commonApp instanceof CurriculumCourseApp) {
-            /*
-             * TODO Delete this temporary workaround to ignore ALLOCATE_TO_VALUE_FROM_QUEUE,
-             * see https://issues.jboss.org/browse/PLANNER-486
-             */
-            List<ConstructionHeuristicType> typeList = new ArrayList<>();
-            for (ConstructionHeuristicType type : ConstructionHeuristicType.values()) {
-                if (type != ConstructionHeuristicType.ALLOCATE_TO_VALUE_FROM_QUEUE) {
-                    typeList.add(type);
-                }
-            }
-            return buildParameters(commonApp, typeList.toArray(new ConstructionHeuristicType[0]), unsolvedFileNames);
-        }
+
         return buildParameters(commonApp, ConstructionHeuristicType.values(), unsolvedFileNames);
     }
 

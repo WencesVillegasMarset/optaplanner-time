@@ -2,3 +2,5 @@
 examples/sources/\.idea/
 .idea/
 idea/
+
+examples/sources/optaplanner-examples\.iml

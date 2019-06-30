@@ -28,7 +28,7 @@ public class Main {
 
         audienciaCreator.createTimeGrainList(startdate, enddate, startTime, endTime, unsolvedAudienciaSchedule);
 
-//        List<TimeGrain> timeGrainList = audienciaSchedulePrueba.getTimeGrainList();
+        List<TimeGrain> timeGrainList = unsolvedAudienciaSchedule.getTimeGrainList();
 //        for (TimeGrain timeGrain: timeGrainList) {
 //            System.out.println(timeGrain);
 //        }
@@ -38,20 +38,21 @@ public class Main {
         for (int i = 0; i < 2; i++) {
             roomList.add(new Room(new Integer(i)));
         }
-
-
+//
+//
         List<AudienciaAssignment> assignmentList = new ArrayList<>();
         for(int i = 0; i < 3; i++){
             AudienciaAssignment audienciaAssignment = new AudienciaAssignment();
-            audienciaAssignment.setAudiencia(new Audiencia(i,3));
+            audienciaAssignment.setAudiencia(new Audiencia(i,2));
+            audienciaAssignment.setId(i);
             assignmentList.add(audienciaAssignment);
         }
         unsolvedAudienciaSchedule.setAudienciaAssignmentList(assignmentList);
         unsolvedAudienciaSchedule.setRoomList(roomList);
-
+//
         unsolvedAudienciaSchedule.setConstraintConfiguration(new AudienciaScheduleConstraintConfiguration());
-
-        SolverFactory<AudienciaSchedule> solverFactory = SolverFactory.createFromXmlResource("audienciaTimeGrainSolverConfig.xml");
+//
+        SolverFactory<AudienciaSchedule> solverFactory = SolverFactory.createFromXmlResource("org/optaplanner/examples/audienciaTimeGrain/solver/audienciaTimeGrainSolverConfig.xml");
         Solver<AudienciaSchedule> solver = solverFactory.buildSolver();
         AudienciaSchedule solvedAudienciaSchedule = solver.solve(unsolvedAudienciaSchedule);
         System.out.println(solvedAudienciaSchedule);

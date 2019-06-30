@@ -30,8 +30,6 @@ public class AudienciaCreator {
             j+= TimeGrain.GRAIN_LENGTH_IN_MINUTES;
         }
 
-
-
         //Crea los TimeGrain y Day
 
         List<Day> dayList = new ArrayList<>((int)timeGrainListSize);

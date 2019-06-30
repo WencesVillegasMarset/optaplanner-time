@@ -32,9 +32,11 @@ public class AudienciaSchedule {
 
     @ProblemFactCollectionProperty
     private List<Day> dayList;
+
     @ValueRangeProvider(id = "timeGrainRange")
     @ProblemFactCollectionProperty
     private List<TimeGrain> timeGrainList;
+
     @ValueRangeProvider(id = "roomRange")
     @ProblemFactCollectionProperty
     private List<Room> roomList;
@@ -45,13 +47,7 @@ public class AudienciaSchedule {
     @PlanningScore
     private HardMediumSoftScore score;
 
-//    public AudienciaConstraintConfiguration getConstraintConfiguration() {
-//        return constraintConfiguration;
-//    }
-//
-//    public void setConstraintConfiguration(AudienciaConstraintConfiguration constraintConfiguration) {
-//        this.constraintConfiguration = constraintConfiguration;
-//    }
+    // HACE FALTA AGREGAR COMO PROBLEM FACT A LAS AUDIENCIAS??
 
 //    public List<Audiencia> getAudienciaList() {
 //        return audienciaList;
@@ -105,7 +101,7 @@ public class AudienciaSchedule {
     public String toString() {
         String response = new String();
         for (AudienciaAssignment audienciaAssignment : this.getAudienciaAssignmentList()) {
-            response += "TimeSlot: " + audienciaAssignment.getStartingTimeGrain().getDateTimeString() +  " and room: " + audienciaAssignment.getRoom().getIdRoom() + '\n';
+            response += "Audiencia: " + audienciaAssignment.getAudiencia().getIdAudiencia() + " TimeSlot: " + audienciaAssignment.getStartingTimeGrain().getDateTimeString() +  " and room: " + audienciaAssignment.getRoom().getIdRoom() + '\n';
         }
         return  response;
     }

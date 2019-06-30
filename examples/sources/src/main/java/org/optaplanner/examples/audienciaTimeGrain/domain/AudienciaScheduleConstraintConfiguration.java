@@ -11,13 +11,23 @@ public class AudienciaScheduleConstraintConfiguration {
 
     public static final String ROOM_CONFLICT = "Room conflict";
     public static final String ONE_TIME_GRAIN_BREAK_BETWEEN_TWO_CONSECUTIVE_MEETINGS = "One TimeGrain break between two consecutive meetings";
+    public static final String START_AND_END_ON_SAME_DAY = "Start and end on same day";
+    public static final String DONT_GO_IN_OVERTIME = "Don't go in overtime";
+    public static final String DO_ALL_MEETINGS_AS_SOON_AS_POSSIBLE = "Do all meetings as soon as possible";
 
 
     @ConstraintWeight(ROOM_CONFLICT)
     private HardMediumSoftScore roomConflict = HardMediumSoftScore.ofHard(1);
+    @ConstraintWeight(DONT_GO_IN_OVERTIME)
+    private HardMediumSoftScore dontGoInOvertime = HardMediumSoftScore.ofHard(1);
+    @ConstraintWeight(START_AND_END_ON_SAME_DAY)
+    private HardMediumSoftScore startAndEndOnSameDay = HardMediumSoftScore.ofHard(1);
 
     @ConstraintWeight(ONE_TIME_GRAIN_BREAK_BETWEEN_TWO_CONSECUTIVE_MEETINGS)
     private HardMediumSoftScore oneTimeGrainBreakBetweenTwoConsecutiveMeetings = HardMediumSoftScore.ofSoft(100);
+    @ConstraintWeight(DO_ALL_MEETINGS_AS_SOON_AS_POSSIBLE)
+    private HardMediumSoftScore doAllMeetingsAsSoonAsPossible = HardMediumSoftScore.ofSoft(1);
+
 
 
     public AudienciaScheduleConstraintConfiguration() {
@@ -41,6 +51,30 @@ public class AudienciaScheduleConstraintConfiguration {
 
     public void setOneTimeGrainBreakBetweenTwoConsecutiveMeetings(HardMediumSoftScore oneTimeGrainBreakBetweenTwoConsecutiveMeetings) {
         this.oneTimeGrainBreakBetweenTwoConsecutiveMeetings = oneTimeGrainBreakBetweenTwoConsecutiveMeetings;
+    }
+
+    public HardMediumSoftScore getDontGoInOvertime() {
+        return dontGoInOvertime;
+    }
+
+    public void setDontGoInOvertime(HardMediumSoftScore dontGoInOvertime) {
+        this.dontGoInOvertime = dontGoInOvertime;
+    }
+
+    public HardMediumSoftScore getStartAndEndOnSameDay() {
+        return startAndEndOnSameDay;
+    }
+
+    public void setStartAndEndOnSameDay(HardMediumSoftScore startAndEndOnSameDay) {
+        this.startAndEndOnSameDay = startAndEndOnSameDay;
+    }
+
+    public HardMediumSoftScore getDoAllMeetingsAsSoonAsPossible() {
+        return doAllMeetingsAsSoonAsPossible;
+    }
+
+    public void setDoAllMeetingsAsSoonAsPossible(HardMediumSoftScore doAllMeetingsAsSoonAsPossible) {
+        this.doAllMeetingsAsSoonAsPossible = doAllMeetingsAsSoonAsPossible;
     }
 
 }

@@ -39,6 +39,26 @@ rule "Room conflict"
         scoreHolder.penalize(kcontext, $rightAssignment.calculateOverlap($leftAssignment));
 end
 
+rule "Don't go in overtime"
+    when
+        AudienciaAssignment(startingTimeGrain != null, $lastTimeGrainIndex : getLastTimeGrainIndex())
+        not TimeGrain(grainIndex == $lastTimeGrainIndex)
+    then
+        scoreHolder.penalize(kcontext, $lastTimeGrainIndex);
+end
+
+rule "Start and end on same day"
+    when
+        AudienciaAssignment(startingTimeGrain != null, $firstTimeGrain : startingTimeGrain, $lastTimeGrainIndex : getLastTimeGrainIndex())
+        $lastTimeGrain : TimeGrain(grainIndex == $lastTimeGrainIndex, $firstTimeGrain.getDay() != getDay())
+    then
+        scoreHolder.penalize(kcontext);
+end
+
+// ############################################################################
+// Soft constraints usually
+// ############################################################################
+
 rule "One TimeGrain break between two consecutive meetings"
     when
         AudienciaAssignment(startingTimeGrain != null,  $leftEnd : getLastTimeGrainIndex())
@@ -46,3 +66,13 @@ rule "One TimeGrain break between two consecutive meetings"
     then
         scoreHolder.penalize(kcontext);
 end
+
+rule "Do all meetings as soon as possible"
+    when
+        AudienciaAssignment(startingTimeGrain != null, $lastTimeGrainIndex : lastTimeGrainIndex)
+    then
+        scoreHolder.penalize(kcontext, $lastTimeGrainIndex);
+end
+
+
+

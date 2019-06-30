@@ -54,6 +54,13 @@ rule "Start and end on same day"
     then
         scoreHolder.penalize(kcontext);
 end
+rule "Do not conflict Juez"
+    when
+        $leftAssignment : AudienciaAssignment(startingTimeGrain != null, $Juez : getJuez())
+        AudienciaAssignment(calculateOverlap($leftAssignment) > 0, getJuez() == $Juez)
+    then
+        scoreHolder.penalize(kcontext);
+end
 
 // ############################################################################
 // Soft constraints usually

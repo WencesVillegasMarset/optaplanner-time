@@ -60,6 +60,10 @@ public class AudienciaAssignment {
         return startingTimeGrain.getGrainIndex() + audiencia.getNumTimeGrains() - 1;
     }
 
+    public int getJuez(){
+        return this.audiencia.getJuez().getIdJuez();
+    }
+
     @PlanningVariable(valueRangeProviderRefs = {"timeGrainRange"})
     public TimeGrain getStartingTimeGrain(){
         return startingTimeGrain;

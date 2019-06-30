@@ -38,12 +38,13 @@ public class Main {
         for (int i = 0; i < 2; i++) {
             roomList.add(new Room(new Integer(i)));
         }
-//
-//
+
+        Juez juez1 = new Juez(1, "Juan Perez");
+
         List<AudienciaAssignment> assignmentList = new ArrayList<>();
         for(int i = 0; i < 3; i++){
             AudienciaAssignment audienciaAssignment = new AudienciaAssignment();
-            audienciaAssignment.setAudiencia(new Audiencia(i,2));
+            audienciaAssignment.setAudiencia(new Audiencia(i,2, juez1));
             audienciaAssignment.setId(i);
             assignmentList.add(audienciaAssignment);
         }

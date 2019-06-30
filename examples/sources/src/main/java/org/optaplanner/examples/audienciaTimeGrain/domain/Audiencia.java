@@ -4,15 +4,17 @@ public class Audiencia {
     private int idAudiencia;
     private int numTimeGrains;
     private Tipo tipo;
+    private Juez juez;
 
     public Audiencia(int idAudiencia, int numTimeGrains, Tipo tipo){
         this.idAudiencia = idAudiencia;
         this.numTimeGrains = numTimeGrains;
         this.tipo = tipo;
     }
-    public Audiencia(int idAudiencia, int numTimeGrains){
+    public Audiencia(int idAudiencia, int numTimeGrains, Juez juez){
         this.idAudiencia = idAudiencia;
         this.numTimeGrains = numTimeGrains;
+        this.juez = juez;
     }
 
     public int getIdAudiencia() {
@@ -37,5 +39,13 @@ public class Audiencia {
 
     public void setTipo(Tipo tipo) {
         this.tipo = tipo;
+    }
+
+    public Juez getJuez() {
+        return juez;
+    }
+
+    public void setJuez(Juez juez) {
+        this.juez = juez;
     }
 }

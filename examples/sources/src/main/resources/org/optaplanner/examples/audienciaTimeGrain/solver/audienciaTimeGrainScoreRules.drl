@@ -63,13 +63,13 @@ rule "Do not conflict Juez"
         scoreHolder.penalize(kcontext);
 end
 
-//rule "Do not use room in prohibited time"
-//    when
-//        AudienciaAssignment(startingTimeGrain != null, room != null, $room : room, $grainIndex : getStartingTimeGrainIndex())
-//        TimeGrain(grainIndex == $grainIndex, )
-//    then
-//
-//end
+rule "Do not use room in prohibited time"
+    when
+        $timeGrain : TimeGrain(grainIndex != null)
+        AudienciaAssignment(audiencia != null, room!= null, startingTimeGrain != null, timeGrainRoomRestriction($timeGrain) == true)
+    then
+        scoreHolder.penalize(kcontext);
+end
 
 // ############################################################################
 // Soft constraints usually

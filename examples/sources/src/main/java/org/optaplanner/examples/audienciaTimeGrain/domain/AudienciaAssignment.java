@@ -2,6 +2,8 @@ package org.optaplanner.examples.audienciaTimeGrain.domain;
 
 import org.optaplanner.core.api.domain.entity.PlanningEntity;
 import org.optaplanner.core.api.domain.variable.PlanningVariable;
+
+import java.sql.Time;
 import java.util.ArrayList;
 
 
@@ -69,6 +71,21 @@ public class AudienciaAssignment {
         int minuteOfHour = (startingTimeGrain.getStartingMinuteOfDay() + audiencia.getNumTimeGrains()*TimeGrain.GRAIN_LENGTH_IN_MINUTES) % 60;
         return (hourOfDay < 10 ? "0" : "") + hourOfDay
                 + ":" + (minuteOfHour < 10 ? "0" : "") + minuteOfHour;
+    }
+
+    public boolean timeGrainRoomRestriction(TimeGrain timeGrain){
+        boolean respuesta = false;
+//        for (TimeGrain timeGrain : timeGrainArrayList){
+            if (timeGrain.getGrainIndex() >= startingTimeGrain.getGrainIndex() && timeGrain.getGrainIndex() <= getLastTimeGrainIndex()){
+                for(Room timeGrainRoom : timeGrain.getProhibitedRooms()){
+                    if (this.room == timeGrainRoom){
+                        respuesta = true;
+                    }
+                }
+
+            }
+//        }
+        return respuesta;
     }
 
     public int getJuez(){

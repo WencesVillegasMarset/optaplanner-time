@@ -16,10 +16,14 @@ import org.optaplanner.examples.audienciaTimeGrain.domain.*;
 public class Main {
     public static void main(String[] args) {
 
+        /* Crear el AudienciaSchedule y el helper AudienciaCreator */
+
         AudienciaSchedule unsolvedAudienciaSchedule;
 
         unsolvedAudienciaSchedule = new AudienciaSchedule();
         AudienciaCreator audienciaCreator = new AudienciaCreator();
+
+        /* Crear los TimeGrains */
 
         LocalDate startdate = LocalDate.of(2019,3,4);
         LocalDate enddate = LocalDate.of(2019,3,6);
@@ -28,20 +32,21 @@ public class Main {
 
         audienciaCreator.createTimeGrainList(startdate, enddate, startTime, endTime, unsolvedAudienciaSchedule);
 
-
-
-
+        /* Crear las Rooms */
 
         ArrayList<Room> roomList = new ArrayList<>();
         for (int i = 0; i < 2; i++) {
-            roomList.add(new Room(new Integer(i+1)));
+            roomList.add(new Room( i+1));
         }
         unsolvedAudienciaSchedule.setRoomList(roomList);
+
+        /* Crear restricciones de Rooms con TimeGrains */
 
         audienciaCreator.setTimeGrainRoomRestrictions(unsolvedAudienciaSchedule.getRoomList().get(0), LocalDate.of(2019,3,4), LocalTime.of(10,01), LocalTime.of(10,19), unsolvedAudienciaSchedule);
 
 
-        // Show TimeGrain - Room prohibitions
+        /* Mostrar las restricciones de Rooms con TimeGrains */
+
 //        for(TimeGrain timeGrain : unsolvedAudienciaSchedule.getTimeGrainList()){
 //            if(!timeGrain.getProhibitedRooms().isEmpty()){
 //                for(Room room : timeGrain.getProhibitedRooms()){
@@ -50,8 +55,12 @@ public class Main {
 //            }
 //        }
 
+        /* Crear Jueces */
+
         Juez juez1 = new Juez(1, "Juan Perez");
         Juez juez2 = new Juez(2, "Roberto Gimenez");
+
+        /* Crear los AudienciaAssignments y Audiencias */
 
         List<AudienciaAssignment> assignmentList = new ArrayList<>();
         for(int i = 0; i < 3; i++){
@@ -68,7 +77,11 @@ public class Main {
         }
         unsolvedAudienciaSchedule.setAudienciaAssignmentList(assignmentList);
 
+        /* Constraint Configuration */
+
         unsolvedAudienciaSchedule.setConstraintConfiguration(new AudienciaScheduleConstraintConfiguration());
+
+        /* Solver */
 
         SolverFactory<AudienciaSchedule> solverFactory = SolverFactory.createFromXmlResource("org/optaplanner/examples/audienciaTimeGrain/solver/audienciaTimeGrainSolverConfig.xml");
         Solver<AudienciaSchedule> solver = solverFactory.buildSolver();

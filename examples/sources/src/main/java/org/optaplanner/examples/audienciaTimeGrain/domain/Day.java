@@ -7,10 +7,13 @@ import java.util.Locale;
 
 public class Day{
 
-    private int dayOfYear;
-    private long idDay;
-    private static final DateTimeFormatter DAY_FORMATTER
-            = DateTimeFormatter.ofPattern("E", Locale.ENGLISH);
+    /* Variables */
+
+    private int dayOfYear; //Dia del año
+    private long idDay; //ID
+    private static final DateTimeFormatter DAY_FORMATTER = DateTimeFormatter.ofPattern("E", Locale.ENGLISH); //Formato de fecha
+
+    /* Setters y Getters */
 
     public int getDayOfYear() {
         return dayOfYear;
@@ -28,16 +31,18 @@ public class Day{
         this.dayOfYear = dayOfYear;
     }
 
+    /* Helper functions */
+
     public String getDateString() {
         return DAY_FORMATTER.format(toDate());
-    }
+    } //Devuelve la fecha en String
 
     public LocalDate toDate() {
         return LocalDate.ofYearDay(LocalDate.now().getYear(), dayOfYear);
-    }
+    } //Devuelve la fecha en LocalDate
 
     @Override
     public String toString() {
         return getDateString();
-    }
+    } //toString
 }

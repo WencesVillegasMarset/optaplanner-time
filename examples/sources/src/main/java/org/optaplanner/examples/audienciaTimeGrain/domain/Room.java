@@ -1,13 +1,18 @@
 package org.optaplanner.examples.audienciaTimeGrain.domain;
 
-//nuestro planning entity, que tiene un juez, room y timeslot.
-
 public class Room {
+
+    /* Variables */
+
     private Integer idRoom;
+
+    /* Constructor */
 
     public Room(Integer idRoom){
         this.idRoom = idRoom;
     }
+
+    /* Setters y Getters */
 
     public Integer getIdRoom() {
         return idRoom;

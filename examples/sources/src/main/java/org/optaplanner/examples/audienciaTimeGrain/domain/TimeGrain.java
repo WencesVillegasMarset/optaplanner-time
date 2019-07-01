@@ -8,18 +8,19 @@ import java.util.ArrayList;
 
 public class TimeGrain {
 
-    /**
-     * Time granularity is 15 minutes (which is often recommended when dealing with humans for practical purposes).
-     */
+    /* Granularidad de los TimeGrains */
+
     public static final int GRAIN_LENGTH_IN_MINUTES = 5;
 
-    private int grainIndex; // unique
+    /* Variables */ //ARREGLAR REDUNDANCIA ENTRE GRAININDEX Y IDTIMEGRAIN
 
+    private int grainIndex; //unique
     private Day day;
     private int startingMinuteOfDay;
     private int idTimeGrain;
-
     private ArrayList<Room> prohibitedRooms = new ArrayList<>();
+
+    /* Setters y Getters */
 
     public int getGrainIndex() {
         return grainIndex;
@@ -61,32 +62,34 @@ public class TimeGrain {
         this.startingMinuteOfDay = startingMinuteOfDay;
     }
 
+    /* Helper functions */
+
     public LocalDate getDate() {
         return day.toDate();
-    }
+    } //Devuelve la fecha como LocalDate
 
     public LocalTime getTime() {
         return LocalTime.of(startingMinuteOfDay / 60, startingMinuteOfDay % 60);
-    }
+    } //Devuelve la hora como LocalTime
 
     public LocalDateTime getDateTime() {
         return LocalDateTime.of(getDate(), getTime());
-    }
+    } //Devuelve fecha y hora como LocalDateTime
 
     public String getTimeString() {
         int hourOfDay = startingMinuteOfDay / 60;
         int minuteOfHour = startingMinuteOfDay % 60;
         return (hourOfDay < 10 ? "0" : "") + hourOfDay
                 + ":" + (minuteOfHour < 10 ? "0" : "") + minuteOfHour;
-    }
+    } //Devuelve hora como String
 
 
     public String getDateTimeString() {
         return day.getDateString() + " " + getTimeString();
-    }
+    } //Devuelve fecha y hora como String
 
     @Override
     public String toString() {
         return grainIndex + "(" + getDateTimeString() + ")";
-    }
+    } //toString
 }

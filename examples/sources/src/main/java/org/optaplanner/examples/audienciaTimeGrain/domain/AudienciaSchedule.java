@@ -16,11 +16,10 @@ import java.util.List;
 @PlanningSolution
 public class AudienciaSchedule {
 
+    /* Constraint Configuration */
+
     @ConstraintConfigurationProvider
     private AudienciaScheduleConstraintConfiguration constraintConfiguration;
-
-//    @ProblemFactCollectionProperty
-//    private List<Audiencia> audienciaList;
 
     public AudienciaScheduleConstraintConfiguration getConstraintConfiguration() {
         return constraintConfiguration;
@@ -29,6 +28,8 @@ public class AudienciaSchedule {
     public void setConstraintConfiguration(AudienciaScheduleConstraintConfiguration constraintConfiguration) {
         this.constraintConfiguration = constraintConfiguration;
     }
+
+    /* Variables */
 
     @ProblemFactCollectionProperty
     private List<Day> dayList;
@@ -49,13 +50,7 @@ public class AudienciaSchedule {
 
     // HACE FALTA AGREGAR COMO PROBLEM FACT A LAS AUDIENCIAS??
 
-//    public List<Audiencia> getAudienciaList() {
-//        return audienciaList;
-//    }
-//
-//    public void setAudienciaList(List<Audiencia> audienciaList) {
-//        this.audienciaList = audienciaList;
-//    }
+    /* Setters y Getters */
 
     public List<Day> getDayList() {
         return dayList;
@@ -96,6 +91,8 @@ public class AudienciaSchedule {
     public void setScore(HardMediumSoftScore score) {
         this.score = score;
     }
+
+    /* toString */
 
     @Override
     public String toString() {

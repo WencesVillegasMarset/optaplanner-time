@@ -13,11 +13,15 @@ import java.util.List;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 
+/* Clase helper */
+
 public class AudienciaCreator {
+
+    /* Crear TimeGrain list */
 
     public void createTimeGrainList(LocalDate startDate, LocalDate endDate, LocalTime startTime, LocalTime endTime, AudienciaSchedule audienciaSchedule) {
 
-        // Crea la lista de startingMinuteOfDayOptions
+        /* Crea la lista de startingMinuteOfDayOptions */
 
         long minutes = ChronoUnit.MINUTES.between(startTime, endTime);
         long days = ChronoUnit.DAYS.between(startDate, endDate) + 1;
@@ -31,7 +35,7 @@ public class AudienciaCreator {
             j+= TimeGrain.GRAIN_LENGTH_IN_MINUTES;
         }
 
-        //Crea los TimeGrain y Day
+        /* Crea los TimeGrains y Days */
 
         List<Day> dayList = new ArrayList<>((int)timeGrainListSize);
         long dayId = 0;
@@ -58,6 +62,8 @@ public class AudienciaCreator {
         audienciaSchedule.setDayList(dayList);
         audienciaSchedule.setTimeGrainList(timeGrainList);
     }
+
+    /* Agrega las restricciones de Rooms a los TimeGrains deseados */
 
     public void setTimeGrainRoomRestrictions(Room room, LocalDate date, LocalTime startTime, LocalTime endTime, AudienciaSchedule audienciaSchedule){
         for (TimeGrain timeGrain : audienciaSchedule.getTimeGrainList()){

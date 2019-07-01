@@ -9,15 +9,30 @@ import org.optaplanner.examples.common.domain.AbstractPersistable;
 
 public class AudienciaScheduleConstraintConfiguration {
 
+    /* Declarations */
+
+    //HARD - Previene el conflicto de uso de una Room mas de una vez al mismo tiempo
     public static final String ROOM_CONFLICT = "Room conflict";
+
+    //SOFT - Inserta un TimeGrain preventivo entre cada Audiencia
     public static final String ONE_TIME_GRAIN_BREAK_BETWEEN_TWO_CONSECUTIVE_MEETINGS = "One TimeGrain break between two consecutive meetings";
+
+    //HARD - Las audiencias deben empezar y terminar el mismo día
     public static final String START_AND_END_ON_SAME_DAY = "Start and end on same day";
+
+    //HARD - Asegura que el TimeGrain en el que termina la Audiencia exista, es decir, que no pase el horario estipulado
     public static final String DONT_GO_IN_OVERTIME = "Don't go in overtime";
+
+    //SOFT - Planificar las Audiencias para tiempos mas cercanos si es posible
     public static final String DO_ALL_MEETINGS_AS_SOON_AS_POSSIBLE = "Do all meetings as soon as possible";
+
+    //HARD - Que el Juez no este en más de una Audiencia al mismo tiempo
     public static final String DO_NOT_CONFLICT_JUEZ = "Do not conflict Juez";
+
+    //HARD - Que no se utilice una Room en un tiempo que se determinó que no está disponible
     public static final String DO_NOT_USE_ROOM_IN_PRHOHIBITED_TIME = "Do not use room in prohibited time";
 
-
+    /* Hard Constraints */
     @ConstraintWeight(ROOM_CONFLICT)
     private HardMediumSoftScore roomConflict = HardMediumSoftScore.ofHard(1);
     @ConstraintWeight(DONT_GO_IN_OVERTIME)
@@ -29,19 +44,19 @@ public class AudienciaScheduleConstraintConfiguration {
     @ConstraintWeight(DO_NOT_USE_ROOM_IN_PRHOHIBITED_TIME)
     private HardMediumSoftScore dontConflictRoomTime = HardMediumSoftScore.ofHard(1);
 
+    /* Soft Constraints */
+
     @ConstraintWeight(ONE_TIME_GRAIN_BREAK_BETWEEN_TWO_CONSECUTIVE_MEETINGS)
     private HardMediumSoftScore oneTimeGrainBreakBetweenTwoConsecutiveMeetings = HardMediumSoftScore.ofSoft(100);
     @ConstraintWeight(DO_ALL_MEETINGS_AS_SOON_AS_POSSIBLE)
     private HardMediumSoftScore doAllMeetingsAsSoonAsPossible = HardMediumSoftScore.ofSoft(1);
 
-
+    /* Constructor */
 
     public AudienciaScheduleConstraintConfiguration() {
     }
 
-    // ************************************************************************
-    // Simple getters and setters
-    // ************************************************************************
+    /* Setters y Getters */
 
     public HardMediumSoftScore getRoomConflict() {
         return roomConflict;

@@ -9,17 +9,22 @@ import java.util.ArrayList;
 
 @PlanningEntity
 public class AudienciaAssignment {
+
+    /* Variables */
+
     private Audiencia audiencia;
     private Room room;
     private TimeGrain startingTimeGrain;
     private int id;
 
-    public int getId() {
-        return id;
-    }
+    /* Setters y Getters */
 
     public void setId(int id) {
         this.id = id;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public void setAudiencia(Audiencia audiencia){
@@ -34,10 +39,23 @@ public class AudienciaAssignment {
         this.room = room;
     }
 
+    @PlanningVariable(valueRangeProviderRefs = {"roomRange"})
+    public Room getRoom() {
+        return room;
+    }
+
     public void setStartingTimeGrain(TimeGrain startingTimeGrain){
         this.startingTimeGrain = startingTimeGrain;
     }
 
+    @PlanningVariable(valueRangeProviderRefs = {"timeGrainRange"})
+    public TimeGrain getStartingTimeGrain(){
+        return startingTimeGrain;
+    }
+
+    /* Helper functions */
+
+    /* Calcula si dos AudienciaAssignments se superponen temporalmente */
     public int calculateOverlap(AudienciaAssignment other) {
         if (startingTimeGrain == null || other.getStartingTimeGrain() == null) {
             return 0;
@@ -55,6 +73,7 @@ public class AudienciaAssignment {
         return Math.min(end, otherEnd) - Math.max(start, otherStart);
     }
 
+    /* Devuelve el index del ultimo TimeGrain que utiliza */
     public Integer getLastTimeGrainIndex() {
         if (startingTimeGrain == null) {
             return null;
@@ -62,10 +81,12 @@ public class AudienciaAssignment {
         return startingTimeGrain.getGrainIndex() + audiencia.getNumTimeGrains() - 1;
     }
 
+    /* Devuelve el index del primer TimeGrain que utiliza */
     public int getStartingTimeGrainIndex(){
         return startingTimeGrain.getGrainIndex();
     }
 
+    /* Devuelve el tiempo en el que finaliza en un String */
     public String getFinishingTimeString(){
         int hourOfDay = (startingTimeGrain.getStartingMinuteOfDay() + audiencia.getNumTimeGrains()*TimeGrain.GRAIN_LENGTH_IN_MINUTES) / 60;
         int minuteOfHour = (startingTimeGrain.getStartingMinuteOfDay() + audiencia.getNumTimeGrains()*TimeGrain.GRAIN_LENGTH_IN_MINUTES) % 60;
@@ -73,6 +94,7 @@ public class AudienciaAssignment {
                 + ":" + (minuteOfHour < 10 ? "0" : "") + minuteOfHour;
     }
 
+    /* Devuelve true si existen violaciones de restricciones de Rooms y TimeGrains */
     public boolean timeGrainRoomRestriction(TimeGrain timeGrain){
         boolean respuesta = false;
 //        for (TimeGrain timeGrain : timeGrainArrayList){
@@ -88,19 +110,11 @@ public class AudienciaAssignment {
         return respuesta;
     }
 
+    /* Devuelve el id del Juez de la audiencia */
     public int getJuez(){
         return this.audiencia.getJuez().getIdJuez();
     }
 
-    @PlanningVariable(valueRangeProviderRefs = {"timeGrainRange"})
-    public TimeGrain getStartingTimeGrain(){
-        return startingTimeGrain;
-    }
-
-    @PlanningVariable(valueRangeProviderRefs = {"roomRange"})
-    public Room getRoom() {
-        return room;
-    }
 
 
 }

@@ -1,10 +1,17 @@
 package org.optaplanner.examples.audienciaTimeGrain.domain;
 
 public class Audiencia {
+
+    /* Variables */
+
     private int idAudiencia;
-    private int numTimeGrains;
-    private Tipo tipo;
-    private Juez juez;
+    private int numTimeGrains; //Cantidad de TimeGrains que necesita
+    private Tipo tipo; //Tipo de Audiencia
+    private Juez juez; //Juez
+    private Defensor defensor; //Defensor
+    private Fiscal fiscal; //Fiscal
+
+    /* Constructors */
 
     public Audiencia(int idAudiencia, int numTimeGrains, Tipo tipo){
         this.idAudiencia = idAudiencia;
@@ -16,6 +23,8 @@ public class Audiencia {
         this.numTimeGrains = numTimeGrains;
         this.juez = juez;
     }
+
+    /* Setters y Getters */
 
     public int getIdAudiencia() {
         return idAudiencia;

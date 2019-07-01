@@ -2,15 +2,19 @@ package org.optaplanner.examples.audienciaTimeGrain.domain;
 
 public class Tipo {
 
-    private int  idTipo;
+    /* Variables */
 
+    private int  idTipo;
     private String nombreTipo;
 
+    /* Constructor */
 
     public Tipo(int idTipo, String nombreTipo) {
         this.idTipo = idTipo;
         this.nombreTipo = nombreTipo;
     }
+
+    /* Setters y Getters */
 
     public int getIdTipo() {
         return idTipo;

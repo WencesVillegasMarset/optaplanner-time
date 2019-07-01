@@ -15,6 +15,7 @@ public class AudienciaScheduleConstraintConfiguration {
     public static final String DONT_GO_IN_OVERTIME = "Don't go in overtime";
     public static final String DO_ALL_MEETINGS_AS_SOON_AS_POSSIBLE = "Do all meetings as soon as possible";
     public static final String DO_NOT_CONFLICT_JUEZ = "Do not conflict Juez";
+//    public static final String DO_NOT_USE_ROOM_IN_PRHOHIBITED_TIME = "Do not use room in prohibited time";
 
 
     @ConstraintWeight(ROOM_CONFLICT)
@@ -25,6 +26,8 @@ public class AudienciaScheduleConstraintConfiguration {
     private HardMediumSoftScore startAndEndOnSameDay = HardMediumSoftScore.ofHard(1);
     @ConstraintWeight(DO_NOT_CONFLICT_JUEZ)
     private HardMediumSoftScore dontConflictJuez = HardMediumSoftScore.ofHard(1);
+//    @ConstraintWeight(DO_NOT_USE_ROOM_IN_PRHOHIBITED_TIME)
+//    private HardMediumSoftScore dontConflictRoomTime = HardMediumSoftScore.ofHard(1);
 
     @ConstraintWeight(ONE_TIME_GRAIN_BREAK_BETWEEN_TWO_CONSECUTIVE_MEETINGS)
     private HardMediumSoftScore oneTimeGrainBreakBetweenTwoConsecutiveMeetings = HardMediumSoftScore.ofSoft(100);
@@ -87,4 +90,12 @@ public class AudienciaScheduleConstraintConfiguration {
     public void setDontConflictJuez(HardMediumSoftScore dontConflictJuez) {
         this.dontConflictJuez = dontConflictJuez;
     }
+
+//    public HardMediumSoftScore getDontConflictRoomTime() {
+//        return dontConflictRoomTime;
+//    }
+//
+//    public void setDontConflictRoomTime(HardMediumSoftScore dontConflictRoomTime) {
+//        this.dontConflictRoomTime = dontConflictRoomTime;
+//    }
 }

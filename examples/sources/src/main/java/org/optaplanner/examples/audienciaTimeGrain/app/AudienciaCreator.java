@@ -3,6 +3,7 @@ package org.optaplanner.examples.audienciaTimeGrain.app;
 import org.optaplanner.examples.audienciaTimeGrain.domain.AudienciaSchedule;
 import org.optaplanner.examples.audienciaTimeGrain.domain.Day;
 import org.optaplanner.examples.audienciaTimeGrain.domain.TimeGrain;
+import org.optaplanner.examples.audienciaTimeGrain.domain.Room;
 
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -56,6 +57,16 @@ public class AudienciaCreator {
         }
         audienciaSchedule.setDayList(dayList);
         audienciaSchedule.setTimeGrainList(timeGrainList);
+    }
+
+    public void setTimeGrainRoomRestrictions(Room room, LocalDate date, LocalTime startTime, LocalTime endTime, AudienciaSchedule audienciaSchedule){
+        for (TimeGrain timeGrain : audienciaSchedule.getTimeGrainList()){
+            if (timeGrain.getDay().toDate().isEqual(date)){
+                if ((timeGrain.getTime().isAfter(startTime) || timeGrain.getTime().plusMinutes((long)TimeGrain.GRAIN_LENGTH_IN_MINUTES).isAfter(startTime) || timeGrain.getTime().equals(startTime)) && timeGrain.getTime().isBefore(endTime)){
+                    timeGrain.addProhibitedRooms(room);
+                }
+            }
+        }
     }
 
 

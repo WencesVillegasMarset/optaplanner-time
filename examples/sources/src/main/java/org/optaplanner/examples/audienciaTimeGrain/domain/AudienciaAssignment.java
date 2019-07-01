@@ -60,6 +60,17 @@ public class AudienciaAssignment {
         return startingTimeGrain.getGrainIndex() + audiencia.getNumTimeGrains() - 1;
     }
 
+    public int getStartingTimeGrainIndex(){
+        return startingTimeGrain.getGrainIndex();
+    }
+
+    public String getFinishingTimeString(){
+        int hourOfDay = (startingTimeGrain.getStartingMinuteOfDay() + audiencia.getNumTimeGrains()*TimeGrain.GRAIN_LENGTH_IN_MINUTES) / 60;
+        int minuteOfHour = (startingTimeGrain.getStartingMinuteOfDay() + audiencia.getNumTimeGrains()*TimeGrain.GRAIN_LENGTH_IN_MINUTES) % 60;
+        return (hourOfDay < 10 ? "0" : "") + hourOfDay
+                + ":" + (minuteOfHour < 10 ? "0" : "") + minuteOfHour;
+    }
+
     public int getJuez(){
         return this.audiencia.getJuez().getIdJuez();
     }

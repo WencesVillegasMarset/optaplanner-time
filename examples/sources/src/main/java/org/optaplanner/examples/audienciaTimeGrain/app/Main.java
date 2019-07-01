@@ -28,31 +28,48 @@ public class Main {
 
         audienciaCreator.createTimeGrainList(startdate, enddate, startTime, endTime, unsolvedAudienciaSchedule);
 
-        List<TimeGrain> timeGrainList = unsolvedAudienciaSchedule.getTimeGrainList();
-//        for (TimeGrain timeGrain: timeGrainList) {
-//            System.out.println(timeGrain);
-//        }
+
+
 
 
         ArrayList<Room> roomList = new ArrayList<>();
         for (int i = 0; i < 2; i++) {
-            roomList.add(new Room(new Integer(i)));
+            roomList.add(new Room(new Integer(i+1)));
         }
+        unsolvedAudienciaSchedule.setRoomList(roomList);
+
+        audienciaCreator.setTimeGrainRoomRestrictions(unsolvedAudienciaSchedule.getRoomList().get(0), LocalDate.of(2019,3,4), LocalTime.of(10,01), LocalTime.of(10,19), unsolvedAudienciaSchedule);
+
+
+        // Show TimeGrain - Room prohibitions
+//        for(TimeGrain timeGrain : unsolvedAudienciaSchedule.getTimeGrainList()){
+//            if(!timeGrain.getProhibitedRooms().isEmpty()){
+//                for(Room room : timeGrain.getProhibitedRooms()){
+//                    System.out.println("TimeGrain " + timeGrain.getDateTimeString() + " has prohibited Room " + room.getIdRoom());
+//                }
+//            }
+//        }
 
         Juez juez1 = new Juez(1, "Juan Perez");
+        Juez juez2 = new Juez(2, "Roberto Gimenez");
 
         List<AudienciaAssignment> assignmentList = new ArrayList<>();
         for(int i = 0; i < 3; i++){
             AudienciaAssignment audienciaAssignment = new AudienciaAssignment();
-            audienciaAssignment.setAudiencia(new Audiencia(i,2, juez1));
+            audienciaAssignment.setAudiencia(new Audiencia(i+1,4, juez1));
+            audienciaAssignment.setId(i);
+            assignmentList.add(audienciaAssignment);
+        }
+        for(int i = 3; i < 6; i++){
+            AudienciaAssignment audienciaAssignment = new AudienciaAssignment();
+            audienciaAssignment.setAudiencia(new Audiencia(i+1,3, juez2));
             audienciaAssignment.setId(i);
             assignmentList.add(audienciaAssignment);
         }
         unsolvedAudienciaSchedule.setAudienciaAssignmentList(assignmentList);
-        unsolvedAudienciaSchedule.setRoomList(roomList);
-//
+
         unsolvedAudienciaSchedule.setConstraintConfiguration(new AudienciaScheduleConstraintConfiguration());
-//
+
         SolverFactory<AudienciaSchedule> solverFactory = SolverFactory.createFromXmlResource("org/optaplanner/examples/audienciaTimeGrain/solver/audienciaTimeGrainSolverConfig.xml");
         Solver<AudienciaSchedule> solver = solverFactory.buildSolver();
         AudienciaSchedule solvedAudienciaSchedule = solver.solve(unsolvedAudienciaSchedule);

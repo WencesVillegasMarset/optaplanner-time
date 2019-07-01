@@ -4,18 +4,22 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.temporal.TemporalAccessor;
+import java.util.ArrayList;
+
 public class TimeGrain {
 
     /**
      * Time granularity is 15 minutes (which is often recommended when dealing with humans for practical purposes).
      */
-    public static final int GRAIN_LENGTH_IN_MINUTES = 15;
+    public static final int GRAIN_LENGTH_IN_MINUTES = 5;
 
     private int grainIndex; // unique
 
     private Day day;
     private int startingMinuteOfDay;
     private int idTimeGrain;
+
+    private ArrayList<Room> prohibitedRooms = new ArrayList<>();
 
     public int getGrainIndex() {
         return grainIndex;
@@ -45,6 +49,14 @@ public class TimeGrain {
         return startingMinuteOfDay;
     }
 
+    public ArrayList<Room> getProhibitedRooms() {
+        return prohibitedRooms;
+    }
+
+    public void addProhibitedRooms(Room prohibitedRoom) {
+        this.prohibitedRooms.add(prohibitedRoom);
+    }
+
     public void setStartingMinuteOfDay(int startingMinuteOfDay) {
         this.startingMinuteOfDay = startingMinuteOfDay;
     }
@@ -67,6 +79,7 @@ public class TimeGrain {
         return (hourOfDay < 10 ? "0" : "") + hourOfDay
                 + ":" + (minuteOfHour < 10 ? "0" : "") + minuteOfHour;
     }
+
 
     public String getDateTimeString() {
         return day.getDateString() + " " + getTimeString();

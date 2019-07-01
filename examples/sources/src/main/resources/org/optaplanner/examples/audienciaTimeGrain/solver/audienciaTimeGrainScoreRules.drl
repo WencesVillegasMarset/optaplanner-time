@@ -54,6 +54,7 @@ rule "Start and end on same day"
     then
         scoreHolder.penalize(kcontext);
 end
+
 rule "Do not conflict Juez"
     when
         $leftAssignment : AudienciaAssignment(startingTimeGrain != null, $Juez : getJuez())
@@ -62,14 +63,23 @@ rule "Do not conflict Juez"
         scoreHolder.penalize(kcontext);
 end
 
+//rule "Do not use room in prohibited time"
+//    when
+//        AudienciaAssignment(startingTimeGrain != null, room != null, $room : room, $grainIndex : getStartingTimeGrainIndex())
+//        TimeGrain(grainIndex == $grainIndex, )
+//    then
+//
+//end
+
 // ############################################################################
 // Soft constraints usually
 // ############################################################################
 
 rule "One TimeGrain break between two consecutive meetings"
     when
-        AudienciaAssignment(startingTimeGrain != null,  $leftEnd : getLastTimeGrainIndex())
-        AudienciaAssignment(startingTimeGrain != null, $leftEnd == startingTimeGrain.getGrainIndex() - 1)
+        $left : AudienciaAssignment(startingTimeGrain != null,  $leftEnd : getLastTimeGrainIndex(), $leftFirstTimeGrain : startingTimeGrain)
+        $right: AudienciaAssignment(startingTimeGrain != null, $leftEnd == startingTimeGrain.getGrainIndex() - 1, $rightFirstTimeGrainIndex : startingTimeGrain.grainIndex, $rightFirstTimeGrain : startingTimeGrain)
+        TimeGrain(grainIndex == $rightFirstTimeGrainIndex, $leftFirstTimeGrain.day == $rightFirstTimeGrain.day)
     then
         scoreHolder.penalize(kcontext);
 end

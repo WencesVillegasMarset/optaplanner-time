@@ -56,9 +56,25 @@ rule "Start and end on same day"
 end
 
 rule "Do not conflict Juez"
+       when
+           $leftAssignment : AudienciaAssignment(startingTimeGrain != null, $Juez : getJuez())
+           AudienciaAssignment(calculateOverlap($leftAssignment) > 0, getJuez() == $Juez)
+       then
+           scoreHolder.penalize(kcontext);
+end
+
+rule "Do not conflict Defensor"
     when
-        $leftAssignment : AudienciaAssignment(startingTimeGrain != null, $Juez : getJuez())
-        AudienciaAssignment(calculateOverlap($leftAssignment) > 0, getJuez() == $Juez)
+        $leftAssignment : AudienciaAssignment(startingTimeGrain != null, $Defensor : getDefensor())
+        AudienciaAssignment(calculateOverlap($leftAssignment) > 0, getDefensor() == $Defensor)
+    then
+        scoreHolder.penalize(kcontext);
+end
+
+rule "Do not conflict Fiscal"
+    when
+        $leftAssignment : AudienciaAssignment(startingTimeGrain != null, $Fiscal : getFiscal())
+        AudienciaAssignment(calculateOverlap($leftAssignment) > 0, getFiscal() == $Fiscal)
     then
         scoreHolder.penalize(kcontext);
 end

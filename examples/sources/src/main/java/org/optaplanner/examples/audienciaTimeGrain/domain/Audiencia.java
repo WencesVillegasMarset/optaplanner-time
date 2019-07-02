@@ -13,15 +13,13 @@ public class Audiencia {
 
     /* Constructors */
 
-    public Audiencia(int idAudiencia, int numTimeGrains, Tipo tipo){
+    public Audiencia(int idAudiencia, int numTimeGrains, Tipo tipo, Juez juez, Defensor defensor, Fiscal fiscal){
         this.idAudiencia = idAudiencia;
         this.numTimeGrains = numTimeGrains;
         this.tipo = tipo;
-    }
-    public Audiencia(int idAudiencia, int numTimeGrains, Juez juez){
-        this.idAudiencia = idAudiencia;
-        this.numTimeGrains = numTimeGrains;
         this.juez = juez;
+        this.defensor = defensor;
+        this.fiscal = fiscal;
     }
 
     /* Setters y Getters */
@@ -56,5 +54,21 @@ public class Audiencia {
 
     public void setJuez(Juez juez) {
         this.juez = juez;
+    }
+
+    public Defensor getDefensor() {
+        return defensor;
+    }
+
+    public void setDefensor(Defensor defensor) {
+        this.defensor = defensor;
+    }
+
+    public Fiscal getFiscal() {
+        return fiscal;
+    }
+
+    public void setFiscal(Fiscal fiscal) {
+        this.fiscal = fiscal;
     }
 }

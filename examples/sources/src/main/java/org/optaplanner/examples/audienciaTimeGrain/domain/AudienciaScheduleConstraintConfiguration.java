@@ -32,6 +32,12 @@ public class AudienciaScheduleConstraintConfiguration {
     //HARD - Que no se utilice una Room en un tiempo que se determinó que no está disponible
     public static final String DO_NOT_USE_ROOM_IN_PRHOHIBITED_TIME = "Do not use room in prohibited time";
 
+    //HARD - Que el Fiscal no este en más de una Audiencia al mismo tiempo
+    public static final String DO_NOT_CONFLICT_FISCAL = "Do not conflict Fiscal";
+
+    //HARD - Que el Defensor no este en más de una Audiencia al mismo tiempo
+    public static final String DO_NOT_CONFLICT_DEFENSOR = "Do not conflict Defensor";
+
     /* Hard Constraints */
     @ConstraintWeight(ROOM_CONFLICT)
     private HardMediumSoftScore roomConflict = HardMediumSoftScore.ofHard(1);
@@ -43,6 +49,11 @@ public class AudienciaScheduleConstraintConfiguration {
     private HardMediumSoftScore dontConflictJuez = HardMediumSoftScore.ofHard(1);
     @ConstraintWeight(DO_NOT_USE_ROOM_IN_PRHOHIBITED_TIME)
     private HardMediumSoftScore dontConflictRoomTime = HardMediumSoftScore.ofHard(1);
+    @ConstraintWeight(DO_NOT_CONFLICT_FISCAL)
+    private HardMediumSoftScore dontConflictFiscal = HardMediumSoftScore.ofHard(1);
+    @ConstraintWeight(DO_NOT_CONFLICT_DEFENSOR)
+    private HardMediumSoftScore dontConflictDefensor = HardMediumSoftScore.ofHard(1);
+
 
     /* Soft Constraints */
 
@@ -112,5 +123,21 @@ public class AudienciaScheduleConstraintConfiguration {
 
     public void setDontConflictRoomTime(HardMediumSoftScore dontConflictRoomTime) {
         this.dontConflictRoomTime = dontConflictRoomTime;
+    }
+
+    public HardMediumSoftScore getDontConflictFiscal() {
+        return dontConflictFiscal;
+    }
+
+    public void setDontConflictFiscal(HardMediumSoftScore dontConflictFiscal) {
+        this.dontConflictFiscal = dontConflictFiscal;
+    }
+
+    public HardMediumSoftScore getDontConflictDefensor() {
+        return dontConflictDefensor;
+    }
+
+    public void setDontConflictDefensor(HardMediumSoftScore dontConflictDefensor) {
+        this.dontConflictDefensor = dontConflictDefensor;
     }
 }

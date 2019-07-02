@@ -115,6 +115,17 @@ public class AudienciaAssignment {
         return this.audiencia.getJuez().getIdJuez();
     }
 
+    /* Devuelve el id del Defensor de la audiencia */
+    public int getDefensor(){ return this.audiencia.getDefensor().getIdDefensor();}
+
+    /* Devuelve el id del Fiscal de la audiencia */
+    public int getFiscal(){ return this.audiencia.getFiscal().getIdFiscal();}
+
+    /* Devuelve el id del Tipo de la audiencia */
+    public int getTipo(){ return this.audiencia.getTipo().getIdTipo();}
+
+
+
 
 
 }

@@ -61,26 +61,36 @@ public class Main {
 //            }
 //        }
 
-        /* Crear Jueces */
+        /* Crear Jueces, Fiscales, Defensores y Tipos */
 
         Juez juez1 = new Juez(1, "Juan Perez");
         Juez juez2 = new Juez(2, "Roberto Gimenez");
 
+        Fiscal fiscal1 = new Fiscal(1,"Pedro Gil");
+        Fiscal fiscal2 = new Fiscal(2, "Juan Rodriguez");
+
+        Defensor defensor1 = new Defensor(1, "Alberto Lopez");
+        Defensor defensor2 = new Defensor(2, "Juana Martinez");
+
+        Tipo tipo1 = new Tipo(1, "Habeas Corpus");
+
         /* Crear los AudienciaAssignments y Audiencias */
 
         List<AudienciaAssignment> assignmentList = new ArrayList<>();
-        for(int i = 0; i < 3; i++){
+
+        for(int i = 0; i < 6; i++){
             AudienciaAssignment audienciaAssignment = new AudienciaAssignment();
-            audienciaAssignment.setAudiencia(new Audiencia(i+1,4, juez1));
             audienciaAssignment.setId(i);
             assignmentList.add(audienciaAssignment);
         }
-        for(int i = 3; i < 6; i++){
-            AudienciaAssignment audienciaAssignment = new AudienciaAssignment();
-            audienciaAssignment.setAudiencia(new Audiencia(i+1,3, juez2));
-            audienciaAssignment.setId(i);
-            assignmentList.add(audienciaAssignment);
-        }
+
+        assignmentList.get(0).setAudiencia(new Audiencia(1, 4, tipo1, juez1, defensor1, fiscal1));
+        assignmentList.get(1).setAudiencia(new Audiencia(2, 3, tipo1, juez2, defensor1, fiscal1));
+        assignmentList.get(2).setAudiencia(new Audiencia(3, 2, tipo1, juez1, defensor2, fiscal2));
+        assignmentList.get(3).setAudiencia(new Audiencia(4, 6, tipo1, juez2, defensor2, fiscal2));
+        assignmentList.get(4).setAudiencia(new Audiencia(5, 5, tipo1, juez1, defensor2, fiscal1));
+        assignmentList.get(5).setAudiencia(new Audiencia(6, 4, tipo1, juez2, defensor1, fiscal2));
+
         unsolvedAudienciaSchedule.setAudienciaAssignmentList(assignmentList);
 
         /* Constraint Configuration */

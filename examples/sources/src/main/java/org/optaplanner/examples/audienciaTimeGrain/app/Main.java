@@ -3,6 +3,7 @@ package org.optaplanner.examples.audienciaTimeGrain.app;
 
 import org.optaplanner.core.api.solver.Solver;
 
+import java.net.URISyntaxException;
 import java.sql.Time;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,11 @@ import org.optaplanner.examples.audienciaTimeGrain.domain.*;
 
 public class Main {
     public static void main(String[] args) {
+
+        /* Excel Reader */
+
+//        ExcelReader excelReader = new ExcelReader();
+//        excelReader.readExcelFile();
 
         /* Crear el AudienciaSchedule y el helper AudienciaCreator */
 

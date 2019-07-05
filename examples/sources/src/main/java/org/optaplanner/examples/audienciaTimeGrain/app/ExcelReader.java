@@ -231,18 +231,122 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
         }
 
         private void readAudienciaList(){
+            nextSheet("Audiencias");
+            nextRow(false);
+            readHeaderCell("Id");
+            readHeaderCell("Duración");
+            readHeaderCell("Tipo");
+            readHeaderCell("Juez");
+            readHeaderCell("Defensor");
+            readHeaderCell("Fiscal");
 
+            List<Audiencia> audienciaList = new ArrayList<>(currentSheet.getLastRowNum() - 1);
+            List<AudienciaAssignment> audienciaAssignmentList = new ArrayList<>(currentSheet.getLastRowNum() - 1);
+            while(nextRow()){
+                Audiencia audiencia = new Audiencia();
+                AudienciaAssignment audienciaAssignment = new AudienciaAssignment();
+                audiencia.setIdAudiencia((int)nextNumericCell().getNumericCellValue());
+                readAudienciaDuration(audiencia);
+                int tipoRead = (int)nextNumericCell().getNumericCellValue();
+                int juezRead = (int)nextNumericCell().getNumericCellValue();
+                int defensorRead = (int)nextNumericCell().getNumericCellValue();
+                int fiscalRead = (int)nextNumericCell().getNumericCellValue();
+                if(containsTipo(solution.getTipoList(), tipoRead)){
+                    for (Tipo tipo : solution.getTipoList()) {
+                        if (tipo.getIdTipo() == tipoRead){
+                            audiencia.setTipo(tipo);
+                            break;
+                        }
+                    }
+                } else {
+                    throw new IllegalStateException(
+                            currentPosition() + ": The tipo with id (" + tipoRead
+                                    + ") does not exist.");
+                }
+                if(containsJuez(solution.getJuezList(), juezRead)){
+                    for (Juez juez : solution.getJuezList()) {
+                        if (juez.getIdJuez() == juezRead){
+                            audiencia.setJuez(juez);
+                            break;
+                        }
+                    }
+                } else {
+                    throw new IllegalStateException(
+                            currentPosition() + ": The juez with id (" + tipoRead
+                                    + ") does not exist.");
+                }
+                if(containsDefensor(solution.getDefensorList(), defensorRead)){
+                    for (Defensor defensor : solution.getDefensorList()) {
+                        if (defensor.getIdDefensor() == defensorRead){
+                            audiencia.setDefensor(defensor);
+                            break;
+                        }
+                    }
+                } else {
+                    throw new IllegalStateException(
+                            currentPosition() + ": The defensor with id (" + tipoRead
+                                    + ") does not exist.");
+                }
+                if(containsFiscal(solution.getFiscalList(), fiscalRead)){
+                    for (Fiscal fiscal : solution.getFiscalList()) {
+                        if (fiscal.getIdFiscal() == fiscalRead){
+                            audiencia.setFiscal(fiscal);
+                            break;
+                        }
+                    }
+                } else {
+                    throw new IllegalStateException(
+                            currentPosition() + ": The fiscal with id (" + tipoRead
+                                    + ") does not exist.");
+                }
+
+                audienciaList.add(audiencia);
+                audienciaAssignment.setAudiencia(audiencia);
+                audienciaAssignmentList.add(audienciaAssignment);
+                System.out.println();
+                }
+
+            solution.setAudienciaList(audienciaList);
+            solution.setAudienciaAssignmentList(audienciaAssignmentList);
+            }
+
+        private boolean containsTipo(final List<Tipo> list, final int numero){
+            return list.stream().anyMatch(o -> o.getIdTipo() == numero);
         }
 
+        private boolean containsJuez(final List<Juez> list, final int numero){
+            return list.stream().anyMatch(o -> o.getIdJuez() == numero);
+        }
+
+        private boolean containsDefensor(final List<Defensor> list, final int numero){
+            return list.stream().anyMatch(o -> o.getIdDefensor() == numero);
+        }
+
+        private boolean containsFiscal(final List<Fiscal> list, final int numero){
+            return list.stream().anyMatch(o -> o.getIdFiscal() == numero);
+        }
+
+
+        private void readAudienciaDuration(Audiencia audiencia) {
+            double durationDouble = nextNumericCell().getNumericCellValue();
+            if (durationDouble <= 0 || durationDouble != Math.floor(durationDouble)) {
+                throw new IllegalStateException(
+                        currentPosition() + ": The audiencia with id (" + audiencia.getIdAudiencia()
+                                + ")'s has a duration (" + durationDouble + ") that isn't a strictly positive integer number.");
+            }
+            if (durationDouble % TimeGrain.GRAIN_LENGTH_IN_MINUTES != 0) {
+                throw new IllegalStateException(
+                        currentPosition() + ": The audiencia with id (" + audiencia.getIdAudiencia()
+                                + ") has a duration (" + durationDouble + ") that isn't a multiple of "
+                                + TimeGrain.GRAIN_LENGTH_IN_MINUTES + ".");
+            }
+            audiencia.setNumTimeGrains((int) durationDouble / TimeGrain.GRAIN_LENGTH_IN_MINUTES);
+        }
     }
-
-
-
-
-
 
     @Override
     public void write(AudienciaSchedule audienciaSchedule, File file) {
 
     }
+
 }

@@ -22,6 +22,8 @@ public class Audiencia {
         this.fiscal = fiscal;
     }
 
+    public Audiencia(){}
+
     /* Setters y Getters */
 
     public int getIdAudiencia() {

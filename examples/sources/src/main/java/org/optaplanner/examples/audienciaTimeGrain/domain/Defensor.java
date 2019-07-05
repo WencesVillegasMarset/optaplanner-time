@@ -14,6 +14,8 @@ public class Defensor{
         this.nombreDefensor = nombreDefensor;
     }
 
+    public Defensor(){}
+
     /* Setters y Getters */
 
     public int getIdDefensor() {

@@ -14,6 +14,8 @@ public class Tipo {
         this.nombreTipo = nombreTipo;
     }
 
+    public Tipo(){}
+
     /* Setters y Getters */
 
     public int getIdTipo() {

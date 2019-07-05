@@ -14,6 +14,8 @@ public class Fiscal{
         this.nombreFiscal = nombreFiscal;
     }
 
+    public Fiscal(){}
+
     /* Setters y Getters */
 
     public int getIdFiscal() {

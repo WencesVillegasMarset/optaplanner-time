@@ -14,6 +14,10 @@ public class Juez{
         this.nombre = nombre;
     }
 
+    public Juez(){
+
+    }
+
     /* Setters y Getters */
 
     public int getIdJuez() {

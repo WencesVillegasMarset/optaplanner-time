@@ -34,6 +34,21 @@ public class AudienciaSchedule {
     @ProblemFactCollectionProperty
     private List<Day> dayList;
 
+    @ProblemFactCollectionProperty
+    private List<Juez> juezList;
+
+    @ProblemFactCollectionProperty
+    private List<Audiencia> audienciaList;
+
+    @ProblemFactCollectionProperty
+    private List<Tipo> tipoList;
+
+    @ProblemFactCollectionProperty
+    private List<Defensor> defensorList;
+
+    @ProblemFactCollectionProperty
+    private List<Fiscal> fiscalList;
+
     @ValueRangeProvider(id = "timeGrainRange")
     @ProblemFactCollectionProperty
     private List<TimeGrain> timeGrainList;
@@ -82,6 +97,46 @@ public class AudienciaSchedule {
 
     public void setAudienciaAssignmentList(List<AudienciaAssignment> audienciaAssignmentList) {
         this.audienciaAssignmentList = audienciaAssignmentList;
+    }
+
+    public List<Juez> getJuezList() {
+        return juezList;
+    }
+
+    public void setJuezList(List<Juez> juezList) {
+        this.juezList = juezList;
+    }
+
+    public List<Audiencia> getAudienciaList() {
+        return audienciaList;
+    }
+
+    public void setAudienciaList(List<Audiencia> audienciaList) {
+        this.audienciaList = audienciaList;
+    }
+
+    public List<Tipo> getTipoList() {
+        return tipoList;
+    }
+
+    public void setTipoList(List<Tipo> tipoList) {
+        this.tipoList = tipoList;
+    }
+
+    public List<Defensor> getDefensorList() {
+        return defensorList;
+    }
+
+    public void setDefensorList(List<Defensor> defensorList) {
+        this.defensorList = defensorList;
+    }
+
+    public List<Fiscal> getFiscalList() {
+        return fiscalList;
+    }
+
+    public void setFiscalList(List<Fiscal> fiscalList) {
+        this.fiscalList = fiscalList;
     }
 
     public HardMediumSoftScore getScore() {

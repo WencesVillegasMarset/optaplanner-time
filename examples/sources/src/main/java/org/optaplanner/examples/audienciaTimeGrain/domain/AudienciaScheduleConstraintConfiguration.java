@@ -9,6 +9,8 @@ import org.optaplanner.examples.common.domain.AbstractPersistable;
 
 public class AudienciaScheduleConstraintConfiguration {
 
+    public long id;
+
     /* Declarations */
 
     //HARD - Previene el conflicto de uso de una Room mas de una vez al mismo tiempo
@@ -139,5 +141,13 @@ public class AudienciaScheduleConstraintConfiguration {
 
     public void setDontConflictDefensor(HardMediumSoftScore dontConflictDefensor) {
         this.dontConflictDefensor = dontConflictDefensor;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

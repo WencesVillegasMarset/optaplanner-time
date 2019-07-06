@@ -124,8 +124,27 @@ public class AudienciaAssignment {
     /* Devuelve el id del Tipo de la audiencia */
     public int getTipo(){ return this.audiencia.getTipo().getIdTipo();}
 
+    /* toString */
     public String toString(){
         return "Id: " + getId();
+    }
+
+    /* Calculate if there's a break between two assignments */
+    public boolean isThereABreak(AudienciaAssignment other){
+        boolean response = false;
+        int secondGrain = this.getStartingTimeGrain().getGrainIndex();
+        int firstGrain = other.getStartingTimeGrain().getGrainIndex();
+        int resta = secondGrain - firstGrain;
+
+        int minutes = resta * TimeGrain.GRAIN_LENGTH_IN_MINUTES;
+
+        int secondGrainMinute = this.getStartingTimeGrain().getStartingMinuteOfDay();
+        int firstGrainMinute = other.getStartingTimeGrain().getStartingMinuteOfDay();
+        if(secondGrainMinute - firstGrainMinute != minutes){
+            response = true;
+        }
+
+        return response;
     }
 
 

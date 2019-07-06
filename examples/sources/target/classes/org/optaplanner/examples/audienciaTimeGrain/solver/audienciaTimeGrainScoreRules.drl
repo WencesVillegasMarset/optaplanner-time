@@ -104,8 +104,9 @@ end
 rule "One TimeGrain break between two consecutive meetings"
     when
         $left : AudienciaAssignment(startingTimeGrain != null,  $leftEnd : getLastTimeGrainIndex(), $leftFirstTimeGrain : startingTimeGrain, $juez : getJuez(), $fiscal : getFiscal(), $defensor : getDefensor(), $room : room)
-        $right: AudienciaAssignment(startingTimeGrain != null, $leftEnd == startingTimeGrain.getGrainIndex() - 1, $rightFirstTimeGrainIndex : startingTimeGrain.grainIndex, $rightFirstTimeGrain : startingTimeGrain, room == $room)
+        AudienciaAssignment(startingTimeGrain != null, $leftEnd == startingTimeGrain.getGrainIndex() - 1, $rightFirstTimeGrainIndex : startingTimeGrain.grainIndex, $rightFirstTimeGrain : startingTimeGrain, room == $room, isThereABreak($left) == false) or AudienciaAssignment(startingTimeGrain != null, $leftEnd == startingTimeGrain.getGrainIndex() - 1, $rightFirstTimeGrainIndex : startingTimeGrain.grainIndex, $rightFirstTimeGrain : startingTimeGrain, getJuez() == $juez, isThereABreak($left) == false) or AudienciaAssignment(startingTimeGrain != null, $leftEnd == startingTimeGrain.getGrainIndex() - 1, $rightFirstTimeGrainIndex : startingTimeGrain.grainIndex, $rightFirstTimeGrain : startingTimeGrain, getDefensor() == $defensor, isThereABreak($left) == false) or AudienciaAssignment(startingTimeGrain != null, $leftEnd == startingTimeGrain.getGrainIndex() - 1, $rightFirstTimeGrainIndex : startingTimeGrain.grainIndex, $rightFirstTimeGrain : startingTimeGrain, getFiscal() == $fiscal, isThereABreak($left) == false)
         TimeGrain(grainIndex == $rightFirstTimeGrainIndex, $leftFirstTimeGrain.day == $rightFirstTimeGrain.day)
+
     then
         scoreHolder.penalize(kcontext);
 end

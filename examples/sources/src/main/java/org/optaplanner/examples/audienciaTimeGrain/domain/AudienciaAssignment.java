@@ -124,7 +124,9 @@ public class AudienciaAssignment {
     /* Devuelve el id del Tipo de la audiencia */
     public int getTipo(){ return this.audiencia.getTipo().getIdTipo();}
 
-
+    public String toString(){
+        return "Id: " + getId();
+    }
 
 
 

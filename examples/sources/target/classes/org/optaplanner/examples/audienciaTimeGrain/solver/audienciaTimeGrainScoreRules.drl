@@ -67,24 +67,24 @@ end
 
 rule "Do not conflict Juez"
        when
-           $leftAssignment : AudienciaAssignment(startingTimeGrain != null, $Juez : getJuez())
-           AudienciaAssignment(calculateOverlap($leftAssignment) > 0, getJuez() == $Juez)
+           $leftAssignment : AudienciaAssignment(startingTimeGrain != null, $Juez : getJuez(), $id : id)
+           AudienciaAssignment(id != $id, calculateOverlap($leftAssignment) > 0, getJuez() == $Juez)
        then
            scoreHolder.penalize(kcontext);
 end
 
 rule "Do not conflict Defensor"
     when
-        $leftAssignment : AudienciaAssignment(startingTimeGrain != null, $Defensor : getDefensor())
-        AudienciaAssignment(calculateOverlap($leftAssignment) > 0, getDefensor() == $Defensor)
+        $leftAssignment : AudienciaAssignment(startingTimeGrain != null, $Defensor : getDefensor(), $id : id)
+        AudienciaAssignment(id != $id, calculateOverlap($leftAssignment) > 0, getDefensor() == $Defensor)
     then
         scoreHolder.penalize(kcontext);
 end
 
 rule "Do not conflict Fiscal"
     when
-        $leftAssignment : AudienciaAssignment(startingTimeGrain != null, $Fiscal : getFiscal())
-        AudienciaAssignment(calculateOverlap($leftAssignment) > 0, getFiscal() == $Fiscal)
+        $leftAssignment : AudienciaAssignment(startingTimeGrain != null, $Fiscal : getFiscal(), $id : id)
+        AudienciaAssignment(id != $id, calculateOverlap($leftAssignment) > 0, getFiscal() == $Fiscal)
     then
         scoreHolder.penalize(kcontext);
 end
@@ -103,7 +103,7 @@ end
 
 rule "One TimeGrain break between two consecutive meetings"
     when
-        $left : AudienciaAssignment(startingTimeGrain != null,  $leftEnd : getLastTimeGrainIndex(), $leftFirstTimeGrain : startingTimeGrain, $room : room)
+        $left : AudienciaAssignment(startingTimeGrain != null,  $leftEnd : getLastTimeGrainIndex(), $leftFirstTimeGrain : startingTimeGrain, $juez : getJuez(), $fiscal : getFiscal(), $defensor : getDefensor(), $room : room)
         $right: AudienciaAssignment(startingTimeGrain != null, $leftEnd == startingTimeGrain.getGrainIndex() - 1, $rightFirstTimeGrainIndex : startingTimeGrain.grainIndex, $rightFirstTimeGrain : startingTimeGrain, room == $room)
         TimeGrain(grainIndex == $rightFirstTimeGrainIndex, $leftFirstTimeGrain.day == $rightFirstTimeGrain.day)
     then

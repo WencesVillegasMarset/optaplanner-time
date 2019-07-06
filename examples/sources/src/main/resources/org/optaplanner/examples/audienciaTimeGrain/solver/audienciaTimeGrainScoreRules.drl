@@ -47,6 +47,16 @@ rule "Don't go in overtime"
         scoreHolder.penalize(kcontext, $lastTimeGrainIndex);
 end
 
+rule "Avoid Mid-break"
+    when
+        $left: AudienciaAssignment(startingTimeGrain != null, $lastTimeGrainIndex : getLastTimeGrainIndex(), $startTimeGrainIndex : startingTimeGrainIndex, $audiencia : audiencia);
+        Audiencia(idAudiencia == $audiencia.getIdAudiencia(), $duration : numTimeGrains)
+        TimeGrain(grainIndex == $startTimeGrainIndex, $firstStartingMinute : startingMinuteOfDay)
+        TimeGrain(grainIndex == $lastTimeGrainIndex, startingMinuteOfDay != $firstStartingMinute + ($duration - 1) * GRAIN_LENGTH_IN_MINUTES)
+    then
+        scoreHolder.penalize(kcontext);
+end
+
 rule "Start and end on same day"
     when
         AudienciaAssignment(startingTimeGrain != null, $firstTimeGrain : startingTimeGrain, $lastTimeGrainIndex : getLastTimeGrainIndex())
@@ -93,8 +103,8 @@ end
 
 rule "One TimeGrain break between two consecutive meetings"
     when
-        $left : AudienciaAssignment(startingTimeGrain != null,  $leftEnd : getLastTimeGrainIndex(), $leftFirstTimeGrain : startingTimeGrain)
-        $right: AudienciaAssignment(startingTimeGrain != null, $leftEnd == startingTimeGrain.getGrainIndex() - 1, $rightFirstTimeGrainIndex : startingTimeGrain.grainIndex, $rightFirstTimeGrain : startingTimeGrain)
+        $left : AudienciaAssignment(startingTimeGrain != null,  $leftEnd : getLastTimeGrainIndex(), $leftFirstTimeGrain : startingTimeGrain, $room : room)
+        $right: AudienciaAssignment(startingTimeGrain != null, $leftEnd == startingTimeGrain.getGrainIndex() - 1, $rightFirstTimeGrainIndex : startingTimeGrain.grainIndex, $rightFirstTimeGrain : startingTimeGrain, room == $room)
         TimeGrain(grainIndex == $rightFirstTimeGrainIndex, $leftFirstTimeGrain.day == $rightFirstTimeGrain.day)
     then
         scoreHolder.penalize(kcontext);

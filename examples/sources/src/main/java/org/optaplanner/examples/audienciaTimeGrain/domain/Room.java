@@ -9,8 +9,9 @@ public class Room {
 
     /* Constructor */
 
-    public Room(Integer idRoom){
+    public Room(Integer idRoom, String nombreRoom){
         this.idRoom = idRoom;
+        this.nombreRoom = nombreRoom;
     }
 
     public Room(){}

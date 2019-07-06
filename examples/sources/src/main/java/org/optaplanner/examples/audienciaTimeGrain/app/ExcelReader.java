@@ -15,6 +15,8 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.optaplanner.core.api.score.buildin.hardmediumsoft.HardMediumSoftScore;
+import org.optaplanner.core.api.solver.Solver;
+import org.optaplanner.core.api.solver.SolverFactory;
 import org.optaplanner.examples.audienciaTimeGrain.domain.*;
 import org.optaplanner.examples.common.persistence.AbstractXlsxSolutionFileIO;
 
@@ -50,10 +52,11 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             readDayList();
             readRoomList();
             readJuezList();
-            readDefensorList();
             readFiscalList();
+            readDefensorList();
             readTipoList();
             readAudienciaList();
+            solve();
             return solution;
         }
 
@@ -66,18 +69,19 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             readHeaderCell("Description");
 
             AudienciaScheduleConstraintConfiguration constraintConfiguration = new AudienciaScheduleConstraintConfiguration();
-            constraintConfiguration.setId(0L);
-
-            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.ROOM_CONFLICT, hardScore -> constraintConfiguration.setRoomConflict(HardMediumSoftScore.ofHard(hardScore)), "");
-            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.START_AND_END_ON_SAME_DAY, hardScore -> constraintConfiguration.setRoomConflict(HardMediumSoftScore.ofHard(hardScore)), "");
-            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.DONT_GO_IN_OVERTIME, hardScore -> constraintConfiguration.setRoomConflict(HardMediumSoftScore.ofHard(hardScore)), "");
-            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.DO_NOT_CONFLICT_JUEZ, hardScore -> constraintConfiguration.setRoomConflict(HardMediumSoftScore.ofHard(hardScore)), "");
-            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.DO_NOT_USE_ROOM_IN_PRHOHIBITED_TIME, hardScore -> constraintConfiguration.setRoomConflict(HardMediumSoftScore.ofHard(hardScore)), "");
-            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.DO_NOT_CONFLICT_FISCAL, hardScore -> constraintConfiguration.setRoomConflict(HardMediumSoftScore.ofHard(hardScore)), "");
-            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.DO_NOT_CONFLICT_DEFENSOR, hardScore -> constraintConfiguration.setRoomConflict(HardMediumSoftScore.ofHard(hardScore)), "");
-
-            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.ONE_TIME_GRAIN_BREAK_BETWEEN_TWO_CONSECUTIVE_MEETINGS, softScore -> constraintConfiguration.setRoomConflict(HardMediumSoftScore.ofHard(softScore)), "");
-            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.DO_ALL_MEETINGS_AS_SOON_AS_POSSIBLE, softScore -> constraintConfiguration.setRoomConflict(HardMediumSoftScore.ofHard(softScore)), "");
+//            constraintConfiguration.setId(0L);
+//
+//            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.ROOM_CONFLICT, hardScore -> constraintConfiguration.setRoomConflict(HardMediumSoftScore.ofHard(hardScore)), "");
+//            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.START_AND_END_ON_SAME_DAY, hardScore -> constraintConfiguration.setStartAndEndOnSameDay(HardMediumSoftScore.ofHard(hardScore)), "");
+//            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.DONT_GO_IN_OVERTIME, hardScore -> constraintConfiguration.setDontGoInOvertime(HardMediumSoftScore.ofHard(hardScore)), "");
+//            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.DO_NOT_CONFLICT_JUEZ, hardScore -> constraintConfiguration.setDontConflictJuez(HardMediumSoftScore.ofHard(hardScore)), "");
+//            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.DO_NOT_USE_ROOM_IN_PRHOHIBITED_TIME, hardScore -> constraintConfiguration.setDontConflictRoomTime(HardMediumSoftScore.ofHard(hardScore)), "");
+//            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.DO_NOT_CONFLICT_FISCAL, hardScore -> constraintConfiguration.setDontConflictFiscal(HardMediumSoftScore.ofHard(hardScore)), "");
+//            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.DO_NOT_CONFLICT_DEFENSOR, hardScore -> constraintConfiguration.setDontConflictDefensor(HardMediumSoftScore.ofHard(hardScore)), "");
+////            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.DO_NOT_USE_BREAKS, hardScore -> constraintConfiguration.setDontUseBreaks(HardMediumSoftScore.ofHard(hardScore)), "");
+//
+//            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.ONE_TIME_GRAIN_BREAK_BETWEEN_TWO_CONSECUTIVE_MEETINGS, softScore -> constraintConfiguration.setOneTimeGrainBreakBetweenTwoConsecutiveMeetings(HardMediumSoftScore.ofHard(softScore)), "");
+//            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.DO_ALL_MEETINGS_AS_SOON_AS_POSSIBLE, softScore -> constraintConfiguration.setDoAllMeetingsAsSoonAsPossible(HardMediumSoftScore.ofHard(softScore)), "");
 
             solution.setConstraintConfiguration(constraintConfiguration);
         }
@@ -178,7 +182,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             readHeaderCell("Fin");
             List<Day> dayList = new ArrayList<>(currentSheet.getLastRowNum() - 1);
             List<TimeGrain> timeGrainList = new ArrayList<>();
-            long dayId = 0L, timeGrainId = 0L;
+            int dayId = 0, timeGrainId = 0;
             while (nextRow()) {
                 int diaLeido = LocalDate.parse(nextStringCell().getStringCellValue(), DAY_FORMATTER).getDayOfYear();
                 Day day = null;
@@ -189,11 +193,12 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                 }
                 if(day==null){
                     day = new Day();
-                    day.setIdDay(dayId++);
+                    day.setIdDay(dayId);
                     day.setDayOfYear(diaLeido);
                     dayList.add(day);
-//                    System.out.println("Día " + day.getDateString());
+//                    System.out.println("Día " + day.getDateString() + day.getIdDay());
                 }
+                dayId++;
                 LocalTime startTime = LocalTime.parse(nextStringCell().getStringCellValue(), TIME_FORMATTER);
                 LocalTime endTime = LocalTime.parse(nextStringCell().getStringCellValue(), TIME_FORMATTER);
                 int startMinuteOfDay = startTime.getHour() * 60 + startTime.getMinute();
@@ -201,12 +206,13 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                 for (int i = 0; (endMinuteOfDay - startMinuteOfDay) > i * TimeGrain.GRAIN_LENGTH_IN_MINUTES; i++) {
                     int timeGrainStartingMinuteOfDay = i * TimeGrain.GRAIN_LENGTH_IN_MINUTES + startMinuteOfDay;
                     TimeGrain timeGrain = new TimeGrain();
-                    timeGrain.setIdTimeGrain((int)timeGrainId);
-                    timeGrain.setGrainIndex((int) timeGrainId++);
+                    timeGrain.setIdTimeGrain(timeGrainId);
+                    timeGrain.setGrainIndex(timeGrainId);
                     timeGrain.setDay(day);
                     timeGrain.setStartingMinuteOfDay(timeGrainStartingMinuteOfDay);
                     timeGrainList.add(timeGrain);
-//                    System.out.println(timeGrain.getDateTimeString());
+                    timeGrainId++;
+//                    System.out.println(timeGrain.getDateTimeString() + " " + timeGrain.getIdTimeGrain() + " " + timeGrain.getGrainIndex());
                 }
             }
             solution.setDayList(dayList);
@@ -227,6 +233,9 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
 //                System.out.println(room.getNombreRoom() + " con id numero " + room.getIdRoom());
             }
             solution.setRoomList(roomList);
+//            for(Room room :solution.getRoomList()){
+//                System.out.println(room.getNombreRoom() + " " + room.getIdRoom());
+//            }
 
         }
 
@@ -245,7 +254,9 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             while(nextRow()){
                 Audiencia audiencia = new Audiencia();
                 AudienciaAssignment audienciaAssignment = new AudienciaAssignment();
-                audiencia.setIdAudiencia((int)nextNumericCell().getNumericCellValue());
+                int id = (int)nextNumericCell().getNumericCellValue();
+                audiencia.setIdAudiencia(id);
+                audienciaAssignment.setId(id);
                 readAudienciaDuration(audiencia);
                 int tipoRead = (int)nextNumericCell().getNumericCellValue();
                 int juezRead = (int)nextNumericCell().getNumericCellValue();
@@ -303,7 +314,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                 audienciaList.add(audiencia);
                 audienciaAssignment.setAudiencia(audiencia);
                 audienciaAssignmentList.add(audienciaAssignment);
-                System.out.println();
+//                System.out.println(audiencia.getNumTimeGrains() + " " + audiencia.getDefensor().getNombreDefensor() + audiencia.getFiscal().getNombreFiscal() + audiencia.getJuez().getIdJuez());
                 }
 
             solution.setAudienciaList(audienciaList);
@@ -341,6 +352,17 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                                 + TimeGrain.GRAIN_LENGTH_IN_MINUTES + ".");
             }
             audiencia.setNumTimeGrains((int) durationDouble / TimeGrain.GRAIN_LENGTH_IN_MINUTES);
+        }
+
+        private void solve(){
+            SolverFactory<AudienciaSchedule> solverFactory = SolverFactory.createFromXmlResource("org/optaplanner/examples/audienciaTimeGrain/solver/audienciaTimeGrainSolverConfig.xml");
+            Solver<AudienciaSchedule> solver = solverFactory.buildSolver();
+            AudienciaSchedule solvedAudienciaSchedule = solver.solve(solution);
+//            System.out.println(solvedAudienciaSchedule);
+            for(AudienciaAssignment audienciaAssignment : solvedAudienciaSchedule.getAudienciaAssignmentList()){
+                System.out.println("Audiencia número " + audienciaAssignment.getAudiencia().getIdAudiencia() + " desde " + audienciaAssignment.getStartingTimeGrain().getDateTimeString() + " hasta " + audienciaAssignment.getFinishingTimeString() + " in room number " + audienciaAssignment.getRoom().getNombreRoom());
+            }
+            System.out.println(solver.explainBestScore());
         }
     }
 

@@ -40,6 +40,9 @@ public class AudienciaScheduleConstraintConfiguration {
     //HARD - Que el Defensor no este en más de una Audiencia al mismo tiempo
     public static final String DO_NOT_CONFLICT_DEFENSOR = "Do not conflict Defensor";
 
+    //HARD - Que se respeten los breaks durante un mismo dia
+    public static final String DO_NOT_USE_BREAKS = "Avoid Mid-break";
+
     /* Hard Constraints */
     @ConstraintWeight(ROOM_CONFLICT)
     private HardMediumSoftScore roomConflict = HardMediumSoftScore.ofHard(1);
@@ -55,6 +58,8 @@ public class AudienciaScheduleConstraintConfiguration {
     private HardMediumSoftScore dontConflictFiscal = HardMediumSoftScore.ofHard(1);
     @ConstraintWeight(DO_NOT_CONFLICT_DEFENSOR)
     private HardMediumSoftScore dontConflictDefensor = HardMediumSoftScore.ofHard(1);
+    @ConstraintWeight(DO_NOT_USE_BREAKS)
+    private HardMediumSoftScore dontUseBreaks = HardMediumSoftScore.ofHard(1);
 
 
     /* Soft Constraints */
@@ -141,6 +146,14 @@ public class AudienciaScheduleConstraintConfiguration {
 
     public void setDontConflictDefensor(HardMediumSoftScore dontConflictDefensor) {
         this.dontConflictDefensor = dontConflictDefensor;
+    }
+
+    public HardMediumSoftScore getDontUseBreaks() {
+        return dontUseBreaks;
+    }
+
+    public void setDontUseBreaks(HardMediumSoftScore dontUseBreaks) {
+        this.dontUseBreaks = dontUseBreaks;
     }
 
     public long getId() {

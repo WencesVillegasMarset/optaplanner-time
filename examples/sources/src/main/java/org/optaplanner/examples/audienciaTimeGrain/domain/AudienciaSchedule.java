@@ -153,7 +153,7 @@ public class AudienciaSchedule {
     public String toString() {
         String response = new String();
         for (AudienciaAssignment audienciaAssignment : this.getAudienciaAssignmentList()) {
-            response += "Audiencia número " + audienciaAssignment.getAudiencia().getIdAudiencia() + " desde " + audienciaAssignment.getStartingTimeGrain().getDateTimeString() + " hasta " + audienciaAssignment.getFinishingTimeString() + " in room number " + audienciaAssignment.getRoom().getIdRoom() + '\n';
+            response += "Audiencia número " + audienciaAssignment.getAudiencia().getIdAudiencia() + " desde " + audienciaAssignment.getStartingTimeGrain().getDateTimeString() + " hasta " + audienciaAssignment.getFinishingTimeString() + " in room number " + audienciaAssignment.getRoom().getNombreRoom() + '\n';
         }
         return  response;
     }

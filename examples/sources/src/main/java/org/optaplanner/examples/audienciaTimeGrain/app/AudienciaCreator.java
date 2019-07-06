@@ -58,6 +58,7 @@ public class AudienciaCreator {
             int startingMinuteOfDay = startingMinuteOfDayOptions[i % startingMinuteOfDayOptions.length];
             timeGrain.setStartingMinuteOfDay(startingMinuteOfDay);
             timeGrainList.add(timeGrain);
+//            System.out.println(timeGrain.getDateTimeString() + " " + timeGrain.getIdTimeGrain() + " " + timeGrain.getGrainIndex());
         }
         audienciaSchedule.setDayList(dayList);
         audienciaSchedule.setTimeGrainList(timeGrainList);

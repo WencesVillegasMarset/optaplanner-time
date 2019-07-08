@@ -1,26 +1,31 @@
 package org.optaplanner.examples.audienciaTimeGrain.app;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.time.Year;
+import java.util.*;
+import java.util.function.Function;
 
-import org.apache.poi.ss.usermodel.Cell;
-import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.*;
+import org.apache.poi.ss.util.CellRangeAddress;
+import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.optaplanner.core.api.score.Score;
 import org.optaplanner.core.api.score.buildin.hardmediumsoft.HardMediumSoftScore;
+import org.optaplanner.core.api.score.constraint.ConstraintMatch;
+import org.optaplanner.core.api.score.constraint.Indictment;
 import org.optaplanner.core.api.solver.Solver;
 import org.optaplanner.core.api.solver.SolverFactory;
 import org.optaplanner.examples.audienciaTimeGrain.domain.*;
 import org.optaplanner.examples.common.persistence.AbstractXlsxSolutionFileIO;
 
 import org.optaplanner.examples.audienciaTimeGrain.domain.AudienciaSchedule;
+
+import static java.util.stream.Collectors.joining;
+import static java.util.stream.Collectors.toList;
 
 public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
 
@@ -39,7 +44,8 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return new AudienciaSchedulingXlsxReader(workbook).read();
+        AudienciaSchedule resuelto = new AudienciaSchedulingXlsxReader(workbook).read();
+        return resuelto;
     }
 
     private static class AudienciaSchedulingXlsxReader extends AbstractXlsxReader<AudienciaSchedule>{
@@ -56,7 +62,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             readDefensorList();
             readTipoList();
             readAudienciaList();
-            solve();
+            AudienciaSchedule solution = solve();
             return solution;
         }
 
@@ -365,20 +371,227 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             audiencia.setNumTimeGrains((int) durationDouble / TimeGrain.GRAIN_LENGTH_IN_MINUTES);
         }
 
-        private void solve(){
+        private AudienciaSchedule solve(){
             SolverFactory<AudienciaSchedule> solverFactory = SolverFactory.createFromXmlResource("org/optaplanner/examples/audienciaTimeGrain/solver/audienciaTimeGrainSolverConfig.xml");
             Solver<AudienciaSchedule> solver = solverFactory.buildSolver();
+
             AudienciaSchedule solvedAudienciaSchedule = solver.solve(solution);
 //            System.out.println(solvedAudienciaSchedule);
             for(AudienciaAssignment audienciaAssignment : solvedAudienciaSchedule.getAudienciaAssignmentList()){
                 System.out.println("Audiencia número " + audienciaAssignment.getAudiencia().getIdAudiencia() + " desde " + audienciaAssignment.getStartingTimeGrain().getDateTimeString() + " hasta " + audienciaAssignment.getFinishingTimeString() + " in room number " + audienciaAssignment.getRoom().getNombreRoom());
             }
-            System.out.println(solver.explainBestScore());
+//            System.out.println(solver.explainBestScore());
+            return solvedAudienciaSchedule;
         }
     }
 
     @Override
-    public void write(AudienciaSchedule audienciaSchedule, File file) {
+    public void write(AudienciaSchedule solution, File outputScheduleFile) {
+        try (FileOutputStream out = new FileOutputStream(outputScheduleFile)) {
+            Workbook workbook = new AudienciaSchedulingXlsxWriter(solution).write();
+            workbook.write(out);
+        } catch (IOException | RuntimeException e) {
+            throw new IllegalStateException("Failed writing outputScheduleFile (" + outputScheduleFile
+                    + ") for schedule (" + solution + ").", e);
+        }
+    }
+
+    private class AudienciaSchedulingXlsxWriter extends AbstractXlsxWriter<AudienciaSchedule> {
+
+        AudienciaSchedulingXlsxWriter(AudienciaSchedule solution) {
+            super(solution, Main.SOLVER_CONFIG);
+        }
+
+        @Override
+        public Workbook write() {
+            workbook = new XSSFWorkbook();
+            creationHelper = workbook.getCreationHelper();
+            createStyles();
+            writeRoomsView();
+//            writePersonsView();
+//            writePrintedFormView();
+            writeScoreView(justificationList -> justificationList.stream()
+                    .filter(o -> o instanceof AudienciaAssignment).map(o -> ((AudienciaAssignment) o).toString())
+                    .collect(joining(", ")));
+            return workbook;
+        }
+
+        private void writeRoomsView(){
+            nextSheet("Rooms view", 1, 2, true);
+            nextRow();
+            nextHeaderCell("");
+            writeTimeGrainDaysHeaders();
+            nextRow();
+            nextHeaderCell("Room");
+            writeTimeGrainHoursHeaders();
+            for (Room room : solution.getRoomList()) {
+                nextRow();
+                currentRow.setHeightInPoints(2 * currentSheet.getDefaultRowHeightInPoints());
+                nextCell().setCellValue(room.getNombreRoom());
+                List<AudienciaAssignment> roomAudienciaAssignmentList = solution.getAudienciaAssignmentList().stream().filter(audienciaAssignment -> audienciaAssignment.getRoom() == room).collect(toList());
+                writeAudienciaAssignmentList(roomAudienciaAssignmentList);
+            }
+            autoSizeColumnsWithHeader();
+        }
+
+        private void writeTimeGrainDaysHeaders() {
+            Day previousTimeGrainDay = null;
+            int mergeStart = -1;
+
+            for (TimeGrain timeGrain : solution.getTimeGrainList()) {
+                Day timeGrainDay = timeGrain.getDay();
+                if (timeGrainDay.equals(previousTimeGrainDay)) {
+                    nextHeaderCell("");
+                } else {
+                    if (previousTimeGrainDay != null) {
+                        currentSheet.addMergedRegion(new CellRangeAddress(currentRowNumber, currentRowNumber, mergeStart, currentColumnNumber));
+                    }
+                    nextHeaderCell(DAY_FORMATTER.format(
+                            LocalDate.ofYearDay(Year.now().getValue(), timeGrainDay.getDayOfYear())));
+                    previousTimeGrainDay = timeGrainDay;
+                    mergeStart = currentColumnNumber;
+                }
+            }
+            if (previousTimeGrainDay != null) {
+                currentSheet.addMergedRegion(new CellRangeAddress(currentRowNumber, currentRowNumber, mergeStart, currentColumnNumber));
+            }
+        }
+
+        private void writeTimeGrainHoursHeaders() {
+            for (TimeGrain timeGrain : solution.getTimeGrainList()) {
+                LocalTime startTime = LocalTime.ofSecondOfDay(timeGrain.getStartingMinuteOfDay() * 60);
+                nextHeaderCell(TIME_FORMATTER.format(startTime));
+            }
+        }
+
+        private void writeAudienciaAssignmentList(List<AudienciaAssignment> audienciaAssignmentList) {
+            String[] filteredConstraintNames = {
+                    AudienciaScheduleConstraintConfiguration.ROOM_CONFLICT, AudienciaScheduleConstraintConfiguration.DONT_GO_IN_OVERTIME, AudienciaScheduleConstraintConfiguration.START_AND_END_ON_SAME_DAY, AudienciaScheduleConstraintConfiguration.DO_NOT_CONFLICT_DEFENSOR,
+                    AudienciaScheduleConstraintConfiguration.DO_NOT_CONFLICT_FISCAL, AudienciaScheduleConstraintConfiguration.DO_NOT_CONFLICT_JUEZ, AudienciaScheduleConstraintConfiguration.DO_NOT_USE_ROOM_IN_PRHOHIBITED_TIME, AudienciaScheduleConstraintConfiguration.DO_NOT_USE_BREAKS,
+
+                    AudienciaScheduleConstraintConfiguration.DO_ALL_MEETINGS_AS_SOON_AS_POSSIBLE, AudienciaScheduleConstraintConfiguration.ONE_TIME_GRAIN_BREAK_BETWEEN_TWO_CONSECUTIVE_MEETINGS
+            };
+            int mergeStart = -1;
+            int previousAudienciaRemainingTimeGrains = 0;
+            boolean mergingPreviousAudienciaList = false;
+
+            for (TimeGrain timeGrain : solution.getTimeGrainList()) {
+                List<AudienciaAssignment> timeGrainAudienciaAssignmentList = audienciaAssignmentList.stream()
+                        .filter(audienciaAssignment -> audienciaAssignment.getStartingTimeGrain() == timeGrain)
+                        .collect(toList());
+                if (timeGrainAudienciaAssignmentList.isEmpty() && mergingPreviousAudienciaList && previousAudienciaRemainingTimeGrains > 0) {
+                    previousAudienciaRemainingTimeGrains--;
+                    nextCell();
+                } else {
+                    if (mergingPreviousAudienciaList && mergeStart < currentColumnNumber) {
+                        currentSheet.addMergedRegion(new CellRangeAddress(currentRowNumber, currentRowNumber, mergeStart, currentColumnNumber));
+                    }
+                    nextAudienciaAssignmentListCell(timeGrainAudienciaAssignmentList, audienciaAssignment -> audienciaAssignment.getAudiencia().getIdAudiencia() + "\n  ", Arrays.asList(filteredConstraintNames));
+                    mergingPreviousAudienciaList = !timeGrainAudienciaAssignmentList.isEmpty();
+                    mergeStart = currentColumnNumber;
+                    previousAudienciaRemainingTimeGrains = getLongestDurationInGrains(timeGrainAudienciaAssignmentList) - 1;
+                }
+            }
+
+            if (mergingPreviousAudienciaList && mergeStart < currentColumnNumber) {
+                currentSheet.addMergedRegion(new CellRangeAddress(currentRowNumber, currentRowNumber, mergeStart, currentColumnNumber));
+            }
+        }
+
+        private int getLongestDurationInGrains(List<AudienciaAssignment> audienciaAssignmentList) {
+            int longestDurationInGrains = 1;
+            for (AudienciaAssignment audienciaAssignment : audienciaAssignmentList) {
+                if (audienciaAssignment.getAudiencia().getNumTimeGrains() > longestDurationInGrains) {
+                    longestDurationInGrains = audienciaAssignment.getAudiencia().getNumTimeGrains();
+                }
+            }
+            return longestDurationInGrains;
+        }
+
+        void nextAudienciaAssignmentListCell(List<AudienciaAssignment> audienciaAssignmentList, Function<AudienciaAssignment, String> stringFunction, List<String> filteredConstraintNames) {
+            if (audienciaAssignmentList == null) {
+                audienciaAssignmentList = Collections.emptyList();
+            }
+            HardMediumSoftScore score = audienciaAssignmentList.stream()
+                    .map(indictmentMap::get).filter(Objects::nonNull)
+                    .flatMap(indictment -> indictment.getConstraintMatchSet().stream())
+                    // Filter out filtered constraints
+                    .filter(constraintMatch -> filteredConstraintNames == null
+                            || filteredConstraintNames.contains(constraintMatch.getConstraintName()))
+                    .map(constraintMatch -> (HardMediumSoftScore) constraintMatch.getScore())
+                    // Filter out positive constraints
+                    .filter(indictmentScore -> !(indictmentScore.getHardScore() >= 0 && indictmentScore.getSoftScore() >= 0))
+                    .reduce(Score::add).orElse(HardMediumSoftScore.ZERO);
+
+            XSSFCell cell = getXSSFCellOfScore(score);
+
+            if (!audienciaAssignmentList.isEmpty()) {
+                ClientAnchor anchor = creationHelper.createClientAnchor();
+                anchor.setCol1(cell.getColumnIndex());
+                anchor.setCol2(cell.getColumnIndex() + 4);
+                anchor.setRow1(currentRow.getRowNum());
+                anchor.setRow2(currentRow.getRowNum() + 4);
+                Comment comment = currentDrawing.createCellComment(anchor);
+                String commentString = getAudienciaAssignmentListString(audienciaAssignmentList);
+                comment.setString(creationHelper.createRichTextString(commentString));
+                cell.setCellComment(comment);
+            }
+            cell.setCellValue(audienciaAssignmentList.stream().map(stringFunction).collect(joining("\n")));
+            currentRow.setHeightInPoints(Math.max(currentRow.getHeightInPoints(), audienciaAssignmentList.size() * currentSheet.getDefaultRowHeightInPoints()));
+        }
+
+        private XSSFCell getXSSFCellOfScore(HardMediumSoftScore score) {
+            XSSFCell cell;
+            if (!score.isFeasible()) {
+                cell = nextCell(hardPenaltyStyle);
+            } else if (score.getMediumScore() < 0) {
+                cell = nextCell(mediumPenaltyStyle);
+            } else if (score.getSoftScore() < 0) {
+                cell = nextCell(softPenaltyStyle);
+            } else {
+                cell = nextCell(wrappedStyle);
+            }
+            return cell;
+        }
+
+        private String getAudienciaAssignmentListString(List<AudienciaAssignment> audienciaAssignmentList) {
+            StringBuilder commentString = new StringBuilder(audienciaAssignmentList.size() * 200);
+            for (AudienciaAssignment audienciaAssignment : audienciaAssignmentList) {
+                commentString.append("Date and Time: ").append(audienciaAssignment.getStartingTimeGrain().getDateTimeString()).append("\n")
+                        .append("Duration: ").append(audienciaAssignment.getAudiencia().getNumTimeGrains() * TimeGrain.GRAIN_LENGTH_IN_MINUTES).append(" minutes.\n")
+                        .append("Room: ").append(audienciaAssignment.getRoom().getNombreRoom()).append("\n");
+
+                Indictment indictment = indictmentMap.get(audienciaAssignment);
+                if (indictment != null) {
+                    commentString.append("\n").append(indictment.getScore().toShortString())
+                            .append(" total");
+                    Set<ConstraintMatch> constraintMatchSet = indictment.getConstraintMatchSet();
+                    List<String> constraintNameList = constraintMatchSet.stream()
+                            .map(ConstraintMatch::getConstraintName).distinct().collect(toList());
+                    for (String constraintName : constraintNameList) {
+                        List<ConstraintMatch> filteredConstraintMatchList = constraintMatchSet.stream()
+                                .filter(constraintMatch -> constraintMatch.getConstraintName().equals(constraintName))
+                                .collect(toList());
+                        HardMediumSoftScore sum = filteredConstraintMatchList.stream()
+                                .map(constraintMatch -> (HardMediumSoftScore) constraintMatch.getScore())
+                                .reduce(HardMediumSoftScore::add)
+                                .orElse(HardMediumSoftScore.ZERO);
+                        String justificationTalkCodes = filteredConstraintMatchList.stream()
+                                .flatMap(constraintMatch -> constraintMatch.getJustificationList().stream())
+                                .filter(justification -> justification instanceof AudienciaAssignment && justification != audienciaAssignment)
+                                .distinct().map(o -> Long.toString(((AudienciaAssignment) o).getAudiencia().getIdAudiencia()))
+                                .collect(joining(", "));
+                        commentString.append("\n    ").append(sum.toShortString())
+                                .append(" for ").append(filteredConstraintMatchList.size())
+                                .append(" ").append(constraintName).append("s")
+                                .append("\n        ").append(justificationTalkCodes);
+                    }
+                }
+                commentString.append("\n\n");
+            }
+            return commentString.toString();
+        }
+
 
     }
 

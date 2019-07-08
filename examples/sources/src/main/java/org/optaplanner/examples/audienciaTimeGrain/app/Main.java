@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalTime;
 import java.time.LocalDate;
+import java.util.Scanner;
 
 import org.optaplanner.core.api.solver.SolverFactory;
 import org.optaplanner.examples.audienciaTimeGrain.domain.*;
@@ -23,7 +24,8 @@ public class Main {
         /* Excel Reader */
         File excelFile = new File("src/main/java/org/optaplanner/examples/audienciaTimeGrain/app/test_1.xlsx");
         ExcelReader excelReader = new ExcelReader();
-        AudienciaSchedule unsolvedAudienciaSchedule = excelReader.read(excelFile);
+        AudienciaSchedule solvedAudienciaSchedule = excelReader.read(excelFile);
+        excelReader.write(solvedAudienciaSchedule, new File("src/main/java/org/optaplanner/examples/audienciaTimeGrain/app/results.xlsx") );
 
 //        SolverFactory<AudienciaSchedule> solverFactory = SolverFactory.createFromXmlResource("org/optaplanner/examples/audienciaTimeGrain/solver/audienciaTimeGrainSolverConfig.xml");
 //        Solver<AudienciaSchedule> solver = solverFactory.buildSolver();

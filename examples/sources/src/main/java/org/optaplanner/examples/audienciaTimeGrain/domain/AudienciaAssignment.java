@@ -116,7 +116,7 @@ public class AudienciaAssignment {
     }
 
     /* Devuelve el id del Defensor de la audiencia */
-    public int getDefensor(){ return this.audiencia.getDefensor().getIdDefensor();}
+    public Defensor getDefensor(){ return this.audiencia.getDefensor();}
 
     /* Devuelve el id del Fiscal de la audiencia */
     public int getFiscal(){ return this.audiencia.getFiscal().getIdFiscal();}

@@ -114,11 +114,11 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                 Juez juez = new Juez();
                 juez.setNombre(nextStringCell().getStringCellValue());
                 juez.setIdJuez((int)nextNumericCell().getNumericCellValue());
-                if (!VALID_NAME_PATTERN.matcher(juez.getNombre()).matches()) {
-                    throw new IllegalStateException(
-                            currentPosition() + ": The person name (" + juez.getNombre()
-                                    + ") must match to the regular expression (" + VALID_NAME_PATTERN + ").");
-                }
+//                if (!VALID_NAME_PATTERN.matcher(juez.getNombre()).matches()) {
+//                    throw new IllegalStateException(
+//                            currentPosition() + ": The person name (" + juez.getNombre()
+//                                    + ") must match to the regular expression (" + VALID_NAME_PATTERN + ").");
+//                }
                 juezList.add(juez);
 //                System.out.println(juez.getNombre() + " con id numero " + juez.getIdJuez());
             }
@@ -134,13 +134,16 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
 //            System.out.println("Defensores: ");
             while (nextRow()) {
                 Defensor defensor = new Defensor();
-                defensor.setNombreDefensor(nextStringCell().getStringCellValue());
-                defensor.setIdDefensor((int)nextNumericCell().getNumericCellValue());
-                if (!VALID_NAME_PATTERN.matcher(defensor.getNombreDefensor()).matches()) {
-                    throw new IllegalStateException(
-                            currentPosition() + ": The person name (" + defensor.getNombreDefensor()
-                                    + ") must match to the regular expression (" + VALID_NAME_PATTERN + ").");
-                }
+                String nombredefensor = nextStringCell().getStringCellValue();
+                defensor.setNombreDefensor(nombredefensor);
+                String id = Base64.getEncoder().encodeToString(nombredefensor.getBytes());
+                defensor.setIdDefensor(id);
+                defensor.setIdNegocio((int)nextNumericCell().getNumericCellValue());
+//                if (!VALID_NAME_PATTERN.matcher(defensor.getNombreDefensor()).matches()) {
+//                    throw new IllegalStateException(
+//                            currentPosition() + ": The person name (" + defensor.getNombreDefensor()
+//                                    + ") must match to the regular expression (" + VALID_NAME_PATTERN + ").");
+//                }
                 defensorList.add(defensor);
 //                System.out.println(defensor.getNombreDefensor() + " con id numero " + defensor.getIdDefensor());
             }
@@ -158,11 +161,11 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                 Fiscal fiscal = new Fiscal();
                 fiscal.setNombreFiscal(nextStringCell().getStringCellValue());
                 fiscal.setIdFiscal((int)nextNumericCell().getNumericCellValue());
-                if (!VALID_NAME_PATTERN.matcher(fiscal.getNombreFiscal()).matches()) {
-                    throw new IllegalStateException(
-                            currentPosition() + ": The person name (" + fiscal.getNombreFiscal()
-                                    + ") must match to the regular expression (" + VALID_NAME_PATTERN + ").");
-                }
+//                if (!VALID_NAME_PATTERN.matcher(fiscal.getNombreFiscal()).matches()) {
+//                    throw new IllegalStateException(
+//                            currentPosition() + ": The person name (" + fiscal.getNombreFiscal()
+//                                    + ") must match to the regular expression (" + VALID_NAME_PATTERN + ").");
+//                }
                 fiscalList.add(fiscal);
 //                System.out.println(fiscal.getNombreFiscal() + " con id numero " + fiscal.getIdFiscal());
             }
@@ -180,11 +183,11 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                 Tipo tipo = new Tipo();
                 tipo.setNombreTipo(nextStringCell().getStringCellValue());
                 tipo.setIdTipo((int)nextNumericCell().getNumericCellValue());
-                if (!VALID_NAME_PATTERN.matcher(tipo.getNombreTipo()).matches()) {
-                    throw new IllegalStateException(
-                            currentPosition() + ": The person name (" + tipo.getNombreTipo()
-                                    + ") must match to the regular expression (" + VALID_NAME_PATTERN + ").");
-                }
+//                if (!VALID_NAME_PATTERN.matcher(tipo.getNombreTipo()).matches()) {
+//                    throw new IllegalStateException(
+//                            currentPosition() + ": The person name (" + tipo.getNombreTipo()
+//                                    + ") must match to the regular expression (" + VALID_NAME_PATTERN + ").");
+//                }
                 tipoList.add(tipo);
 //                System.out.println(tipo.getNombreTipo() + " con id numero " + tipo.getIdTipo());
             }
@@ -264,6 +267,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             readHeaderCell("Tipo");
             readHeaderCell("Juez");
             readHeaderCell("Defensor");
+            readHeaderCell("Nombre Defensor");
             readHeaderCell("Fiscal");
 
             List<Audiencia> audienciaList = new ArrayList<>(currentSheet.getLastRowNum() - 1);
@@ -276,9 +280,17 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                 audienciaAssignment.setId(id);
                 readAudienciaDuration(audiencia);
                 int tipoRead = (int)nextNumericCell().getNumericCellValue();
+//                System.out.println(tipoRead);
                 int juezRead = (int)nextNumericCell().getNumericCellValue();
+//                System.out.println(juezRead);
                 int defensorRead = (int)nextNumericCell().getNumericCellValue();
+//                System.out.println(defensorRead);
+                String defensorNombre =  nextStringCell().getStringCellValue();
+//                System.out.println(defensorNombre);
+                defensorNombre = Base64.getEncoder().encodeToString(defensorNombre.getBytes());
+//                System.out.println(defensorNombre);
                 int fiscalRead = (int)nextNumericCell().getNumericCellValue();
+//                System.out.println(fiscalRead);
                 if(containsTipo(solution.getTipoList(), tipoRead)){
                     for (Tipo tipo : solution.getTipoList()) {
                         if (tipo.getIdTipo() == tipoRead){
@@ -300,19 +312,19 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                     }
                 } else {
                     throw new IllegalStateException(
-                            currentPosition() + ": The juez with id (" + tipoRead
+                            currentPosition() + ": The juez with id (" + juezRead
                                     + ") does not exist.");
                 }
-                if(containsDefensor(solution.getDefensorList(), defensorRead)){
+                if(containsDefensor(solution.getDefensorList(), defensorNombre)){
                     for (Defensor defensor : solution.getDefensorList()) {
-                        if (defensor.getIdDefensor() == defensorRead){
+                        if (defensor.getIdDefensor().equals(defensorNombre)){
                             audiencia.setDefensor(defensor);
                             break;
                         }
                     }
                 } else {
                     throw new IllegalStateException(
-                            currentPosition() + ": The defensor with id (" + tipoRead
+                            currentPosition() + ": The defensor with id (" + defensorNombre
                                     + ") does not exist.");
                 }
                 if(containsFiscal(solution.getFiscalList(), fiscalRead)){
@@ -324,7 +336,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                     }
                 } else {
                     throw new IllegalStateException(
-                            currentPosition() + ": The fiscal with id (" + tipoRead
+                            currentPosition() + ": The fiscal with id (" + fiscalRead
                                     + ") does not exist.");
                 }
 
@@ -346,8 +358,8 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             return list.stream().anyMatch(o -> o.getIdJuez() == numero);
         }
 
-        private boolean containsDefensor(final List<Defensor> list, final int numero){
-            return list.stream().anyMatch(o -> o.getIdDefensor() == numero);
+        private boolean containsDefensor(final List<Defensor> list, final String numero){
+            return list.stream().anyMatch(o -> o.getIdDefensor().equals(numero));
         }
 
         private boolean containsFiscal(final List<Fiscal> list, final int numero){
@@ -356,19 +368,24 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
 
 
         private void readAudienciaDuration(Audiencia audiencia) {
-            double durationDouble = nextNumericCell().getNumericCellValue();
-            if (durationDouble <= 0 || durationDouble != Math.floor(durationDouble)) {
+            String durationDouble = nextCell().getStringCellValue();
+//            System.out.println(durationDouble);
+            String[] time = durationDouble.split ( ":" );
+            int hour = Integer.parseInt ( time[0].trim() );
+            int min = Integer.parseInt ( time[1].trim() );
+            int totalMinutes = 60 * hour + min;
+            if (totalMinutes <= 0 || totalMinutes != Math.floor(totalMinutes)) {
                 throw new IllegalStateException(
                         currentPosition() + ": The audiencia with id (" + audiencia.getIdAudiencia()
                                 + ")'s has a duration (" + durationDouble + ") that isn't a strictly positive integer number.");
             }
-            if (durationDouble % TimeGrain.GRAIN_LENGTH_IN_MINUTES != 0) {
+            if (totalMinutes % TimeGrain.GRAIN_LENGTH_IN_MINUTES != 0) {
                 throw new IllegalStateException(
                         currentPosition() + ": The audiencia with id (" + audiencia.getIdAudiencia()
                                 + ") has a duration (" + durationDouble + ") that isn't a multiple of "
                                 + TimeGrain.GRAIN_LENGTH_IN_MINUTES + ".");
             }
-            audiencia.setNumTimeGrains((int) durationDouble / TimeGrain.GRAIN_LENGTH_IN_MINUTES);
+            audiencia.setNumTimeGrains(totalMinutes / TimeGrain.GRAIN_LENGTH_IN_MINUTES);
         }
 
         private AudienciaSchedule solve(){

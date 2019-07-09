@@ -425,8 +425,10 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             creationHelper = workbook.getCreationHelper();
             createStyles();
             writeRoomsView();
-//            writePersonsView();
-//            writePrintedFormView();
+            writeJuezView();
+            writeDefensorView();
+            writeFiscalView();
+            writePrintedFormView();
             writeScoreView(justificationList -> justificationList.stream()
                     .filter(o -> o instanceof AudienciaAssignment).map(o -> ((AudienciaAssignment) o).toString())
                     .collect(joining(", ")));
@@ -448,7 +450,8 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                 List<AudienciaAssignment> roomAudienciaAssignmentList = solution.getAudienciaAssignmentList().stream().filter(audienciaAssignment -> audienciaAssignment.getRoom() == room).collect(toList());
                 writeAudienciaAssignmentList(roomAudienciaAssignmentList);
             }
-            autoSizeColumnsWithHeader();
+            autoSizeColumns();
+            autoSizeColumnOne();
         }
 
         private void writeTimeGrainDaysHeaders() {
@@ -609,6 +612,110 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             return commentString.toString();
         }
 
+        private void writeJuezView(){
+            nextSheet("Juez view", 1, 2, true);
+            nextRow();
+            nextHeaderCell("");
+            writeTimeGrainDaysHeaders();
+            nextRow();
+            nextHeaderCell("Juez");
+            writeTimeGrainHoursHeaders();
+            for(Juez juez : solution.getJuezList()){
+                writeJuezAudienciaList(juez);
+            }
+            autoSizeColumns();
+            autoSizeColumnOne();
+        }
+
+        private void writeJuezAudienciaList(Juez juez){
+            nextRow();
+            currentRow.setHeightInPoints(2 * currentSheet.getDefaultRowHeightInPoints());
+            nextHeaderCell(juez.getNombre());
+
+            List<Audiencia> juezAudienciaList;
+
+            juezAudienciaList = solution.getAudienciaList().stream().filter(audiencia -> audiencia.getJuez().equals(juez)).collect(toList());
+
+            List<AudienciaAssignment> juezAudienciaAssignmentList = solution.getAudienciaAssignmentList().stream()
+                    .filter(audienciaAssignment -> juezAudienciaList.contains(audienciaAssignment.getAudiencia()))
+                    .collect(toList());
+            writeAudienciaAssignmentList(juezAudienciaAssignmentList);
+        }
+
+
+        private void writeFiscalView(){
+            nextSheet("Fiscal view", 1, 2, true);
+            nextRow();
+            nextHeaderCell("");
+            writeTimeGrainDaysHeaders();
+            nextRow();
+            nextHeaderCell("Fiscal");
+            writeTimeGrainHoursHeaders();
+            for(Fiscal fiscal : solution.getFiscalList()){
+                writeFiscalAudienciaList(fiscal);
+            }
+            autoSizeColumns();
+            autoSizeColumnOne();
+        }
+
+        private void writeFiscalAudienciaList(Fiscal fiscal){
+            nextRow();
+            currentRow.setHeightInPoints(2 * currentSheet.getDefaultRowHeightInPoints());
+            nextHeaderCell(fiscal.getNombreFiscal());
+
+            List<Audiencia> fiscalAudienciaList;
+
+            fiscalAudienciaList = solution.getAudienciaList().stream().filter(audiencia -> audiencia.getFiscal().equals(fiscal)).collect(toList());
+
+            List<AudienciaAssignment> fiscalAudienciaAssignmentList = solution.getAudienciaAssignmentList().stream()
+                    .filter(audienciaAssignment -> fiscalAudienciaList.contains(audienciaAssignment.getAudiencia()))
+                    .collect(toList());
+            writeAudienciaAssignmentList(fiscalAudienciaAssignmentList);
+        }
+
+        private void writeDefensorView(){
+            nextSheet("Defensor view", 1, 2, true);
+            nextRow();
+            nextHeaderCell("");
+            writeTimeGrainDaysHeaders();
+            nextRow();
+            nextHeaderCell("Defensor");
+            writeTimeGrainHoursHeaders();
+            for(Defensor defensor : solution.getDefensorList()){
+                writeDefensorAudienciaList(defensor);
+            }
+            autoSizeColumns();
+            autoSizeColumnOne();
+        }
+
+        private void writeDefensorAudienciaList(Defensor defensor){
+            nextRow();
+            currentRow.setHeightInPoints(2 * currentSheet.getDefaultRowHeightInPoints());
+            nextHeaderCell(defensor.getNombreDefensor());
+
+            List<Audiencia> defensorAudienciaList;
+
+            defensorAudienciaList = solution.getAudienciaList().stream().filter(audiencia -> audiencia.getDefensor().equals(defensor)).collect(toList());
+
+            List<AudienciaAssignment> defensorAudienciaAssignmentList = solution.getAudienciaAssignmentList().stream()
+                    .filter(audienciaAssignment -> defensorAudienciaList.contains(audienciaAssignment.getAudiencia()))
+                    .collect(toList());
+            writeAudienciaAssignmentList(defensorAudienciaAssignmentList);
+        }
+
+        private void writePrintedFormView(){
+
+        }
+
+        private void autoSizeColumns(){
+            for (int i = 1; i < headerCellCount; i++) {
+                currentSheet.setColumnWidth(i, 2000);
+            }
+        }
+
+        private void autoSizeColumnOne(){
+            currentSheet.setColumnWidth(0, 6000);
+        }
 
     }
 

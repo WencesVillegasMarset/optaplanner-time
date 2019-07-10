@@ -11,7 +11,7 @@ public class Day{
 
     private int dayOfYear; //Dia del año
     private long idDay; //ID
-    private static final DateTimeFormatter DAY_FORMATTER = DateTimeFormatter.ofPattern("E", Locale.ENGLISH); //Formato de fecha
+    private static final DateTimeFormatter DAY_FORMATTER = DateTimeFormatter.ofPattern("E dd-MM-yyyy", Locale.ENGLISH); //Formato de fecha
 
     /* Setters y Getters */
 

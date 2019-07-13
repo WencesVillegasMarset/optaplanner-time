@@ -23,13 +23,16 @@
 
   <localSearch>
     <localSearchType>TABU_SEARCH</localSearchType>
+    <termination>
+      <unimprovedSecondsSpentLimit>200</unimprovedSecondsSpentLimit>
+      <unimprovedScoreDifferenceThreshold>0hard/0medium/50soft</unimprovedScoreDifferenceThreshold>
+      <!--    <minutesSpentLimit>30</minutesSpentLimit>-->
+    </termination>
+
   </localSearch>
 
 
 
 
-  <termination>
-    <unimprovedSecondsSpentLimit>60</unimprovedSecondsSpentLimit>
-<!--    <minutesSpentLimit>30</minutesSpentLimit>-->
-  </termination>
+
 </solver>

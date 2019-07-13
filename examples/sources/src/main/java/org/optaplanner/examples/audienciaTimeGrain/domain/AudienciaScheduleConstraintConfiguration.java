@@ -1,5 +1,6 @@
 package org.optaplanner.examples.audienciaTimeGrain.domain;
 
+import org.apache.commons.math3.fitting.HarmonicCurveFitter;
 import org.optaplanner.core.api.domain.constraintweight.ConstraintConfiguration;
 import org.optaplanner.core.api.domain.constraintweight.ConstraintWeight;
 import org.optaplanner.core.api.score.buildin.hardmediumsoft.HardMediumSoftScore;
@@ -43,6 +44,12 @@ public class AudienciaScheduleConstraintConfiguration {
     //HARD - Que se respeten los breaks durante un mismo dia
     public static final String DO_NOT_USE_BREAKS = "Avoid Mid-break";
 
+    //SOFT - Que se asignen similares cantidades de audiencias por Room
+    public static final String DISTRIBUTE_WORKLOAD_FAIRLY = "Distribute workload fairly";
+
+    //HARD - Que se resteten las ubicaciones
+    public static final String RESPECT_LOCATIONS = "Respect Locations";
+
     /* Hard Constraints */
     @ConstraintWeight(ROOM_CONFLICT)
     private HardMediumSoftScore roomConflict = HardMediumSoftScore.ofHard(1);
@@ -60,6 +67,8 @@ public class AudienciaScheduleConstraintConfiguration {
     private HardMediumSoftScore dontConflictDefensor = HardMediumSoftScore.ofHard(1);
     @ConstraintWeight(DO_NOT_USE_BREAKS)
     private HardMediumSoftScore dontUseBreaks = HardMediumSoftScore.ofHard(1);
+    @ConstraintWeight(RESPECT_LOCATIONS)
+    private HardMediumSoftScore respectLocations = HardMediumSoftScore.ofHard(1);
 
 
     /* Soft Constraints */
@@ -68,6 +77,8 @@ public class AudienciaScheduleConstraintConfiguration {
     private HardMediumSoftScore oneTimeGrainBreakBetweenTwoConsecutiveMeetings = HardMediumSoftScore.ofSoft(100);
     @ConstraintWeight(DO_ALL_MEETINGS_AS_SOON_AS_POSSIBLE)
     private HardMediumSoftScore doAllMeetingsAsSoonAsPossible = HardMediumSoftScore.ofSoft(1);
+    @ConstraintWeight(DISTRIBUTE_WORKLOAD_FAIRLY)
+    private HardMediumSoftScore distributeWorkloadFairly = HardMediumSoftScore.ofSoft(1);
 
     /* Constructor */
 
@@ -154,6 +165,22 @@ public class AudienciaScheduleConstraintConfiguration {
 
     public void setDontUseBreaks(HardMediumSoftScore dontUseBreaks) {
         this.dontUseBreaks = dontUseBreaks;
+    }
+
+    public HardMediumSoftScore getDistributeWorkloadFairly() {
+        return distributeWorkloadFairly;
+    }
+
+    public void setDistributeWorkloadFairly(HardMediumSoftScore distributeWorkloadFairly) {
+        this.distributeWorkloadFairly = distributeWorkloadFairly;
+    }
+
+    public HardMediumSoftScore getRespectLocations() {
+        return respectLocations;
+    }
+
+    public void setRespectLocations(HardMediumSoftScore respectLocations) {
+        this.respectLocations = respectLocations;
     }
 
     public long getId() {

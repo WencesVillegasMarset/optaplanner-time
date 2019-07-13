@@ -24,6 +24,7 @@ import org.optaplanner.examples.audienciaTimeGrain.domain.AudienciaAssignment;
 import org.optaplanner.examples.audienciaTimeGrain.domain.AudienciaSchedule;
 import org.optaplanner.examples.audienciaTimeGrain.domain.Room;
 import org.optaplanner.examples.audienciaTimeGrain.domain.TimeGrain;
+import java.util.List;
 
 global HardMediumSoftScoreHolder scoreHolder;
 
@@ -97,6 +98,13 @@ rule "Do not use room in prohibited time"
         scoreHolder.penalize(kcontext);
 end
 
+rule "Respect Locations"
+    when
+        AudienciaAssignment(room != null, audiencia.ubicacion != room.ubicacion)
+    then
+        scoreHolder.penalize(kcontext);
+end
+
 // ############################################################################
 // Soft constraints usually
 // ############################################################################
@@ -116,6 +124,14 @@ rule "Do all meetings as soon as possible"
         AudienciaAssignment(startingTimeGrain != null, $lastTimeGrainIndex : lastTimeGrainIndex)
     then
         scoreHolder.penalize(kcontext, $lastTimeGrainIndex);
+end
+
+rule "Distribute workload fairly"
+    when
+        $left : AudienciaAssignment($id : id, $room : room)
+        $roomList : List() from collect(AudienciaAssignment(id != $id, room == $room))
+    then
+        scoreHolder.penalize(kcontext, $roomList.size() ^ 2);
 end
 
 

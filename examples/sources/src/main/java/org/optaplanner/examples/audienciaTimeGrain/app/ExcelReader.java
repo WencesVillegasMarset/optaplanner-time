@@ -86,9 +86,11 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.DO_NOT_CONFLICT_FISCAL, hardScore -> constraintConfiguration.setDontConflictFiscal(HardMediumSoftScore.ofHard(hardScore)), "");
             readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.DO_NOT_CONFLICT_DEFENSOR, hardScore -> constraintConfiguration.setDontConflictDefensor(HardMediumSoftScore.ofHard(hardScore)), "");
             readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.DO_NOT_USE_BREAKS, hardScore -> constraintConfiguration.setDontUseBreaks(HardMediumSoftScore.ofHard(hardScore)), "");
+            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.RESPECT_LOCATIONS, hardScore -> constraintConfiguration.setRespectLocations(HardMediumSoftScore.ofHard(hardScore)), "");
 
             readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.ONE_TIME_GRAIN_BREAK_BETWEEN_TWO_CONSECUTIVE_MEETINGS, softScore -> constraintConfiguration.setOneTimeGrainBreakBetweenTwoConsecutiveMeetings(HardMediumSoftScore.ofSoft(softScore)), "");
             readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.DO_ALL_MEETINGS_AS_SOON_AS_POSSIBLE, softScore -> constraintConfiguration.setDoAllMeetingsAsSoonAsPossible(HardMediumSoftScore.ofSoft(softScore)), "");
+            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.DISTRIBUTE_WORKLOAD_FAIRLY, softScore -> constraintConfiguration.setDistributeWorkloadFairly(HardMediumSoftScore.ofSoft(softScore)), "");
 
 //            System.out.println(constraintConfiguration.getRoomConflict());
 //            System.out.println(constraintConfiguration.getStartAndEndOnSameDay());
@@ -245,11 +247,13 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             nextRow(false);
             readHeaderCell("Sala");
             readHeaderCell("Id");
+            readHeaderCell("Ubicacion");
             List<Room> roomList = new ArrayList<>(currentSheet.getLastRowNum() - 1);
             while (nextRow()){
                 Room room = new Room();
                 room.setNombreRoom(nextStringCell().getStringCellValue());
                 room.setIdRoom((int)nextNumericCell().getNumericCellValue());
+                room.setUbicacion((int)nextNumericCell().getNumericCellValue());
                 roomList.add(room);
 //                System.out.println(room.getNombreRoom() + " con id numero " + room.getIdRoom());
             }
@@ -292,6 +296,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
 //                System.out.println(defensorNombre);
                 int fiscalRead = (int)nextNumericCell().getNumericCellValue();
 //                System.out.println(fiscalRead);
+                audiencia.setUbicacion((int)nextNumericCell().getNumericCellValue());
                 if(containsTipo(solution.getTipoList(), tipoRead)){
                     for (Tipo tipo : solution.getTipoList()) {
                         if (tipo.getIdTipo() == tipoRead){

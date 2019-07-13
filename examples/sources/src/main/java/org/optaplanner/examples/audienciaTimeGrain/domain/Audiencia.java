@@ -10,16 +10,18 @@ public class Audiencia {
     private Juez juez; //Juez
     private Defensor defensor; //Defensor
     private Fiscal fiscal; //Fiscal
+    private int ubicacion; //Ubicacion geografica
 
     /* Constructors */
 
-    public Audiencia(int idAudiencia, int numTimeGrains, Tipo tipo, Juez juez, Defensor defensor, Fiscal fiscal){
+    public Audiencia(int idAudiencia, int numTimeGrains, Tipo tipo, Juez juez, Defensor defensor, Fiscal fiscal, int ubicacion){
         this.idAudiencia = idAudiencia;
         this.numTimeGrains = numTimeGrains;
         this.tipo = tipo;
         this.juez = juez;
         this.defensor = defensor;
         this.fiscal = fiscal;
+        this.ubicacion = ubicacion;
     }
 
     public Audiencia(){}
@@ -72,5 +74,13 @@ public class Audiencia {
 
     public void setFiscal(Fiscal fiscal) {
         this.fiscal = fiscal;
+    }
+
+    public int getUbicacion() {
+        return ubicacion;
+    }
+
+    public void setUbicacion(int ubicacion) {
+        this.ubicacion = ubicacion;
     }
 }

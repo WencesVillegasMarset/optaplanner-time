@@ -22,10 +22,10 @@
   </constructionHeuristic>
 
   <localSearch>
-    <localSearchType>TABU_SEARCH</localSearchType>
+<!--    <localSearchType>TABU_SEARCH</localSearchType>-->
     <termination>
-      <unimprovedSecondsSpentLimit>200</unimprovedSecondsSpentLimit>
-      <unimprovedScoreDifferenceThreshold>0hard/0medium/50soft</unimprovedScoreDifferenceThreshold>
+      <unimprovedSecondsSpentLimit>30</unimprovedSecondsSpentLimit>
+      <unimprovedScoreDifferenceThreshold>0hard/0medium/400soft</unimprovedScoreDifferenceThreshold>
       <!--    <minutesSpentLimit>30</minutesSpentLimit>-->
     </termination>
 

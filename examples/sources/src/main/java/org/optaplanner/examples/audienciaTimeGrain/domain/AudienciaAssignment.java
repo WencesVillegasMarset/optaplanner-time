@@ -4,6 +4,8 @@ import org.optaplanner.core.api.domain.entity.PlanningEntity;
 import org.optaplanner.core.api.domain.variable.PlanningVariable;
 
 import java.sql.Time;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 
@@ -147,6 +149,34 @@ public class AudienciaAssignment {
         return response;
     }
 
+    public LocalDate getFechaPedido(){
+        return audiencia.getFechaPedido();
+    }
 
+    public int isMinimumStartingTime(){
+        LocalDate timeGrainDate = this.startingTimeGrain.getDate();
+        LocalDate pedidoDate = this.audiencia.getFechaPedido();
+        long days = ChronoUnit.DAYS.between(pedidoDate, timeGrainDate);
+//        System.out.println(days);
+
+        if(days > audiencia.getTipo().getTiempoRealizacionMinimo()){
+            return 0;
+        } else {
+            return audiencia.getTipo().getTiempoRealizacionMinimo() - (int)days;
+        }
+    }
+
+    public boolean isMaximumStartingTime(){
+        LocalDate timeGrainDate = startingTimeGrain.getDate();
+        LocalDate pedidoDate = audiencia.getFechaPedido();
+        long days = ChronoUnit.DAYS.between(pedidoDate, timeGrainDate);
+
+        if(audiencia.getTipo().getTiempoRealizacionMaximo() < days){
+            return true;
+        } else {
+            return false;
+        }
+
+    }
 
 }

@@ -50,6 +50,12 @@ public class AudienciaScheduleConstraintConfiguration {
     //HARD - Que se resteten las ubicaciones
     public static final String RESPECT_LOCATIONS = "Respect Locations";
 
+    //HARD - Que se respeten los tiempos minimos de realizacion
+    public static final String RESPECT_MINIMUM_STARTING_TIME = "Respect Minimum Starting Time";
+
+    //HARD - Que se respeten los tiempos maximos de realizacion
+    public static final String RESPECT_MAXIMUM_STARTING_TIME = "Respect Maximum Starting Time";
+
     /* Hard Constraints */
     @ConstraintWeight(ROOM_CONFLICT)
     private HardMediumSoftScore roomConflict = HardMediumSoftScore.ofHard(1);
@@ -69,6 +75,10 @@ public class AudienciaScheduleConstraintConfiguration {
     private HardMediumSoftScore dontUseBreaks = HardMediumSoftScore.ofHard(1);
     @ConstraintWeight(RESPECT_LOCATIONS)
     private HardMediumSoftScore respectLocations = HardMediumSoftScore.ofHard(1);
+    @ConstraintWeight(RESPECT_MINIMUM_STARTING_TIME)
+    private HardMediumSoftScore respectMinimumStartingTime = HardMediumSoftScore.ofHard(1);
+    @ConstraintWeight(RESPECT_MAXIMUM_STARTING_TIME)
+    private HardMediumSoftScore respectMaximumStartingTime = HardMediumSoftScore.ofHard(1);
 
 
     /* Soft Constraints */
@@ -181,6 +191,22 @@ public class AudienciaScheduleConstraintConfiguration {
 
     public void setRespectLocations(HardMediumSoftScore respectLocations) {
         this.respectLocations = respectLocations;
+    }
+
+    public HardMediumSoftScore getRespectMinimumStartingTime() {
+        return respectMinimumStartingTime;
+    }
+
+    public void setRespectMinimumStartingTime(HardMediumSoftScore respectMinimumStartingTime) {
+        this.respectMinimumStartingTime = respectMinimumStartingTime;
+    }
+
+    public HardMediumSoftScore getRespectMaximumStartingTime() {
+        return respectMaximumStartingTime;
+    }
+
+    public void setRespectMaximumStartingTime(HardMediumSoftScore respectMaximumStartingTime) {
+        this.respectMaximumStartingTime = respectMaximumStartingTime;
     }
 
     public long getId() {

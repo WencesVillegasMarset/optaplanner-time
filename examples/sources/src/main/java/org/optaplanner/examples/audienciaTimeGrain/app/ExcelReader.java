@@ -87,6 +87,9 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.DO_NOT_CONFLICT_DEFENSOR, hardScore -> constraintConfiguration.setDontConflictDefensor(HardMediumSoftScore.ofHard(hardScore)), "");
             readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.DO_NOT_USE_BREAKS, hardScore -> constraintConfiguration.setDontUseBreaks(HardMediumSoftScore.ofHard(hardScore)), "");
             readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.RESPECT_LOCATIONS, hardScore -> constraintConfiguration.setRespectLocations(HardMediumSoftScore.ofHard(hardScore)), "");
+            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.RESPECT_MINIMUM_STARTING_TIME, hardScore -> constraintConfiguration.setRespectMinimumStartingTime(HardMediumSoftScore.ofHard(hardScore)), "");
+            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.RESPECT_MAXIMUM_STARTING_TIME, hardScore -> constraintConfiguration.setRespectMaximumStartingTime(HardMediumSoftScore.ofHard(hardScore)), "");
+
 
             readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.ONE_TIME_GRAIN_BREAK_BETWEEN_TWO_CONSECUTIVE_MEETINGS, softScore -> constraintConfiguration.setOneTimeGrainBreakBetweenTwoConsecutiveMeetings(HardMediumSoftScore.ofSoft(softScore)), "");
             readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.DO_ALL_MEETINGS_AS_SOON_AS_POSSIBLE, softScore -> constraintConfiguration.setDoAllMeetingsAsSoonAsPossible(HardMediumSoftScore.ofSoft(softScore)), "");
@@ -180,12 +183,29 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             nextRow(false);
             readHeaderCell("Tipo");
             readHeaderCell("Id");
+            readHeaderCell("Tiempo Realizacion Minimo");
+            readHeaderCell("Tiempo Realizacion Maximo");
             List<Tipo> tipoList = new ArrayList<>(currentSheet.getLastRowNum() - 1);
 //            System.out.println("Tipos: ");
             while (nextRow()){
                 Tipo tipo = new Tipo();
                 tipo.setNombreTipo(nextStringCell().getStringCellValue());
                 tipo.setIdTipo((int)nextNumericCell().getNumericCellValue());
+                XSSFCell minimo = nextCell();
+                if(minimo.getNumericCellValue() != 0){
+                    tipo.setTiempoRealizacionMinimo((int)minimo.getNumericCellValue());
+//                    System.out.println((int)minimo.getNumericCellValue());
+                }else {
+                    tipo.setTiempoRealizacionMinimo(1);
+                }
+                XSSFCell maximo = nextCell();
+                if(maximo.getNumericCellValue() != 0){
+                    tipo.setTiempoRealizacionMaximo((int)maximo.getNumericCellValue());
+//                    System.out.println((int)maximo.getNumericCellValue());
+                }else {
+                    tipo.setTiempoRealizacionMaximo(1);
+                }
+
 //                if (!VALID_NAME_PATTERN.matcher(tipo.getNombreTipo()).matches()) {
 //                    throw new IllegalStateException(
 //                            currentPosition() + ": The person name (" + tipo.getNombreTipo()
@@ -207,7 +227,8 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             List<TimeGrain> timeGrainList = new ArrayList<>();
             int dayId = 0, timeGrainId = 0;
             while (nextRow()) {
-                int diaLeido = LocalDate.parse(nextStringCell().getStringCellValue(), DAY_FORMATTER).getDayOfYear();
+                LocalDate diaLeidoCompleto = LocalDate.parse(nextStringCell().getStringCellValue(), DAY_FORMATTER);
+                int diaLeido = diaLeidoCompleto.getDayOfYear();
                 Day day = null;
                 for(Day writtenDay : dayList){
                     if(writtenDay.getDayOfYear() == diaLeido){
@@ -218,6 +239,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                     day = new Day();
                     day.setIdDay(dayId);
                     day.setDayOfYear(diaLeido);
+                    day.setDate(diaLeidoCompleto);
                     dayList.add(day);
 //                    System.out.println("Día " + day.getDateString() + day.getIdDay());
                 }
@@ -274,6 +296,8 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             readHeaderCell("Defensor");
             readHeaderCell("Nombre Defensor");
             readHeaderCell("Fiscal");
+            readHeaderCell("Ubicacion");
+            readHeaderCell("Fecha de Pedido");
 
             List<Audiencia> audienciaList = new ArrayList<>(currentSheet.getLastRowNum() - 1);
             List<AudienciaAssignment> audienciaAssignmentList = new ArrayList<>(currentSheet.getLastRowNum() - 1);
@@ -297,6 +321,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                 int fiscalRead = (int)nextNumericCell().getNumericCellValue();
 //                System.out.println(fiscalRead);
                 audiencia.setUbicacion((int)nextNumericCell().getNumericCellValue());
+                audiencia.setFechaPedido(LocalDate.parse(nextStringCell().getStringCellValue(), DAY_FORMATTER));
                 if(containsTipo(solution.getTipoList(), tipoRead)){
                     for (Tipo tipo : solution.getTipoList()) {
                         if (tipo.getIdTipo() == tipoRead){

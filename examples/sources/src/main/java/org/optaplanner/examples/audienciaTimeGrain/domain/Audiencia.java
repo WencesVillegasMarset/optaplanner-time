@@ -1,5 +1,7 @@
 package org.optaplanner.examples.audienciaTimeGrain.domain;
 
+import java.time.LocalDate;
+
 public class Audiencia {
 
     /* Variables */
@@ -11,10 +13,11 @@ public class Audiencia {
     private Defensor defensor; //Defensor
     private Fiscal fiscal; //Fiscal
     private int ubicacion; //Ubicacion geografica
+    private LocalDate fechaPedido;
 
     /* Constructors */
 
-    public Audiencia(int idAudiencia, int numTimeGrains, Tipo tipo, Juez juez, Defensor defensor, Fiscal fiscal, int ubicacion){
+    public Audiencia(int idAudiencia, int numTimeGrains, Tipo tipo, Juez juez, Defensor defensor, Fiscal fiscal, int ubicacion, LocalDate fechaPedido){
         this.idAudiencia = idAudiencia;
         this.numTimeGrains = numTimeGrains;
         this.tipo = tipo;
@@ -22,6 +25,7 @@ public class Audiencia {
         this.defensor = defensor;
         this.fiscal = fiscal;
         this.ubicacion = ubicacion;
+        this.fechaPedido = fechaPedido;
     }
 
     public Audiencia(){}
@@ -82,5 +86,13 @@ public class Audiencia {
 
     public void setUbicacion(int ubicacion) {
         this.ubicacion = ubicacion;
+    }
+
+    public LocalDate getFechaPedido() {
+        return fechaPedido;
+    }
+
+    public void setFechaPedido(LocalDate fechaPedido) {
+        this.fechaPedido = fechaPedido;
     }
 }

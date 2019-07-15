@@ -105,6 +105,20 @@ rule "Respect Locations"
         scoreHolder.penalize(kcontext);
 end
 
+rule "Respect Minimum Starting Time"
+    when
+        $left : AudienciaAssignment(startingTimeGrain != null, isMinimumStartingTime() > 0)
+    then
+        scoreHolder.penalize(kcontext, $left.isMinimumStartingTime());
+end
+
+rule "Respect Maximum Starting Time"
+    when
+        AudienciaAssignment(startingTimeGrain != null, isMaximumStartingTime())
+    then
+        scoreHolder.penalize(kcontext);
+end
+
 // ############################################################################
 // Soft constraints usually
 // ############################################################################

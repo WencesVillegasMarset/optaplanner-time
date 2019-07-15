@@ -11,6 +11,7 @@ public class Day{
 
     private int dayOfYear; //Dia del año
     private long idDay; //ID
+    private LocalDate date;
     private static final DateTimeFormatter DAY_FORMATTER = DateTimeFormatter.ofPattern("E dd-MM-yyyy", Locale.ENGLISH); //Formato de fecha
 
     /* Setters y Getters */
@@ -37,9 +38,14 @@ public class Day{
         return DAY_FORMATTER.format(toDate());
     } //Devuelve la fecha en String
 
+
     public LocalDate toDate() {
-        return LocalDate.ofYearDay(LocalDate.now().getYear(), dayOfYear);
-    } //Devuelve la fecha en LocalDate
+        return date;
+    }
+
+    public void setDate(LocalDate date) {
+        this.date = date;
+    }
 
     @Override
     public String toString() {

@@ -25,7 +25,7 @@
 <!--    <localSearchType>TABU_SEARCH</localSearchType>-->
     <termination>
       <unimprovedSecondsSpentLimit>30</unimprovedSecondsSpentLimit>
-      <unimprovedScoreDifferenceThreshold>0hard/0medium/400soft</unimprovedScoreDifferenceThreshold>
+      <unimprovedScoreDifferenceThreshold>0hard/0medium/300soft</unimprovedScoreDifferenceThreshold>
       <!--    <minutesSpentLimit>30</minutesSpentLimit>-->
     </termination>
 

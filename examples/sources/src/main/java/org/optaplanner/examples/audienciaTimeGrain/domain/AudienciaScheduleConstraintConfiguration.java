@@ -44,8 +44,8 @@ public class AudienciaScheduleConstraintConfiguration {
     //HARD - Que se respeten los breaks durante un mismo dia
     public static final String DO_NOT_USE_BREAKS = "Avoid Mid-break";
 
-    //SOFT - Que se asignen similares cantidades de audiencias por Room
-    public static final String DISTRIBUTE_WORKLOAD_FAIRLY = "Distribute workload fairly";
+//    //SOFT - Que se asignen similares cantidades de audiencias por Room
+//    public static final String DISTRIBUTE_WORKLOAD_FAIRLY = "Distribute workload fairly";
 
     //HARD - Que se resteten las ubicaciones
     public static final String RESPECT_LOCATIONS = "Respect Locations";
@@ -53,8 +53,17 @@ public class AudienciaScheduleConstraintConfiguration {
     //HARD - Que se respeten los tiempos minimos de realizacion
     public static final String RESPECT_MINIMUM_STARTING_TIME = "Respect Minimum Starting Time";
 
-    //HARD - Que se respeten los tiempos maximos de realizacion
-    public static final String RESPECT_MAXIMUM_STARTING_TIME = "Respect Maximum Starting Time";
+//    //HARD - Que se respeten los tiempos maximos de realizacion
+//    public static final String RESPECT_MAXIMUM_STARTING_TIME = "Respect Maximum Starting Time";
+
+    //SOFT - One TimeGrain between two consecutive audiencias with the same Juez
+    public static final String ONE_TIMEGRAIN_JUEZ = "One TimeGrain Juez";
+
+    //SOFT - One TimeGrain between two consecutive audiencias with the same Defensor
+    public static final String ONE_TIMEGRAIN_DEFENSOR = "One TimeGrain Defensor";
+
+    //SOFT - One TimeGrain between two consecutive audiencias with the same Fiscal
+    public static final String ONE_TIMEGRAIN_FISCAL = "One TimeGrain Fiscal";
 
     /* Hard Constraints */
     @ConstraintWeight(ROOM_CONFLICT)
@@ -77,8 +86,8 @@ public class AudienciaScheduleConstraintConfiguration {
     private HardMediumSoftScore respectLocations = HardMediumSoftScore.ofHard(1);
     @ConstraintWeight(RESPECT_MINIMUM_STARTING_TIME)
     private HardMediumSoftScore respectMinimumStartingTime = HardMediumSoftScore.ofHard(1);
-    @ConstraintWeight(RESPECT_MAXIMUM_STARTING_TIME)
-    private HardMediumSoftScore respectMaximumStartingTime = HardMediumSoftScore.ofHard(1);
+//    @ConstraintWeight(RESPECT_MAXIMUM_STARTING_TIME)
+//    private HardMediumSoftScore respectMaximumStartingTime = HardMediumSoftScore.ofHard(1);
 
 
     /* Soft Constraints */
@@ -87,8 +96,15 @@ public class AudienciaScheduleConstraintConfiguration {
     private HardMediumSoftScore oneTimeGrainBreakBetweenTwoConsecutiveMeetings = HardMediumSoftScore.ofSoft(100);
     @ConstraintWeight(DO_ALL_MEETINGS_AS_SOON_AS_POSSIBLE)
     private HardMediumSoftScore doAllMeetingsAsSoonAsPossible = HardMediumSoftScore.ofSoft(1);
-    @ConstraintWeight(DISTRIBUTE_WORKLOAD_FAIRLY)
-    private HardMediumSoftScore distributeWorkloadFairly = HardMediumSoftScore.ofSoft(1);
+//    @ConstraintWeight(DISTRIBUTE_WORKLOAD_FAIRLY)
+//    private HardMediumSoftScore distributeWorkloadFairly = HardMediumSoftScore.ofSoft(1);
+    @ConstraintWeight(ONE_TIMEGRAIN_JUEZ)
+    private HardMediumSoftScore oneTimeGrainJuez = HardMediumSoftScore.ofSoft(100);
+    @ConstraintWeight(ONE_TIMEGRAIN_DEFENSOR)
+    private HardMediumSoftScore oneTimeGrainDefensor = HardMediumSoftScore.ofSoft(100);
+    @ConstraintWeight(ONE_TIMEGRAIN_FISCAL)
+    private HardMediumSoftScore oneTimeGrainFiscal = HardMediumSoftScore.ofSoft(100);
+
 
     /* Constructor */
 
@@ -177,13 +193,13 @@ public class AudienciaScheduleConstraintConfiguration {
         this.dontUseBreaks = dontUseBreaks;
     }
 
-    public HardMediumSoftScore getDistributeWorkloadFairly() {
-        return distributeWorkloadFairly;
-    }
-
-    public void setDistributeWorkloadFairly(HardMediumSoftScore distributeWorkloadFairly) {
-        this.distributeWorkloadFairly = distributeWorkloadFairly;
-    }
+//    public HardMediumSoftScore getDistributeWorkloadFairly() {
+//        return distributeWorkloadFairly;
+//    }
+//
+//    public void setDistributeWorkloadFairly(HardMediumSoftScore distributeWorkloadFairly) {
+//        this.distributeWorkloadFairly = distributeWorkloadFairly;
+//    }
 
     public HardMediumSoftScore getRespectLocations() {
         return respectLocations;
@@ -201,12 +217,36 @@ public class AudienciaScheduleConstraintConfiguration {
         this.respectMinimumStartingTime = respectMinimumStartingTime;
     }
 
-    public HardMediumSoftScore getRespectMaximumStartingTime() {
-        return respectMaximumStartingTime;
+//    public HardMediumSoftScore getRespectMaximumStartingTime() {
+//        return respectMaximumStartingTime;
+//    }
+//
+//    public void setRespectMaximumStartingTime(HardMediumSoftScore respectMaximumStartingTime) {
+//        this.respectMaximumStartingTime = respectMaximumStartingTime;
+//    }
+
+    public HardMediumSoftScore getOneTimeGrainJuez() {
+        return oneTimeGrainJuez;
     }
 
-    public void setRespectMaximumStartingTime(HardMediumSoftScore respectMaximumStartingTime) {
-        this.respectMaximumStartingTime = respectMaximumStartingTime;
+    public void setOneTimeGrainJuez(HardMediumSoftScore oneTimeGrainJuez) {
+        this.oneTimeGrainJuez = oneTimeGrainJuez;
+    }
+
+    public HardMediumSoftScore getOneTimeGrainDefensor() {
+        return oneTimeGrainDefensor;
+    }
+
+    public void setOneTimeGrainDefensor(HardMediumSoftScore oneTimeGrainDefensor) {
+        this.oneTimeGrainDefensor = oneTimeGrainDefensor;
+    }
+
+    public HardMediumSoftScore getOneTimeGrainFiscal() {
+        return oneTimeGrainFiscal;
+    }
+
+    public void setOneTimeGrainFiscal(HardMediumSoftScore oneTimeGrainFiscal) {
+        this.oneTimeGrainFiscal = oneTimeGrainFiscal;
     }
 
     public long getId() {

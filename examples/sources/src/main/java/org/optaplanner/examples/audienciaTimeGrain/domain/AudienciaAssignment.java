@@ -156,7 +156,7 @@ public class AudienciaAssignment {
     public int isMinimumStartingTime(){
         LocalDate timeGrainDate = this.startingTimeGrain.getDate();
         LocalDate pedidoDate = this.audiencia.getFechaPedido();
-        long days = ChronoUnit.DAYS.between(pedidoDate, timeGrainDate);
+        long days = Math.abs(ChronoUnit.DAYS.between(pedidoDate, timeGrainDate));
 //        System.out.println(days);
 
         if(days > audiencia.getTipo().getTiempoRealizacionMinimo()){
@@ -178,5 +178,6 @@ public class AudienciaAssignment {
         }
 
     }
+
 
 }

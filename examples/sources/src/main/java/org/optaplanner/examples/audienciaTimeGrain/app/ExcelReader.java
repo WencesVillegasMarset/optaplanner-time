@@ -88,12 +88,15 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.DO_NOT_USE_BREAKS, hardScore -> constraintConfiguration.setDontUseBreaks(HardMediumSoftScore.ofHard(hardScore)), "");
             readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.RESPECT_LOCATIONS, hardScore -> constraintConfiguration.setRespectLocations(HardMediumSoftScore.ofHard(hardScore)), "");
             readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.RESPECT_MINIMUM_STARTING_TIME, hardScore -> constraintConfiguration.setRespectMinimumStartingTime(HardMediumSoftScore.ofHard(hardScore)), "");
-            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.RESPECT_MAXIMUM_STARTING_TIME, hardScore -> constraintConfiguration.setRespectMaximumStartingTime(HardMediumSoftScore.ofHard(hardScore)), "");
+//            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.RESPECT_MAXIMUM_STARTING_TIME, hardScore -> constraintConfiguration.setRespectMaximumStartingTime(HardMediumSoftScore.ofHard(hardScore)), "");
 
 
             readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.ONE_TIME_GRAIN_BREAK_BETWEEN_TWO_CONSECUTIVE_MEETINGS, softScore -> constraintConfiguration.setOneTimeGrainBreakBetweenTwoConsecutiveMeetings(HardMediumSoftScore.ofSoft(softScore)), "");
+            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.ONE_TIMEGRAIN_JUEZ, softScore -> constraintConfiguration.setOneTimeGrainJuez(HardMediumSoftScore.ofSoft(softScore)), "");
+            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.ONE_TIMEGRAIN_DEFENSOR, softScore -> constraintConfiguration.setOneTimeGrainDefensor(HardMediumSoftScore.ofSoft(softScore)), "");
+            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.ONE_TIMEGRAIN_FISCAL, softScore -> constraintConfiguration.setOneTimeGrainFiscal(HardMediumSoftScore.ofSoft(softScore)), "");
             readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.DO_ALL_MEETINGS_AS_SOON_AS_POSSIBLE, softScore -> constraintConfiguration.setDoAllMeetingsAsSoonAsPossible(HardMediumSoftScore.ofSoft(softScore)), "");
-            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.DISTRIBUTE_WORKLOAD_FAIRLY, softScore -> constraintConfiguration.setDistributeWorkloadFairly(HardMediumSoftScore.ofSoft(softScore)), "");
+//            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.DISTRIBUTE_WORKLOAD_FAIRLY, softScore -> constraintConfiguration.setDistributeWorkloadFairly(HardMediumSoftScore.ofSoft(softScore)), "");
 
 //            System.out.println(constraintConfiguration.getRoomConflict());
 //            System.out.println(constraintConfiguration.getStartAndEndOnSameDay());
@@ -205,7 +208,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                 }else {
                     tipo.setTiempoRealizacionMaximo(1);
                 }
-
+//                System.out.println(tipo.getTiempoRealizacionMinimo() + " " + tipo.getTiempoRealizacionMaximo());
 //                if (!VALID_NAME_PATTERN.matcher(tipo.getNombreTipo()).matches()) {
 //                    throw new IllegalStateException(
 //                            currentPosition() + ": The person name (" + tipo.getNombreTipo()
@@ -517,10 +520,24 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
 
         private void writeAudienciaAssignmentList(List<AudienciaAssignment> audienciaAssignmentList) {
             String[] filteredConstraintNames = {
-                    AudienciaScheduleConstraintConfiguration.ROOM_CONFLICT, AudienciaScheduleConstraintConfiguration.DONT_GO_IN_OVERTIME, AudienciaScheduleConstraintConfiguration.START_AND_END_ON_SAME_DAY, AudienciaScheduleConstraintConfiguration.DO_NOT_CONFLICT_DEFENSOR,
-                    AudienciaScheduleConstraintConfiguration.DO_NOT_CONFLICT_FISCAL, AudienciaScheduleConstraintConfiguration.DO_NOT_CONFLICT_JUEZ, AudienciaScheduleConstraintConfiguration.DO_NOT_USE_ROOM_IN_PRHOHIBITED_TIME, AudienciaScheduleConstraintConfiguration.DO_NOT_USE_BREAKS,
+                    AudienciaScheduleConstraintConfiguration.ROOM_CONFLICT,
+                    AudienciaScheduleConstraintConfiguration.START_AND_END_ON_SAME_DAY,
+                    AudienciaScheduleConstraintConfiguration.DONT_GO_IN_OVERTIME,
+                    AudienciaScheduleConstraintConfiguration.DO_NOT_CONFLICT_JUEZ,
+                    AudienciaScheduleConstraintConfiguration.DO_NOT_USE_ROOM_IN_PRHOHIBITED_TIME,
+                    AudienciaScheduleConstraintConfiguration.DO_NOT_CONFLICT_FISCAL,
+                    AudienciaScheduleConstraintConfiguration.DO_NOT_CONFLICT_DEFENSOR,
+                    AudienciaScheduleConstraintConfiguration.DO_NOT_USE_BREAKS,
+                    AudienciaScheduleConstraintConfiguration.RESPECT_LOCATIONS,
+                    AudienciaScheduleConstraintConfiguration.RESPECT_MINIMUM_STARTING_TIME,
+//                    AudienciaScheduleConstraintConfiguration.RESPECT_MAXIMUM_STARTING_TIME,
 
-                    AudienciaScheduleConstraintConfiguration.DO_ALL_MEETINGS_AS_SOON_AS_POSSIBLE, AudienciaScheduleConstraintConfiguration.ONE_TIME_GRAIN_BREAK_BETWEEN_TWO_CONSECUTIVE_MEETINGS
+                    AudienciaScheduleConstraintConfiguration.ONE_TIME_GRAIN_BREAK_BETWEEN_TWO_CONSECUTIVE_MEETINGS,
+                    AudienciaScheduleConstraintConfiguration.ONE_TIMEGRAIN_JUEZ,
+                    AudienciaScheduleConstraintConfiguration.ONE_TIMEGRAIN_DEFENSOR,
+                    AudienciaScheduleConstraintConfiguration.ONE_TIMEGRAIN_FISCAL,
+                    AudienciaScheduleConstraintConfiguration.DO_ALL_MEETINGS_AS_SOON_AS_POSSIBLE,
+//                    AudienciaScheduleConstraintConfiguration.DISTRIBUTE_WORKLOAD_FAIRLY,
             };
             int mergeStart = -1;
             int previousAudienciaRemainingTimeGrains = 0;

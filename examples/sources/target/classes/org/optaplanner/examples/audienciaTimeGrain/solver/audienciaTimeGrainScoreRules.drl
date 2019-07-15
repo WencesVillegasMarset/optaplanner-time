@@ -35,7 +35,7 @@ global HardMediumSoftScoreHolder scoreHolder;
 rule "Room conflict"
     when
         $leftAssignment : AudienciaAssignment(room != null, $leftId : id, $room : room)
-        $rightAssignment : AudienciaAssignment(room == $room, calculateOverlap($leftAssignment) > 0, id > $leftId)
+        $rightAssignment : AudienciaAssignment(room == $room, calculateOverlap($leftAssignment) > 0, id != $leftId)
     then
         scoreHolder.penalize(kcontext, $rightAssignment.calculateOverlap($leftAssignment));
 end
@@ -112,12 +112,12 @@ rule "Respect Minimum Starting Time"
         scoreHolder.penalize(kcontext, $left.isMinimumStartingTime());
 end
 
-rule "Respect Maximum Starting Time"
-    when
-        AudienciaAssignment(startingTimeGrain != null, isMaximumStartingTime())
-    then
-        scoreHolder.penalize(kcontext);
-end
+//rule "Respect Maximum Starting Time"
+//    when
+//        AudienciaAssignment(startingTimeGrain != null, isMaximumStartingTime())
+//    then
+//        scoreHolder.penalize(kcontext);
+//end
 
 // ############################################################################
 // Soft constraints usually
@@ -125,12 +125,41 @@ end
 
 rule "One TimeGrain break between two consecutive meetings"
     when
-        $left : AudienciaAssignment(startingTimeGrain != null,  $leftEnd : getLastTimeGrainIndex(), $leftFirstTimeGrain : startingTimeGrain, $juez : getJuez(), $fiscal : getFiscal(), $defensor : getDefensor(), $room : room)
-        AudienciaAssignment(startingTimeGrain != null, $leftEnd == startingTimeGrain.getGrainIndex() - 1, $rightFirstTimeGrainIndex : startingTimeGrain.grainIndex, $rightFirstTimeGrain : startingTimeGrain, room == $room, isThereABreak($left) == false) or AudienciaAssignment(startingTimeGrain != null, $leftEnd == startingTimeGrain.getGrainIndex() - 1, $rightFirstTimeGrainIndex : startingTimeGrain.grainIndex, $rightFirstTimeGrain : startingTimeGrain, getJuez() == $juez, isThereABreak($left) == false) or AudienciaAssignment(startingTimeGrain != null, $leftEnd == startingTimeGrain.getGrainIndex() - 1, $rightFirstTimeGrainIndex : startingTimeGrain.grainIndex, $rightFirstTimeGrain : startingTimeGrain, getDefensor() == $defensor, isThereABreak($left) == false) or AudienciaAssignment(startingTimeGrain != null, $leftEnd == startingTimeGrain.getGrainIndex() - 1, $rightFirstTimeGrainIndex : startingTimeGrain.grainIndex, $rightFirstTimeGrain : startingTimeGrain, getFiscal() == $fiscal, isThereABreak($left) == false)
+        $left : AudienciaAssignment(startingTimeGrain != null,  $leftEnd : getLastTimeGrainIndex(), $leftFirstTimeGrain : startingTimeGrain, $room : room)
+        AudienciaAssignment(startingTimeGrain != null, $leftEnd == startingTimeGrain.getGrainIndex() - 1, $rightFirstTimeGrainIndex : startingTimeGrain.grainIndex, $rightFirstTimeGrain : startingTimeGrain, room == $room, isThereABreak($left) == false)
+        TimeGrain(grainIndex == $rightFirstTimeGrainIndex, $leftFirstTimeGrain.day == $rightFirstTimeGrain.day)
+    then
+        scoreHolder.penalize(kcontext);
+end
+
+rule "One TimeGrain Juez"
+    when
+        $left : AudienciaAssignment(startingTimeGrain != null,  $leftEnd : getLastTimeGrainIndex(), $leftFirstTimeGrain : startingTimeGrain, $juez : getJuez())
+        AudienciaAssignment(startingTimeGrain != null, $leftEnd == startingTimeGrain.getGrainIndex() - 1, $rightFirstTimeGrainIndex : startingTimeGrain.grainIndex, $rightFirstTimeGrain : startingTimeGrain, getJuez() == $juez, isThereABreak($left) == false)
+        TimeGrain(grainIndex == $rightFirstTimeGrainIndex, $leftFirstTimeGrain.day == $rightFirstTimeGrain.day)
+    then
+        scoreHolder.penalize(kcontext);
+end
+
+rule "One TimeGrain Defensor"
+    when
+        $left : AudienciaAssignment(startingTimeGrain != null,  $leftEnd : getLastTimeGrainIndex(), $leftFirstTimeGrain : startingTimeGrain, $defensor : getDefensor())
+        AudienciaAssignment(startingTimeGrain != null, $leftEnd == startingTimeGrain.getGrainIndex() - 1, $rightFirstTimeGrainIndex : startingTimeGrain.grainIndex, $rightFirstTimeGrain : startingTimeGrain, getDefensor() == $defensor, isThereABreak($left) == false)
         TimeGrain(grainIndex == $rightFirstTimeGrainIndex, $leftFirstTimeGrain.day == $rightFirstTimeGrain.day)
 
     then
         scoreHolder.penalize(kcontext);
+
+end
+
+rule "One TimeGrain Fiscal"
+    when
+        $left : AudienciaAssignment(startingTimeGrain != null,  $leftEnd : getLastTimeGrainIndex(), $leftFirstTimeGrain : startingTimeGrain, $fiscal : getFiscal())
+        AudienciaAssignment(startingTimeGrain != null, $leftEnd == startingTimeGrain.getGrainIndex() - 1, $rightFirstTimeGrainIndex : startingTimeGrain.grainIndex, $rightFirstTimeGrain : startingTimeGrain, getFiscal() == $fiscal, isThereABreak($left) == false)
+        TimeGrain(grainIndex == $rightFirstTimeGrainIndex, $leftFirstTimeGrain.day == $rightFirstTimeGrain.day)
+    then
+        scoreHolder.penalize(kcontext);
+
 end
 
 rule "Do all meetings as soon as possible"
@@ -140,13 +169,13 @@ rule "Do all meetings as soon as possible"
         scoreHolder.penalize(kcontext, $lastTimeGrainIndex);
 end
 
-rule "Distribute workload fairly"
-    when
-        $left : AudienciaAssignment($id : id, $room : room)
-        $roomList : List() from collect(AudienciaAssignment(id != $id, room == $room))
-    then
-        scoreHolder.penalize(kcontext, $roomList.size() ^ 2);
-end
+//rule "Distribute workload fairly"
+//    when
+//        $left : AudienciaAssignment($id : id, startingTimeGrain != null, $room : room)
+//        $roomList : List() from collect(AudienciaAssignment(id != $id, room == $room))
+//    then
+//        scoreHolder.penalize(kcontext, ($roomList.size() * $roomList.size()));
+//end
 
 
 

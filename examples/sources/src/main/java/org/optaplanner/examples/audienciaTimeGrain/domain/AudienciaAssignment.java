@@ -166,15 +166,15 @@ public class AudienciaAssignment {
         }
     }
 
-    public boolean isMaximumStartingTime(){
+    public int isMaximumStartingTime(){
         LocalDate timeGrainDate = startingTimeGrain.getDate();
         LocalDate pedidoDate = audiencia.getFechaPedido();
-        long days = ChronoUnit.DAYS.between(pedidoDate, timeGrainDate);
+        long days = Math.abs(ChronoUnit.DAYS.between(pedidoDate, timeGrainDate));
 
-        if(audiencia.getTipo().getTiempoRealizacionMaximo() < days){
-            return true;
+        if(audiencia.getTipo().getTiempoRealizacionMaximo() == 0 || audiencia.getTipo().getTiempoRealizacionMaximo() > days){
+            return 0;
         } else {
-            return false;
+            return (int)days - audiencia.getTipo().getTiempoRealizacionMaximo();
         }
 
     }

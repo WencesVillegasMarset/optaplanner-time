@@ -65,7 +65,7 @@ public abstract class AbstractXlsxSolutionFileIO<Solution_> implements SolutionF
     protected static final Pattern VALID_CODE_PATTERN = Pattern.compile("(?U)^[\\w\\-\\.\\/\\(\\)]+$");
 
     public static final DateTimeFormatter DAY_FORMATTER
-            = DateTimeFormatter.ofPattern("E dd-MM-yyyy", Locale.ENGLISH);
+            = DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.ENGLISH);
     public static final DateTimeFormatter MONTH_FORMATTER
             = DateTimeFormatter.ofPattern("MMM yyyy", Locale.ENGLISH);
     public static final DateTimeFormatter TIME_FORMATTER

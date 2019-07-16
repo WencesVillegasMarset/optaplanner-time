@@ -112,16 +112,23 @@ rule "Respect Minimum Starting Time"
         scoreHolder.penalize(kcontext, $left.isMinimumStartingTime());
 end
 
-//rule "Respect Maximum Starting Time"
-//    when
-//        AudienciaAssignment(startingTimeGrain != null, isMaximumStartingTime())
-//    then
-//        scoreHolder.penalize(kcontext);
-//end
+rule "Respect Maximum Starting Time"
+    when
+        $left : AudienciaAssignment(startingTimeGrain != null, isMaximumStartingTime() > 0)
+    then
+        scoreHolder.penalize(kcontext, $left.isMinimumStartingTime());
+end
 
 // ############################################################################
 // Soft constraints usually
 // ############################################################################
+
+rule "Do all meetings as soon as possible" salience 10
+    when
+        AudienciaAssignment(startingTimeGrain != null, $lastTimeGrainIndex : lastTimeGrainIndex)
+    then
+        scoreHolder.penalize(kcontext, $lastTimeGrainIndex);
+end
 
 rule "One TimeGrain break between two consecutive meetings"
     when
@@ -162,12 +169,7 @@ rule "One TimeGrain Fiscal"
 
 end
 
-rule "Do all meetings as soon as possible"
-    when
-        AudienciaAssignment(startingTimeGrain != null, $lastTimeGrainIndex : lastTimeGrainIndex)
-    then
-        scoreHolder.penalize(kcontext, $lastTimeGrainIndex);
-end
+
 
 //rule "Distribute workload fairly"
 //    when

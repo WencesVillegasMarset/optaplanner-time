@@ -53,8 +53,8 @@ public class AudienciaScheduleConstraintConfiguration {
     //HARD - Que se respeten los tiempos minimos de realizacion
     public static final String RESPECT_MINIMUM_STARTING_TIME = "Respect Minimum Starting Time";
 
-//    //HARD - Que se respeten los tiempos maximos de realizacion
-//    public static final String RESPECT_MAXIMUM_STARTING_TIME = "Respect Maximum Starting Time";
+    //HARD - Que se respeten los tiempos maximos de realizacion
+    public static final String RESPECT_MAXIMUM_STARTING_TIME = "Respect Maximum Starting Time";
 
     //SOFT - One TimeGrain between two consecutive audiencias with the same Juez
     public static final String ONE_TIMEGRAIN_JUEZ = "One TimeGrain Juez";
@@ -86,8 +86,8 @@ public class AudienciaScheduleConstraintConfiguration {
     private HardMediumSoftScore respectLocations = HardMediumSoftScore.ofHard(1);
     @ConstraintWeight(RESPECT_MINIMUM_STARTING_TIME)
     private HardMediumSoftScore respectMinimumStartingTime = HardMediumSoftScore.ofHard(1);
-//    @ConstraintWeight(RESPECT_MAXIMUM_STARTING_TIME)
-//    private HardMediumSoftScore respectMaximumStartingTime = HardMediumSoftScore.ofHard(1);
+    @ConstraintWeight(RESPECT_MAXIMUM_STARTING_TIME)
+    private HardMediumSoftScore respectMaximumStartingTime = HardMediumSoftScore.ofHard(1);
 
 
     /* Soft Constraints */
@@ -217,13 +217,13 @@ public class AudienciaScheduleConstraintConfiguration {
         this.respectMinimumStartingTime = respectMinimumStartingTime;
     }
 
-//    public HardMediumSoftScore getRespectMaximumStartingTime() {
-//        return respectMaximumStartingTime;
-//    }
-//
-//    public void setRespectMaximumStartingTime(HardMediumSoftScore respectMaximumStartingTime) {
-//        this.respectMaximumStartingTime = respectMaximumStartingTime;
-//    }
+    public HardMediumSoftScore getRespectMaximumStartingTime() {
+        return respectMaximumStartingTime;
+    }
+
+    public void setRespectMaximumStartingTime(HardMediumSoftScore respectMaximumStartingTime) {
+        this.respectMaximumStartingTime = respectMaximumStartingTime;
+    }
 
     public HardMediumSoftScore getOneTimeGrainJuez() {
         return oneTimeGrainJuez;

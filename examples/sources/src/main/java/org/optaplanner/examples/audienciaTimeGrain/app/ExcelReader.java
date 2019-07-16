@@ -88,7 +88,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.DO_NOT_USE_BREAKS, hardScore -> constraintConfiguration.setDontUseBreaks(HardMediumSoftScore.ofHard(hardScore)), "");
             readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.RESPECT_LOCATIONS, hardScore -> constraintConfiguration.setRespectLocations(HardMediumSoftScore.ofHard(hardScore)), "");
             readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.RESPECT_MINIMUM_STARTING_TIME, hardScore -> constraintConfiguration.setRespectMinimumStartingTime(HardMediumSoftScore.ofHard(hardScore)), "");
-//            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.RESPECT_MAXIMUM_STARTING_TIME, hardScore -> constraintConfiguration.setRespectMaximumStartingTime(HardMediumSoftScore.ofHard(hardScore)), "");
+            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.RESPECT_MAXIMUM_STARTING_TIME, hardScore -> constraintConfiguration.setRespectMaximumStartingTime(HardMediumSoftScore.ofHard(hardScore)), "");
 
 
             readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.ONE_TIME_GRAIN_BREAK_BETWEEN_TWO_CONSECUTIVE_MEETINGS, softScore -> constraintConfiguration.setOneTimeGrainBreakBetweenTwoConsecutiveMeetings(HardMediumSoftScore.ofSoft(softScore)), "");
@@ -205,8 +205,6 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                 if(maximo.getNumericCellValue() != 0){
                     tipo.setTiempoRealizacionMaximo((int)maximo.getNumericCellValue());
 //                    System.out.println((int)maximo.getNumericCellValue());
-                }else {
-                    tipo.setTiempoRealizacionMaximo(1);
                 }
 //                System.out.println(tipo.getTiempoRealizacionMinimo() + " " + tipo.getTiempoRealizacionMaximo());
 //                if (!VALID_NAME_PATTERN.matcher(tipo.getNombreTipo()).matches()) {
@@ -530,7 +528,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                     AudienciaScheduleConstraintConfiguration.DO_NOT_USE_BREAKS,
                     AudienciaScheduleConstraintConfiguration.RESPECT_LOCATIONS,
                     AudienciaScheduleConstraintConfiguration.RESPECT_MINIMUM_STARTING_TIME,
-//                    AudienciaScheduleConstraintConfiguration.RESPECT_MAXIMUM_STARTING_TIME,
+                    AudienciaScheduleConstraintConfiguration.RESPECT_MAXIMUM_STARTING_TIME,
 
                     AudienciaScheduleConstraintConfiguration.ONE_TIME_GRAIN_BREAK_BETWEEN_TWO_CONSECUTIVE_MEETINGS,
                     AudienciaScheduleConstraintConfiguration.ONE_TIMEGRAIN_JUEZ,

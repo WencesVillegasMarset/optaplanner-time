@@ -123,7 +123,7 @@ end
 // Soft constraints usually
 // ############################################################################
 
-rule "Do all meetings as soon as possible" salience 10
+rule "Do all meetings as soon as possible"
     when
         AudienciaAssignment(startingTimeGrain != null, $lastTimeGrainIndex : lastTimeGrainIndex)
     then

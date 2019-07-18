@@ -1,6 +1,7 @@
 package org.optaplanner.examples.audienciaTimeGrain.domain;
 
 import org.optaplanner.core.api.domain.entity.PlanningEntity;
+import org.optaplanner.core.api.domain.entity.PlanningPin;
 import org.optaplanner.core.api.domain.variable.PlanningVariable;
 
 import java.sql.Time;
@@ -18,6 +19,7 @@ public class AudienciaAssignment {
     private Room room;
     private TimeGrain startingTimeGrain;
     private int id;
+    private boolean pinned = false;
 
     /* Setters y Getters */
 
@@ -53,6 +55,15 @@ public class AudienciaAssignment {
     @PlanningVariable(valueRangeProviderRefs = {"timeGrainRange"})
     public TimeGrain getStartingTimeGrain(){
         return startingTimeGrain;
+    }
+
+    public void setPinned(boolean pinned) {
+        this.pinned = pinned;
+    }
+
+    @PlanningPin
+    public boolean isPinned(){
+        return pinned;
     }
 
     /* Helper functions */

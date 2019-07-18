@@ -9,6 +9,7 @@
 
   <scoreDirectorFactory>
     <scoreDrl>org/optaplanner/examples/audienciaTimeGrain/solver/audienciaTimeGrainScoreRules.drl</scoreDrl>
+    <initializingScoreTrend>ONLY_DOWN</initializingScoreTrend>
   </scoreDirectorFactory>
 
   <constructionHeuristic>
@@ -24,11 +25,10 @@
   <localSearch>
 <!--    <localSearchType>TABU_SEARCH</localSearchType>-->
     <termination>
-      <unimprovedSecondsSpentLimit>30</unimprovedSecondsSpentLimit>
-      <unimprovedScoreDifferenceThreshold>0hard/0medium/300soft</unimprovedScoreDifferenceThreshold>
-      <!--    <minutesSpentLimit>30</minutesSpentLimit>-->
+      <unimprovedSecondsSpentLimit>60</unimprovedSecondsSpentLimit>
+      <unimprovedScoreDifferenceThreshold>0hard/0medium/200soft</unimprovedScoreDifferenceThreshold>
+      <minutesSpentLimit>15</minutesSpentLimit>
     </termination>
-
   </localSearch>
 
 

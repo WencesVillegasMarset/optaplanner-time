@@ -76,8 +76,8 @@ end
 
 rule "Do not conflict Defensor"
     when
-        $leftAssignment : AudienciaAssignment(startingTimeGrain != null, audiencia != null, $Defensor : getDefensor(), $id : id)
-        AudienciaAssignment(id != $id, calculateOverlap($leftAssignment) > 0, audiencia != null, getDefensor()== $Defensor)
+        $leftAssignment : AudienciaAssignment(startingTimeGrain != null, $Defensor : getDefensor(), $id : id)
+        AudienciaAssignment(id != $id, calculateOverlap($leftAssignment) > 0, getDefensor()== $Defensor)
     then
         scoreHolder.penalize(kcontext);
 end
@@ -119,6 +119,30 @@ rule "Respect Maximum Starting Time"
         scoreHolder.penalize(kcontext, $left.isMinimumStartingTime());
 end
 
+rule "Dont conflict Juez with locations"
+    when
+        $leftAssignment : AudienciaAssignment($id : id,startingTimeGrain != null, $leftDay : startingTimeGrain.day, $location : audiencia.ubicacion, $juez : juez)
+        $rightAssignment : AudienciaAssignment(id != $id, startingTimeGrain != null, audiencia.ubicacion != $location, startingTimeGrain.day == $leftDay, juez == $juez)
+    then
+        scoreHolder.penalize(kcontext);
+end
+
+rule "Dont conflict Fiscal with locations"
+    when
+        $leftAssignment : AudienciaAssignment($id : id,startingTimeGrain != null, $leftDay : startingTimeGrain.day, $location : audiencia.ubicacion, $fiscal : fiscal)
+        $rightAssignment : AudienciaAssignment(id != $id, startingTimeGrain != null, audiencia.ubicacion != $location, startingTimeGrain.day == $leftDay, fiscal == $fiscal)
+    then
+        scoreHolder.penalize(kcontext);
+end
+
+rule "Dont conflict Defensor with locations"
+    when
+        $leftAssignment : AudienciaAssignment($id : id,startingTimeGrain != null, $leftDay : startingTimeGrain.day, $location : audiencia.ubicacion, $defensor : defensor)
+        $rightAssignment : AudienciaAssignment(id != $id, startingTimeGrain != null, audiencia.ubicacion != $location, startingTimeGrain.day == $leftDay, defensor == $defensor)
+    then
+        scoreHolder.penalize(kcontext);
+end
+
 // ############################################################################
 // Soft constraints usually
 // ############################################################################
@@ -156,7 +180,6 @@ rule "One TimeGrain Defensor"
 
     then
         scoreHolder.penalize(kcontext);
-
 end
 
 rule "One TimeGrain Fiscal"
@@ -166,18 +189,15 @@ rule "One TimeGrain Fiscal"
         TimeGrain(grainIndex == $rightFirstTimeGrainIndex, $leftFirstTimeGrain.day == $rightFirstTimeGrain.day)
     then
         scoreHolder.penalize(kcontext);
-
 end
 
-
-
-//rule "Distribute workload fairly"
-//    when
+rule "Distribute workload fairly"
+    when
 //        $left : AudienciaAssignment($id : id, startingTimeGrain != null, $room : room)
 //        $roomList : List() from collect(AudienciaAssignment(id != $id, room == $room))
-//    then
+    then
 //        scoreHolder.penalize(kcontext, ($roomList.size() * $roomList.size()));
-//end
+end
 
 
 

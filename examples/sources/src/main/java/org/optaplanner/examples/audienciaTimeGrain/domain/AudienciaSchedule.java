@@ -1,5 +1,6 @@
 package org.optaplanner.examples.audienciaTimeGrain.domain;
 
+import com.thoughtworks.xstream.annotations.XStreamAlias;
 import org.optaplanner.core.api.domain.constraintweight.ConstraintConfigurationProvider;
 import org.optaplanner.core.api.domain.solution.PlanningEntityCollectionProperty;
 import org.optaplanner.core.api.domain.solution.PlanningScore;
@@ -14,6 +15,7 @@ import java.util.List;
 
 
 @PlanningSolution
+@XStreamAlias("Solution")
 public class AudienciaSchedule {
 
     /* Constraint Configuration */

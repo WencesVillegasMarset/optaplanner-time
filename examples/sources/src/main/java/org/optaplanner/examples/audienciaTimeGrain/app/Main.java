@@ -1,9 +1,11 @@
 package org.optaplanner.examples.audienciaTimeGrain.app;
 
 
+import org.jdom.JDOMException;
 import org.optaplanner.core.api.solver.Solver;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.URISyntaxException;
 import java.sql.Time;
 import java.util.ArrayList;
@@ -14,10 +16,18 @@ import java.util.Scanner;
 
 import org.optaplanner.core.api.solver.SolverFactory;
 import org.optaplanner.examples.audienciaTimeGrain.domain.*;
+import org.optaplanner.examples.common.app.CommonApp;
+import org.optaplanner.examples.common.persistence.AbstractSolutionExporter;
+import org.optaplanner.examples.common.persistence.AbstractSolutionImporter;
+import org.optaplanner.examples.common.swingui.SolutionPanel;
+import org.optaplanner.persistence.common.api.domain.solution.SolutionFileIO;
+import org.optaplanner.persistence.xstream.impl.domain.solution.XStreamSolutionFileIO;
 
 
 public class Main {
     public static final String SOLVER_CONFIG = "org/optaplanner/examples/audienciaTimeGrain/solver/audienciaTimeGrainSolverConfig.xml";
+
+    public static final String DATA_DIR_NAME = "audienciaschedueling";
 
     public static void main(String[] args) {
 
@@ -25,7 +35,10 @@ public class Main {
         File excelFile = new File("src/main/java/org/optaplanner/examples/audienciaTimeGrain/app/test_1.xlsx");
         ExcelReader excelReader = new ExcelReader();
         AudienciaSchedule solvedAudienciaSchedule = excelReader.read(excelFile);
-        excelReader.write(solvedAudienciaSchedule, new File("src/main/java/org/optaplanner/examples/audienciaTimeGrain/app/results.xlsx") );
+//        excelReader.write(solvedAudienciaSchedule, new File("src/main/java/org/optaplanner/examples/audienciaTimeGrain/app/results.xlsx"));
+        XMLExporter xmlExporter = new XMLExporter();
+        xmlExporter.createXmlOutputBuilder().setSolution(solvedAudienciaSchedule);
+
 
 //        SolverFactory<AudienciaSchedule> solverFactory = SolverFactory.createFromXmlResource("org/optaplanner/examples/audienciaTimeGrain/solver/audienciaTimeGrainSolverConfig.xml");
 //        Solver<AudienciaSchedule> solver = solverFactory.buildSolver();
@@ -154,4 +167,5 @@ public class Main {
 //        System.out.println(solvedAudienciaSchedule);
 
     }
+
 }

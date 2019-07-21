@@ -1,80 +1,51 @@
 package org.optaplanner.examples.audienciaTimeGrain.app;
 
-import java.io.IOException;
-import java.time.format.DateTimeFormatter;
 
-import org.jdom.Document;
-import org.jdom.Element;
-import org.jdom.output.Format;
-import org.jdom.output.XMLOutputter;
 import org.optaplanner.examples.audienciaTimeGrain.domain.AudienciaAssignment;
 import org.optaplanner.examples.audienciaTimeGrain.domain.AudienciaSchedule;
-import org.optaplanner.examples.audienciaTimeGrain.domain.Audiencia;
-import org.optaplanner.examples.common.persistence.AbstractXmlSolutionExporter;
-import org.optaplanner.examples.common.persistence.SolutionConverter;
+
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Marshaller;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.time.LocalDate;
 
 
-public class XMLExporter extends AbstractXmlSolutionExporter<AudienciaSchedule> {
+public class XMLExporter {
 
-    public static void main(String[] args) {
-        SolutionConverter<AudienciaSchedule> converter = SolutionConverter.createExportConverter(
-                Main.DATA_DIR_NAME, AudienciaSchedule.class, new XMLExporter());
-        converter.convertAll();
+    private int id;
+
+    public XMLExporter(int id){
+        this.id = id;
     }
 
-    @Override
-    public XmlOutputBuilder<AudienciaSchedule> createXmlOutputBuilder() {
-        return new AudienciaScheduelingOutputBuilder();
-    }
+    public void write(AudienciaSchedule audienciaSchedule) throws JAXBException, FileNotFoundException {
+        JAXBContext jaxbContext = JAXBContext.newInstance(AudienciaSchedule.class);
+        Marshaller marshaller = jaxbContext.createMarshaller();
+        marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
+        LocalDate startingDate = audienciaSchedule.getAudienciaAssignmentList().get(0).getStartingTimeGrain().getDate();
+        LocalDate endingDate = audienciaSchedule.getAudienciaAssignmentList().get(0).getStartingTimeGrain().getDate();
 
-    public static class AudienciaScheduelingOutputBuilder extends XmlOutputBuilder<AudienciaSchedule> {
 
-        private AudienciaSchedule audienciaSchedule;
-
-        @Override
-        public void setSolution(AudienciaSchedule solution) {
-            audienciaSchedule = solution;
-            try {
-                this.writeSolution();
-            } catch (IOException e) {
-                e.printStackTrace();
+        for (AudienciaAssignment audienciaAssignment : audienciaSchedule.getAudienciaAssignmentList()){
+            if(audienciaAssignment.getStartingTimeGrain().getDate().isBefore(startingDate)){
+                startingDate = audienciaAssignment.getStartingTimeGrain().getDate();
+            }
+            if(audienciaAssignment.getStartingTimeGrain().getDate().isAfter(endingDate)){
+                endingDate = audienciaAssignment.getStartingTimeGrain().getDate();
             }
         }
 
-        @Override
-        public void writeSolution() throws IOException {
+        String fileName;
+        int counter = 1;
+        do{
+            fileName = startingDate.toString() +"-" + endingDate.toString() + "-number-" + counter;
+            counter++;
+        }while (new File("data/audienciascheduling/" + fileName).exists());
 
-            Element solutionElement = new Element("Solution");
-            document.setRootElement(solutionElement);
 
-            Element schedulingPeriodIDElement = new Element("SchedulingPeriodID");
-            schedulingPeriodIDElement.setText(audienciaSchedule.getAudienciaAssignmentList().get(0).getStartingTimeGrain().getDateTimeString());
-            solutionElement.addContent(schedulingPeriodIDElement);
-
-            Element ConstraintsPenaltyElement = new Element("SoftConstraintsPenalty");
-            ConstraintsPenaltyElement.setText(audienciaSchedule.getScore().toString());
-            solutionElement.addContent(ConstraintsPenaltyElement);
-
-            for (AudienciaAssignment audienciaAssignment : audienciaSchedule.getAudienciaAssignmentList()) {
-                Audiencia audiencia = audienciaAssignment.getAudiencia();
-
-                Element assignmentElement = new Element("Assignment");
-                solutionElement.addContent(assignmentElement);
-
-                Element dateElement = new Element("Date");
-                dateElement.setText(audienciaAssignment.getStartingTimeGrain().getDateTime().format(DateTimeFormatter.ISO_DATE_TIME));
-                assignmentElement.addContent(dateElement);
-
-                Element employeeElement = new Element("Juez");
-                employeeElement.setText(String.valueOf(audiencia.getJuez().getIdJuez()));
-                assignmentElement.addContent(employeeElement);
-
-                Element roomElement = new Element("Room");
-                roomElement.setText(audienciaAssignment.getRoom().getNombreRoom());
-                assignmentElement.addContent(roomElement);
-
-            }
-        }
+        marshaller.marshal(audienciaSchedule, new File("data/audienciascheduling/" + fileName));
     }
 
 }

@@ -9,13 +9,14 @@ import org.optaplanner.core.api.domain.solution.drools.ProblemFactCollectionProp
 import org.optaplanner.core.api.domain.valuerange.ValueRangeProvider;
 import org.optaplanner.core.api.score.buildin.hardmediumsoft.HardMediumSoftScore;
 import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScore;
+import javax.xml.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 @PlanningSolution
-@XStreamAlias("Solution")
+@XmlRootElement(name = "AudienciaSchedule")
 public class AudienciaSchedule {
 
     /* Constraint Configuration */
@@ -93,6 +94,7 @@ public class AudienciaSchedule {
         this.roomList = roomList;
     }
 
+    @XmlElement(name = "AudienciaAssignment")
     public List<AudienciaAssignment> getAudienciaAssignmentList() {
         return audienciaAssignmentList;
     }
@@ -141,6 +143,7 @@ public class AudienciaSchedule {
         this.fiscalList = fiscalList;
     }
 
+    @XmlElement(name = "score")
     public HardMediumSoftScore getScore() {
         return score;
     }

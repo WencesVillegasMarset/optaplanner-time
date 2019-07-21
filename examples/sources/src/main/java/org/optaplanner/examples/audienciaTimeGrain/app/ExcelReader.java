@@ -63,7 +63,6 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             readDefensorList();
             readTipoList();
             readAudienciaList();
-            AudienciaSchedule solution = solve();
             return solution;
         }
 
@@ -76,7 +75,6 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             readHeaderCell("Description");
 
             AudienciaScheduleConstraintConfiguration constraintConfiguration = new AudienciaScheduleConstraintConfiguration();
-            constraintConfiguration.setId(0L);
 
             readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.ROOM_CONFLICT, hardScore -> constraintConfiguration.setRoomConflict(HardMediumSoftScore.ofHard(hardScore)), "");
             readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.START_AND_END_ON_SAME_DAY, hardScore -> constraintConfiguration.setStartAndEndOnSameDay(HardMediumSoftScore.ofHard(hardScore)), "");
@@ -315,6 +313,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
 //                System.out.println(fiscalRead);
                 audiencia.setUbicacion((int)nextNumericCell().getNumericCellValue());
                 audiencia.setFechaPedido(LocalDate.parse(nextStringCell().getStringCellValue(), DAY_FORMATTER));
+//                System.out.println(audiencia.getFechaPedido());
                 if(containsTipo(solution.getTipoList(), tipoRead)){
                     for (Tipo tipo : solution.getTipoList()) {
                         if (tipo.getIdTipo() == tipoRead){
@@ -412,18 +411,6 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             audiencia.setNumTimeGrains(totalMinutes / TimeGrain.GRAIN_LENGTH_IN_MINUTES);
         }
 
-        private AudienciaSchedule solve(){
-            SolverFactory<AudienciaSchedule> solverFactory = SolverFactory.createFromXmlResource("org/optaplanner/examples/audienciaTimeGrain/solver/audienciaTimeGrainSolverConfig.xml");
-            Solver<AudienciaSchedule> solver = solverFactory.buildSolver();
-
-            AudienciaSchedule solvedAudienciaSchedule = solver.solve(solution);
-//            System.out.println(solvedAudienciaSchedule);
-            for(AudienciaAssignment audienciaAssignment : solvedAudienciaSchedule.getAudienciaAssignmentList()){
-                System.out.println("Audiencia número " + audienciaAssignment.getAudiencia().getIdAudiencia() + " desde " + audienciaAssignment.getStartingTimeGrain().getDateTimeString() + " hasta " + audienciaAssignment.getFinishingTimeString() + " in room number " + audienciaAssignment.getRoom().getNombreRoom());
-            }
-//            System.out.println(solver.explainBestScore());
-            return solvedAudienciaSchedule;
-        }
     }
 
     @Override

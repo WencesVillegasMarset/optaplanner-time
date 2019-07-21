@@ -6,11 +6,11 @@ import org.optaplanner.core.api.domain.constraintweight.ConstraintWeight;
 import org.optaplanner.core.api.score.buildin.hardmediumsoft.HardMediumSoftScore;
 import org.optaplanner.examples.common.domain.AbstractPersistable;
 
+import javax.xml.bind.annotation.XmlElement;
+
 @ConstraintConfiguration(constraintPackage = "org.optaplanner.examples.audienciaTimeGrain.solver")
 
 public class AudienciaScheduleConstraintConfiguration {
-
-    public long id;
 
     /* Declarations */
 
@@ -288,11 +288,4 @@ public class AudienciaScheduleConstraintConfiguration {
         this.dontConflictFiscalLocation = dontConflictFiscalLocation;
     }
 
-    public long getId() {
-        return id;
-    }
-
-    public void setId(long id) {
-        this.id = id;
-    }
 }

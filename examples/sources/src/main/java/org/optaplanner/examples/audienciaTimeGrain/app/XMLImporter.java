@@ -1,19 +1,14 @@
 package org.optaplanner.examples.audienciaTimeGrain.app;
 
-import org.optaplanner.examples.audienciaTimeGrain.domain.Audiencia;
-import org.optaplanner.examples.audienciaTimeGrain.domain.AudienciaAssignment;
-import org.optaplanner.examples.audienciaTimeGrain.domain.AudienciaSchedule;
-import org.optaplanner.examples.audienciaTimeGrain.domain.Day;
+import org.optaplanner.examples.audienciaTimeGrain.domain.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.io.File;
-import java.util.regex.Pattern;
 import java.time.format.DateTimeFormatter;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
-import javax.xml.bind.Marshaller;
 import javax.xml.bind.Unmarshaller;
 
 
@@ -27,7 +22,7 @@ public class XMLImporter {
         this.schedule = audienciaSchedule;
     }
 
-    public List<AudienciaAssignment> importar(){
+    public AudienciaSchedule importar(){
         startingDate = schedule.getDayList().get(0).toDate();
         endingDate = schedule.getDayList().get(0).toDate();
         for(Day day : schedule.getDayList()){
@@ -42,13 +37,14 @@ public class XMLImporter {
 
 
         final File folder = new File("data/audienciascheduling/");
-        List<AudienciaAssignment> finalList = listFilesForFolder(folder, startingDate, endingDate);
-        return finalList;
+        listFilesForFolder(folder, startingDate, endingDate);
+
+        return schedule;
     }
 
-    private List<AudienciaAssignment> listFilesForFolder(final File folder, LocalDate startingDate, LocalDate endingDate) {
+    private void listFilesForFolder(final File folder, LocalDate startingDate, LocalDate endingDate) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        List<AudienciaAssignment> finalList = null;
+
 
         for (final File fileEntry : folder.listFiles()) {
             String[] stringList = fileEntry.getName().split("-");
@@ -59,15 +55,13 @@ public class XMLImporter {
             LocalDate endingLocalDate = LocalDate.parse(endingDateString, formatter);
 
             if (!(endingLocalDate.isBefore(startingDate) || startingLocalDate.isAfter(endingDate))){
-                List<AudienciaAssignment> audienciaAssignmentList = importOneFile(fileEntry);
-                finalList.addAll(audienciaAssignmentList);
+                importOneFile(fileEntry);
             }
         }
 
-        return finalList;
     }
 
-    private List<AudienciaAssignment> importOneFile(File file) {
+    private void importOneFile(File file) {
         JAXBContext jaxbContext;
         try {
             jaxbContext = JAXBContext.newInstance(AudienciaSchedule.class);
@@ -76,42 +70,223 @@ public class XMLImporter {
 
             AudienciaSchedule audienciaSchedule = (AudienciaSchedule) jaxbUnmarshaller.unmarshal(file);
 
+//            System.out.println(audienciaSchedule.toString());
+
+//            for(AudienciaAssignment audienciaAssignment : audienciaSchedule.getAudienciaAssignmentList()){
+//                System.out.println();
+//            }
+
             audienciaSchedule = cleanAudienciaAssignments(audienciaSchedule);
 
-            return audienciaSchedule.getAudienciaAssignmentList();
+            compare(audienciaSchedule);
+
+            createSolution(audienciaSchedule);
+
         } catch (JAXBException e) {
             e.printStackTrace();
         }
-        return null;
 
+
+    }
+
+    private void createSolution(AudienciaSchedule audienciaSchedule){
+
+        List<Audiencia> newAudienciaList = new ArrayList<>();
+        List<AudienciaAssignment> newAudienciaAssignmentList = new ArrayList<>();
+
+        for(AudienciaAssignment audienciaAssignment : audienciaSchedule.getAudienciaAssignmentList()){
+
+            Audiencia audienciaNueva = audienciaAssignment.getAudiencia();
+
+            for(Juez juezexistente : schedule.getJuezList()){
+                if(audienciaNueva.getJuez().getIdJuez() == juezexistente.getIdJuez()){
+                    audienciaNueva.setJuez(juezexistente);
+                    break;
+                }
+            }
+
+            for(Defensor defensorexistente : schedule.getDefensorList()){
+                if(audienciaNueva.getDefensor().getIdDefensor().equals(defensorexistente.getIdDefensor())){
+                    audienciaNueva.setDefensor(defensorexistente);
+                    break;
+                }
+            }
+
+            for(Fiscal fiscalexistente : schedule.getFiscalList()){
+                if(audienciaNueva.getFiscal().getIdFiscal() == fiscalexistente.getIdFiscal()){
+                    audienciaNueva.setFiscal(fiscalexistente);
+                    break;
+                }
+            }
+
+            for(Tipo tipoexistente : schedule.getTipoList()){
+                if(audienciaNueva.getTipo().getIdTipo() == tipoexistente.getIdTipo()){
+                    audienciaNueva.setTipo(tipoexistente);
+                    break;
+                }
+            }
+
+            audienciaAssignment.setAudiencia(audienciaNueva);
+
+            for(Room roomexistente : schedule.getRoomList()){
+               if(audienciaAssignment.getRoom().getIdRoom() == roomexistente.getIdRoom()){
+                   audienciaAssignment.setRoom(roomexistente);
+                   break;
+               }
+            }
+
+            for(TimeGrain timeGrain : schedule.getTimeGrainList()){
+                if(timeGrain.getDate().isEqual(audienciaAssignment.getStartingTimeGrain().getDate()) && timeGrain.getStartingMinuteOfDay() == audienciaAssignment.getStartingTimeGrain().getStartingMinuteOfDay()){
+                    audienciaAssignment.setStartingTimeGrain(timeGrain);
+                    break;
+                }
+            }
+
+            audienciaAssignment.setPinned(true);
+
+            newAudienciaList.add(audienciaNueva);
+            newAudienciaAssignmentList.add(audienciaAssignment);
+        }
+
+        List<Audiencia> existingAudienciaList = schedule.getAudienciaList();
+        List<AudienciaAssignment> existingAudienciaAssignmentList = schedule.getAudienciaAssignmentList();
+
+        for(Audiencia audiencia : newAudienciaList){
+            existingAudienciaList.add(audiencia);
+        }
+
+        for(AudienciaAssignment audienciaAssignment : newAudienciaAssignmentList){
+            existingAudienciaAssignmentList.add(audienciaAssignment);
+        }
+
+        schedule.setAudienciaList(existingAudienciaList);
+        schedule.setAudienciaAssignmentList(existingAudienciaAssignmentList);
 
     }
 
     private AudienciaSchedule cleanAudienciaAssignments(AudienciaSchedule audienciaSchedule){
-        List<Audiencia> newAudienciaList = null;
-        List<AudienciaAssignment> newAudienciaAssignmentList = null;
+        List<Audiencia> newAudienciaList = new ArrayList<>();
+        List<AudienciaAssignment> newAudienciaAssignmentList = new ArrayList<>();
         for(AudienciaAssignment audienciaAssignment: audienciaSchedule.getAudienciaAssignmentList()){
             if (audienciaAssignment.getStartingTimeGrain().getDate().compareTo(startingDate) < 0 || audienciaAssignment.getStartingTimeGrain().getDate().compareTo(endingDate) > 0){
                 newAudienciaAssignmentList.add(audienciaAssignment);
                 newAudienciaList.add(audienciaAssignment.getAudiencia());
+            } else for(AudienciaAssignment audienciaAssignment1 : schedule.getAudienciaAssignmentList()){
+                if(audienciaAssignment1.getId() == audienciaAssignment.getId()){
+                    newAudienciaAssignmentList.add(audienciaAssignment);
+                    newAudienciaList.add(audienciaAssignment.getAudiencia());
+                }
             }
         }
 
-        for(AudienciaAssignment audienciaAssignment : newAudienciaAssignmentList){
-            List<AudienciaAssignment> oldAudienciaAssignmentList = audienciaSchedule.getAudienciaAssignmentList();
-            oldAudienciaAssignmentList.remove(audienciaAssignment);
+        List<AudienciaAssignment> oldAudienciaAssignmentList = audienciaSchedule.getAudienciaAssignmentList();
+        List<Audiencia> oldAudienciaList = audienciaSchedule.getAudienciaList();
 
+
+        for(AudienciaAssignment audienciaAssignment : newAudienciaAssignmentList){
+            oldAudienciaAssignmentList.remove(audienciaAssignment);
         }
 
-        return null;
+        for (Audiencia audiencia : newAudienciaList){
+            oldAudienciaList.remove(audiencia);
+        }
+        audienciaSchedule.setAudienciaList(oldAudienciaList);
+        audienciaSchedule.setAudienciaAssignmentList(oldAudienciaAssignmentList);
+
+        return audienciaSchedule;
     }
 
-    private void compareAudienciaAssignmets(){
+    private void compare(AudienciaSchedule audienciaSchedule){
+
+        for(AudienciaAssignment audienciaAssignment : audienciaSchedule.getAudienciaAssignmentList()){
+            checkJuez(audienciaAssignment.getAudiencia().getJuez());
+            checkDefensor(audienciaAssignment.getAudiencia().getDefensor());
+            checkFiscal(audienciaAssignment.getAudiencia().getFiscal());
+            checkRoom(audienciaAssignment.getRoom());
+            checkTipo(audienciaAssignment.getAudiencia().getTipo());
+        }
 
     }
 
-    private void compare(){
+    private void checkJuez(Juez juezNuevo){
+        List<Juez> juezList = schedule.getJuezList();
+        boolean juezExists = false;
+        for(Juez juez : juezList){
+            if(juez.getIdJuez() == juezNuevo.getIdJuez()){
+                juezExists = true;
+                break;
+            }
+        }
 
+        if(!juezExists){
+            juezList.add(juezNuevo);
+            schedule.setJuezList(juezList);
+        }
     }
+
+    private void checkDefensor(Defensor defensorNuevo){
+        List<Defensor> defensorList = schedule.getDefensorList();
+        boolean defensorExists = false;
+        for(Defensor defensor : defensorList){
+            if(defensor.getIdDefensor().equals(defensorNuevo.getIdDefensor())){
+                defensorExists = true;
+                break;
+            }
+        }
+
+        if(!defensorExists){
+            defensorList.add(defensorNuevo);
+            schedule.setDefensorList(defensorList);
+        }
+    }
+
+    private void checkFiscal(Fiscal fiscalNuevo){
+        List<Fiscal> fiscalList = schedule.getFiscalList();
+        boolean fiscalExists = false;
+        for(Fiscal fiscal : fiscalList){
+            if(fiscal.getIdFiscal() == fiscalNuevo.getIdFiscal()){
+                fiscalExists = true;
+                break;
+            }
+        }
+
+        if(!fiscalExists){
+            fiscalList.add(fiscalNuevo);
+            schedule.setFiscalList(fiscalList);
+        }
+    }
+
+    private void checkRoom(Room roomNuevo){
+        List<Room> roomList = schedule.getRoomList();
+        boolean roomExists = false;
+        for(Room room : roomList){
+            if(room.getIdRoom() == roomNuevo.getIdRoom()){
+                roomExists = true;
+                break;
+            }
+        }
+        if(!roomExists){
+            roomList.add(roomNuevo);
+            schedule.setRoomList(roomList);
+        }
+    }
+
+    private void checkTipo(Tipo tipoNuevo){
+        List<Tipo> tipoList = schedule.getTipoList();
+        boolean tipoExists = false;
+        for(Tipo tipo : tipoList){
+            if(tipo.getIdTipo() == tipoNuevo.getIdTipo()){
+                tipoExists = true;
+                break;
+            }
+        }
+
+        if(!tipoExists){
+            tipoList.add(tipoNuevo);
+            schedule.setTipoList(tipoList);
+        }
+    }
+
+
 
 }

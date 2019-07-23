@@ -1,8 +1,11 @@
 package org.optaplanner.examples.audienciaTimeGrain.domain;
 
+import org.optaplanner.examples.audienciaTimeGrain.app.LocalDateAdapter;
+
 import javax.xml.bind.annotation.XmlAttribute;
 import javax.xml.bind.annotation.XmlTransient;
 import javax.xml.bind.annotation.XmlType;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.LocalDate;
 import java.util.Date;
 
@@ -92,7 +95,7 @@ public class Audiencia {
         this.ubicacion = ubicacion;
     }
 
-    @XmlTransient
+    @XmlJavaTypeAdapter(value = LocalDateAdapter.class)
     public LocalDate getFechaPedido() {
         return fechaPedido;
     }

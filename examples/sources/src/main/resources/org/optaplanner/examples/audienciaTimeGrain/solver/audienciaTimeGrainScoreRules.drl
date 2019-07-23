@@ -68,8 +68,8 @@ end
 
 rule "Do not conflict Juez"
        when
-           $leftAssignment : AudienciaAssignment(startingTimeGrain != null, $Juez : getJuez(), $id : id)
-           AudienciaAssignment(id != $id, calculateOverlap($leftAssignment) > 0, getJuez() == $Juez)
+           $leftAssignment : AudienciaAssignment(startingTimeGrain != null, $Juez : getJuezId(), $id : id)
+           AudienciaAssignment(id != $id, calculateOverlap($leftAssignment) > 0, getJuezId() == $Juez)
        then
            scoreHolder.penalize(kcontext);
 end
@@ -84,8 +84,8 @@ end
 
 rule "Do not conflict Fiscal"
     when
-        $leftAssignment : AudienciaAssignment(startingTimeGrain != null, $Fiscal : getFiscal(), $id : id)
-        AudienciaAssignment(id != $id, calculateOverlap($leftAssignment) > 0, getFiscal() == $Fiscal)
+        $leftAssignment : AudienciaAssignment(startingTimeGrain != null, $Fiscal : getFiscalId(), $id : id)
+        AudienciaAssignment(id != $id, calculateOverlap($leftAssignment) > 0, getFiscalId() == $Fiscal)
     then
         scoreHolder.penalize(kcontext);
 end
@@ -165,8 +165,8 @@ end
 
 rule "One TimeGrain Juez"
     when
-        $left : AudienciaAssignment(startingTimeGrain != null,  $leftEnd : getLastTimeGrainIndex(), $leftFirstTimeGrain : startingTimeGrain, $juez : getJuez())
-        AudienciaAssignment(startingTimeGrain != null, $leftEnd == startingTimeGrain.getGrainIndex() - 1, $rightFirstTimeGrainIndex : startingTimeGrain.grainIndex, $rightFirstTimeGrain : startingTimeGrain, getJuez() == $juez, isThereABreak($left) == false)
+        $left : AudienciaAssignment(startingTimeGrain != null,  $leftEnd : getLastTimeGrainIndex(), $leftFirstTimeGrain : startingTimeGrain, $juez : getJuezId())
+        AudienciaAssignment(startingTimeGrain != null, $leftEnd == startingTimeGrain.getGrainIndex() - 1, $rightFirstTimeGrainIndex : startingTimeGrain.grainIndex, $rightFirstTimeGrain : startingTimeGrain, getJuezId() == $juez, isThereABreak($left) == false)
         TimeGrain(grainIndex == $rightFirstTimeGrainIndex, $leftFirstTimeGrain.day == $rightFirstTimeGrain.day)
     then
         scoreHolder.penalize(kcontext);
@@ -184,8 +184,8 @@ end
 
 rule "One TimeGrain Fiscal"
     when
-        $left : AudienciaAssignment(startingTimeGrain != null,  $leftEnd : getLastTimeGrainIndex(), $leftFirstTimeGrain : startingTimeGrain, $fiscal : getFiscal())
-        AudienciaAssignment(startingTimeGrain != null, $leftEnd == startingTimeGrain.getGrainIndex() - 1, $rightFirstTimeGrainIndex : startingTimeGrain.grainIndex, $rightFirstTimeGrain : startingTimeGrain, getFiscal() == $fiscal, isThereABreak($left) == false)
+        $left : AudienciaAssignment(startingTimeGrain != null,  $leftEnd : getLastTimeGrainIndex(), $leftFirstTimeGrain : startingTimeGrain, $fiscal : getFiscalId())
+        AudienciaAssignment(startingTimeGrain != null, $leftEnd == startingTimeGrain.getGrainIndex() - 1, $rightFirstTimeGrainIndex : startingTimeGrain.grainIndex, $rightFirstTimeGrain : startingTimeGrain, getFiscalId() == $fiscal, isThereABreak($left) == false)
         TimeGrain(grainIndex == $rightFirstTimeGrainIndex, $leftFirstTimeGrain.day == $rightFirstTimeGrain.day)
     then
         scoreHolder.penalize(kcontext);

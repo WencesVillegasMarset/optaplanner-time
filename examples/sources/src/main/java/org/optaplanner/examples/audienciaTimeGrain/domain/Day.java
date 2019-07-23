@@ -4,6 +4,9 @@ package org.optaplanner.examples.audienciaTimeGrain.domain;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
+import org.optaplanner.examples.audienciaTimeGrain.app.LocalDateAdapter;
+
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 public class Day{
 
@@ -11,6 +14,8 @@ public class Day{
 
     private int dayOfYear; //Dia del año
     private long idDay; //ID
+
+    @XmlJavaTypeAdapter(value = LocalDateAdapter.class)
     private LocalDate date;
     private static final DateTimeFormatter DAY_FORMATTER = DateTimeFormatter.ofPattern("E dd-MM-yyyy", Locale.ENGLISH); //Formato de fecha
 

@@ -124,15 +124,23 @@ public class AudienciaAssignment {
     }
 
     /* Devuelve el id del Juez de la audiencia */
-    public int getJuez(){
+    public int getJuezId(){
         return this.audiencia.getJuez().getIdJuez();
+    }
+
+    public Juez getJuez(){
+        return this.audiencia.getJuez();
     }
 
     /* Devuelve el id del Defensor de la audiencia */
     public Defensor getDefensor(){ return this.audiencia.getDefensor();}
 
     /* Devuelve el id del Fiscal de la audiencia */
-    public int getFiscal(){ return this.audiencia.getFiscal().getIdFiscal();}
+    public int getFiscalId(){ return this.audiencia.getFiscal().getIdFiscal();}
+
+    public Fiscal getFiscal(){
+        return this.audiencia.getFiscal();
+    }
 
     /* Devuelve el id del Tipo de la audiencia */
     public int getTipo(){ return this.audiencia.getTipo().getIdTipo();}
@@ -167,7 +175,7 @@ public class AudienciaAssignment {
     public int isMinimumStartingTime(){
         LocalDate timeGrainDate = this.startingTimeGrain.getDate();
         LocalDate pedidoDate = this.audiencia.getFechaPedido();
-        long days = Math.abs(ChronoUnit.DAYS.between(pedidoDate, timeGrainDate));
+        long days = Math.abs(ChronoUnit.DAYS.between(pedidoDate, timeGrainDate)) + 1;
 //        System.out.println(days);
 
         if(days > audiencia.getTipo().getTiempoRealizacionMinimo()){
@@ -180,7 +188,7 @@ public class AudienciaAssignment {
     public int isMaximumStartingTime(){
         LocalDate timeGrainDate = startingTimeGrain.getDate();
         LocalDate pedidoDate = audiencia.getFechaPedido();
-        long days = Math.abs(ChronoUnit.DAYS.between(pedidoDate, timeGrainDate));
+        long days = Math.abs(ChronoUnit.DAYS.between(pedidoDate, timeGrainDate)) + 1;
 
         if(audiencia.getTipo().getTiempoRealizacionMaximo() == 0 || audiencia.getTipo().getTiempoRealizacionMaximo() > days){
             return 0;

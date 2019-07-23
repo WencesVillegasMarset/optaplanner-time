@@ -4,7 +4,7 @@ public class Room {
 
     /* Variables */
 
-    private Integer idRoom;
+    private int idRoom;
     private String nombreRoom;
     private int ubicacion;
 
@@ -20,11 +20,11 @@ public class Room {
 
     /* Setters y Getters */
 
-    public Integer getIdRoom() {
+    public int getIdRoom() {
         return idRoom;
     }
 
-    public void setIdRoom(Integer idRoom) {
+    public void setIdRoom(int idRoom) {
         this.idRoom = idRoom;
     }
 

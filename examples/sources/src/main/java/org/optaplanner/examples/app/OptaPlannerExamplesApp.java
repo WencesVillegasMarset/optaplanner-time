@@ -43,7 +43,7 @@ import javax.swing.JTextArea;
 import org.optaplanner.examples.common.app.CommonApp;
 import org.optaplanner.examples.common.swingui.OpenBrowserAction;
 import org.optaplanner.examples.common.swingui.SolverAndPersistenceFrame;
-import org.optaplanner.examples.meetingscheduling.app.MeetingSchedulingApp;
+
 
 public class OptaPlannerExamplesApp extends JFrame {
 
@@ -99,9 +99,6 @@ public class OptaPlannerExamplesApp extends JFrame {
         JPanel panel = new JPanel(new GridLayout(0, 4, 5, 5));
         panel.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
 
-
-
-        panel.add(createExampleButton(new MeetingSchedulingApp()));
 
 
         return panel;

@@ -34,7 +34,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-        /* Excel Reader */
+
         File excelFile = new File("src/main/java/org/optaplanner/examples/audienciaTimeGrain/app/test_1.xlsx");
         ExcelReader excelReader = new ExcelReader();
         AudienciaSchedule solvedAudienciaSchedule = excelReader.read(excelFile);
@@ -47,7 +47,7 @@ public class Main {
             xmlInput = scanner.nextLine();
             if(xmlInput.equals("S")  || xmlInput.equals("s")){
                 XMLImporter xmlImporter = new XMLImporter(solvedAudienciaSchedule);
-                xmlImporter.importar();
+                solvedAudienciaSchedule = xmlImporter.importar();
                 correctInputXML = true;
             } else if (xmlInput.equals("N")  || xmlInput.equals("n")){
                 System.out.print("No se cargaran soluciones previas\n");
@@ -69,7 +69,7 @@ public class Main {
             System.out.print("Desea generar un informe en Excel? S/N\n");
             excelInput = scanner.nextLine();
             if(excelInput.equals("S")  || excelInput.equals("s")){
-                excelReader.write(solvedAudienciaSchedule, new File("data/audienciascheduling/results.xlsx"));
+                excelReader.write(solvedAudienciaSchedule, new File("data/excel/results.xlsx"));
                 correctInput = true;
             } else if (excelInput.equals("N")  || excelInput.equals("n")){
                 System.out.print("No se generará un informe en Excel\n");

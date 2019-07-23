@@ -175,22 +175,22 @@ public class AudienciaAssignment {
     public int isMinimumStartingTime(){
         LocalDate timeGrainDate = this.startingTimeGrain.getDate();
         LocalDate pedidoDate = this.audiencia.getFechaPedido();
-        long days = Math.abs(ChronoUnit.DAYS.between(pedidoDate, timeGrainDate)) + 1;
+        long days = Math.abs(ChronoUnit.DAYS.between(pedidoDate, timeGrainDate));
 //        System.out.println(days);
 
-        if(days > audiencia.getTipo().getTiempoRealizacionMinimo()){
+        if(days >= audiencia.getTipo().getTiempoRealizacionMinimo() + 1){
             return 0;
         } else {
-            return audiencia.getTipo().getTiempoRealizacionMinimo() - (int)days;
+            return audiencia.getTipo().getTiempoRealizacionMinimo() + 1 - (int)days;
         }
     }
 
     public int isMaximumStartingTime(){
         LocalDate timeGrainDate = startingTimeGrain.getDate();
         LocalDate pedidoDate = audiencia.getFechaPedido();
-        long days = Math.abs(ChronoUnit.DAYS.between(pedidoDate, timeGrainDate)) + 1;
+        long days = Math.abs(ChronoUnit.DAYS.between(pedidoDate, timeGrainDate));
 
-        if(audiencia.getTipo().getTiempoRealizacionMaximo() == 0 || audiencia.getTipo().getTiempoRealizacionMaximo() > days){
+        if(audiencia.getTipo().getTiempoRealizacionMaximo() == 0 || audiencia.getTipo().getTiempoRealizacionMaximo() >= days){
             return 0;
         } else {
             return (int)days - audiencia.getTipo().getTiempoRealizacionMaximo();

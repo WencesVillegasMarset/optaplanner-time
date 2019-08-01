@@ -23,7 +23,7 @@
   </constructionHeuristic>
 
   <localSearch>
-<!--    <localSearchType>TABU_SEARCH</localSearchType>-->
+    <localSearchType>TABU_SEARCH</localSearchType>
     <termination>
       <unimprovedSecondsSpentLimit>120</unimprovedSecondsSpentLimit>
       <unimprovedScoreDifferenceThreshold>0hard/0medium/1000soft</unimprovedScoreDifferenceThreshold>

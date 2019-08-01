@@ -1,6 +1,9 @@
 package org.optaplanner.examples.audienciaTimeGrain.app;
 
 import java.io.*;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -8,12 +11,15 @@ import java.time.Year;
 import java.util.*;
 import java.util.function.Function;
 
+import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.json.JSONArray;
+import org.json.JSONObject;
 import org.optaplanner.core.api.score.Score;
 import org.optaplanner.core.api.score.buildin.hardmediumsoft.HardMediumSoftScore;
 import org.optaplanner.core.api.score.constraint.ConstraintMatch;
@@ -27,6 +33,10 @@ import org.optaplanner.examples.audienciaTimeGrain.domain.AudienciaSchedule;
 
 import static java.util.stream.Collectors.joining;
 import static java.util.stream.Collectors.toList;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+
+import javax.json.Json;
 
 public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
 
@@ -53,6 +63,8 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
 
         AudienciaSchedulingXlsxReader (XSSFWorkbook workbook){ super(workbook, Main.SOLVER_CONFIG);}
 
+        private LocalDate fechainicial;
+
         public AudienciaSchedule read(){
             solution = new AudienciaSchedule();
             readConfiguration();
@@ -69,6 +81,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
         private void readConfiguration(){
             nextSheet("Configuration");
             nextRow();
+            fechainicial = LocalDate.parse(nextStringCell().getStringCellValue(), DAY_FORMATTER);
             nextRow(true);
             readHeaderCell("Constraint");
             readHeaderCell("Weight");
@@ -211,34 +224,62 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
         private void readDayList(){
             nextSheet("Días");
             nextRow(false);
-            readHeaderCell("Día");
             readHeaderCell("Inicio");
             readHeaderCell("Fin");
-            List<Day> dayList = new ArrayList<>(currentSheet.getLastRowNum() - 1);
+            List<Day> dayList = new ArrayList<>(30);
             List<TimeGrain> timeGrainList = new ArrayList<>();
             int dayId = 0, timeGrainId = 0;
-            while (nextRow()) {
-                LocalDate diaLeidoCompleto = LocalDate.parse(nextStringCell().getStringCellValue(), DAY_FORMATTER);
-                int diaLeido = diaLeidoCompleto.getDayOfYear();
-                Day day = null;
-                for(Day writtenDay : dayList){
-                    if(writtenDay.getDayOfYear() == diaLeido){
-                        day = writtenDay;
+
+            List<LocalDate> feriados = new ArrayList<LocalDate>();
+
+            try {
+                feriados = getFeriados();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+
+            LocalDate fechaActual = fechainicial;
+
+            nextRow();
+            LocalTime startTime = LocalTime.parse(nextStringCell().getStringCellValue(), TIME_FORMATTER);
+            LocalTime endTime = LocalTime.parse(nextStringCell().getStringCellValue(), TIME_FORMATTER);
+            int startMinuteOfDay = startTime.getHour() * 60 + startTime.getMinute();
+            int endMinuteOfDay = endTime.getHour() * 60 + endTime.getMinute();
+
+
+
+            for(int j=0; j<20; j++){
+                boolean isFeriado;
+                do {
+                    isFeriado = false;
+                    for (LocalDate localDate : feriados){
+                        if(fechaActual.isEqual(localDate)){
+                            isFeriado = true;
+                        }
                     }
-                }
-                if(day==null){
-                    day = new Day();
-                    day.setIdDay(dayId);
-                    day.setDayOfYear(diaLeido);
-                    day.setDate(diaLeidoCompleto);
-                    dayList.add(day);
-//                    System.out.println("Día " + day.getDateString() + day.getIdDay());
-                }
+                    if(fechaActual.getDayOfWeek().getValue() == 6 || fechaActual.getDayOfWeek().getValue() == 7){
+                        isFeriado = true;
+                    }
+                    if(isFeriado){
+                        fechaActual = fechaActual.plusDays(1);
+                    }
+                }while (isFeriado);
+
+
+                LocalDate diaLeido = fechaActual;
+
+
+                Day day = new Day();
+                day.setIdDay(dayId);
+                day.setDayOfYear(diaLeido.getDayOfYear());
+                day.setDate(diaLeido);
+                dayList.add(day);
+//                System.out.println("Día " + day.getDateString());
+
                 dayId++;
-                LocalTime startTime = LocalTime.parse(nextStringCell().getStringCellValue(), TIME_FORMATTER);
-                LocalTime endTime = LocalTime.parse(nextStringCell().getStringCellValue(), TIME_FORMATTER);
-                int startMinuteOfDay = startTime.getHour() * 60 + startTime.getMinute();
-                int endMinuteOfDay = endTime.getHour() * 60 + endTime.getMinute();
+                fechaActual = fechaActual.plusDays(1);
+
                 for (int i = 0; (endMinuteOfDay - startMinuteOfDay) > i * TimeGrain.GRAIN_LENGTH_IN_MINUTES; i++) {
                     int timeGrainStartingMinuteOfDay = i * TimeGrain.GRAIN_LENGTH_IN_MINUTES + startMinuteOfDay;
                     TimeGrain timeGrain = new TimeGrain();
@@ -253,6 +294,55 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             }
             solution.setDayList(dayList);
             solution.setTimeGrainList(timeGrainList);
+        }
+
+        private List<LocalDate> getFeriados() throws IOException {
+
+            int anoActual = fechainicial.getYear();
+            List<LocalDate> feriadosList = new ArrayList<LocalDate>();
+
+            for (int j = 0; j<2; j++){
+                URL url = null;
+                try {
+                    url = new URL("http://nolaborables.com.ar/api/v2/feriados/" + anoActual);
+                } catch (MalformedURLException e) {
+                    e.printStackTrace();
+                }
+                HttpURLConnection con = null;
+                con = (HttpURLConnection) url.openConnection();
+                con.setRequestMethod("GET");
+                con.setRequestProperty("Content-Type", "application/json");
+                con.setConnectTimeout(5000);
+                con.setReadTimeout(5000);
+                if(con.getResponseCode() == 404){
+                    continue;
+                }
+                BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+                String inputLine;
+                StringBuffer response = new StringBuffer();
+                while ((inputLine = in.readLine()) != null){
+                    response.append(inputLine);
+                }
+                in.close();
+
+
+
+//                 System.out.print(response.toString());
+                JSONArray jsonArray = new JSONArray(response.toString());
+
+                for (int i = 0; i< jsonArray.length(); i++){
+                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+//                    System.out.println(jsonObject.toString());
+//                    System.out.println(dia + ' ' + mes);
+                    LocalDate feriado = LocalDate.of(anoActual, jsonObject.getInt("mes"), jsonObject.getInt("dia"));
+//                    System.out.println(feriado.toString());
+                    feriadosList.add(feriado);
+                }
+
+                anoActual++;
+            }
+
+            return feriadosList;
         }
 
         private void readRoomList(){

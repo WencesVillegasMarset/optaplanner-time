@@ -2,6 +2,8 @@ package org.optaplanner.examples.audienciaTimeGrain.app;
 
 
 import org.jdom.JDOMException;
+import org.optaplanner.benchmark.api.PlannerBenchmark;
+import org.optaplanner.benchmark.api.PlannerBenchmarkFactory;
 import org.optaplanner.core.api.solver.Solver;
 
 import java.io.File;
@@ -69,7 +71,14 @@ public class Main {
             System.out.print("Desea generar un informe en Excel? S/N\n");
             excelInput = scanner.nextLine();
             if(excelInput.equals("S")  || excelInput.equals("s")){
-                excelReader.write(solvedAudienciaSchedule, new File("data/excel/results.xlsx"));
+                String fileName;
+                int counter = 1;
+                do{
+                    fileName = "Excel-result-" + counter + ".xlsx";
+                    counter++;
+                }while (new File("data/excel/" + fileName).exists());
+
+                excelReader.write(solvedAudienciaSchedule, new File("data/excel/" + fileName));
                 correctInput = true;
             } else if (excelInput.equals("N")  || excelInput.equals("n")){
                 System.out.print("No se generará un informe en Excel\n");

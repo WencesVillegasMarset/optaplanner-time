@@ -178,6 +178,7 @@ public class AudienciaAssignment {
         long days = Math.abs(ChronoUnit.DAYS.between(pedidoDate, timeGrainDate));
 //        System.out.println(days);
 
+
         if(days >= audiencia.getTipo().getTiempoRealizacionMinimo() + 1){
             return 0;
         } else {
@@ -197,6 +198,8 @@ public class AudienciaAssignment {
         }
 
     }
+
+
 
 
 }

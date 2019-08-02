@@ -33,8 +33,6 @@ public class XMLImporter {
                 endingDate = day.toDate();
             }
         }
-        String stringStartingDate = startingDate.toString();
-
 
         final File folder = new File("data/audienciascheduling/");
         listFilesForFolder(folder, startingDate, endingDate);

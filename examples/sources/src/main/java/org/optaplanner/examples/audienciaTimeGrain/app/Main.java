@@ -11,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.sql.Time;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalTime;
@@ -37,9 +38,26 @@ public class Main {
     public static void main(String[] args) {
 
 
-        File excelFile = new File("src/main/java/org/optaplanner/examples/audienciaTimeGrain/app/test_1.xlsx");
+        String fechaDeseada;
+        boolean fileExists = false;
+        AudienciaSchedule solvedAudienciaSchedule = null;
         ExcelReader excelReader = new ExcelReader();
-        AudienciaSchedule solvedAudienciaSchedule = excelReader.read(excelFile);
+        do {
+            Scanner scanner = new Scanner(System.in);
+            System.out.print("Ingrese la fecha que desea calendarizar (dd-mm-yyyy)\n");
+            fechaDeseada = scanner.nextLine();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            LocalDate fechaDeseadaLocalDate = LocalDate.parse(fechaDeseada, formatter);
+            File excelFile = new File("data/unsolved/" + fechaDeseadaLocalDate.getYear() + "-" + fechaDeseadaLocalDate.getMonthValue() + "-" + fechaDeseadaLocalDate.getDayOfMonth() + ".xlsx");
+            if(excelFile.exists()){
+                solvedAudienciaSchedule = excelReader.read(excelFile);
+                fileExists = true;
+            } else {
+                System.out.print("Ingrese una fecha valida\n");
+            }
+        } while (!fileExists);
+
+
 
         boolean correctInputXML = false;
         String xmlInput;

@@ -14,11 +14,7 @@ import java.time.LocalDate;
 
 public class XMLExporter {
 
-    private int id;
-
-    public XMLExporter(int id){
-        this.id = id;
-    }
+    public XMLExporter(){}
 
     public void write(AudienciaSchedule audienciaSchedule) throws JAXBException, FileNotFoundException {
         JAXBContext jaxbContext = JAXBContext.newInstance(AudienciaSchedule.class);

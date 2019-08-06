@@ -3,7 +3,9 @@ package org.optaplanner.examples.audienciaTimeGrain.app;
 import org.optaplanner.examples.audienciaTimeGrain.domain.AudienciaSchedule;
 import org.optaplanner.persistence.common.api.domain.solution.SolutionFileIO;
 
+import javax.xml.bind.JAXBException;
 import java.io.File;
+import java.io.FileNotFoundException;
 
 public class ExcelSolutionFileIO implements SolutionFileIO<AudienciaSchedule> {
 
@@ -17,11 +19,21 @@ public class ExcelSolutionFileIO implements SolutionFileIO<AudienciaSchedule> {
 
     @Override
     public AudienciaSchedule read(File inputSolutionFile) {
-        return excelReader.read(inputSolutionFile);
+        AudienciaSchedule solucion = excelReader.read(inputSolutionFile);
+        XMLImporter xmlImporter = new XMLImporter(solucion);
+        solucion = xmlImporter.importar();
+        return solucion;
     }
 
     @Override
     public void write(AudienciaSchedule solution, File outputSolutionFile) {
-        excelReader.write(solution, outputSolutionFile);
+        XMLExporter xmlExporter = new XMLExporter();
+        try {
+            xmlExporter.write(solution);
+        } catch (JAXBException e) {
+            e.printStackTrace();
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 }

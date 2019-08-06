@@ -20,10 +20,21 @@
     <changeMoveSelector>
       <valueSelector variableName="room"/>
     </changeMoveSelector>
+<!--    <forager>-->
+<!--      <pickEarlyType>FIRST_FEASIBLE_SCORE_OR_NON_DETERIORATING_HARD</pickEarlyType>-->
+<!--    </forager>-->
   </constructionHeuristic>
 
   <localSearch>
-    <localSearchType>TABU_SEARCH</localSearchType>
+<!--    <localSearchType>TABU_SEARCH</localSearchType>-->
+<!--    <acceptor>-->
+<!--      <entityTabuRatio>0.04</entityTabuRatio>-->
+<!--&lt;!&ndash;      <valueTabuRatio>0.04</valueTabuRatio>&ndash;&gt;-->
+<!--    </acceptor>-->
+<!--    <forager>-->
+<!--      <acceptedCountLimit>1000</acceptedCountLimit>-->
+<!--      <finalistPodiumType>STRATEGIC_OSCILLATION</finalistPodiumType>-->
+<!--    </forager>-->
     <termination>
       <unimprovedSecondsSpentLimit>120</unimprovedSecondsSpentLimit>
       <unimprovedScoreDifferenceThreshold>0hard/0medium/1000soft</unimprovedScoreDifferenceThreshold>

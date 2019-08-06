@@ -202,7 +202,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                     tipo.setTiempoRealizacionMinimo((int)minimo.getNumericCellValue());
 //                    System.out.println((int)minimo.getNumericCellValue());
                 }else {
-                    tipo.setTiempoRealizacionMinimo(1);
+                    tipo.setTiempoRealizacionMinimo(2);
                 }
                 XSSFCell maximo = nextCell();
                 if(maximo.getNumericCellValue() != 0){

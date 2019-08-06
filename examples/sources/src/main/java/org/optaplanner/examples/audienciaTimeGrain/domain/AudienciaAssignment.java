@@ -172,24 +172,38 @@ public class AudienciaAssignment {
         return audiencia.getFechaPedido();
     }
 
+    public int daysBetween(LocalDate pedidoDate){
+        LocalDate advancingDate = pedidoDate;
+        int counter = 0;
+        while(!advancingDate.isEqual(startingTimeGrain.getDate())) {
+            if(pedidoDate.isAfter(startingTimeGrain.getDate())){
+                return (int) ChronoUnit.DAYS.between(pedidoDate, startingTimeGrain.getDate());
+            }
+            if(advancingDate.isBefore(startingTimeGrain.getDate()) && advancingDate.getDayOfWeek().getValue() != 6 && advancingDate.getDayOfWeek().getValue() != 7){
+                counter++;
+                advancingDate = advancingDate.plusDays(1);
+            } else if(advancingDate.isBefore(startingTimeGrain.getDate()) && (advancingDate.getDayOfWeek().getValue() == 6 || advancingDate.getDayOfWeek().getValue() == 7)){
+                advancingDate = advancingDate.plusDays(1);
+            }
+        }
+        return counter;
+    }
+
     public int isMinimumStartingTime(){
-        LocalDate timeGrainDate = this.startingTimeGrain.getDate();
         LocalDate pedidoDate = this.audiencia.getFechaPedido();
-        long days = Math.abs(ChronoUnit.DAYS.between(pedidoDate, timeGrainDate));
+        int days = daysBetween(pedidoDate);
 //        System.out.println(days);
 
-
-        if(days >= audiencia.getTipo().getTiempoRealizacionMinimo() + 1){
+        if(days >= audiencia.getTipo().getTiempoRealizacionMinimo()){
             return 0;
         } else {
-            return audiencia.getTipo().getTiempoRealizacionMinimo() + 1 - (int)days;
+            return audiencia.getTipo().getTiempoRealizacionMinimo() - (int)days;
         }
     }
 
     public int isMaximumStartingTime(){
-        LocalDate timeGrainDate = startingTimeGrain.getDate();
         LocalDate pedidoDate = audiencia.getFechaPedido();
-        long days = Math.abs(ChronoUnit.DAYS.between(pedidoDate, timeGrainDate));
+        int days = daysBetween(pedidoDate);
 
         if(audiencia.getTipo().getTiempoRealizacionMaximo() == 0 || audiencia.getTipo().getTiempoRealizacionMaximo() >= days){
             return 0;

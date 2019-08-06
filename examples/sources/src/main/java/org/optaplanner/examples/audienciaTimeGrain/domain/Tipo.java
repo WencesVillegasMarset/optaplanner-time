@@ -6,7 +6,7 @@ public class Tipo {
 
     private int  idTipo;
     private String nombreTipo;
-    private int tiempoRealizacionMinimo = 1;
+    private int tiempoRealizacionMinimo = 2;
     private int tiempoRealizacionMaximo;
 
     /* Constructor */

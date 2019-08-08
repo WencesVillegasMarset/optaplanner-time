@@ -8,14 +8,16 @@ public class Tipo {
     private String nombreTipo;
     private int tiempoRealizacionMinimo = 2;
     private int tiempoRealizacionMaximo;
+    private int tiempoFijacion;
 
     /* Constructor */
 
-    public Tipo(int idTipo, String nombreTipo, int tiempoRealizacionMinimo, int tiempoRealizacionMaximo) {
+    public Tipo(int idTipo, String nombreTipo, int tiempoRealizacionMinimo, int tiempoRealizacionMaximo, int tiempoFijacion) {
         this.idTipo = idTipo;
         this.nombreTipo = nombreTipo;
         this.tiempoRealizacionMinimo = tiempoRealizacionMinimo;
         this.tiempoRealizacionMaximo = tiempoRealizacionMaximo;
+        this.tiempoFijacion = tiempoFijacion;
     }
 
     public Tipo(){}
@@ -52,5 +54,13 @@ public class Tipo {
 
     public void setTiempoRealizacionMaximo(int tiempoRealizacionMaximo) {
         this.tiempoRealizacionMaximo = tiempoRealizacionMaximo;
+    }
+
+    public int getTiempoFijacion() {
+        return tiempoFijacion;
+    }
+
+    public void setTiempoFijacion(int tiempoFijacion) {
+        this.tiempoFijacion = tiempoFijacion;
     }
 }

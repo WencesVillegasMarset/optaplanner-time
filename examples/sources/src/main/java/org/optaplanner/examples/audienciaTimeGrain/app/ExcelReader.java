@@ -82,6 +82,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             nextSheet("Configuration");
             nextRow();
             fechainicial = LocalDate.parse(nextStringCell().getStringCellValue(), DAY_FORMATTER);
+            solution.setFechaCorrida(fechainicial);
             nextRow(true);
             readHeaderCell("Constraint");
             readHeaderCell("Weight");
@@ -191,6 +192,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             readHeaderCell("Id");
             readHeaderCell("Tiempo Realizacion Minimo");
             readHeaderCell("Tiempo Realizacion Maximo");
+            readHeaderCell("Tiempo de fijacion");
             List<Tipo> tipoList = new ArrayList<>(currentSheet.getLastRowNum() - 1);
 //            System.out.println("Tipos: ");
             while (nextRow()){
@@ -209,6 +211,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                     tipo.setTiempoRealizacionMaximo((int)maximo.getNumericCellValue());
 //                    System.out.println((int)maximo.getNumericCellValue());
                 }
+                tipo.setTiempoFijacion((int)nextNumericCell().getNumericCellValue());
 //                System.out.println(tipo.getTiempoRealizacionMinimo() + " " + tipo.getTiempoRealizacionMaximo());
 //                if (!VALID_NAME_PATTERN.matcher(tipo.getNombreTipo()).matches()) {
 //                    throw new IllegalStateException(
@@ -239,7 +242,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             }
 
 
-            LocalDate fechaActual = fechainicial;
+            LocalDate fechaActual = fechainicial.minusDays(5);
 
             nextRow();
             LocalTime startTime = LocalTime.parse(nextStringCell().getStringCellValue(), TIME_FORMATTER);
@@ -249,7 +252,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
 
 
 
-            for(int j=0; j<20; j++){
+            for(int j=0; j<30; j++){
                 boolean isFeriado;
                 do {
                     isFeriado = false;
@@ -280,6 +283,8 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                 dayId++;
                 fechaActual = fechaActual.plusDays(1);
 
+
+                if(diaLeido.isAfter(solution.getFechaCorrida().minusDays(1)))
                 for (int i = 0; (endMinuteOfDay - startMinuteOfDay) > i * TimeGrain.GRAIN_LENGTH_IN_MINUTES; i++) {
                     int timeGrainStartingMinuteOfDay = i * TimeGrain.GRAIN_LENGTH_IN_MINUTES + startMinuteOfDay;
                     TimeGrain timeGrain = new TimeGrain();

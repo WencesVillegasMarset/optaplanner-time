@@ -1,0 +1,155 @@
+<plannerBenchmarkResult xStreamId="1">
+  <name>2019-08-14_103718</name>
+  <aggregation>false</aggregation>
+  <availableProcessors>4</availableProcessors>
+  <loggingLevelOptaPlannerCore>debug</loggingLevelOptaPlannerCore>
+  <loggingLevelDroolsCore>warn</loggingLevelDroolsCore>
+  <maxMemory>2116026368</maxMemory>
+  <optaPlannerVersion>7.22.0.Final</optaPlannerVersion>
+  <javaVersion>Java 12 (Oracle Corporation)</javaVersion>
+  <javaVM>Java Java HotSpot(TM) 64-Bit Server VM 12+33 (Oracle Corporation)</javaVM>
+  <operatingSystem>Windows 10 amd64 10.0</operatingSystem>
+  <parallelBenchmarkCount>1</parallelBenchmarkCount>
+  <warmUpTimeMillisSpentLimit>30</warmUpTimeMillisSpentLimit>
+  <solverBenchmarkResult xStreamId="2">
+    <name>Late Acceptance</name>
+    <subSingleCount>1</subSingleCount>
+    <solverConfig xStreamId="3">
+      <solutionClass>org.optaplanner.examples.audienciaTimeGrain.domain.AudienciaSchedule</solutionClass>
+      <entityClass>org.optaplanner.examples.audienciaTimeGrain.domain.AudienciaAssignment</entityClass>
+      <scoreDirectorFactory xStreamId="4">
+        <scoreDrl>org/optaplanner/examples/audienciaTimeGrain/solver/audienciaTimeGrainScoreRules.drl</scoreDrl>
+        <initializingScoreTrend>ONLY_DOWN</initializingScoreTrend>
+      </scoreDirectorFactory>
+      <constructionHeuristic xStreamId="5">
+        <constructionHeuristicType>FIRST_FIT</constructionHeuristicType>
+        <changeMoveSelector xStreamId="6">
+          <valueSelector xStreamId="7" variableName="startingTimeGrain"/>
+        </changeMoveSelector>
+        <changeMoveSelector xStreamId="8">
+          <valueSelector xStreamId="9" variableName="room"/>
+        </changeMoveSelector>
+      </constructionHeuristic>
+      <localSearch xStreamId="10">
+        <termination xStreamId="11">
+          <minutesSpentLimit>7</minutesSpentLimit>
+          <unimprovedSecondsSpentLimit>120</unimprovedSecondsSpentLimit>
+          <unimprovedScoreDifferenceThreshold>0hard/0medium/1000soft</unimprovedScoreDifferenceThreshold>
+        </termination>
+      </localSearch>
+    </solverConfig>
+    <singleBenchmarkResult xStreamId="12">
+      <subSingleBenchmarkResult xStreamId="13">
+        <subSingleBenchmarkIndex>0</subSingleBenchmarkIndex>
+        <usedMemoryAfterInputSolution>24296424</usedMemoryAfterInputSolution>
+        <succeeded>true</succeeded>
+        <score class="org.optaplanner.core.api.score.buildin.hardmediumsoft.HardMediumSoftScore" xStreamId="14">0hard/0medium/-26249soft</score>
+        <timeMillisSpent>148835</timeMillisSpent>
+        <scoreCalculationCount>437712</scoreCalculationCount>
+      </subSingleBenchmarkResult>
+      <timeMillisSpent>-1</timeMillisSpent>
+      <scoreCalculationCount>-1</scoreCalculationCount>
+    </singleBenchmarkResult>
+    <singleBenchmarkResult xStreamId="15">
+      <subSingleBenchmarkResult xStreamId="16">
+        <subSingleBenchmarkIndex>0</subSingleBenchmarkIndex>
+        <usedMemoryAfterInputSolution>25794080</usedMemoryAfterInputSolution>
+        <succeeded>true</succeeded>
+        <score class="org.optaplanner.core.api.score.buildin.hardmediumsoft.HardMediumSoftScore" xStreamId="17">0hard/0medium/-42075soft</score>
+        <timeMillisSpent>176000</timeMillisSpent>
+        <scoreCalculationCount>346661</scoreCalculationCount>
+      </subSingleBenchmarkResult>
+      <timeMillisSpent>-1</timeMillisSpent>
+      <scoreCalculationCount>-1</scoreCalculationCount>
+    </singleBenchmarkResult>
+  </solverBenchmarkResult>
+  <solverBenchmarkResult xStreamId="18">
+    <name>Tabu Search</name>
+    <subSingleCount>1</subSingleCount>
+    <solverConfig xStreamId="19">
+      <solutionClass>org.optaplanner.examples.audienciaTimeGrain.domain.AudienciaSchedule</solutionClass>
+      <entityClass>org.optaplanner.examples.audienciaTimeGrain.domain.AudienciaAssignment</entityClass>
+      <scoreDirectorFactory xStreamId="20">
+        <scoreDrl>org/optaplanner/examples/audienciaTimeGrain/solver/audienciaTimeGrainScoreRules.drl</scoreDrl>
+        <initializingScoreTrend>ONLY_DOWN</initializingScoreTrend>
+      </scoreDirectorFactory>
+      <constructionHeuristic xStreamId="21">
+        <constructionHeuristicType>FIRST_FIT</constructionHeuristicType>
+        <changeMoveSelector xStreamId="22">
+          <valueSelector xStreamId="23" variableName="startingTimeGrain"/>
+        </changeMoveSelector>
+        <changeMoveSelector xStreamId="24">
+          <valueSelector xStreamId="25" variableName="room"/>
+        </changeMoveSelector>
+      </constructionHeuristic>
+      <localSearch xStreamId="26">
+        <termination xStreamId="27">
+          <minutesSpentLimit>7</minutesSpentLimit>
+          <unimprovedSecondsSpentLimit>120</unimprovedSecondsSpentLimit>
+          <unimprovedScoreDifferenceThreshold>0hard/0medium/1000soft</unimprovedScoreDifferenceThreshold>
+        </termination>
+        <localSearchType>TABU_SEARCH</localSearchType>
+      </localSearch>
+    </solverConfig>
+    <singleBenchmarkResult xStreamId="28">
+      <subSingleBenchmarkResult xStreamId="29">
+        <subSingleBenchmarkIndex>0</subSingleBenchmarkIndex>
+        <usedMemoryAfterInputSolution>24790352</usedMemoryAfterInputSolution>
+        <succeeded>true</succeeded>
+        <score class="org.optaplanner.core.api.score.buildin.hardmediumsoft.HardMediumSoftScore" xStreamId="30">0hard/0medium/-26263soft</score>
+        <timeMillisSpent>148511</timeMillisSpent>
+        <scoreCalculationCount>439924</scoreCalculationCount>
+      </subSingleBenchmarkResult>
+      <timeMillisSpent>-1</timeMillisSpent>
+      <scoreCalculationCount>-1</scoreCalculationCount>
+    </singleBenchmarkResult>
+    <singleBenchmarkResult xStreamId="31">
+      <subSingleBenchmarkResult xStreamId="32">
+        <subSingleBenchmarkIndex>0</subSingleBenchmarkIndex>
+        <usedMemoryAfterInputSolution>25798688</usedMemoryAfterInputSolution>
+        <succeeded>true</succeeded>
+        <score class="org.optaplanner.core.api.score.buildin.hardmediumsoft.HardMediumSoftScore" xStreamId="33">0hard/0medium/-42204soft</score>
+        <timeMillisSpent>171172</timeMillisSpent>
+        <scoreCalculationCount>357243</scoreCalculationCount>
+      </subSingleBenchmarkResult>
+      <timeMillisSpent>-1</timeMillisSpent>
+      <scoreCalculationCount>-1</scoreCalculationCount>
+    </singleBenchmarkResult>
+  </solverBenchmarkResult>
+  <unifiedProblemBenchmarkResult xStreamId="34">
+    <name>2019-8-2</name>
+    <problemProvider class="fileProblemProvider" xStreamId="35">
+      <problemFile>data\unsolved\2019-8-2.xlsx</problemFile>
+    </problemProvider>
+    <writeOutputSolutionEnabled>true</writeOutputSolutionEnabled>
+    <problemStatistic class="bestScoreProblemStatistic" xStreamId="36">
+      <problemStatisticType>BEST_SCORE</problemStatisticType>
+    </problemStatistic>
+    <singleBenchmarkResult xStreamRef="12"/>
+    <singleBenchmarkResult xStreamRef="28"/>
+    <entityCount>140</entityCount>
+    <variableCount>280</variableCount>
+    <maximumValueCount>1872</maximumValueCount>
+    <problemScale>11269440</problemScale>
+    <inputSolutionLoadingTimeMillisSpent>2358</inputSolutionLoadingTimeMillisSpent>
+  </unifiedProblemBenchmarkResult>
+  <unifiedProblemBenchmarkResult xStreamId="37">
+    <name>2019-8-5</name>
+    <problemProvider class="fileProblemProvider" xStreamId="38">
+      <problemFile>data\unsolved\2019-8-5.xlsx</problemFile>
+    </problemProvider>
+    <writeOutputSolutionEnabled>true</writeOutputSolutionEnabled>
+    <problemStatistic class="bestScoreProblemStatistic" xStreamId="39">
+      <problemStatisticType>BEST_SCORE</problemStatisticType>
+    </problemStatistic>
+    <singleBenchmarkResult xStreamRef="15"/>
+    <singleBenchmarkResult xStreamRef="31"/>
+    <entityCount>268</entityCount>
+    <variableCount>536</variableCount>
+    <maximumValueCount>1944</maximumValueCount>
+    <problemScale>22402656</problemScale>
+    <inputSolutionLoadingTimeMillisSpent>4326</inputSolutionLoadingTimeMillisSpent>
+  </unifiedProblemBenchmarkResult>
+  <startingTimestamp>2019-08-14T10:37:18.6790335-03:00</startingTimestamp>
+  <benchmarkTimeMillisSpent>672367</benchmarkTimeMillisSpent>
+</plannerBenchmarkResult>

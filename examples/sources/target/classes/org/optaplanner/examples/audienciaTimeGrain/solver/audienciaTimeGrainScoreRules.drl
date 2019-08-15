@@ -50,12 +50,12 @@ end
 
 rule "Avoid Mid-break"
     when
-        $left: AudienciaAssignment(startingTimeGrain != null, $lastTimeGrainIndex : getLastTimeGrainIndex(), $startTimeGrainIndex : startingTimeGrainIndex, $audiencia : audiencia);
-        Audiencia(idAudiencia == $audiencia.getIdAudiencia(), $duration : numTimeGrains)
-        TimeGrain(grainIndex == $startTimeGrainIndex, $firstStartingMinute : startingMinuteOfDay)
-        TimeGrain(grainIndex == $lastTimeGrainIndex, startingMinuteOfDay != $firstStartingMinute + ($duration - 1) * GRAIN_LENGTH_IN_MINUTES)
+//        $left: AudienciaAssignment(startingTimeGrain != null, $lastTimeGrainIndex : getLastTimeGrainIndex(), $startTimeGrainIndex : startingTimeGrainIndex, $audiencia : audiencia);
+//        Audiencia(idAudiencia == $audiencia.getIdAudiencia(), $duration : numTimeGrains)
+//        TimeGrain(grainIndex == $startTimeGrainIndex, $firstStartingMinute : startingMinuteOfDay)
+//        TimeGrain(grainIndex == $lastTimeGrainIndex, startingMinuteOfDay != $firstStartingMinute + ($duration - 1) * GRAIN_LENGTH_IN_MINUTES)
     then
-        scoreHolder.penalize(kcontext);
+//        scoreHolder.penalize(kcontext);
 end
 
 rule "Start and end on same day"
@@ -98,13 +98,6 @@ rule "Do not use room in prohibited time"
         scoreHolder.penalize(kcontext);
 end
 
-rule "Respect Locations"
-    when
-        AudienciaAssignment(room != null, audiencia.ubicacion != room.ubicacion)
-    then
-        scoreHolder.penalize(kcontext);
-end
-
 rule "Respect Minimum Starting Time"
     when
         $left : AudienciaAssignment(startingTimeGrain != null, isMinimumStartingTime() > 0)
@@ -117,6 +110,13 @@ rule "Respect Maximum Starting Time"
         $left : AudienciaAssignment(startingTimeGrain != null, isMaximumStartingTime() > 0)
     then
         scoreHolder.penalize(kcontext, $left.isMinimumStartingTime());
+end
+
+rule "Respect Locations"
+    when
+        AudienciaAssignment(room != null, audiencia.ubicacion != room.ubicacion)
+    then
+        scoreHolder.penalize(kcontext);
 end
 
 rule "Dont conflict Juez with locations"

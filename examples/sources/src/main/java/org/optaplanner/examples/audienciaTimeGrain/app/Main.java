@@ -2,6 +2,8 @@ package org.optaplanner.examples.audienciaTimeGrain.app;
 
 
 import org.jdom.JDOMException;
+import org.optaplanner.benchmark.api.PlannerBenchmark;
+import org.optaplanner.benchmark.api.PlannerBenchmarkFactory;
 import org.optaplanner.core.api.solver.Solver;
 
 import java.io.File;
@@ -9,6 +11,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.sql.Time;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.time.LocalTime;
@@ -30,14 +33,31 @@ import javax.xml.bind.JAXBException;
 public class Main {
     public static final String SOLVER_CONFIG = "org/optaplanner/examples/audienciaTimeGrain/solver/audienciaTimeGrainSolverConfig.xml";
 
-    public static final String DATA_DIR_NAME = "audienciascheduling";
+    public static final String DATA_DIR_NAME = "data/audienciascheduling";
 
     public static void main(String[] args) {
 
 
-        File excelFile = new File("src/main/java/org/optaplanner/examples/audienciaTimeGrain/app/test_1.xlsx");
+        String fechaDeseada;
+        boolean fileExists = false;
+        AudienciaSchedule solvedAudienciaSchedule = null;
         ExcelReader excelReader = new ExcelReader();
-        AudienciaSchedule solvedAudienciaSchedule = excelReader.read(excelFile);
+        do {
+            Scanner scanner = new Scanner(System.in);
+            System.out.print("Ingrese la fecha que desea calendarizar (dd-mm-yyyy)\n");
+            fechaDeseada = scanner.nextLine();
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+            LocalDate fechaDeseadaLocalDate = LocalDate.parse(fechaDeseada, formatter);
+            File excelFile = new File("data/unsolved/" + fechaDeseadaLocalDate.getYear() + "-" + fechaDeseadaLocalDate.getMonthValue() + "-" + fechaDeseadaLocalDate.getDayOfMonth() + ".xlsx");
+            if(excelFile.exists()){
+                solvedAudienciaSchedule = excelReader.read(excelFile);
+                fileExists = true;
+            } else {
+                System.out.print("Ingrese una fecha valida\n");
+            }
+        } while (!fileExists);
+
+
 
         boolean correctInputXML = false;
         String xmlInput;
@@ -46,7 +66,7 @@ public class Main {
             System.out.print("Desea importar soluciones anteriores? S/N\n");
             xmlInput = scanner.nextLine();
             if(xmlInput.equals("S")  || xmlInput.equals("s")){
-                XMLImporter xmlImporter = new XMLImporter(solvedAudienciaSchedule);
+                XMLImporter xmlImporter = new XMLImporter(solvedAudienciaSchedule, DATA_DIR_NAME);
                 solvedAudienciaSchedule = xmlImporter.importar();
                 correctInputXML = true;
             } else if (xmlInput.equals("N")  || xmlInput.equals("n")){
@@ -69,7 +89,14 @@ public class Main {
             System.out.print("Desea generar un informe en Excel? S/N\n");
             excelInput = scanner.nextLine();
             if(excelInput.equals("S")  || excelInput.equals("s")){
-                excelReader.write(solvedAudienciaSchedule, new File("data/excel/results.xlsx"));
+                String fileName;
+                int counter = 1;
+                do{
+                    fileName = "Excel-result-" + counter + ".xlsx";
+                    counter++;
+                }while (new File("data/excel/" + fileName).exists());
+
+                excelReader.write(solvedAudienciaSchedule, new File("data/excel/" + fileName));
                 correctInput = true;
             } else if (excelInput.equals("N")  || excelInput.equals("n")){
                 System.out.print("No se generará un informe en Excel\n");
@@ -87,7 +114,7 @@ public class Main {
             System.out.print("Desea guardar la solucion? S/N\n");
             input = scanner.nextLine();
             if(input.equals("S")  || input.equals("s")){
-                XMLExporter xmlExporter = new XMLExporter(1);
+                XMLExporter xmlExporter = new XMLExporter(DATA_DIR_NAME);
                 try {
                     xmlExporter.write(solvedAudienciaSchedule);
                 } catch (JAXBException e) {

@@ -16,59 +16,64 @@ public class XMLImporter {
 
     private AudienciaSchedule schedule;
     private LocalDate startingDate;
-    private LocalDate endingDate;
+    private String directory;
 
-    public XMLImporter(AudienciaSchedule audienciaSchedule){
+    public XMLImporter(AudienciaSchedule audienciaSchedule, String directory){
         this.schedule = audienciaSchedule;
+        this.directory = directory;
     }
 
     public AudienciaSchedule importar(){
-        startingDate = schedule.getDayList().get(0).toDate();
-        endingDate = schedule.getDayList().get(0).toDate();
-        for(Day day : schedule.getDayList()){
-            if(day.toDate().isBefore(startingDate)){
-                startingDate = day.toDate();
-            }
-            if(day.toDate().isAfter(endingDate)){
-                endingDate = day.toDate();
-            }
-        }
-        String stringStartingDate = startingDate.toString();
+        startingDate = schedule.getFechaCorrida();
 
-
-        final File folder = new File("data/audienciascheduling/");
-        listFilesForFolder(folder, startingDate, endingDate);
+        final File folder = new File(directory);
+        listFilesForFolder(folder);
 
         return schedule;
     }
 
-    private void listFilesForFolder(final File folder, LocalDate startingDate, LocalDate endingDate) {
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+    private void listFilesForFolder(final File folder) {
+        File[] fileEntry = folder.listFiles();
+        File lastFile = null;
+        if(directory.contains("Benchmark")){
+            for (File file : fileEntry) {
+                String[] stringDate = file.getName().split("-");
+                LocalDate date = LocalDate.of(Integer.parseInt(stringDate[0]), Integer.parseInt(stringDate[1]), Integer.parseInt(stringDate[2]));
+                if(!schedule.getFechaCorrida().isAfter(date)){
+                    continue;
+                }
+                if(lastFile == null){
+                    lastFile = file;
+                }else {
+                    if(file.lastModified() < lastFile.lastModified()){
+                        lastFile = file;
+                    }
+                }
+            }
+        } else{
+            for (File file : fileEntry) {
+                if(lastFile != null){
+                    if(file.lastModified()> lastFile.lastModified()){
+                        lastFile = file;
+                    }
+                } else {
+                    lastFile = file;
+                }
 
-
-        for (final File fileEntry : folder.listFiles()) {
-            String[] stringList = fileEntry.getName().split("-");
-//            System.out.print(stringList[0]);
-            String startingDateString = stringList[0] + '-' + stringList[1] + '-' + stringList[2];
-            String endingDateString = stringList[3] + '-' + stringList[4] + '-' + stringList[5];
-            LocalDate startingLocalDate = LocalDate.parse(startingDateString, formatter);
-            LocalDate endingLocalDate = LocalDate.parse(endingDateString, formatter);
-
-            if (!(endingLocalDate.isBefore(startingDate) || startingLocalDate.isAfter(endingDate))){
-                importOneFile(fileEntry);
             }
         }
-
+        importOneFile(lastFile);
     }
 
     private void importOneFile(File file) {
         JAXBContext jaxbContext;
-        try {
-            jaxbContext = JAXBContext.newInstance(AudienciaSchedule.class);
+        if(file != null){
+            try {
+                jaxbContext = JAXBContext.newInstance(AudienciaSchedule.class);
 
-            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+                Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 
-            AudienciaSchedule audienciaSchedule = (AudienciaSchedule) jaxbUnmarshaller.unmarshal(file);
+                AudienciaSchedule audienciaSchedule = (AudienciaSchedule) jaxbUnmarshaller.unmarshal(file);
 
 //            System.out.println(audienciaSchedule.toString());
 
@@ -76,15 +81,23 @@ public class XMLImporter {
 //                System.out.println();
 //            }
 
-            audienciaSchedule = cleanAudienciaAssignments(audienciaSchedule);
+                audienciaSchedule = cleanAudienciaAssignments(audienciaSchedule);
 
-            compare(audienciaSchedule);
+                compare(audienciaSchedule);
 
-            createSolution(audienciaSchedule);
+                createSolution(audienciaSchedule);
 
-        } catch (JAXBException e) {
-            e.printStackTrace();
+                if(directory.contains("Benchmark")){
+                    file.delete();
+                }
+
+            } catch (JAXBException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("No existen soluciones anteriores, se procedera con el siguiente paso");
         }
+
 
 
     }
@@ -142,8 +155,6 @@ public class XMLImporter {
                 }
             }
 
-            audienciaAssignment.setPinned(true);
-
             newAudienciaList.add(audienciaNueva);
             newAudienciaAssignmentList.add(audienciaAssignment);
         }
@@ -168,7 +179,7 @@ public class XMLImporter {
         List<Audiencia> newAudienciaList = new ArrayList<>();
         List<AudienciaAssignment> newAudienciaAssignmentList = new ArrayList<>();
         for(AudienciaAssignment audienciaAssignment: audienciaSchedule.getAudienciaAssignmentList()){
-            if (audienciaAssignment.getStartingTimeGrain().getDate().compareTo(startingDate) < 0 || audienciaAssignment.getStartingTimeGrain().getDate().compareTo(endingDate) > 0){
+            if (audienciaAssignment.getStartingTimeGrain().getDate().compareTo(startingDate) < 0){
                 newAudienciaAssignmentList.add(audienciaAssignment);
                 newAudienciaList.add(audienciaAssignment.getAudiencia());
             } else for(AudienciaAssignment audienciaAssignment1 : schedule.getAudienciaAssignmentList()){

@@ -9,8 +9,12 @@ import org.optaplanner.core.api.domain.solution.drools.ProblemFactCollectionProp
 import org.optaplanner.core.api.domain.valuerange.ValueRangeProvider;
 import org.optaplanner.core.api.score.buildin.hardmediumsoft.HardMediumSoftScore;
 import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScore;
-import javax.xml.bind.annotation.*;
+import org.optaplanner.examples.audienciaTimeGrain.app.LocalDateAdapter;
 
+import javax.xml.bind.annotation.*;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
+
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,6 +37,9 @@ public class AudienciaSchedule {
     }
 
     /* Variables */
+
+
+    private LocalDate fechaCorrida;
 
     @ProblemFactCollectionProperty
     private List<Day> dayList;
@@ -150,6 +157,15 @@ public class AudienciaSchedule {
 
     public void setScore(HardMediumSoftScore score) {
         this.score = score;
+    }
+
+    @XmlJavaTypeAdapter(value = LocalDateAdapter.class)
+    public LocalDate getFechaCorrida() {
+        return fechaCorrida;
+    }
+
+    public void setFechaCorrida(LocalDate fechaCorrida) {
+        this.fechaCorrida = fechaCorrida;
     }
 
     /* toString */

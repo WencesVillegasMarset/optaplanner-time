@@ -20,14 +20,14 @@ public class ExcelSolutionFileIO implements SolutionFileIO<AudienciaSchedule> {
     @Override
     public AudienciaSchedule read(File inputSolutionFile) {
         AudienciaSchedule solucion = excelReader.read(inputSolutionFile);
-        XMLImporter xmlImporter = new XMLImporter(solucion);
+        XMLImporter xmlImporter = new XMLImporter(solucion, "data/audienciaschedulingBenchmark");
         solucion = xmlImporter.importar();
         return solucion;
     }
 
     @Override
     public void write(AudienciaSchedule solution, File outputSolutionFile) {
-        XMLExporter xmlExporter = new XMLExporter();
+        XMLExporter xmlExporter = new XMLExporter("data/audienciaschedulingBenchmark/");
         try {
             xmlExporter.write(solution);
         } catch (JAXBException e) {

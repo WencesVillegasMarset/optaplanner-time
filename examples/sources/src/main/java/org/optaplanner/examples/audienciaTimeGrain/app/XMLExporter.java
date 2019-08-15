@@ -17,7 +17,11 @@ import java.time.temporal.ChronoUnit;
 
 public class XMLExporter {
 
-    public XMLExporter(){}
+    private String directory;
+
+    public XMLExporter(String directory){
+        this.directory = directory;
+    }
 
     public void write(AudienciaSchedule audienciaSchedule) throws JAXBException, FileNotFoundException {
 
@@ -57,10 +61,10 @@ public class XMLExporter {
         do{
             fileName = fechaCorrida.toString() +"-number-" + counter;
             counter++;
-        }while (new File("data/audienciascheduling/" + fileName).exists());
+        }while (new File(directory + fileName).exists());
 
 
-        marshaller.marshal(audienciaSchedule, new File("data/audienciascheduling/" + fileName));
+        marshaller.marshal(audienciaSchedule, new File(directory + fileName));
     }
 
 }

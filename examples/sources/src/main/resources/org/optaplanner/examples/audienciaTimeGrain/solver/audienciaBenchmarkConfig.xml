@@ -6,6 +6,7 @@
         <problemBenchmarks>
             <solutionFileIOClass>org.optaplanner.examples.audienciaTimeGrain.app.ExcelSolutionFileIO</solutionFileIOClass>
             <inputSolutionFile>data/unsolved/2019-8-2.xlsx</inputSolutionFile>
+            <inputSolutionFile>data/unsolved/2019-8-5.xlsx</inputSolutionFile>
             <writeOutputSolutionEnabled>true</writeOutputSolutionEnabled>
         </problemBenchmarks>
         <solver>

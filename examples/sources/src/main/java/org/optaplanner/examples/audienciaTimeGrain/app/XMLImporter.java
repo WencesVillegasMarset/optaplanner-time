@@ -16,21 +16,17 @@ public class XMLImporter {
 
     private AudienciaSchedule schedule;
     private LocalDate startingDate;
+    private String directory;
 
-    public XMLImporter(AudienciaSchedule audienciaSchedule){
+    public XMLImporter(AudienciaSchedule audienciaSchedule, String directory){
         this.schedule = audienciaSchedule;
+        this.directory = directory;
     }
 
     public AudienciaSchedule importar(){
-        startingDate = schedule.getDayList().get(0).toDate();
+        startingDate = schedule.getFechaCorrida();
 
-        for(Day day : schedule.getDayList()){
-            if(day.toDate().isBefore(startingDate)){
-                startingDate = day.toDate();
-            }
-        }
-
-        final File folder = new File("data/audienciascheduling/");
+        final File folder = new File(directory);
         listFilesForFolder(folder);
 
         return schedule;
@@ -38,10 +34,32 @@ public class XMLImporter {
 
     private void listFilesForFolder(final File folder) {
         File[] fileEntry = folder.listFiles();
-        File lastFile = fileEntry[0];
-        for (File file : fileEntry) {
-            if(file.lastModified()> lastFile.lastModified()){
-                lastFile = file;
+        File lastFile = null;
+        if(directory.contains("Benchmark")){
+            for (File file : fileEntry) {
+                String[] stringDate = file.getName().split("-");
+                LocalDate date = LocalDate.of(Integer.parseInt(stringDate[0]), Integer.parseInt(stringDate[1]), Integer.parseInt(stringDate[2]));
+                if(!schedule.getFechaCorrida().isAfter(date)){
+                    continue;
+                }
+                if(lastFile == null){
+                    lastFile = file;
+                }else {
+                    if(file.lastModified() < lastFile.lastModified()){
+                        lastFile = file;
+                    }
+                }
+            }
+        } else{
+            for (File file : fileEntry) {
+                if(lastFile != null){
+                    if(file.lastModified()> lastFile.lastModified()){
+                        lastFile = file;
+                    }
+                } else {
+                    lastFile = file;
+                }
+
             }
         }
         importOneFile(lastFile);
@@ -49,12 +67,13 @@ public class XMLImporter {
 
     private void importOneFile(File file) {
         JAXBContext jaxbContext;
-        try {
-            jaxbContext = JAXBContext.newInstance(AudienciaSchedule.class);
+        if(file != null){
+            try {
+                jaxbContext = JAXBContext.newInstance(AudienciaSchedule.class);
 
-            Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+                Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
 
-            AudienciaSchedule audienciaSchedule = (AudienciaSchedule) jaxbUnmarshaller.unmarshal(file);
+                AudienciaSchedule audienciaSchedule = (AudienciaSchedule) jaxbUnmarshaller.unmarshal(file);
 
 //            System.out.println(audienciaSchedule.toString());
 
@@ -62,15 +81,23 @@ public class XMLImporter {
 //                System.out.println();
 //            }
 
-            audienciaSchedule = cleanAudienciaAssignments(audienciaSchedule);
+                audienciaSchedule = cleanAudienciaAssignments(audienciaSchedule);
 
-            compare(audienciaSchedule);
+                compare(audienciaSchedule);
 
-            createSolution(audienciaSchedule);
+                createSolution(audienciaSchedule);
 
-        } catch (JAXBException e) {
-            e.printStackTrace();
+                if(directory.contains("Benchmark")){
+                    file.delete();
+                }
+
+            } catch (JAXBException e) {
+                e.printStackTrace();
+            }
+        } else {
+            System.out.println("No existen soluciones anteriores, se procedera con el siguiente paso");
         }
+
 
 
     }

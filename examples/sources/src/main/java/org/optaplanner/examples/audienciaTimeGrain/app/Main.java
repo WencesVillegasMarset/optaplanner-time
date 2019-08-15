@@ -33,7 +33,7 @@ import javax.xml.bind.JAXBException;
 public class Main {
     public static final String SOLVER_CONFIG = "org/optaplanner/examples/audienciaTimeGrain/solver/audienciaTimeGrainSolverConfig.xml";
 
-    public static final String DATA_DIR_NAME = "audienciascheduling";
+    public static final String DATA_DIR_NAME = "data/audienciascheduling";
 
     public static void main(String[] args) {
 
@@ -66,7 +66,7 @@ public class Main {
             System.out.print("Desea importar soluciones anteriores? S/N\n");
             xmlInput = scanner.nextLine();
             if(xmlInput.equals("S")  || xmlInput.equals("s")){
-                XMLImporter xmlImporter = new XMLImporter(solvedAudienciaSchedule);
+                XMLImporter xmlImporter = new XMLImporter(solvedAudienciaSchedule, DATA_DIR_NAME);
                 solvedAudienciaSchedule = xmlImporter.importar();
                 correctInputXML = true;
             } else if (xmlInput.equals("N")  || xmlInput.equals("n")){
@@ -114,7 +114,7 @@ public class Main {
             System.out.print("Desea guardar la solucion? S/N\n");
             input = scanner.nextLine();
             if(input.equals("S")  || input.equals("s")){
-                XMLExporter xmlExporter = new XMLExporter();
+                XMLExporter xmlExporter = new XMLExporter(DATA_DIR_NAME);
                 try {
                     xmlExporter.write(solvedAudienciaSchedule);
                 } catch (JAXBException e) {

@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d0e6c03b-b6ca-4709-a52f-96286fbf2532" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/app/OldScheduleCreator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/data/2019-8-2.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/data/2019-8-2.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/app/OldScheduleCreator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/app/OldScheduleCreator.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/app/OldScheduler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/app/OldScheduler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/common/persistence/AbstractXlsxSolutionFileIO.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/common/persistence/AbstractXlsxSolutionFileIO.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/classes/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -21,20 +19,25 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/app/OldScheduler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="219">
-              <caret line="419" column="134" selection-start-line="419" selection-start-column="134" selection-end-line="419" selection-end-column="134" />
+            <state relative-caret-position="-244">
+              <caret line="40" column="45" selection-start-line="40" selection-start-column="45" selection-end-line="40" selection-end-column="45" />
+              <folding>
+                <element signature="method#read#0;class#OldScheduler#0" />
+                <element signature="method#write#0;class#OldScheduler#0" />
+                <element signature="class#AudienciaSchedulingXlsxReader#0;class#OldScheduler#0" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/app/OldScheduleCreator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="424">
-              <caret line="25" column="72" selection-start-line="25" selection-start-column="72" selection-end-line="25" selection-end-column="72" />
+            <state relative-caret-position="124">
+              <caret line="27" column="11" lean-forward="true" selection-start-line="27" selection-start-column="11" selection-end-line="27" selection-end-column="11" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -45,8 +48,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/app/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="308">
-              <caret line="82" column="72" selection-start-line="79" selection-start-column="8" selection-end-line="82" selection-end-column="72" />
+            <state relative-caret-position="396">
+              <caret line="98" column="95" lean-forward="true" selection-start-line="91" selection-start-column="16" selection-end-line="98" selection-end-column="95" />
             </state>
           </provider>
         </entry>
@@ -71,8 +74,8 @@
         <option value="$PROJECT_DIR$/src/test/java/org/optaplanner/examples/common/app/AbstractConstructionHeuristicTest.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
         <option value="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/common/persistence/AbstractXlsxSolutionFileIO.java" />
-        <option value="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/app/OldScheduleCreator.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/app/OldScheduler.java" />
+        <option value="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/app/OldScheduleCreator.java" />
       </list>
     </option>
   </component>
@@ -88,7 +91,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -100,6 +103,12 @@
               <item name="optaplanner-examples" type="b2602c69:ProjectViewProjectNode" />
               <item name="sources" type="462c0819:PsiDirectoryNode" />
               <item name="data" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="optaplanner-examples" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sources" type="462c0819:PsiDirectoryNode" />
+              <item name="data" type="462c0819:PsiDirectoryNode" />
+              <item name="excel" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="optaplanner-examples" type="b2602c69:ProjectViewProjectNode" />
@@ -160,7 +169,7 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -233,6 +242,7 @@
       <workItem from="1566403620243" duration="259000" />
       <workItem from="1566405019490" duration="1491000" />
       <workItem from="1566411455466" duration="6471000" />
+      <workItem from="1566429898138" duration="2015000" />
     </task>
     <task id="LOCAL-00001" summary="avanzado excelreader">
       <created>1566406512094</created>
@@ -245,12 +255,12 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="8493000" />
+    <option name="totallyTimeSpent" value="10508000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18053691" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18322147" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
@@ -259,7 +269,7 @@
       <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3286119" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.4036827" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -341,13 +351,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/app/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="308">
-          <caret line="82" column="72" selection-start-line="79" selection-start-column="8" selection-end-line="82" selection-end-column="72" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="556">
@@ -355,19 +358,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/app/OldScheduler.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/app/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="219">
-          <caret line="419" column="134" selection-start-line="419" selection-start-column="134" selection-end-line="419" selection-end-column="134" />
+        <state relative-caret-position="396">
+          <caret line="98" column="95" lean-forward="true" selection-start-line="91" selection-start-column="16" selection-end-line="98" selection-end-column="95" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/app/OldScheduleCreator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="424">
-          <caret line="25" column="72" selection-start-line="25" selection-start-column="72" selection-end-line="25" selection-end-column="72" />
+        <state relative-caret-position="124">
+          <caret line="27" column="11" lean-forward="true" selection-start-line="27" selection-start-column="11" selection-end-line="27" selection-end-column="11" />
           <folding>
             <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/app/OldScheduler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-244">
+          <caret line="40" column="45" selection-start-line="40" selection-start-column="45" selection-end-line="40" selection-end-column="45" />
+          <folding>
+            <element signature="method#read#0;class#OldScheduler#0" />
+            <element signature="method#write#0;class#OldScheduler#0" />
+            <element signature="class#AudienciaSchedulingXlsxReader#0;class#OldScheduler#0" />
           </folding>
         </state>
       </provider>

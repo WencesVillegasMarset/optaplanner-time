@@ -237,7 +237,7 @@ public class OldScheduler extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             nextRow(false);
             readHeaderCell("Inicio");
             readHeaderCell("Fin");
-            List<Day> dayList = new ArrayList<>(200);
+            List<Day> dayList = new ArrayList<>(300);
             List<TimeGrain> timeGrainList = new ArrayList<>();
             int dayId = 0, timeGrainId = 0;
 
@@ -260,7 +260,7 @@ public class OldScheduler extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
 
 
 
-            for(int j=0; j<30; j++){
+            for(int j=0; j<200; j++){
                 boolean isFeriado;
                 do {
                     isFeriado = false;
@@ -482,7 +482,7 @@ public class OldScheduler extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                     }
                 } else {
                     throw new IllegalStateException(
-                            currentPosition() + ": The tipo with id (" + tipoRead
+                            currentPosition() + ": The room with id (" + salaRead
                                     + ") does not exist.");
                 }
 
@@ -493,12 +493,23 @@ public class OldScheduler extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                         break;
                     }
                 }
+                if (dayToUse == null){
+                    System.out.println("No existe el dia" + fechaCalendarizado.toString());
+                }
+
+                TimeGrain timeGrainToUse = null;
                 for (TimeGrain timeGrain : solution.getTimeGrainList()){
-                    if (timeGrain.getStartingMinuteOfDay() == startingMinute){
-                        audienciaAssignment.setStartingTimeGrain(timeGrain);
+                    if (timeGrain.getDay().equals(dayToUse) && timeGrain.getStartingMinuteOfDay() == startingMinute){
+                        timeGrainToUse = timeGrain;
                         break;
                     }
                 }
+                if (timeGrainToUse != null){
+                    audienciaAssignment.setStartingTimeGrain(timeGrainToUse);
+                } else{
+                    System.out.println("No hay timegrain para el horario " + horaMinutosRead);
+                }
+
 
 
                 audienciaList.add(audiencia);

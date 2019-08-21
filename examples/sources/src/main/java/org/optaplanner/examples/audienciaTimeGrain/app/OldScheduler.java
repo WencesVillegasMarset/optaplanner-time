@@ -4,10 +4,7 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.Year;
+import java.time.*;
 import java.util.*;
 import java.util.function.Function;
 
@@ -366,7 +363,6 @@ public class OldScheduler extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             nextRow(false);
             readHeaderCell("Sala");
             readHeaderCell("Id");
-            readHeaderCell("Ubicacion");
             List<Room> roomList = new ArrayList<>(currentSheet.getLastRowNum() - 1);
             while (nextRow()){
                 Room room = new Room();
@@ -392,8 +388,10 @@ public class OldScheduler extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             readHeaderCell("Defensor");
             readHeaderCell("Nombre Defensor");
             readHeaderCell("Fiscal");
-            readHeaderCell("Ubicacion");
             readHeaderCell("Fecha de Pedido");
+            readHeaderCell("Sala");
+            readHeaderCell("Fecha Calendarizado");
+            readHeaderCell("Hora de Comienzo");
 
             List<Audiencia> audienciaList = new ArrayList<>(currentSheet.getLastRowNum() - 1);
             List<AudienciaAssignment> audienciaAssignmentList = new ArrayList<>(currentSheet.getLastRowNum() - 1);
@@ -416,8 +414,16 @@ public class OldScheduler extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
 //                System.out.println(defensorNombre);
                 int fiscalRead = (int)nextNumericCell().getNumericCellValue();
 //                System.out.println(fiscalRead);
-                audiencia.setUbicacion((int)nextNumericCell().getNumericCellValue());
-                audiencia.setFechaPedido(LocalDate.parse(nextStringCell().getStringCellValue(), DAY_FORMATTER));
+                LocalDate fechaPedido = nextCell().getDateCellValue().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                audiencia.setFechaPedido(fechaPedido);
+                int salaRead = (int)nextNumericCell().getNumericCellValue();
+                LocalDate fechaCalendarizado = nextCell().getDateCellValue().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                String horaMinutosRead = nextStringCell().getStringCellValue();
+                String[] splitString = horaMinutosRead.split(":");
+                int horaRead = Integer.parseInt(splitString[0]);
+                int minutosRead = Integer.parseInt(splitString[1]);
+                int startingMinute = horaRead * 60 + minutosRead;
+
 //                System.out.println(audiencia.getFechaPedido());
                 if(containsTipo(solution.getTipoList(), tipoRead)){
                     for (Tipo tipo : solution.getTipoList()) {
@@ -467,9 +473,37 @@ public class OldScheduler extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                             currentPosition() + ": The fiscal with id (" + fiscalRead
                                     + ") does not exist.");
                 }
+                if(containsSala(solution.getRoomList(), salaRead)){
+                    for (Room room : solution.getRoomList()) {
+                        if (room.getIdRoom() == salaRead){
+                            audienciaAssignment.setRoom(room);
+                            break;
+                        }
+                    }
+                } else {
+                    throw new IllegalStateException(
+                            currentPosition() + ": The tipo with id (" + tipoRead
+                                    + ") does not exist.");
+                }
+
+                Day dayToUse = null;
+                for (Day day : solution.getDayList()){
+                    if (day.toDate().isEqual(fechaCalendarizado)){
+                        dayToUse = day;
+                        break;
+                    }
+                }
+                for (TimeGrain timeGrain : solution.getTimeGrainList()){
+                    if (timeGrain.getStartingMinuteOfDay() == startingMinute){
+                        audienciaAssignment.setStartingTimeGrain(timeGrain);
+                        break;
+                    }
+                }
+
 
                 audienciaList.add(audiencia);
                 audienciaAssignment.setAudiencia(audiencia);
+                audienciaAssignment.setPinned(true);
                 audienciaAssignmentList.add(audienciaAssignment);
 //                System.out.println(audiencia.getNumTimeGrains() + " " + audiencia.getDefensor().getNombreDefensor() + audiencia.getFiscal().getNombreFiscal() + audiencia.getJuez().getIdJuez());
             }
@@ -492,6 +526,10 @@ public class OldScheduler extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
 
         private boolean containsFiscal(final List<Fiscal> list, final int numero){
             return list.stream().anyMatch(o -> o.getIdFiscal() == numero);
+        }
+
+        private boolean containsSala(final List<Room> list, final int numero){
+            return list.stream().anyMatch(o -> o.getIdRoom() == numero);
         }
 
 

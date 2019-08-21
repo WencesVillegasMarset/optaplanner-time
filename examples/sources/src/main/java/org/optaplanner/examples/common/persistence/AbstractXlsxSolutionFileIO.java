@@ -66,6 +66,8 @@ public abstract class AbstractXlsxSolutionFileIO<Solution_> implements SolutionF
 
     public static final DateTimeFormatter DAY_FORMATTER
             = DateTimeFormatter.ofPattern("dd-MM-yyyy", Locale.ENGLISH);
+    public static final DateTimeFormatter DAY_FORMATTER2
+            = DateTimeFormatter.ofPattern("MM-dd-yyyy", Locale.ENGLISH);
     public static final DateTimeFormatter MONTH_FORMATTER
             = DateTimeFormatter.ofPattern("MMM yyyy", Locale.ENGLISH);
     public static final DateTimeFormatter TIME_FORMATTER

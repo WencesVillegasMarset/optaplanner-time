@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="d0e6c03b-b6ca-4709-a52f-96286fbf2532" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/app/AllExamplesSolutionImporter.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/app/AllExamplesSolutionImporter.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/app/OptaPlannerExamplesApp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/app/OptaPlannerExamplesApp.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/test/java/org/optaplanner/examples/common/app/AbstractConstructionHeuristicTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/org/optaplanner/examples/common/app/AbstractConstructionHeuristicTest.java" afterDir="false" />
+    <list default="true" id="d0e6c03b-b6ca-4709-a52f-96286fbf2532" name="Default Changelist" comment="avanzado excelreader">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/data/2019-8-2.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/data/2019-8-2.xlsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/optaplanner-examples.iml" beforeDir="false" afterPath="$PROJECT_DIR$/optaplanner-examples.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/app/OldScheduler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/app/OldScheduler.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/audienciaTimeGrain/app/ExcelReader.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/audienciaTimeGrain/app/ExcelReader.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/persistence/AbstractTxtSolutionExporter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/persistence/AbstractTxtSolutionExporter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/persistence/AbstractTxtSolutionImporter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/persistence/AbstractTxtSolutionImporter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/persistence/AbstractXlsxSolutionFileIO$AbstractXlsxWriter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/persistence/AbstractXlsxSolutionFileIO$AbstractXlsxWriter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/persistence/AbstractXlsxSolutionImporter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/persistence/AbstractXlsxSolutionImporter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/persistence/AbstractXmlSolutionExporter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/persistence/AbstractXmlSolutionExporter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/persistence/AbstractXmlSolutionImporter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/persistence/AbstractXmlSolutionImporter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/SolverAndPersistenceFrame$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/SolverAndPersistenceFrame$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/timetable/TimeTableLayout.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/common/swingui/timetable/TimeTableLayout.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/org/optaplanner/examples/common/app/SolverPerformanceTest.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/test-classes/org/optaplanner/examples/common/app/SolverPerformanceTest.class" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/classes/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -15,25 +26,15 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="DefaultGradleProjectSettings">
-    <option name="testRunner" value="GRADLE" />
-    <option name="delegatedBuild" value="true" />
+    <option name="isMigrated" value="true" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/optaplanner/examples/meetingscheduling/app/MeetingSchedulingApp.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/app/ExcelReader.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="25" column="13" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/optaplanner/examples/app/OptaPlannerExamplesApp.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="104" selection-start-line="104" selection-end-line="104" />
+            <state relative-caret-position="548">
+              <caret line="949" column="5" selection-start-line="521" selection-start-column="4" selection-end-line="949" selection-end-column="5" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -42,22 +43,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/test/java/org/optaplanner/examples/common/app/AbstractConstructionHeuristicTest.java">
+        <entry file="file://$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/app/OldScheduler.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="154">
-              <caret line="29" column="72" selection-start-line="29" selection-start-column="72" selection-end-line="29" selection-end-column="72" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/org/optaplanner/examples/app/AllExamplesSolutionImporter.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="28" selection-start-line="28" selection-end-line="28" />
+            <state relative-caret-position="142">
+              <caret line="537" column="71" selection-start-line="537" selection-start-column="71" selection-end-line="537" selection-end-column="71" />
             </state>
           </provider>
         </entry>
@@ -73,80 +62,8 @@
         <option value="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/app/AllExamplesSolutionImporter.java" />
         <option value="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/app/OptaPlannerExamplesApp.java" />
         <option value="$PROJECT_DIR$/src/test/java/org/optaplanner/examples/common/app/AbstractConstructionHeuristicTest.java" />
-      </list>
-    </option>
-  </component>
-  <component name="ProjectConfigurationFiles">
-    <option name="files">
-      <list>
-        <option value="$PROJECT_DIR$/optaplanner-examples.iml" />
-        <option value="$PROJECT_DIR$/.idea/compiler.xml" />
-        <option value="$PROJECT_DIR$/.idea/misc.xml" />
-        <option value="$PROJECT_DIR$/.idea/vcs.xml" />
-        <option value="$PROJECT_DIR$/.idea/encodings.xml" />
-        <option value="$PROJECT_DIR$/.idea/modules.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__ch_qos_logback_logback_classic_1_2_3.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__ch_qos_logback_logback_core_1_2_3.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_annotations_2_9_8.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_core_2_9_8.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__com_fasterxml_jackson_core_jackson_databind_2_9_8.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__com_github_virtuald_curvesapi_1_04.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__com_google_code_findbugs_jsr305_1_3_9.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__com_google_errorprone_error_prone_annotations_2_1_3.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__com_google_guava_guava_25_0_jre.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__com_google_j2objc_j2objc_annotations_1_1.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__com_google_protobuf_protobuf_java_3_6_1.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__com_sun_xml_bind_jaxb_core_2_3_0.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__com_sun_xml_bind_jaxb_impl_2_3_0.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__com_thoughtworks_xstream_xstream_1_4_10.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__commons_codec_commons_codec_1_10.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__commons_io_commons_io_2_6.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__javax_activation_activation_1_1_1.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__javax_xml_stream_stax_api_1_0_2.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__junit_junit_4_12.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__org_antlr_antlr_runtime_3_5_2.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_collections4_4_1.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_lang3_3_8_1.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_commons_commons_math3_3_4_1.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_poi_poi_3_17.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_poi_poi_ooxml_3_17.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_poi_poi_ooxml_schemas_3_17.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__org_apache_xmlbeans_xmlbeans_2_6_0.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__org_checkerframework_checker_compat_qual_2_0_0.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__org_codehaus_mojo_animal_sniffer_annotations_1_14.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__org_drools_drools_compiler_7_22_0_Final.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__org_drools_drools_core_7_22_0_Final.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__org_drools_drools_decisiontables_7_22_0_Final.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__org_drools_drools_templates_7_22_0_Final.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__org_eclipse_jdt_core_compiler_ecj_4_6_1.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__org_freemarker_freemarker_2_3_26_jbossorg_1.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__org_glassfish_javax_json_1_0_4.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__org_hamcrest_hamcrest_core_1_3.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__org_javassist_javassist_3_22_0_GA.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__org_jboss_spec_javax_xml_bind_jboss_jaxb_api_2_3_spec_1_0_1_Final.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__org_jdom_jdom_1_1_3.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__org_jfree_jcommon_1_0_23.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__org_jfree_jfreechart_1_0_19.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__org_kie_kie_api_7_22_0_Final.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__org_kie_kie_internal_7_22_0_Final.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__org_kie_soup_kie_soup_commons_7_22_0_Final.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__org_kie_soup_kie_soup_maven_support_7_22_0_Final.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__org_kie_soup_kie_soup_project_datamodel_api_7_22_0_Final.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__org_kie_soup_kie_soup_project_datamodel_commons_7_22_0_Final.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__org_mockito_mockito_core_1_10_19.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__org_mvel_mvel2_2_4_4_Final.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__org_objenesis_objenesis_2_1.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__org_optaplanner_optaplanner_benchmark_7_22_0_Final.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__org_optaplanner_optaplanner_core_7_22_0_Final.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__org_optaplanner_optaplanner_persistence_common_7_22_0_Final.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__org_optaplanner_optaplanner_persistence_jackson_7_22_0_Final.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__org_optaplanner_optaplanner_persistence_jaxb_7_22_0_Final.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__org_optaplanner_optaplanner_persistence_xstream_7_22_0_Final.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__org_optaplanner_optaplanner_test_7_22_0_Final.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__org_reflections_reflections_0_9_11.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__org_slf4j_slf4j_api_1_7_26.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__xmlpull_xmlpull_1_1_3_1.xml" />
-        <option value="$PROJECT_DIR$/.idea/libraries/Maven__xpp3_xpp3_min_1_1_4c.xml" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/app/OldScheduler.java" />
       </list>
     </option>
   </component>
@@ -162,7 +79,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
+      <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -173,6 +90,11 @@
             <path>
               <item name="optaplanner-examples" type="b2602c69:ProjectViewProjectNode" />
               <item name="sources" type="462c0819:PsiDirectoryNode" />
+              <item name="data" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="optaplanner-examples" type="b2602c69:ProjectViewProjectNode" />
+              <item name="sources" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -203,7 +125,7 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="examples" type="462c0819:PsiDirectoryNode" />
-              <item name="meetingscheduling" type="462c0819:PsiDirectoryNode" />
+              <item name="audienciaTimeGrain" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="optaplanner-examples" type="b2602c69:ProjectViewProjectNode" />
@@ -212,23 +134,25 @@
               <item name="main" type="462c0819:PsiDirectoryNode" />
               <item name="java" type="462c0819:PsiDirectoryNode" />
               <item name="examples" type="462c0819:PsiDirectoryNode" />
-              <item name="meetingscheduling" type="462c0819:PsiDirectoryNode" />
+              <item name="audienciaTimeGrain" type="462c0819:PsiDirectoryNode" />
               <item name="app" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/pom.xml" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+    <property name="settings.editor.selected.configurable" value="Errors" />
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -243,8 +167,8 @@
     </option>
   </component>
   <component name="RunManager">
-    <configuration name="MeetingSchedulingApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="org.optaplanner.examples.meetingscheduling.app.MeetingSchedulingApp" />
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="org.optaplanner.examples.audienciaTimeGrain.app.Main" />
       <module name="optaplanner-examples" />
       <extension name="coverage">
         <pattern>
@@ -258,7 +182,7 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Application.MeetingSchedulingApp" />
+        <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
   </component>
@@ -273,62 +197,72 @@
       <option name="presentableId" value="Default" />
       <updated>1561041194525</updated>
       <workItem from="1561041199223" duration="272000" />
+      <workItem from="1566403620243" duration="259000" />
+      <workItem from="1566405019490" duration="1467000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="272000" />
+    <option name="totallyTimeSpent" value="1998000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info id="Image Layers" />
-      <window_info id="Designer" />
-      <window_info id="UI Designer" />
-      <window_info id="Capture Tool" />
-      <window_info id="Favorites" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24966443" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.17785235" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info active="true" anchor="bottom" id="Messages" visible="true" weight="0.3286119" />
-      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Database Changes" />
-      <window_info anchor="bottom" id="Version Control" />
-      <window_info anchor="bottom" id="Terminal" />
-      <window_info anchor="bottom" id="Event Log" side_tool="true" />
+      <window_info id="Image Layers" order="2" />
+      <window_info id="Designer" order="3" />
+      <window_info id="UI Designer" order="4" />
+      <window_info id="Capture Tool" order="5" />
+      <window_info id="Favorites" order="6" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3286119" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="right" id="Palette" />
-      <window_info anchor="right" id="Theme Preview" />
-      <window_info anchor="right" id="Maven" />
-      <window_info anchor="right" id="Capture Analysis" />
-      <window_info anchor="right" id="Palette&#9;" />
-      <window_info anchor="right" id="Database" />
+      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Version Control" order="8" />
+      <window_info anchor="bottom" id="Database Changes" order="9" />
+      <window_info anchor="bottom" id="Terminal" order="10" />
+      <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
+      <window_info active="true" anchor="bottom" id="Messages" order="12" visible="true" weight="0.3286119" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Database" order="4" />
+      <window_info anchor="right" id="Theme Preview" order="5" />
+      <window_info anchor="right" id="Maven" order="6" />
+      <window_info anchor="right" id="Capture Analysis" order="7" />
+      <window_info anchor="right" id="Palette&#9;" order="8" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="avanzado excelreader" />
+    <option name="LAST_COMMIT_MESSAGE" value="avanzado excelreader" />
+  </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/optaplanner/examples/meetingscheduling/app/MeetingSchedulingApp.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optaplanner/examples/meetingscheduling/app/MeetingSchedulingApp.java" />
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optaplanner/examples/app/AllExamplesSolutionImporter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="25" column="13" selection-start-line="25" selection-start-column="13" selection-end-line="25" selection-end-column="13" />
+        <state relative-caret-position="324">
+          <caret line="28" selection-start-line="28" selection-end-line="28" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/org/optaplanner/examples/app/AllExamplesSolutionImporter.java">
+    <entry file="file://$PROJECT_DIR$/src/test/java/org/optaplanner/examples/common/app/AbstractConstructionHeuristicTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="28" selection-start-line="28" selection-end-line="28" />
+        <state relative-caret-position="154">
+          <caret line="29" column="72" selection-start-line="29" selection-start-column="72" selection-end-line="29" selection-end-column="72" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -342,13 +276,41 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/java/org/optaplanner/examples/common/app/AbstractConstructionHeuristicTest.java">
+    <entry file="file://$PROJECT_DIR$/pom.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="29" column="72" selection-start-line="29" selection-start-column="72" selection-end-line="29" selection-end-column="72" />
+        <state relative-caret-position="424">
+          <caret line="196" column="17" selection-start-line="196" selection-start-column="17" selection-end-line="196" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/app/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="32" column="13" selection-start-line="32" selection-start-column="13" selection-end-line="32" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/app/ExcelReader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="548">
+          <caret line="949" column="5" selection-start-line="521" selection-start-column="4" selection-end-line="949" selection-end-column="5" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optaplanner/examples/common/persistence/AbstractXlsxSolutionFileIO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3588">
+          <caret line="251" column="23" selection-start-line="251" selection-start-column="23" selection-end-line="251" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/app/OldScheduler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="142">
+          <caret line="537" column="71" selection-start-line="537" selection-start-column="71" selection-end-line="537" selection-end-column="71" />
         </state>
       </provider>
     </entry>

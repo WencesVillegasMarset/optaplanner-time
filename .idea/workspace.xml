@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
+<<<<<<< Updated upstream
     <list default="true" id="eeb59317-3df1-444c-b4ad-f89ca035c94b" name="Default Changelist" comment="">
       <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
@@ -10,6 +11,9 @@
       <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.idea/shelf/" />
+=======
+    <list default="true" id="eeb59317-3df1-444c-b4ad-f89ca035c94b" name="Default Changelist" comment="" />
+>>>>>>> Stashed changes
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -20,21 +24,41 @@
     <option name="isMigrated" value="true" />
   </component>
   <component name="FileEditorManager">
+<<<<<<< Updated upstream
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/examples/sources/src/main/java/org/optaplanner/examples/audienciaTimeGrain/app/Main.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="120">
               <caret line="8" column="27" lean-forward="true" selection-start-line="8" selection-start-column="27" selection-end-line="8" selection-end-column="27" />
+=======
+    <leaf>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/examples/sources/src/main/java/org/optaplanner/examples/meetingscheduling/persistence/MeetingSchedulingXlsxFileIO.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-3024">
+              <caret line="153" column="75" selection-start-line="153" selection-start-column="75" selection-end-line="153" selection-end-column="75" />
+>>>>>>> Stashed changes
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< Updated upstream
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/examples/sources/src/main/java/org/optaplanner/examples/audienciaTimeGrain/app/AudienciaCreator.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="105">
               <caret line="17" selection-start-line="17" selection-end-line="17" />
+=======
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/examples/sources/src/main/java/org/optaplanner/examples/meetingscheduling/app/MeetingSchedulingApp.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="323">
+              <caret line="24" selection-start-line="24" selection-end-line="24" />
+              <folding>
+                <element signature="e#0#2071#0" expanded="true" />
+              </folding>
+>>>>>>> Stashed changes
             </state>
           </provider>
         </entry>
@@ -43,6 +67,7 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+<<<<<<< Updated upstream
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
         <entry key="$PROJECT_DIR$" value="master" />
@@ -61,6 +86,8 @@
         <option value="$PROJECT_DIR$/.gitignore" />
       </list>
     </option>
+=======
+>>>>>>> Stashed changes
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
     <option name="x" value="-10" />
@@ -68,6 +95,7 @@
     <option name="width" value="1750" />
     <option name="height" value="980" />
   </component>
+<<<<<<< Updated upstream
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="1" id="Add" />
   </component>
@@ -84,6 +112,130 @@
             <path>
               <item name="optaplanner-time2" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
               <item name="optaplanner-time2" type="2674bda8:ScopeViewTreeModel$GroupNode" />
+=======
+  <component name="ProjectView">
+    <navigator proportions="" version="1">
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="optaplanner-time" type="b2602c69:ProjectViewProjectNode" />
+              <item name="optaplanner-time" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="optaplanner-time" type="b2602c69:ProjectViewProjectNode" />
+              <item name="optaplanner-time" type="462c0819:PsiDirectoryNode" />
+              <item name="examples" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="optaplanner-time" type="b2602c69:ProjectViewProjectNode" />
+              <item name="optaplanner-time" type="462c0819:PsiDirectoryNode" />
+              <item name="examples" type="462c0819:PsiDirectoryNode" />
+              <item name="sources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="optaplanner-time" type="b2602c69:ProjectViewProjectNode" />
+              <item name="optaplanner-time" type="462c0819:PsiDirectoryNode" />
+              <item name="examples" type="462c0819:PsiDirectoryNode" />
+              <item name="sources" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="optaplanner-time" type="b2602c69:ProjectViewProjectNode" />
+              <item name="optaplanner-time" type="462c0819:PsiDirectoryNode" />
+              <item name="examples" type="462c0819:PsiDirectoryNode" />
+              <item name="sources" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="optaplanner-time" type="b2602c69:ProjectViewProjectNode" />
+              <item name="optaplanner-time" type="462c0819:PsiDirectoryNode" />
+              <item name="examples" type="462c0819:PsiDirectoryNode" />
+              <item name="sources" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="optaplanner-time" type="b2602c69:ProjectViewProjectNode" />
+              <item name="optaplanner-time" type="462c0819:PsiDirectoryNode" />
+              <item name="examples" type="462c0819:PsiDirectoryNode" />
+              <item name="sources" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="org" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="optaplanner-time" type="b2602c69:ProjectViewProjectNode" />
+              <item name="optaplanner-time" type="462c0819:PsiDirectoryNode" />
+              <item name="examples" type="462c0819:PsiDirectoryNode" />
+              <item name="sources" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="org" type="462c0819:PsiDirectoryNode" />
+              <item name="optaplanner" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="optaplanner-time" type="b2602c69:ProjectViewProjectNode" />
+              <item name="optaplanner-time" type="462c0819:PsiDirectoryNode" />
+              <item name="examples" type="462c0819:PsiDirectoryNode" />
+              <item name="sources" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="org" type="462c0819:PsiDirectoryNode" />
+              <item name="optaplanner" type="462c0819:PsiDirectoryNode" />
+              <item name="examples" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="optaplanner-time" type="b2602c69:ProjectViewProjectNode" />
+              <item name="optaplanner-time" type="462c0819:PsiDirectoryNode" />
+              <item name="examples" type="462c0819:PsiDirectoryNode" />
+              <item name="sources" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="org" type="462c0819:PsiDirectoryNode" />
+              <item name="optaplanner" type="462c0819:PsiDirectoryNode" />
+              <item name="examples" type="462c0819:PsiDirectoryNode" />
+              <item name="meetingscheduling" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="optaplanner-time" type="b2602c69:ProjectViewProjectNode" />
+              <item name="optaplanner-time" type="462c0819:PsiDirectoryNode" />
+              <item name="examples" type="462c0819:PsiDirectoryNode" />
+              <item name="sources" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="org" type="462c0819:PsiDirectoryNode" />
+              <item name="optaplanner" type="462c0819:PsiDirectoryNode" />
+              <item name="examples" type="462c0819:PsiDirectoryNode" />
+              <item name="meetingscheduling" type="462c0819:PsiDirectoryNode" />
+              <item name="app" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="optaplanner-time" type="b2602c69:ProjectViewProjectNode" />
+              <item name="optaplanner-time" type="462c0819:PsiDirectoryNode" />
+              <item name="examples" type="462c0819:PsiDirectoryNode" />
+              <item name="sources" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="org" type="462c0819:PsiDirectoryNode" />
+              <item name="optaplanner" type="462c0819:PsiDirectoryNode" />
+              <item name="examples" type="462c0819:PsiDirectoryNode" />
+              <item name="meetingscheduling" type="462c0819:PsiDirectoryNode" />
+              <item name="persistence" type="462c0819:PsiDirectoryNode" />
+>>>>>>> Stashed changes
             </path>
           </expand>
           <select />
@@ -92,18 +244,24 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+<<<<<<< Updated upstream
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+=======
+>>>>>>> Stashed changes
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/examples/sources/pom.xml" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
+<<<<<<< Updated upstream
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/examples/sources/src/main/resources/org/optaplanner/examples/audienciaTimeGrain" />
     </key>
+=======
+>>>>>>> Stashed changes
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -136,16 +294,25 @@
     <option name="totallyTimeSpent" value="897000" />
   </component>
   <component name="ToolWindowManager">
+<<<<<<< Updated upstream
     <frame x="-4" y="0" width="1374" height="748" extended-state="6" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.28484848" />
+=======
+    <frame x="-7" y="-7" width="1550" height="838" extended-state="6" />
+    <layout>
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25302014" />
+>>>>>>> Stashed changes
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="Designer" order="3" />
       <window_info id="UI Designer" order="4" />
       <window_info id="Capture Tool" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
+<<<<<<< Updated upstream
       <window_info anchor="bottom" id="Messages" />
+=======
+>>>>>>> Stashed changes
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
       <window_info anchor="bottom" id="Run" order="2" />
@@ -154,9 +321,15 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
+<<<<<<< Updated upstream
       <window_info anchor="bottom" id="Version Control" order="8" weight="0.24512987" />
       <window_info anchor="bottom" id="Database Changes" order="9" />
       <window_info active="true" anchor="bottom" id="Terminal" order="10" visible="true" weight="0.32954547" />
+=======
+      <window_info anchor="bottom" id="Version Control" order="8" />
+      <window_info anchor="bottom" id="Database Changes" order="9" />
+      <window_info anchor="bottom" id="Terminal" order="10" />
+>>>>>>> Stashed changes
       <window_info anchor="bottom" id="Event Log" order="11" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -172,6 +345,7 @@
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
   </component>
+<<<<<<< Updated upstream
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
       <map>
@@ -215,6 +389,8 @@
   <component name="VcsManagerConfiguration">
     <option name="LAST_COMMIT_MESSAGE" value="" />
   </component>
+=======
+>>>>>>> Stashed changes
   <component name="editorHistoryManager">
     <entry file="file://$PROJECT_DIR$/examples/sources/src/main/java/org/optaplanner/examples/meetingscheduling/persistence/MeetingSchedulingXlsxFileIO.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -223,6 +399,7 @@
         </state>
       </provider>
     </entry>
+<<<<<<< Updated upstream
     <entry file="file://$PROJECT_DIR$/examples/sources/src/main/java/org/optaplanner/examples/meetingscheduling/persistence/MeetingSchedulingGenerator.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1980">
@@ -257,12 +434,19 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="420">
           <caret line="50" column="41" selection-start-line="50" selection-start-column="26" selection-end-line="50" selection-end-column="41" />
+=======
+    <entry file="file://$PROJECT_DIR$/examples/sources/src/main/java/org/optaplanner/examples/meetingscheduling/app/MeetingSchedulingApp.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="24" selection-start-line="24" selection-end-line="24" />
+>>>>>>> Stashed changes
           <folding>
             <element signature="e#0#2071#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+<<<<<<< Updated upstream
     <entry file="file://$PROJECT_DIR$/examples/sources/src/main/java/org/optaplanner/examples/meetingscheduling/domain/MeetingConstraintConfiguration.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="224">
@@ -340,5 +524,7 @@
         </state>
       </provider>
     </entry>
+=======
+>>>>>>> Stashed changes
   </component>
 </project>

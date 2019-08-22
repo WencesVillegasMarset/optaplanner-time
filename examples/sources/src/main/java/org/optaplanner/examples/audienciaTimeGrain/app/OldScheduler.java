@@ -9,6 +9,7 @@ import java.util.*;
 import java.util.function.Function;
 
 import com.fasterxml.jackson.databind.util.JSONPObject;
+import org.apache.commons.collections4.keyvalue.TiedMapEntry;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.ss.util.CellRangeAddress;
@@ -37,6 +38,9 @@ import javax.json.Json;
 
 public class OldScheduler extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
 
+    private LocalDate startingDate;
+    private LocalDate endingDate;
+
     @Override
     public AudienciaSchedule read(File file) {
 
@@ -56,10 +60,16 @@ public class OldScheduler extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
         return new AudienciaSchedulingXlsxReader(workbook).read();
     }
 
+    public void writer(AudienciaSchedule solution, File outputScheduleFile, LocalDate startingDate, LocalDate endingDate){
+        this.startingDate = startingDate;
+        this.endingDate = endingDate;
+        write(solution, outputScheduleFile);
+    }
+
     @Override
     public void write(AudienciaSchedule solution, File outputScheduleFile) {
         try (FileOutputStream out = new FileOutputStream(outputScheduleFile)) {
-            Workbook workbook = new AudienciaSchedulingXlsxWriter(solution).write();
+            Workbook workbook = new AudienciaSchedulingXlsxWriter(solution, startingDate, endingDate).write();
             workbook.write(out);
         } catch (IOException | RuntimeException e) {
             throw new IllegalStateException("Failed writing outputScheduleFile (" + outputScheduleFile
@@ -569,12 +579,18 @@ public class OldScheduler extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
 
     private class AudienciaSchedulingXlsxWriter extends AbstractXlsxWriter<AudienciaSchedule> {
 
-        AudienciaSchedulingXlsxWriter(AudienciaSchedule solution) {
+        private LocalDate startingDate;
+        private LocalDate endingDate;
+
+        AudienciaSchedulingXlsxWriter(AudienciaSchedule solution, LocalDate startingDate, LocalDate endingDate) {
             super(solution, Main.SOLVER_CONFIG);
+            this.startingDate = startingDate;
+            this.endingDate = endingDate;
         }
 
         @Override
         public Workbook write() {
+            cleanSolutionDates();
             workbook = new XSSFWorkbook();
             creationHelper = workbook.getCreationHelper();
             createStyles();
@@ -587,6 +603,61 @@ public class OldScheduler extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                     .filter(o -> o instanceof AudienciaAssignment).map(Object::toString)
                     .collect(joining(", ")));
             return workbook;
+        }
+
+        private void cleanSolutionDates(){
+            List<Audiencia> newAudienciaList = new ArrayList<>();
+            List<AudienciaAssignment> newAudienciaAssignmentList = new ArrayList<>();
+            for(AudienciaAssignment audienciaAssignment: solution.getAudienciaAssignmentList()){
+                if (audienciaAssignment.getStartingTimeGrain().getDate().compareTo(startingDate) < 0 || audienciaAssignment.getStartingTimeGrain().getDate().compareTo(endingDate) > 0) {
+                    newAudienciaAssignmentList.add(audienciaAssignment);
+                    newAudienciaList.add(audienciaAssignment.getAudiencia());
+                }
+            }
+
+            List<AudienciaAssignment> oldAudienciaAssignmentList = solution.getAudienciaAssignmentList();
+            List<Audiencia> oldAudienciaList = solution.getAudienciaList();
+
+
+            for(AudienciaAssignment audienciaAssignment : newAudienciaAssignmentList){
+                oldAudienciaAssignmentList.remove(audienciaAssignment);
+            }
+
+            for (Audiencia audiencia : newAudienciaList){
+                oldAudienciaList.remove(audiencia);
+            }
+            solution.setAudienciaList(oldAudienciaList);
+            solution.setAudienciaAssignmentList(oldAudienciaAssignmentList);
+
+
+            List<TimeGrain> timeGrainsToDelete = new ArrayList<>();
+            List<Day> daysToDelete = new ArrayList<>();
+
+            for(TimeGrain timeGrain : solution.getTimeGrainList()){
+                if(timeGrain.getDate().compareTo(startingDate) < 0 || timeGrain.getDate().compareTo(endingDate) > 0){
+                    timeGrainsToDelete.add(timeGrain);
+                }
+            }
+
+            for(Day day : solution.getDayList()){
+                if(day.toDate().compareTo(startingDate) < 0 || day.toDate().compareTo(endingDate) > 0){
+                    daysToDelete.add(day);
+                }
+            }
+
+            List<TimeGrain> timeGrainsToPrint = solution.getTimeGrainList();
+            List<Day> daysToPrint = solution.getDayList();
+
+
+            for(TimeGrain timeGrain : timeGrainsToDelete){
+                timeGrainsToPrint.remove(timeGrain);
+            }
+
+            for (Day day : daysToDelete){
+                daysToPrint.remove(day);
+            }
+            solution.setDayList(daysToPrint);
+            solution.setTimeGrainList(timeGrainsToPrint);
         }
 
         private void writeRoomsView(){

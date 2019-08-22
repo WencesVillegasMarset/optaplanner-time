@@ -26,7 +26,7 @@ public class OldScheduleCreator {
         solvedAudienciaSchedule = solver.solve(solvedAudienciaSchedule);
 
         String fileName = "OldResults.xlsx";
-        excelReader.write(solvedAudienciaSchedule, new File("data/" + fileName));
+        excelReader.writer(solvedAudienciaSchedule, new File("data/" + fileName), LocalDate.of(2018,10,1), LocalDate.of(2018, 12, 20));
 
     }
 }

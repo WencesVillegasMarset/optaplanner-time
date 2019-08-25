@@ -25,8 +25,17 @@ public class OldScheduleCreator {
 
         solvedAudienciaSchedule = solver.solve(solvedAudienciaSchedule);
 
-        String fileName = "OldResults.xlsx";
-        excelReader.writer(solvedAudienciaSchedule, new File("data/" + fileName), LocalDate.of(2018,10,1), LocalDate.of(2018, 12, 20));
+        String fileName = "OldResults1.xlsx";
+        excelReader.writer(solvedAudienciaSchedule, new File("data/" + fileName), LocalDate.of(2018,11,19), LocalDate.of(2018, 12, 19));
+
+        fileName = "OldResults2.xlsx";
+        excelReader.writer(solvedAudienciaSchedule, new File("data/" + fileName), LocalDate.of(2018,12,19), LocalDate.of(2019, 1, 19));
+
+        fileName = "OldResults3.xlsx";
+        excelReader.writer(solvedAudienciaSchedule, new File("data/" + fileName), LocalDate.of(2019,1,19), LocalDate.of(2019, 2, 19));
+
+        fileName = "OldResults4.xlsx";
+        excelReader.writer(solvedAudienciaSchedule, new File("data/" + fileName), LocalDate.of(2019,2,19), LocalDate.of(2019, 3, 19));
 
     }
 }

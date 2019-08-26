@@ -1,4 +1,4 @@
-package org.optaplanner.examples.audienciaTimeGrain.app;
+package org.optaplanner.examples.audienciaTimeGrain.persistence;
 
 import org.optaplanner.examples.audienciaTimeGrain.domain.*;
 

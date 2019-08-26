@@ -1,6 +1,5 @@
 package org.optaplanner.examples.audienciaTimeGrain.domain;
 
-import com.thoughtworks.xstream.annotations.XStreamAlias;
 import org.optaplanner.core.api.domain.constraintweight.ConstraintConfigurationProvider;
 import org.optaplanner.core.api.domain.solution.PlanningEntityCollectionProperty;
 import org.optaplanner.core.api.domain.solution.PlanningScore;
@@ -8,14 +7,12 @@ import org.optaplanner.core.api.domain.solution.PlanningSolution;
 import org.optaplanner.core.api.domain.solution.drools.ProblemFactCollectionProperty;
 import org.optaplanner.core.api.domain.valuerange.ValueRangeProvider;
 import org.optaplanner.core.api.score.buildin.hardmediumsoft.HardMediumSoftScore;
-import org.optaplanner.core.api.score.buildin.hardsoft.HardSoftScore;
-import org.optaplanner.examples.audienciaTimeGrain.app.LocalDateAdapter;
+import org.optaplanner.examples.audienciaTimeGrain.helper.LocalDateAdapter;
 
 import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 
 

@@ -1,31 +1,19 @@
 package org.optaplanner.examples.audienciaTimeGrain.app;
 
 
-import org.jdom.JDOMException;
-import org.optaplanner.benchmark.api.PlannerBenchmark;
-import org.optaplanner.benchmark.api.PlannerBenchmarkFactory;
 import org.optaplanner.core.api.solver.Solver;
 
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.sql.Time;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
-import java.time.LocalTime;
 import java.time.LocalDate;
 import java.util.Scanner;
 
 import org.optaplanner.core.api.solver.SolverFactory;
 import org.optaplanner.examples.audienciaTimeGrain.domain.*;
-import org.optaplanner.examples.common.app.CommonApp;
-import org.optaplanner.examples.common.persistence.AbstractSolutionExporter;
-import org.optaplanner.examples.common.persistence.AbstractSolutionImporter;
-import org.optaplanner.examples.common.swingui.SolutionPanel;
-import org.optaplanner.persistence.common.api.domain.solution.SolutionFileIO;
-import org.optaplanner.persistence.xstream.impl.domain.solution.XStreamSolutionFileIO;
+import org.optaplanner.examples.audienciaTimeGrain.persistence.ExcelReader;
+import org.optaplanner.examples.audienciaTimeGrain.persistence.XMLExporter;
+import org.optaplanner.examples.audienciaTimeGrain.persistence.XMLImporter;
 
 import javax.xml.bind.JAXBException;
 

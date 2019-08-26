@@ -3,11 +3,11 @@ package org.optaplanner.examples.audienciaTimeGrain.app;
 import org.optaplanner.core.api.solver.Solver;
 import org.optaplanner.core.api.solver.SolverFactory;
 import org.optaplanner.examples.audienciaTimeGrain.domain.AudienciaSchedule;
+import org.optaplanner.examples.audienciaTimeGrain.persistence.ExcelReader;
+import org.optaplanner.examples.audienciaTimeGrain.persistence.OldScheduler;
 
 import java.io.File;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Scanner;
 
 public class OldScheduleCreator {
     public static void main(String[] args){
@@ -25,17 +25,22 @@ public class OldScheduleCreator {
 
         solvedAudienciaSchedule = solver.solve(solvedAudienciaSchedule);
 
+
         String fileName = "OldResults1.xlsx";
-        excelReader.writer(solvedAudienciaSchedule, new File("data/" + fileName), LocalDate.of(2018,11,19), LocalDate.of(2018, 12, 19));
+        excelReader = new OldScheduler();
+        excelReader.writer(solvedAudienciaSchedule, new File("data/" + fileName), LocalDate.of(2018,11,19), LocalDate.of(2018, 12, 9));
 
-        fileName = "OldResults2.xlsx";
-        excelReader.writer(solvedAudienciaSchedule, new File("data/" + fileName), LocalDate.of(2018,12,19), LocalDate.of(2019, 1, 19));
-
-        fileName = "OldResults3.xlsx";
-        excelReader.writer(solvedAudienciaSchedule, new File("data/" + fileName), LocalDate.of(2019,1,19), LocalDate.of(2019, 2, 19));
-
-        fileName = "OldResults4.xlsx";
-        excelReader.writer(solvedAudienciaSchedule, new File("data/" + fileName), LocalDate.of(2019,2,19), LocalDate.of(2019, 3, 19));
+//        fileName = "OldResults2.xlsx";
+//        excelReader = new OldScheduler();
+//        excelReader.writer(solvedAudienciaSchedule, new File("data/" + fileName), LocalDate.of(2018,12,19), LocalDate.of(2019, 1, 19));
+//
+//        fileName = "OldResults3.xlsx";
+//        excelReader = new OldScheduler();
+//        excelReader.writer(solvedAudienciaSchedule, new File("data/" + fileName), LocalDate.of(2019,1,19), LocalDate.of(2019, 2, 19));
+//
+//        fileName = "OldResults4.xlsx";
+//        excelReader = new OldScheduler();
+//        excelReader.writer(solvedAudienciaSchedule, new File("data/" + fileName), LocalDate.of(2019,2,19), LocalDate.of(2019, 3, 19));
 
     }
 }

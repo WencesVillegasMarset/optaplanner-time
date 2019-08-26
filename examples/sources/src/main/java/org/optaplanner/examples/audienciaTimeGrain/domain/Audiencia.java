@@ -1,13 +1,9 @@
 package org.optaplanner.examples.audienciaTimeGrain.domain;
 
-import org.optaplanner.examples.audienciaTimeGrain.app.LocalDateAdapter;
+import org.optaplanner.examples.audienciaTimeGrain.helper.LocalDateAdapter;
 
-import javax.xml.bind.annotation.XmlAttribute;
-import javax.xml.bind.annotation.XmlTransient;
-import javax.xml.bind.annotation.XmlType;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.LocalDate;
-import java.util.Date;
 
 public class Audiencia {
 

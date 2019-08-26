@@ -4,7 +4,7 @@ package org.optaplanner.examples.audienciaTimeGrain.domain;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
-import org.optaplanner.examples.audienciaTimeGrain.app.LocalDateAdapter;
+import org.optaplanner.examples.audienciaTimeGrain.helper.LocalDateAdapter;
 
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 

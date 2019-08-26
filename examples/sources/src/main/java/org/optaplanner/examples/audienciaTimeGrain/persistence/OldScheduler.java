@@ -1,4 +1,4 @@
-package org.optaplanner.examples.audienciaTimeGrain.app;
+package org.optaplanner.examples.audienciaTimeGrain.persistence;
 
 import java.io.*;
 import java.net.HttpURLConnection;
@@ -24,6 +24,7 @@ import org.optaplanner.core.api.score.constraint.ConstraintMatch;
 import org.optaplanner.core.api.score.constraint.Indictment;
 import org.optaplanner.core.api.solver.Solver;
 import org.optaplanner.core.api.solver.SolverFactory;
+import org.optaplanner.examples.audienciaTimeGrain.app.Main;
 import org.optaplanner.examples.audienciaTimeGrain.domain.*;
 import org.optaplanner.examples.common.persistence.AbstractXlsxSolutionFileIO;
 

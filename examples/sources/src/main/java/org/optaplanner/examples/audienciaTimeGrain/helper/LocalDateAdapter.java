@@ -1,4 +1,4 @@
-package org.optaplanner.examples.audienciaTimeGrain.app;
+package org.optaplanner.examples.audienciaTimeGrain.helper;
 
 import javax.xml.bind.annotation.adapters.XmlAdapter;
 import java.time.LocalDate;

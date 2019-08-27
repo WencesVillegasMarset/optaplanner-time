@@ -30,17 +30,35 @@ public class OldScheduleCreator {
         excelReader = new OldScheduler();
         excelReader.writer(solvedAudienciaSchedule, new File("data/" + fileName), LocalDate.of(2018,11,19), LocalDate.of(2018, 12, 9));
 
-//        fileName = "OldResults2.xlsx";
-//        excelReader = new OldScheduler();
-//        excelReader.writer(solvedAudienciaSchedule, new File("data/" + fileName), LocalDate.of(2018,12,19), LocalDate.of(2019, 1, 19));
-//
-//        fileName = "OldResults3.xlsx";
-//        excelReader = new OldScheduler();
-//        excelReader.writer(solvedAudienciaSchedule, new File("data/" + fileName), LocalDate.of(2019,1,19), LocalDate.of(2019, 2, 19));
-//
-//        fileName = "OldResults4.xlsx";
-//        excelReader = new OldScheduler();
-//        excelReader.writer(solvedAudienciaSchedule, new File("data/" + fileName), LocalDate.of(2019,2,19), LocalDate.of(2019, 3, 19));
+        fileName = "OldResults2.xlsx";
+        excelReader = new OldScheduler();
+        solvedAudienciaSchedule = excelReader.read(excelFile);
+        solvedAudienciaSchedule = solver.solve(solvedAudienciaSchedule);
+        excelReader.writer(solvedAudienciaSchedule, new File("data/" + fileName), LocalDate.of(2018,12,9), LocalDate.of(2018, 12, 29));
+
+        fileName = "OldResults3.xlsx";
+        excelReader = new OldScheduler();
+        solvedAudienciaSchedule = excelReader.read(excelFile);
+        solvedAudienciaSchedule = solver.solve(solvedAudienciaSchedule);
+        excelReader.writer(solvedAudienciaSchedule, new File("data/" + fileName), LocalDate.of(2018,12,29), LocalDate.of(2019, 1, 19));
+
+        fileName = "OldResults4.xlsx";
+        excelReader = new OldScheduler();
+        solvedAudienciaSchedule = excelReader.read(excelFile);
+        solvedAudienciaSchedule = solver.solve(solvedAudienciaSchedule);
+        excelReader.writer(solvedAudienciaSchedule, new File("data/" + fileName), LocalDate.of(2019,1,19), LocalDate.of(2019, 2, 9));
+
+        fileName = "OldResults5.xlsx";
+        excelReader = new OldScheduler();
+        solvedAudienciaSchedule = excelReader.read(excelFile);
+        solvedAudienciaSchedule = solver.solve(solvedAudienciaSchedule);
+        excelReader.writer(solvedAudienciaSchedule, new File("data/" + fileName), LocalDate.of(2019,2,9), LocalDate.of(2019, 2, 28));
+
+        fileName = "OldResults6.xlsx";
+        excelReader = new OldScheduler();
+        solvedAudienciaSchedule = excelReader.read(excelFile);
+        solvedAudienciaSchedule = solver.solve(solvedAudienciaSchedule);
+        excelReader.writer(solvedAudienciaSchedule, new File("data/" + fileName), LocalDate.of(2019,2,28), LocalDate.of(2019, 3, 19));
 
     }
 }

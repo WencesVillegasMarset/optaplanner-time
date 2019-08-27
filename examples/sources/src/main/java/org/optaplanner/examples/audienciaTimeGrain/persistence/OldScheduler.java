@@ -599,7 +599,6 @@ public class OldScheduler extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             writeJuezView();
             writeDefensorView();
             writeFiscalView();
-            writePrintedFormView();
             writeScoreView(justificationList -> justificationList.stream()
                     .filter(o -> o instanceof AudienciaAssignment).map(Object::toString)
                     .collect(joining(", ")));
@@ -973,89 +972,10 @@ public class OldScheduler extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             writeAudienciaAssignmentList(defensorAudienciaAssignmentList);
         }
 
-        private void writePrintedFormView() {
-            nextSheet("Printed form view", 1, 1, true);
-            nextRow();
-            nextHeaderCell("");
-            writeTimeGrainsHoursVertically(30);
-            currentColumnNumber = 0;
-            for (Room room : solution.getRoomList()) {
-                List<AudienciaAssignment> roomAudienciaAssignmentList = solution.getAudienciaAssignmentList().stream()
-                        .filter(audienciaAssignment -> audienciaAssignment.getRoom() == room)
-                        .collect(toList());
-                if (roomAudienciaAssignmentList.isEmpty()) {
-                    continue;
-                }
-
-                currentColumnNumber++;
-                currentRowNumber = -1;
-                nextHeaderCellVertically(room.getNombreRoom());
-                writeAudienciaAssignmentListVertically(roomAudienciaAssignmentList);
-            }
-            setSizeColumnsWithHeader(6000);
-        }
-
-        private void writeAudienciaAssignmentListVertically(List<AudienciaAssignment> roomAudienciaAssignmentList) {
-            int mergeStart = -1;
-            int previousAudienciaRemainingTimeGrains = 0;
-            boolean mergingPreviousTimeGrain = false;
-            for (TimeGrain timeGrain : solution.getTimeGrainList()) {
-                List<AudienciaAssignment> audienciaAssignmentList = roomAudienciaAssignmentList.stream()
-                        .filter(meetingAssignment -> meetingAssignment.getStartingTimeGrain() == timeGrain)
-                        .collect(toList());
-                if (audienciaAssignmentList.isEmpty() && mergingPreviousTimeGrain && previousAudienciaRemainingTimeGrains > 0) {
-                    previousAudienciaRemainingTimeGrains--;
-                    nextCellVertically();
-                } else {
-                    if (mergingPreviousTimeGrain && mergeStart < currentRowNumber) {
-                        currentSheet.addMergedRegion(new CellRangeAddress(mergeStart, currentRowNumber, currentColumnNumber, currentColumnNumber));
-                    }
-
-                    StringBuilder meetingInfo = new StringBuilder();
-                    for (AudienciaAssignment audienciaAssignment : audienciaAssignmentList) {
-                        String startTimeString = getTimeString(audienciaAssignment.getStartingTimeGrain().getStartingMinuteOfDay());
-                        int lastTimeGrainIndex = audienciaAssignment.getLastTimeGrainIndex() <= solution.getTimeGrainList().size() - 1 ?
-                                audienciaAssignment.getLastTimeGrainIndex() : solution.getTimeGrainList().size() - 1;
-                        String endTimeString = getTimeString(solution.getTimeGrainList().get(lastTimeGrainIndex).getStartingMinuteOfDay()
-                                + TimeGrain.GRAIN_LENGTH_IN_MINUTES);
-                        meetingInfo.append(StringUtils.abbreviate(String.valueOf(audienciaAssignment.getAudiencia().getIdAudiencia()), 150)).append("\n  ")
-                                .append(startTimeString).append(" - ").append(endTimeString)
-                                .append(" (").append(audienciaAssignment.getAudiencia().getNumTimeGrains() * TimeGrain.GRAIN_LENGTH_IN_MINUTES).append(" mins)");
-                    }
-                    nextCellVertically().setCellValue(meetingInfo.toString());
-
-                    previousAudienciaRemainingTimeGrains = getLongestDurationInGrains(audienciaAssignmentList) - 1;
-                    mergingPreviousTimeGrain = previousAudienciaRemainingTimeGrains > 0;
-                    mergeStart = currentRowNumber;
-                }
-            }
-            if (mergeStart < currentRowNumber) {
-                currentSheet.addMergedRegion(new CellRangeAddress(mergeStart, currentRowNumber, currentColumnNumber, currentColumnNumber));
-            }
-        }
-
         private String getTimeString(int minuteOfDay) {
             return TIME_FORMATTER.format(LocalTime.ofSecondOfDay(minuteOfDay * 60));
         }
 
-        private void writeTimeGrainsHoursVertically(int minimumInterval) {
-            int mergeStart = -1;
-            for (TimeGrain timeGrain : solution.getTimeGrainList()) {
-                if (timeGrain.getGrainIndex() % (Math.ceil(minimumInterval * 1.0 / TimeGrain.GRAIN_LENGTH_IN_MINUTES)) == 0) {
-                    if (mergeStart > 0) {
-                        currentSheet.addMergedRegion(new CellRangeAddress(mergeStart, currentRowNumber, 0, 0));
-                    }
-                    nextRow();
-                    nextCell().setCellValue(timeGrain.getDateTimeString());
-                    mergeStart = currentRowNumber;
-                } else {
-                    nextRow();
-                }
-            }
-            if (mergeStart < currentRowNumber) {
-                currentSheet.addMergedRegion(new CellRangeAddress(mergeStart, currentRowNumber, 0, 0));
-            }
-        }
 
         private void autoSizeColumns(){
             for (int i = 1; i < headerCellCount; i++) {

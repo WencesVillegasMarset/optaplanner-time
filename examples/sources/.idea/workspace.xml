@@ -2,14 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="d0e6c03b-b6ca-4709-a52f-96286fbf2532" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/2019-8-2.xlsx" beforeDir="false" afterPath="$PROJECT_DIR$/data/2019-8-2.xlsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/OldResults.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/OldResults1.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/app/OldScheduleCreator.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/app/OldScheduleCreator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/persistence/OldScheduler.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/org/optaplanner/examples/audienciaTimeGrain/persistence/OldScheduler.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/audienciaTimeGrain/app/OldScheduleCreator.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/audienciaTimeGrain/app/OldScheduleCreator.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/audienciaTimeGrain/persistence/OldScheduler$AudienciaSchedulingXlsxWriter.class" beforeDir="false" afterPath="$PROJECT_DIR$/target/classes/org/optaplanner/examples/audienciaTimeGrain/persistence/OldScheduler$AudienciaSchedulingXlsxWriter.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -130,10 +123,8 @@
       <workItem from="1566788513646" duration="290000" />
       <workItem from="1566788846215" duration="5174000" />
       <workItem from="1566828699857" duration="251000" />
-      <workItem from="1566833795127" duration="2145000" />
-      <workItem from="1566865242554" duration="655000" />
-      <workItem from="1566871641297" duration="95000" />
-      <workItem from="1566913986450" duration="3469000" />
+      <workItem from="1566833795127" duration="2030000" />
+      <workItem from="1566840698251" duration="242000" />
     </task>
     <task id="LOCAL-00001" summary="avanzado excelreader">
       <created>1566406512094</created>

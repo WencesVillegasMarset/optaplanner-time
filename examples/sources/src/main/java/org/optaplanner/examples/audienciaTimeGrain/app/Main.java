@@ -102,7 +102,7 @@ public class Main {
             System.out.print("Desea guardar la solucion? S/N\n");
             input = scanner.nextLine();
             if(input.equals("S")  || input.equals("s")){
-                XMLExporter xmlExporter = new XMLExporter(DATA_DIR_NAME);
+                XMLExporter xmlExporter = new XMLExporter(DATA_DIR_NAME + "/");
                 try {
                     xmlExporter.write(solvedAudienciaSchedule);
                 } catch (JAXBException e) {

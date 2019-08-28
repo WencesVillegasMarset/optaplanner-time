@@ -26,7 +26,10 @@
   </constructionHeuristic>
 
   <localSearch>
-<!--    <localSearchType>TABU_SEARCH</localSearchType>-->
+    <localSearchType>LATE_ACCEPTANCE</localSearchType>
+
+    <!-- PARA TABU SEARCH -->
+
 <!--    <acceptor>-->
 <!--      <entityTabuRatio>0.04</entityTabuRatio>-->
 <!--&lt;!&ndash;      <valueTabuRatio>0.04</valueTabuRatio>&ndash;&gt;-->

@@ -494,9 +494,10 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             int min = Integer.parseInt ( time[1].trim() );
             int totalMinutes = 60 * hour + min;
             if (totalMinutes <= 0 || totalMinutes != Math.floor(totalMinutes)) {
-                throw new IllegalStateException(
-                        currentPosition() + ": The audiencia with id (" + audiencia.getIdAudiencia()
-                                + ")'s has a duration (" + durationDouble + ") that isn't a strictly positive integer number.");
+//                throw new IllegalStateException(
+//                        currentPosition() + ": The audiencia with id (" + audiencia.getIdAudiencia()
+//                                + ")'s has a duration (" + durationDouble + ") that isn't a strictly positive integer number.");
+                totalMinutes = 15;
             }
             if (totalMinutes % TimeGrain.GRAIN_LENGTH_IN_MINUTES != 0) {
                 throw new IllegalStateException(

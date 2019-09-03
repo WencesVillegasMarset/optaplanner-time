@@ -575,7 +575,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                         currentSheet.addMergedRegion(new CellRangeAddress(currentRowNumber, currentRowNumber, mergeStart, currentColumnNumber));
                     }
                     nextHeaderCell(DAY_FORMATTER.format(
-                            LocalDate.ofYearDay(Year.now().getValue(), timeGrainDay.getDayOfYear())));
+                            LocalDate.ofYearDay(timeGrainDay.toDate().getYear(), timeGrainDay.getDayOfYear())));
                     previousTimeGrainDay = timeGrainDay;
                     mergeStart = currentColumnNumber;
                 }

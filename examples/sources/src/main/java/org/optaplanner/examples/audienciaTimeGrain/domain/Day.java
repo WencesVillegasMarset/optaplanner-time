@@ -18,6 +18,7 @@ public class Day{
     @XmlJavaTypeAdapter(value = LocalDateAdapter.class)
     private LocalDate date;
     private static final DateTimeFormatter DAY_FORMATTER = DateTimeFormatter.ofPattern("E dd-MM-yyyy", Locale.ENGLISH); //Formato de fecha
+    private int lastStartingMinute;
 
     /* Setters y Getters */
 
@@ -50,6 +51,14 @@ public class Day{
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    public int getLastStartingMinute() {
+        return lastStartingMinute;
+    }
+
+    public void setLastStartingMinute(int lastStartingMinute) {
+        this.lastStartingMinute = lastStartingMinute;
     }
 
     @Override

@@ -35,7 +35,6 @@ public class AudienciaSchedule {
 
     /* Variables */
 
-
     private LocalDate fechaCorrida;
 
     @ProblemFactCollectionProperty
@@ -164,6 +163,7 @@ public class AudienciaSchedule {
     public void setFechaCorrida(LocalDate fechaCorrida) {
         this.fechaCorrida = fechaCorrida;
     }
+    
 
     /* toString */
 

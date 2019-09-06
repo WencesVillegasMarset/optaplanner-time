@@ -6,14 +6,14 @@ public class Room {
 
     private int idRoom;
     private String nombreRoom;
-    private int ubicacion;
+//    private int ubicacion;
 
     /* Constructor */
 
     public Room(Integer idRoom, String nombreRoom, int ubicacion){
         this.idRoom = idRoom;
         this.nombreRoom = nombreRoom;
-        this.ubicacion = ubicacion;
+//        this.ubicacion = ubicacion;
     }
 
     public Room(){}
@@ -36,11 +36,11 @@ public class Room {
         this.nombreRoom = nombreRoom;
     }
 
-    public int getUbicacion() {
-        return ubicacion;
-    }
-
-    public void setUbicacion(int ubicacion) {
-        this.ubicacion = ubicacion;
-    }
+//    public int getUbicacion() {
+//        return ubicacion;
+//    }
+//
+//    public void setUbicacion(int ubicacion) {
+//        this.ubicacion = ubicacion;
+//    }
 }

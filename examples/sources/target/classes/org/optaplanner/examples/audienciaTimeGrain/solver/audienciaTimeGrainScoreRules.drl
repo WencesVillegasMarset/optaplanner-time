@@ -24,6 +24,7 @@ import org.optaplanner.examples.audienciaTimeGrain.domain.AudienciaAssignment;
 import org.optaplanner.examples.audienciaTimeGrain.domain.AudienciaSchedule;
 import org.optaplanner.examples.audienciaTimeGrain.domain.Room;
 import org.optaplanner.examples.audienciaTimeGrain.domain.TimeGrain;
+import org.optaplanner.examples.audienciaTimeGrain.domain.Day;
 import java.util.List;
 
 global HardMediumSoftScoreHolder scoreHolder;
@@ -42,21 +43,30 @@ end
 
 rule "Don't go in overtime"
     when
-        AudienciaAssignment(startingTimeGrain != null, $lastTimeGrainIndex : getLastTimeGrainIndex())
+        AudienciaAssignment(startingTimeGrain != null, $lastTimeGrainIndex : lastTimeGrainIndex)
         not TimeGrain(grainIndex == $lastTimeGrainIndex)
     then
         scoreHolder.penalize(kcontext, $lastTimeGrainIndex);
 end
 
-rule "Avoid Mid-break"
+rule "Don't start after maximum starting time of the day"
     when
+        $day : Day($lastStartingMinute : lastStartingMinute)
+        AudienciaAssignment(startingTimeGrain != null, $startingTimeGrainIndex : startingTimeGrainIndex)
+        $timegrain : TimeGrain(day == $day, grainIndex == $startingTimeGrainIndex, startingMinuteOfDay > $lastStartingMinute)
+    then
+        scoreHolder.penalize(kcontext, $timegrain.getStartingMinuteOfDay() - $lastStartingMinute);
+end
+
+//rule "Avoid Mid-break"
+//    when
 //        $left: AudienciaAssignment(startingTimeGrain != null, $lastTimeGrainIndex : getLastTimeGrainIndex(), $startTimeGrainIndex : startingTimeGrainIndex, $audiencia : audiencia);
 //        Audiencia(idAudiencia == $audiencia.getIdAudiencia(), $duration : numTimeGrains)
 //        TimeGrain(grainIndex == $startTimeGrainIndex, $firstStartingMinute : startingMinuteOfDay)
 //        TimeGrain(grainIndex == $lastTimeGrainIndex, startingMinuteOfDay != $firstStartingMinute + ($duration - 1) * GRAIN_LENGTH_IN_MINUTES)
-    then
+//    then
 //        scoreHolder.penalize(kcontext);
-end
+//end
 
 rule "Start and end on same day"
     when
@@ -112,36 +122,36 @@ rule "Respect Maximum Starting Time"
         scoreHolder.penalize(kcontext, $left.isMinimumStartingTime());
 end
 
-rule "Respect Locations"
-    when
-        AudienciaAssignment(room != null, audiencia.ubicacion != room.ubicacion)
-    then
-        scoreHolder.penalize(kcontext);
-end
+//rule "Respect Locations"
+//    when
+//        AudienciaAssignment(room != null, audiencia.ubicacion != room.ubicacion)
+//    then
+//        scoreHolder.penalize(kcontext);
+//end
 
-rule "Dont conflict Juez with locations"
-    when
-        $leftAssignment : AudienciaAssignment($id : id,startingTimeGrain != null, $leftDay : startingTimeGrain.day, $location : audiencia.ubicacion, $juez : juez)
-        $rightAssignment : AudienciaAssignment(id != $id, startingTimeGrain != null, audiencia.ubicacion != $location, startingTimeGrain.day == $leftDay, juez == $juez)
-    then
-        scoreHolder.penalize(kcontext);
-end
+//rule "Dont conflict Juez with locations"
+//    when
+//        $leftAssignment : AudienciaAssignment($id : id,startingTimeGrain != null, $leftDay : startingTimeGrain.day, $location : audiencia.ubicacion, $juez : juez)
+//        $rightAssignment : AudienciaAssignment(id != $id, startingTimeGrain != null, audiencia.ubicacion != $location, startingTimeGrain.day == $leftDay, juez == $juez)
+//    then
+//        scoreHolder.penalize(kcontext);
+//end
 
-rule "Dont conflict Fiscal with locations"
-    when
-        $leftAssignment : AudienciaAssignment($id : id,startingTimeGrain != null, $leftDay : startingTimeGrain.day, $location : audiencia.ubicacion, $fiscal : fiscal)
-        $rightAssignment : AudienciaAssignment(id != $id, startingTimeGrain != null, audiencia.ubicacion != $location, startingTimeGrain.day == $leftDay, fiscal == $fiscal)
-    then
-        scoreHolder.penalize(kcontext);
-end
+//rule "Dont conflict Fiscal with locations"
+//    when
+//        $leftAssignment : AudienciaAssignment($id : id,startingTimeGrain != null, $leftDay : startingTimeGrain.day, $location : audiencia.ubicacion, $fiscal : fiscal)
+//        $rightAssignment : AudienciaAssignment(id != $id, startingTimeGrain != null, audiencia.ubicacion != $location, startingTimeGrain.day == $leftDay, fiscal == $fiscal)
+//    then
+//        scoreHolder.penalize(kcontext);
+//end
 
-rule "Dont conflict Defensor with locations"
-    when
-        $leftAssignment : AudienciaAssignment($id : id,startingTimeGrain != null, $leftDay : startingTimeGrain.day, $location : audiencia.ubicacion, $defensor : defensor)
-        $rightAssignment : AudienciaAssignment(id != $id, startingTimeGrain != null, audiencia.ubicacion != $location, startingTimeGrain.day == $leftDay, defensor == $defensor)
-    then
-        scoreHolder.penalize(kcontext);
-end
+//rule "Dont conflict Defensor with locations"
+//    when
+//        $leftAssignment : AudienciaAssignment($id : id,startingTimeGrain != null, $leftDay : startingTimeGrain.day, $location : audiencia.ubicacion, $defensor : defensor)
+//        $rightAssignment : AudienciaAssignment(id != $id, startingTimeGrain != null, audiencia.ubicacion != $location, startingTimeGrain.day == $leftDay, defensor == $defensor)
+//    then
+//        scoreHolder.penalize(kcontext);
+//end
 
 // ############################################################################
 // Soft constraints usually
@@ -191,13 +201,13 @@ rule "One TimeGrain Fiscal"
         scoreHolder.penalize(kcontext);
 end
 
-rule "Distribute workload fairly"
-    when
+//rule "Distribute workload fairly"
+//    when
 //        $left : AudienciaAssignment($id : id, startingTimeGrain != null, $room : room)
 //        $roomList : List() from collect(AudienciaAssignment(id != $id, room == $room))
-    then
+//    then
 //        scoreHolder.penalize(kcontext, ($roomList.size() * $roomList.size()));
-end
+//end
 
 
 

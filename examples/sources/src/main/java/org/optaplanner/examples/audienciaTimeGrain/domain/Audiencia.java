@@ -15,19 +15,19 @@ public class Audiencia {
     private Juez juez; //Juez
     private Defensor defensor; //Defensor
     private Fiscal fiscal; //Fiscal
-    private int ubicacion; //Ubicacion geografica
+//    private int ubicacion; //Ubicacion geografica
     private LocalDate fechaPedido;
 
     /* Constructors */
 
-    public Audiencia(int idAudiencia, int numTimeGrains, Tipo tipo, Juez juez, Defensor defensor, Fiscal fiscal, int ubicacion, LocalDate fechaPedido){
+    public Audiencia(int idAudiencia, int numTimeGrains, Tipo tipo, Juez juez, Defensor defensor, Fiscal fiscal, LocalDate fechaPedido){
         this.idAudiencia = idAudiencia;
         this.numTimeGrains = numTimeGrains;
         this.tipo = tipo;
         this.juez = juez;
         this.defensor = defensor;
         this.fiscal = fiscal;
-        this.ubicacion = ubicacion;
+//        this.ubicacion = ubicacion;
         this.fechaPedido = fechaPedido;
     }
 
@@ -83,13 +83,13 @@ public class Audiencia {
         this.fiscal = fiscal;
     }
 
-    public int getUbicacion() {
-        return ubicacion;
-    }
-
-    public void setUbicacion(int ubicacion) {
-        this.ubicacion = ubicacion;
-    }
+//    public int getUbicacion() {
+//        return ubicacion;
+//    }
+//
+//    public void setUbicacion(int ubicacion) {
+//        this.ubicacion = ubicacion;
+//    }
 
     @XmlJavaTypeAdapter(value = LocalDateAdapter.class)
     public LocalDate getFechaPedido() {

@@ -4,9 +4,11 @@ import org.apache.commons.math3.fitting.HarmonicCurveFitter;
 import org.optaplanner.core.api.domain.constraintweight.ConstraintConfiguration;
 import org.optaplanner.core.api.domain.constraintweight.ConstraintWeight;
 import org.optaplanner.core.api.score.buildin.hardmediumsoft.HardMediumSoftScore;
+import org.optaplanner.examples.audienciaTimeGrain.helper.ScoreAdapter;
 import org.optaplanner.examples.common.domain.AbstractPersistable;
 
 import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 @ConstraintConfiguration(constraintPackage = "org.optaplanner.examples.audienciaTimeGrain.solver")
 
@@ -132,7 +134,7 @@ public class AudienciaScheduleConstraintConfiguration {
     }
 
     /* Setters y Getters */
-
+    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
     public HardMediumSoftScore getRoomConflict() {
         return roomConflict;
     }
@@ -141,6 +143,7 @@ public class AudienciaScheduleConstraintConfiguration {
         this.roomConflict = roomConflict;
     }
 
+    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
     public HardMediumSoftScore getOneTimeGrainBreakBetweenTwoConsecutiveMeetings() {
         return oneTimeGrainBreakBetweenTwoConsecutiveMeetings;
     }
@@ -149,6 +152,7 @@ public class AudienciaScheduleConstraintConfiguration {
         this.oneTimeGrainBreakBetweenTwoConsecutiveMeetings = oneTimeGrainBreakBetweenTwoConsecutiveMeetings;
     }
 
+    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
     public HardMediumSoftScore getDontGoInOvertime() {
         return dontGoInOvertime;
     }
@@ -157,6 +161,7 @@ public class AudienciaScheduleConstraintConfiguration {
         this.dontGoInOvertime = dontGoInOvertime;
     }
 
+    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
     public HardMediumSoftScore getStartAndEndOnSameDay() {
         return startAndEndOnSameDay;
     }
@@ -165,6 +170,7 @@ public class AudienciaScheduleConstraintConfiguration {
         this.startAndEndOnSameDay = startAndEndOnSameDay;
     }
 
+    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
     public HardMediumSoftScore getDoAllMeetingsAsSoonAsPossible() {
         return doAllMeetingsAsSoonAsPossible;
     }
@@ -173,6 +179,7 @@ public class AudienciaScheduleConstraintConfiguration {
         this.doAllMeetingsAsSoonAsPossible = doAllMeetingsAsSoonAsPossible;
     }
 
+    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
     public HardMediumSoftScore getDontConflictJuez() {
         return dontConflictJuez;
     }
@@ -181,6 +188,7 @@ public class AudienciaScheduleConstraintConfiguration {
         this.dontConflictJuez = dontConflictJuez;
     }
 
+    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
     public HardMediumSoftScore getDontConflictRoomTime() {
         return dontConflictRoomTime;
     }
@@ -189,6 +197,7 @@ public class AudienciaScheduleConstraintConfiguration {
         this.dontConflictRoomTime = dontConflictRoomTime;
     }
 
+    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
     public HardMediumSoftScore getDontConflictFiscal() {
         return dontConflictFiscal;
     }
@@ -197,6 +206,7 @@ public class AudienciaScheduleConstraintConfiguration {
         this.dontConflictFiscal = dontConflictFiscal;
     }
 
+    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
     public HardMediumSoftScore getDontConflictDefensor() {
         return dontConflictDefensor;
     }
@@ -229,6 +239,7 @@ public class AudienciaScheduleConstraintConfiguration {
 //        this.respectLocations = respectLocations;
 //    }
 
+    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
     public HardMediumSoftScore getRespectMinimumStartingTime() {
         return respectMinimumStartingTime;
     }
@@ -237,6 +248,7 @@ public class AudienciaScheduleConstraintConfiguration {
         this.respectMinimumStartingTime = respectMinimumStartingTime;
     }
 
+    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
     public HardMediumSoftScore getRespectMaximumStartingTime() {
         return respectMaximumStartingTime;
     }
@@ -245,6 +257,7 @@ public class AudienciaScheduleConstraintConfiguration {
         this.respectMaximumStartingTime = respectMaximumStartingTime;
     }
 
+    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
     public HardMediumSoftScore getOneTimeGrainJuez() {
         return oneTimeGrainJuez;
     }
@@ -253,6 +266,7 @@ public class AudienciaScheduleConstraintConfiguration {
         this.oneTimeGrainJuez = oneTimeGrainJuez;
     }
 
+    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
     public HardMediumSoftScore getOneTimeGrainDefensor() {
         return oneTimeGrainDefensor;
     }
@@ -261,6 +275,7 @@ public class AudienciaScheduleConstraintConfiguration {
         this.oneTimeGrainDefensor = oneTimeGrainDefensor;
     }
 
+    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
     public HardMediumSoftScore getOneTimeGrainFiscal() {
         return oneTimeGrainFiscal;
     }
@@ -294,6 +309,7 @@ public class AudienciaScheduleConstraintConfiguration {
 //    }
 
 
+    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
     public HardMediumSoftScore getDontStartAfterMaximumStartingMinute() {
         return dontStartAfterMaximumStartingMinute;
     }

@@ -38,6 +38,9 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import javax.json.Json;
+import javax.xml.bind.JAXBContext;
+import javax.xml.bind.JAXBException;
+import javax.xml.bind.Unmarshaller;
 
 public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
 
@@ -68,13 +71,14 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
 
         public AudienciaSchedule read(){
             solution = new AudienciaSchedule();
-            readConfiguration();
+//            readConfiguration();
+            readXML();
             readDayList();
-            readRoomList();
-            readJuezList();
-            readFiscalList();
-            readDefensorList();
-            readTipoList();
+//            readRoomList();
+//            readJuezList();
+//            readFiscalList();
+//            readDefensorList();
+//            readTipoList();
             readAudienciaList();
             return solution;
         }
@@ -226,12 +230,35 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             solution.setTipoList(tipoList);
         }
 
+        private void readXML(){
+            JAXBContext jaxbContext;
+
+            try {
+                jaxbContext = JAXBContext.newInstance(AudienciaSchedule.class);
+                Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
+                AudienciaSchedule audienciaSchedule = (AudienciaSchedule) jaxbUnmarshaller.unmarshal(new File("data/database.xml"));
+                solution.setDefensorList(audienciaSchedule.getDefensorList());
+                solution.setFiscalList(audienciaSchedule.getFiscalList());
+                solution.setJuezList(audienciaSchedule.getJuezList());
+                solution.setRoomList(audienciaSchedule.getRoomList());
+                solution.setTipoList(audienciaSchedule.getTipoList());
+                solution.setConstraintConfiguration(audienciaSchedule.getConstraintConfiguration());
+            } catch (JAXBException e) {
+                e.printStackTrace();
+            }
+
+        }
+
         private void readDayList(){
-            nextSheet("Días");
-            nextRow(false);
-            readHeaderCell("Inicio");
-            readHeaderCell("Fin");
-            readHeaderCell("Tiempo Maximo de Inicio");
+//            nextSheet("Días");
+//            nextRow(false);
+//            readHeaderCell("Inicio");
+//            readHeaderCell("Fin");
+//            readHeaderCell("Tiempo Maximo de Inicio");
+            nextSheet("Audiencias");
+            nextRow();
+            fechainicial = LocalDate.parse(nextStringCell().getStringCellValue(), DAY_FORMATTER);
+            solution.setFechaCorrida(fechainicial);
             List<Day> dayList = new ArrayList<>(30);
             List<TimeGrain> timeGrainList = new ArrayList<>();
             int dayId = 0, timeGrainId = 0;
@@ -248,9 +275,9 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             LocalDate fechaActual = fechainicial.minusDays(5);
 
             nextRow();
-            LocalTime startTime = LocalTime.parse(nextStringCell().getStringCellValue(), TIME_FORMATTER);
-            LocalTime endTime = LocalTime.parse(nextStringCell().getStringCellValue(), TIME_FORMATTER);
-            LocalTime lastStartingMinute = LocalTime.parse(nextStringCell().getStringCellValue(), TIME_FORMATTER);
+            LocalTime startTime = LocalTime.of(8,0);
+            LocalTime endTime = LocalTime.of(21,0);
+            LocalTime lastStartingMinute = LocalTime.of(18,0);
             int startMinuteOfDay = startTime.getHour() * 60 + startTime.getMinute();
             int endMinuteOfDay = endTime.getHour() * 60 + endTime.getMinute();
             int maximumStartingMinuteOfDay = lastStartingMinute.getHour() * 60 + lastStartingMinute.getMinute();
@@ -380,6 +407,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
         private void readAudienciaList(){
             nextSheet("Audiencias");
             nextRow(false);
+            nextRow();
             readHeaderCell("Id");
             readHeaderCell("Duración");
             readHeaderCell("Tipo");

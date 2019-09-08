@@ -8,6 +8,7 @@ import org.optaplanner.core.api.domain.solution.drools.ProblemFactCollectionProp
 import org.optaplanner.core.api.domain.valuerange.ValueRangeProvider;
 import org.optaplanner.core.api.score.buildin.hardmediumsoft.HardMediumSoftScore;
 import org.optaplanner.examples.audienciaTimeGrain.helper.LocalDateAdapter;
+import org.optaplanner.examples.audienciaTimeGrain.helper.ScoreAdapter;
 
 import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -147,6 +148,7 @@ public class AudienciaSchedule {
     }
 
     @XmlElement(name = "score")
+    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
     public HardMediumSoftScore getScore() {
         return score;
     }

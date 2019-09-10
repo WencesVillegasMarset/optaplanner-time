@@ -641,6 +641,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
 //                    AudienciaScheduleConstraintConfiguration.DONT_CONFLICT_DEFENSOR_LOCATION,
 //                    AudienciaScheduleConstraintConfiguration.DONT_CONFLICT_FISCAL_LOCATION,
                     AudienciaScheduleConstraintConfiguration.DONT_START_AFTER_MAXIMUM_STARTING_MINUTE,
+                    AudienciaScheduleConstraintConfiguration.DONT_CONFLICT_JUEZ_AND_TIMEGRAIN,
 
                     AudienciaScheduleConstraintConfiguration.ONE_TIME_GRAIN_BREAK_BETWEEN_TWO_CONSECUTIVE_MEETINGS,
                     AudienciaScheduleConstraintConfiguration.ONE_TIMEGRAIN_JUEZ,

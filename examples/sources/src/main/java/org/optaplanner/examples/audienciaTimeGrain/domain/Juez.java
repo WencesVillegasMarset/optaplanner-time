@@ -1,11 +1,14 @@
 package org.optaplanner.examples.audienciaTimeGrain.domain;
 
+import java.util.ArrayList;
+
 public class Juez{
 
     /* Variables */
 
     private int idJuez;
     private String nombre;
+    private ArrayList<TimeGrain> prohibitedTimeGrains = new ArrayList<>();
 
     /* Constructor */
 
@@ -34,5 +37,17 @@ public class Juez{
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    public ArrayList<TimeGrain> getProhibitedTimeGrains() {
+        return prohibitedTimeGrains;
+    }
+
+    public void setProhibitedTimeGrains(ArrayList<TimeGrain> prohibitedTimeGrains) {
+        this.prohibitedTimeGrains = prohibitedTimeGrains;
+    }
+
+    public void addProhibitedTimeGrains(TimeGrain timeGrain) {
+        this.prohibitedTimeGrains.add(timeGrain);
     }
 }

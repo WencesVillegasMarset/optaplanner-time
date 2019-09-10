@@ -8,6 +8,7 @@ import java.sql.Time;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.List;
 
 
 @PlanningEntity
@@ -120,6 +121,18 @@ public class AudienciaAssignment {
 
             }
 //        }
+        return respuesta;
+    }
+
+    public int timeGrainJuezRestriction(){
+        int respuesta = 0;
+        for(TimeGrain timeGrain : this.getJuez().getProhibitedTimeGrains()){
+            for(int i = this.getStartingTimeGrainIndex(); i < this.getLastTimeGrainIndex() + 1; i++){
+                if(i == timeGrain.getGrainIndex()){
+                    respuesta++;
+                }
+            }
+        }
         return respuesta;
     }
 

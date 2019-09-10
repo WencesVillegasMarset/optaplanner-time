@@ -103,9 +103,16 @@ end
 rule "Do not use room in prohibited time"
     when
         $timeGrain : TimeGrain(grainIndex != null)
-        AudienciaAssignment(audiencia != null, room!= null, startingTimeGrain != null, timeGrainRoomRestriction($timeGrain) == true)
+        AudienciaAssignment(room!= null, startingTimeGrain != null, timeGrainRoomRestriction($timeGrain) == true)
     then
         scoreHolder.penalize(kcontext);
+end
+
+rule "Do not conflict Juez with TimeGrain"
+    when
+        $audienciaAssignment : AudienciaAssignment(startingTimeGrain != null, timeGrainJuezRestriction() > 0)
+    then
+        scoreHolder.penalize(kcontext, $audienciaAssignment.timeGrainJuezRestriction());
 end
 
 rule "Respect Minimum Starting Time"

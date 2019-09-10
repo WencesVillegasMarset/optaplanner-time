@@ -79,6 +79,10 @@ public class AudienciaScheduleConstraintConfiguration {
     //HARD - No permite que una audiencia comience después del horario permitido de comienzo
     public static final String DONT_START_AFTER_MAXIMUM_STARTING_MINUTE = "Don't start after maximum starting time of the day";
 
+    //HARD - No permite que se asigne una audiencia en un TimeGrain que el Juez no este disponible
+    public static final String DONT_CONFLICT_JUEZ_AND_TIMEGRAIN = "Do not conflict Juez with TimeGrain";
+
+
     /* Hard Constraints */
     @ConstraintWeight(ROOM_CONFLICT)
     private HardMediumSoftScore roomConflict = HardMediumSoftScore.ofHard(1);
@@ -110,6 +114,8 @@ public class AudienciaScheduleConstraintConfiguration {
 //    private HardMediumSoftScore dontConflictFiscalLocation = HardMediumSoftScore.ofHard(1);
     @ConstraintWeight(DONT_START_AFTER_MAXIMUM_STARTING_MINUTE)
     private HardMediumSoftScore dontStartAfterMaximumStartingMinute = HardMediumSoftScore.ofHard(1);
+    @ConstraintWeight(DONT_CONFLICT_JUEZ_AND_TIMEGRAIN)
+    private HardMediumSoftScore dontConflictJuezAndTimeGrain = HardMediumSoftScore.ofHard(1);
 
 
     /* Soft Constraints */
@@ -308,6 +314,14 @@ public class AudienciaScheduleConstraintConfiguration {
 //        this.dontConflictFiscalLocation = dontConflictFiscalLocation;
 //    }
 
+    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
+    public HardMediumSoftScore getDontConflictJuezAndTimeGrain() {
+        return dontConflictJuezAndTimeGrain;
+    }
+
+    public void setDontConflictJuezAndTimeGrain(HardMediumSoftScore dontConflictJuezAndTimeGrain) {
+        this.dontConflictJuezAndTimeGrain = dontConflictJuezAndTimeGrain;
+    }
 
     @XmlJavaTypeAdapter(value = ScoreAdapter.class)
     public HardMediumSoftScore getDontStartAfterMaximumStartingMinute() {

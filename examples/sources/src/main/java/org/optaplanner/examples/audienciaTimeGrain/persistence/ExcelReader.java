@@ -419,11 +419,17 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             readHeaderCell("Fecha de Pedido");
 
             List<Audiencia> audienciaList = new ArrayList<>(currentSheet.getLastRowNum() - 1);
+            Audiencia lastAudiencia = new Audiencia();
+            boolean isSame = false;
             List<AudienciaAssignment> audienciaAssignmentList = new ArrayList<>(currentSheet.getLastRowNum() - 1);
             while(nextRow()){
                 Audiencia audiencia = new Audiencia();
                 AudienciaAssignment audienciaAssignment = new AudienciaAssignment();
                 int id = (int)nextNumericCell().getNumericCellValue();
+                if (lastAudiencia.getIdAudiencia() == id){ //comparo con la anterior
+                    audiencia = lastAudiencia; //si son repetidas trabajo con la anterior
+                    isSame = true;
+                }
                 audiencia.setIdAudiencia(id);
                 audienciaAssignment.setId(id);
                 readAudienciaDuration(audiencia);
@@ -469,7 +475,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                 if(containsDefensor(solution.getDefensorList(), defensorNombre)){
                     for (Defensor defensor : solution.getDefensorList()) {
                         if (defensor.getIdDefensor().equals(defensorNombre)){
-                            audiencia.setDefensor(defensor);
+                            audiencia.addDefensor(defensor);
                             break;
                         }
                     }
@@ -490,16 +496,18 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                             currentPosition() + ": The fiscal with id (" + fiscalRead
                                     + ") does not exist.");
                 }
-
-                audienciaList.add(audiencia);
-                audienciaAssignment.setAudiencia(audiencia);
-                audienciaAssignmentList.add(audienciaAssignment);
-//                System.out.println(audiencia.getNumTimeGrains() + " " + audiencia.getDefensor().getNombreDefensor() + audiencia.getFiscal().getNombreFiscal() + audiencia.getJuez().getIdJuez());
+                if (!isSame){ // si es unica se agrega, si es copia ya esta agregada
+                    audienciaList.add(audiencia);
+                    audienciaAssignment.setAudiencia(audiencia);
+                    audienciaAssignmentList.add(audienciaAssignment);
                 }
+
+                //System.out.println(audiencia.getNumTimeGrains() + " " + audiencia.getDefensor().getNombreDefensor() + audiencia.getFiscal().getNombreFiscal() + audiencia.getJuez().getIdJuez());
+            }
 
             solution.setAudienciaList(audienciaList);
             solution.setAudienciaAssignmentList(audienciaAssignmentList);
-            }
+        }
 
         private boolean containsTipo(final List<Tipo> list, final int numero){
             return list.stream().anyMatch(o -> o.getIdTipo() == numero);

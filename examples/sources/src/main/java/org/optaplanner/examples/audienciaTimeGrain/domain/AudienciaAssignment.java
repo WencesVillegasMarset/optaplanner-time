@@ -8,6 +8,7 @@ import java.sql.Time;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.List;
 
 
 @PlanningEntity
@@ -86,6 +87,22 @@ public class AudienciaAssignment {
         return Math.min(end, otherEnd) - Math.max(start, otherStart);
     }
 
+    /* si existe conflicto con defensor devuelve true. I.E si existen id iguales entre assignments */
+    public boolean conflictDefensor(AudienciaAssignment other){
+        List<Defensor> local = this.audiencia.getDefensor();
+        List<Defensor> external = other.audiencia.getDefensor();
+        for (Defensor defLocal:local
+             ) {
+            for (Defensor defExternal: external
+                 ) {
+                if (defLocal.getIdDefensor() == defExternal.getIdDefensor()){
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
     /* Devuelve el index del ultimo TimeGrain que utiliza */
     public Integer getLastTimeGrainIndex() {
         if (startingTimeGrain == null) {
@@ -133,7 +150,7 @@ public class AudienciaAssignment {
     }
 
     /* Devuelve el id del Defensor de la audiencia */
-    public Defensor getDefensor(){ return this.audiencia.getDefensor();}
+    public List<Defensor> getDefensor(){ return this.audiencia.getDefensor();}
 
     /* Devuelve el id del Fiscal de la audiencia */
     public int getFiscalId(){ return this.audiencia.getFiscal().getIdFiscal();}

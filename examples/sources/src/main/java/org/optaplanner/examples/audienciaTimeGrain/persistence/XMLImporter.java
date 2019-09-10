@@ -117,13 +117,22 @@ public class XMLImporter {
                     break;
                 }
             }
-
+            //saco el numero de defensores a validar, y resto cada vez que da igual el if interno
+            // si me da 0 al terminar los loops es que todos los de la lista fueron encontrados en la lista de validos
+            int defensoresNoValidos = audienciaNueva.getDefensor().size();
             for(Defensor defensorexistente : schedule.getDefensorList()){
-                if(audienciaNueva.getDefensor().getIdDefensor().equals(defensorexistente.getIdDefensor())){
-                    audienciaNueva.setDefensor(defensorexistente);
-                    break;
+                for (Defensor defensor :audienciaNueva.getDefensor()
+                     ) {
+                    if(defensor.getIdDefensor().equals(defensorexistente.getIdDefensor())) {
+                        defensoresNoValidos -= 1;
+                    }
                 }
             }
+            if (defensoresNoValidos == 0){
+                audienciaNueva.setDefensor(audienciaNueva.getDefensor());
+            }
+
+
 
             for(Fiscal fiscalexistente : schedule.getFiscalList()){
                 if(audienciaNueva.getFiscal().getIdFiscal() == fiscalexistente.getIdFiscal()){
@@ -235,19 +244,21 @@ public class XMLImporter {
         }
     }
 
-    private void checkDefensor(Defensor defensorNuevo){
+    private void checkDefensor(List<Defensor> defensoresAValidar){
         List<Defensor> defensorList = schedule.getDefensorList();
-        boolean defensorExists = false;
-        for(Defensor defensor : defensorList){
-            if(defensor.getIdDefensor().equals(defensorNuevo.getIdDefensor())){
-                defensorExists = true;
-                break;
+        for (Defensor defensorNuevo:defensoresAValidar
+             ) {
+            boolean defensorExists = false;
+            for(Defensor defensor : defensorList){
+                if(defensor.getIdDefensor().equals(defensorNuevo.getIdDefensor())){
+                    defensorExists = true;
+                    break;
+                }
             }
-        }
-
-        if(!defensorExists){
-            defensorList.add(defensorNuevo);
-            schedule.setDefensorList(defensorList);
+            if(!defensorExists){
+                defensorList.add(defensorNuevo);
+                schedule.setDefensorList(defensorList);
+            }
         }
     }
 

@@ -87,7 +87,7 @@ end
 rule "Do not conflict Defensor"
     when
         $leftAssignment : AudienciaAssignment(startingTimeGrain != null, $Defensor : getDefensor(), $id : id)
-        AudienciaAssignment(id != $id, calculateOverlap($leftAssignment) > 0, getDefensor()== $Defensor)
+        AudienciaAssignment(id != $id, calculateOverlap($leftAssignment) > 0, conflictDefensor($leftAssignment))
     then
         scoreHolder.penalize(kcontext);
 end

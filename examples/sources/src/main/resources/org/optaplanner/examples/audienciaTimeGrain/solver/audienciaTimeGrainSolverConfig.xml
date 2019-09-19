@@ -39,7 +39,7 @@
 <!--      <finalistPodiumType>STRATEGIC_OSCILLATION</finalistPodiumType>-->
 <!--    </forager>-->
     <termination>
-      <unimprovedSecondsSpentLimit>120</unimprovedSecondsSpentLimit>
+      <unimprovedSecondsSpentLimit>10</unimprovedSecondsSpentLimit>
       <unimprovedScoreDifferenceThreshold>0hard/0medium/1000soft</unimprovedScoreDifferenceThreshold>
       <minutesSpentLimit>7</minutesSpentLimit>
     </termination>

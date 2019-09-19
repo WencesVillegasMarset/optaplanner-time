@@ -865,13 +865,18 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             nextRow();
             nextHeaderCell("Defensor");
             writeTimeGrainHoursHeaders();
+            List<Defensor> listaDef = null;
             for(Defensor defensor : solution.getDefensorList()){
                 boolean tieneAudiencias = false;
                 for (Audiencia audiencia : solution.getAudienciaList()){
-                    if (audiencia.getDefensor() == defensor){
-                        tieneAudiencias = true;
-                        break;
+                    listaDef = audiencia.getDefensor();
+                    for (Defensor def : listaDef){
+                        if (def == defensor){
+                            tieneAudiencias = true;
+                            break;
+                        }
                     }
+
                 }
                 if(tieneAudiencias){
                     writeDefensorAudienciaList(defensor);

@@ -74,6 +74,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
 //            readConfiguration();
             readXML();
             readDayList();
+            readPossibleRooms();
 //            readRoomList();
 //            readJuezList();
 //            readFiscalList();
@@ -248,6 +249,38 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             }
 
         }
+
+        public void readPossibleRooms() {
+            File file = new File("data/rooms_mendoza.txt");
+
+            BufferedReader br = null;
+            try {
+                br = new BufferedReader(new FileReader(file));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+
+            String st = null;
+            List<String> stringList = new ArrayList<>();
+            List<Room> roomList = new ArrayList<>();
+            while (true) {
+                try {
+                    if ((st = br.readLine()) == null) break;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                stringList.add(st);
+            }
+
+            for(Room existingRoom : solution.getRoomList()){
+                if(stringList.contains(String.valueOf(existingRoom.getIdRoom()))){
+                    roomList.add(existingRoom);
+                }
+            }
+
+            solution.setPosibleRooms(roomList);
+        }
+
 
         private void readDayList(){
 //            nextSheet("Días");

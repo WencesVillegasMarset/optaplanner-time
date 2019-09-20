@@ -60,9 +60,11 @@ public class AudienciaSchedule {
     @ProblemFactCollectionProperty
     private List<TimeGrain> timeGrainList;
 
-    @ValueRangeProvider(id = "roomRange")
     @ProblemFactCollectionProperty
     private List<Room> roomList;
+
+    @ValueRangeProvider(id = "roomRange")
+    private List<Room> posibleRooms;
 
     @PlanningEntityCollectionProperty
     private List<AudienciaAssignment> audienciaAssignmentList;
@@ -165,7 +167,14 @@ public class AudienciaSchedule {
     public void setFechaCorrida(LocalDate fechaCorrida) {
         this.fechaCorrida = fechaCorrida;
     }
-    
+
+    public List<Room> getPosibleRooms() {
+        return posibleRooms;
+    }
+
+    public void setPosibleRooms(List<Room> posibleRooms) {
+        this.posibleRooms = posibleRooms;
+    }
 
     /* toString */
 

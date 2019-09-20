@@ -129,6 +129,7 @@ rule "Respect Maximum Starting Time"
         scoreHolder.penalize(kcontext, $left.isMinimumStartingTime());
 end
 
+
 //rule "Respect Locations"
 //    when
 //        AudienciaAssignment(room != null, audiencia.ubicacion != room.ubicacion)

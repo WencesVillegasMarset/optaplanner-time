@@ -14,12 +14,15 @@
 
   <constructionHeuristic>
     <constructionHeuristicType>FIRST_FIT</constructionHeuristicType>
+<!--    <constructionHeuristicType>ALLOCATE_ENTITY_FROM_QUEUE</constructionHeuristicType>-->
+
     <changeMoveSelector>
       <valueSelector variableName="startingTimeGrain"/>
     </changeMoveSelector>
     <changeMoveSelector>
       <valueSelector variableName="room"/>
     </changeMoveSelector>
+
 <!--    <forager>-->
 <!--      <pickEarlyType>FIRST_FEASIBLE_SCORE_OR_NON_DETERIORATING_HARD</pickEarlyType>-->
 <!--    </forager>-->

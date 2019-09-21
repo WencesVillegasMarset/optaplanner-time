@@ -21,6 +21,7 @@ public class AudienciaAssignment {
     private TimeGrain startingTimeGrain;
     private int id;
     private boolean pinned = false;
+    private boolean scorable;
 
     /* Setters y Getters */
 
@@ -65,6 +66,14 @@ public class AudienciaAssignment {
     @PlanningPin
     public boolean isPinned(){
         return pinned;
+    }
+
+    public boolean isScorable() {
+        return scorable;
+    }
+
+    public void setScorable(boolean scorable) {
+        this.scorable = scorable;
     }
 
     /* Helper functions */

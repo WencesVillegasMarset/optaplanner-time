@@ -75,6 +75,7 @@ public class Main {
             LocalDate fechaDeseadaLocalDate = LocalDate.parse(fechaDeseada, formatter);
             File excelFile = new File("data/unsolved/" + fechaDeseadaLocalDate.getYear() + "-" + fechaDeseadaLocalDate.getMonthValue() + "-" + fechaDeseadaLocalDate.getDayOfMonth() + ".xlsx");
             if(excelFile.exists()){
+                excelReader.setDate(fechaDeseadaLocalDate);
                 solvedAudienciaSchedule = excelReader.read(excelFile);
                 fileExists = true;
             } else {

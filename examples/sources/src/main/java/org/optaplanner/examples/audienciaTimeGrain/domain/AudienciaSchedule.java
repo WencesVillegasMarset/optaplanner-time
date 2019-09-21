@@ -64,7 +64,7 @@ public class AudienciaSchedule {
     private List<Room> roomList;
 
     @ValueRangeProvider(id = "roomRange")
-    private List<Room> posibleRooms;
+    private List<Room> possibleRooms;
 
     @PlanningEntityCollectionProperty
     private List<AudienciaAssignment> audienciaAssignmentList;
@@ -168,12 +168,20 @@ public class AudienciaSchedule {
         this.fechaCorrida = fechaCorrida;
     }
 
-    public List<Room> getPosibleRooms() {
-        return posibleRooms;
+    public List<Room> getPossibleRooms() {
+        return possibleRooms;
     }
 
-    public void setPosibleRooms(List<Room> posibleRooms) {
-        this.posibleRooms = posibleRooms;
+    public void setPossibleRooms(List<Room> posibleRooms) {
+        this.possibleRooms = posibleRooms;
+    }
+
+    public boolean isRoomPossible(Room room){
+        if (this.getPossibleRooms().contains(room)){
+            return true;
+        }else {
+            return false;
+        }
     }
 
     /* toString */

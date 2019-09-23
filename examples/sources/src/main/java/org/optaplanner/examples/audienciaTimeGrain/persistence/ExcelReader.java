@@ -4,6 +4,7 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.sql.Time;
 import java.time.*;
 import java.util.*;
 import java.util.function.Function;
@@ -62,8 +63,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        AudienciaSchedule resuelto = new AudienciaSchedulingXlsxReader(workbook, this.date).read();
-        return resuelto;
+        return new AudienciaSchedulingXlsxReader(workbook, this.date).read();
     }
 
     private static class AudienciaSchedulingXlsxReader extends AbstractXlsxReader<AudienciaSchedule>{
@@ -311,7 +311,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             LocalDate fechaActual = fechainicial.minusDays(5);
 
 
-            LocalTime startTime = LocalTime.of(8,0);
+            LocalTime startTime = LocalTime.of(7,0);
             LocalTime endTime = LocalTime.of(21,0);
             LocalTime lastStartingMinute = LocalTime.of(18,0);
             int startMinuteOfDay = startTime.getHour() * 60 + startTime.getMinute();
@@ -319,7 +319,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             int maximumStartingMinuteOfDay = lastStartingMinute.getHour() * 60 + lastStartingMinute.getMinute();
 
 
-            for(int j=0; j<30; j++){
+            for(int j=0; j<150; j++){
                 boolean isFeriado;
                 do {
                     isFeriado = false;
@@ -532,7 +532,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
 
                 XSSFCell sala = nextCell();
                 if(sala.getCellTypeEnum() == CellType.NUMERIC){
-                    audienciaAssignment.setScorable(false);
+                    audienciaAssignment.setScorable(true);
                     int salaRead = (int)sala.getNumericCellValue();
                     LocalDate fechaCalendarizado = nextCell().getDateCellValue().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                     String horaMinutosRead = nextStringCell().getStringCellValue();
@@ -645,7 +645,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
     @Override
     public void write(AudienciaSchedule solution, File outputScheduleFile) {
         try (FileOutputStream out = new FileOutputStream(outputScheduleFile)) {
-            Workbook workbook = new AudienciaSchedulingXlsxWriter(solution).write();
+            Workbook workbook = new AudienciaSchedulingXlsxWriter(solution, this.date).write();
             workbook.write(out);
         } catch (IOException | RuntimeException e) {
             throw new IllegalStateException("Failed writing outputScheduleFile (" + outputScheduleFile
@@ -655,15 +655,21 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
 
     private class AudienciaSchedulingXlsxWriter extends AbstractXlsxWriter<AudienciaSchedule> {
 
-        AudienciaSchedulingXlsxWriter(AudienciaSchedule solution) {
+        private LocalDate startingDate;
+
+        AudienciaSchedulingXlsxWriter(AudienciaSchedule solution, LocalDate startingDate) {
             super(solution, Main.SOLVER_CONFIG);
+            this.startingDate = startingDate;
+
         }
+
 
         @Override
         public Workbook write() {
             workbook = new XSSFWorkbook();
             creationHelper = workbook.getCreationHelper();
             createStyles();
+            cleanAudienciaSchedule();
             writeRoomsView();
             writeJuezView();
             writeDefensorView();
@@ -673,6 +679,14 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                     .filter(o -> o instanceof AudienciaAssignment).map(o -> ((AudienciaAssignment) o).toString())
                     .collect(joining(", ")));
             return workbook;
+        }
+
+        private void cleanAudienciaSchedule(){
+            LocalDate endingDate = startingDate.plusDays(31);
+            List<TimeGrain> validTimeGrains = solution.getTimeGrainList().stream().filter(timeGrain -> timeGrain.getDate().isBefore(endingDate)).collect(toList());
+            List<AudienciaAssignment> validAudienciaAssignments = solution.getAudienciaAssignmentList().stream().filter(audienciaAssignment -> audienciaAssignment.getStartingTimeGrain().getDate().isBefore(endingDate)).collect(toList());
+            solution.setTimeGrainList(validTimeGrains);
+            solution.setAudienciaAssignmentList(validAudienciaAssignments);
         }
 
         private void writeRoomsView(){
@@ -802,15 +816,8 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                     .filter(indictmentScore -> !(indictmentScore.getHardScore() >= 0 && indictmentScore.getSoftScore() >= 0))
                     .reduce(Score::add).orElse(HardMediumSoftScore.ZERO);
 
-            Boolean pinned = false;
-            for(AudienciaAssignment audienciaAssignment : audienciaAssignmentList){
-                if(audienciaAssignment.isPinned()){
-                    pinned = true;
-                    break;
-                }
-            }
 
-            XSSFCell cell = getXSSFCellOfScore(score, pinned);
+            XSSFCell cell = getXSSFCellOfScore(score);
 
             if (!audienciaAssignmentList.isEmpty()) {
                 ClientAnchor anchor = creationHelper.createClientAnchor();
@@ -827,11 +834,9 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             currentRow.setHeightInPoints(Math.max(currentRow.getHeightInPoints(), audienciaAssignmentList.size() * currentSheet.getDefaultRowHeightInPoints()));
         }
 
-        private XSSFCell getXSSFCellOfScore(HardMediumSoftScore score, Boolean pinned) {
+        private XSSFCell getXSSFCellOfScore(HardMediumSoftScore score) {
             XSSFCell cell;
-            if (pinned){
-                cell = nextCell(pinnedStyle);
-            } else if (!score.isFeasible()) {
+            if (!score.isFeasible()) {
                 cell = nextCell(hardPenaltyStyle);
             } else if (score.getMediumScore() < 0) {
                 cell = nextCell(mediumPenaltyStyle);

@@ -6,6 +6,7 @@
         <dontConflictFiscal>0/1/0/0</dontConflictFiscal>
         <dontConflictJuez>0/1/0/0</dontConflictJuez>
         <dontConflictRoomTime>0/1/0/0</dontConflictRoomTime>
+        <dontConflictJuezAndTimeGrain>0/1/0/0</dontConflictJuezAndTimeGrain>
         <dontGoInOvertime>0/1/0/0</dontGoInOvertime>
         <dontStartAfterMaximumStartingMinute>0/1/0/0</dontStartAfterMaximumStartingMinute>
         <oneTimeGrainBreakBetweenTwoConsecutiveMeetings>0/0/0/100</oneTimeGrainBreakBetweenTwoConsecutiveMeetings>

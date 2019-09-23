@@ -4,10 +4,7 @@ import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.time.Year;
+import java.time.*;
 import java.util.*;
 import java.util.function.Function;
 
@@ -44,6 +41,12 @@ import javax.xml.bind.Unmarshaller;
 
 public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
 
+    private LocalDate date;
+
+    public void setDate(LocalDate date){
+        this.date = date;
+    }
+
     @Override
     public AudienciaSchedule read(File file) {
 
@@ -59,13 +62,16 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        AudienciaSchedule resuelto = new AudienciaSchedulingXlsxReader(workbook).read();
+        AudienciaSchedule resuelto = new AudienciaSchedulingXlsxReader(workbook, this.date).read();
         return resuelto;
     }
 
     private static class AudienciaSchedulingXlsxReader extends AbstractXlsxReader<AudienciaSchedule>{
 
-        AudienciaSchedulingXlsxReader (XSSFWorkbook workbook){ super(workbook, Main.SOLVER_CONFIG);}
+        AudienciaSchedulingXlsxReader (XSSFWorkbook workbook, LocalDate fechaCalendarizacion){
+            super(workbook, Main.SOLVER_CONFIG);
+            fechainicial = fechaCalendarizacion;
+        }
 
         private LocalDate fechainicial;
 
@@ -74,6 +80,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
 //            readConfiguration();
             readXML();
             readDayList();
+            readPossibleRooms();
 //            readRoomList();
 //            readJuezList();
 //            readFiscalList();
@@ -249,17 +256,46 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
 
         }
 
+        public void readPossibleRooms() {
+            File file = new File("data/rooms_mendoza.txt");
+
+            BufferedReader br = null;
+            try {
+                br = new BufferedReader(new FileReader(file));
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            }
+
+            String st = null;
+            List<String> stringList = new ArrayList<>();
+            List<Room> roomList = new ArrayList<>();
+            while (true) {
+                try {
+                    if ((st = br.readLine()) == null) break;
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                stringList.add(st);
+            }
+
+            for(Room existingRoom : solution.getRoomList()){
+                if(stringList.contains(String.valueOf(existingRoom.getIdRoom()))){
+                    roomList.add(existingRoom);
+                }
+            }
+
+            solution.setPossibleRooms(roomList);
+        }
+
+
         private void readDayList(){
 //            nextSheet("Días");
 //            nextRow(false);
 //            readHeaderCell("Inicio");
 //            readHeaderCell("Fin");
 //            readHeaderCell("Tiempo Maximo de Inicio");
-            nextSheet("Audiencias");
-            nextRow();
-            fechainicial = LocalDate.parse(nextStringCell().getStringCellValue(), DAY_FORMATTER);
             solution.setFechaCorrida(fechainicial);
-            List<Day> dayList = new ArrayList<>(30);
+            List<Day> dayList = new ArrayList<>(60);
             List<TimeGrain> timeGrainList = new ArrayList<>();
             int dayId = 0, timeGrainId = 0;
 
@@ -274,7 +310,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
 
             LocalDate fechaActual = fechainicial.minusDays(5);
 
-            nextRow();
+
             LocalTime startTime = LocalTime.of(8,0);
             LocalTime endTime = LocalTime.of(21,0);
             LocalTime lastStartingMinute = LocalTime.of(18,0);
@@ -407,7 +443,6 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
         private void readAudienciaList(){
             nextSheet("Audiencias");
             nextRow(false);
-            nextRow();
             readHeaderCell("Id");
             readHeaderCell("Duración");
             readHeaderCell("Tipo");
@@ -415,8 +450,10 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             readHeaderCell("Defensor");
             readHeaderCell("Nombre Defensor");
             readHeaderCell("Fiscal");
-//            readHeaderCell("Ubicacion");
             readHeaderCell("Fecha de Pedido");
+            readHeaderCell("Sala");
+            readHeaderCell("Fecha Calendarizado");
+            readHeaderCell("Hora de Comienzo");
 
             List<Audiencia> audienciaList = new ArrayList<>(currentSheet.getLastRowNum() - 1);
             List<AudienciaAssignment> audienciaAssignmentList = new ArrayList<>(currentSheet.getLastRowNum() - 1);
@@ -440,7 +477,9 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                 int fiscalRead = (int)nextNumericCell().getNumericCellValue();
 //                System.out.println(fiscalRead);
 //                audiencia.setUbicacion((int)nextNumericCell().getNumericCellValue());
-                audiencia.setFechaPedido(LocalDate.parse(nextStringCell().getStringCellValue(), DAY_FORMATTER));
+                LocalDate fechaPedido = nextCell().getDateCellValue().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                audiencia.setFechaPedido(fechaPedido);
+
 //                System.out.println(audiencia.getFechaPedido());
                 if(containsTipo(solution.getTipoList(), tipoRead)){
                     for (Tipo tipo : solution.getTipoList()) {
@@ -491,8 +530,66 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                                     + ") does not exist.");
                 }
 
+                XSSFCell sala = nextCell();
+                if(sala.getCellTypeEnum() == CellType.NUMERIC){
+                    audienciaAssignment.setScorable(false);
+                    int salaRead = (int)sala.getNumericCellValue();
+                    LocalDate fechaCalendarizado = nextCell().getDateCellValue().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                    String horaMinutosRead = nextStringCell().getStringCellValue();
+                    String[] splitString = horaMinutosRead.split(":");
+                    int horaRead = Integer.parseInt(splitString[0]);
+                    int minutosRead = Integer.parseInt(splitString[1]);
+                    int startingMinute = horaRead * 60 + minutosRead;
+                    if(containsSala(solution.getRoomList(), salaRead)){
+                        for (Room room : solution.getRoomList()) {
+                            if (room.getIdRoom() == salaRead){
+                                audienciaAssignment.setRoom(room);
+                                break;
+                            }
+                        }
+                    } else {
+                        throw new IllegalStateException(
+                                currentPosition() + ": The room with id (" + salaRead
+                                        + ") does not exist.");
+                    }
+                    Day dayToUse = null;
+                    for (Day day : solution.getDayList()){
+                        if (day.toDate().isEqual(fechaCalendarizado)){
+                            dayToUse = day;
+                            break;
+                        }
+                    }
+                    if (dayToUse == null){
+                        System.out.println("No existe el dia" + fechaCalendarizado.toString());
+                        continue;
+
+                    }
+
+                    TimeGrain timeGrainToUse = null;
+                    for (TimeGrain timeGrain : solution.getTimeGrainList()){
+                        if (timeGrain.getDay().equals(dayToUse) && timeGrain.getStartingMinuteOfDay() == startingMinute){
+                            timeGrainToUse = timeGrain;
+                            break;
+                        }
+                    }
+                    if (timeGrainToUse != null){
+                        audienciaAssignment.setStartingTimeGrain(timeGrainToUse);
+                    } else{
+                        System.out.println("No hay timegrain para el horario " + horaMinutosRead);
+                        continue;
+                    }
+                } else {
+                    audienciaAssignment.setScorable(true);
+                }
+
+
+
+
                 audienciaList.add(audiencia);
                 audienciaAssignment.setAudiencia(audiencia);
+                if(sala.getCellTypeEnum() == CellType.NUMERIC){
+                    audienciaAssignment.setPinned(true);
+                }
                 audienciaAssignmentList.add(audienciaAssignment);
 //                System.out.println(audiencia.getNumTimeGrains() + " " + audiencia.getDefensor().getNombreDefensor() + audiencia.getFiscal().getNombreFiscal() + audiencia.getJuez().getIdJuez());
                 }
@@ -517,6 +614,9 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             return list.stream().anyMatch(o -> o.getIdFiscal() == numero);
         }
 
+        private boolean containsSala(final List<Room> list, final int numero){
+            return list.stream().anyMatch(o -> o.getIdRoom() == numero);
+        }
 
         private void readAudienciaDuration(Audiencia audiencia) {
             String durationDouble = nextCell().getStringCellValue();
@@ -641,6 +741,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
 //                    AudienciaScheduleConstraintConfiguration.DONT_CONFLICT_DEFENSOR_LOCATION,
 //                    AudienciaScheduleConstraintConfiguration.DONT_CONFLICT_FISCAL_LOCATION,
                     AudienciaScheduleConstraintConfiguration.DONT_START_AFTER_MAXIMUM_STARTING_MINUTE,
+                    AudienciaScheduleConstraintConfiguration.DONT_CONFLICT_JUEZ_AND_TIMEGRAIN,
 
                     AudienciaScheduleConstraintConfiguration.ONE_TIME_GRAIN_BREAK_BETWEEN_TWO_CONSECUTIVE_MEETINGS,
                     AudienciaScheduleConstraintConfiguration.ONE_TIMEGRAIN_JUEZ,
@@ -701,7 +802,15 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                     .filter(indictmentScore -> !(indictmentScore.getHardScore() >= 0 && indictmentScore.getSoftScore() >= 0))
                     .reduce(Score::add).orElse(HardMediumSoftScore.ZERO);
 
-            XSSFCell cell = getXSSFCellOfScore(score);
+            Boolean pinned = false;
+            for(AudienciaAssignment audienciaAssignment : audienciaAssignmentList){
+                if(audienciaAssignment.isPinned()){
+                    pinned = true;
+                    break;
+                }
+            }
+
+            XSSFCell cell = getXSSFCellOfScore(score, pinned);
 
             if (!audienciaAssignmentList.isEmpty()) {
                 ClientAnchor anchor = creationHelper.createClientAnchor();
@@ -718,9 +827,11 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             currentRow.setHeightInPoints(Math.max(currentRow.getHeightInPoints(), audienciaAssignmentList.size() * currentSheet.getDefaultRowHeightInPoints()));
         }
 
-        private XSSFCell getXSSFCellOfScore(HardMediumSoftScore score) {
+        private XSSFCell getXSSFCellOfScore(HardMediumSoftScore score, Boolean pinned) {
             XSSFCell cell;
-            if (!score.isFeasible()) {
+            if (pinned){
+                cell = nextCell(pinnedStyle);
+            } else if (!score.isFeasible()) {
                 cell = nextCell(hardPenaltyStyle);
             } else if (score.getMediumScore() < 0) {
                 cell = nextCell(mediumPenaltyStyle);

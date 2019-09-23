@@ -62,6 +62,11 @@ public class TimeGrain {
         this.startingMinuteOfDay = startingMinuteOfDay;
     }
 
+    public void setProhibitedRooms(ArrayList<Room> prohibitedRooms) {
+        this.prohibitedRooms = prohibitedRooms;
+    }
+
+
     /* Helper functions */
 
     public LocalDate getDate() {

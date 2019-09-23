@@ -60,9 +60,11 @@ public class AudienciaSchedule {
     @ProblemFactCollectionProperty
     private List<TimeGrain> timeGrainList;
 
-    @ValueRangeProvider(id = "roomRange")
     @ProblemFactCollectionProperty
     private List<Room> roomList;
+
+    @ValueRangeProvider(id = "roomRange")
+    private List<Room> possibleRooms;
 
     @PlanningEntityCollectionProperty
     private List<AudienciaAssignment> audienciaAssignmentList;
@@ -165,7 +167,22 @@ public class AudienciaSchedule {
     public void setFechaCorrida(LocalDate fechaCorrida) {
         this.fechaCorrida = fechaCorrida;
     }
-    
+
+    public List<Room> getPossibleRooms() {
+        return possibleRooms;
+    }
+
+    public void setPossibleRooms(List<Room> posibleRooms) {
+        this.possibleRooms = posibleRooms;
+    }
+
+    public boolean isRoomPossible(Room room){
+        if (this.getPossibleRooms().contains(room)){
+            return true;
+        }else {
+            return false;
+        }
+    }
 
     /* toString */
 

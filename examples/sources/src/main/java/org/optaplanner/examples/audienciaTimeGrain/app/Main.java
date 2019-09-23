@@ -11,6 +11,7 @@ import java.util.Scanner;
 
 import org.optaplanner.core.api.solver.SolverFactory;
 import org.optaplanner.examples.audienciaTimeGrain.domain.*;
+import org.optaplanner.examples.audienciaTimeGrain.helper.JuezTimeGrainRestrictionLoader;
 import org.optaplanner.examples.audienciaTimeGrain.persistence.ExcelReader;
 import org.optaplanner.examples.audienciaTimeGrain.persistence.XMLExporter;
 import org.optaplanner.examples.audienciaTimeGrain.persistence.XMLImporter;
@@ -24,6 +25,7 @@ public class Main {
     public static final String DATA_DIR_NAME = "data/audienciascheduling";
 
     public static void main(String[] args) {
+
 
 //        LocalDate diaCalendarizar = LocalDate.of(2018, 11, 27);
 //
@@ -73,6 +75,7 @@ public class Main {
             LocalDate fechaDeseadaLocalDate = LocalDate.parse(fechaDeseada, formatter);
             File excelFile = new File("data/unsolved/" + fechaDeseadaLocalDate.getYear() + "-" + fechaDeseadaLocalDate.getMonthValue() + "-" + fechaDeseadaLocalDate.getDayOfMonth() + ".xlsx");
             if(excelFile.exists()){
+                excelReader.setDate(fechaDeseadaLocalDate);
                 solvedAudienciaSchedule = excelReader.read(excelFile);
                 fileExists = true;
             } else {
@@ -99,6 +102,9 @@ public class Main {
                 System.out.print("Ingrese un caracter valido (S/N)\n");
             }
         } while (!correctInputXML);
+
+        JuezTimeGrainRestrictionLoader restrictionLoader = new JuezTimeGrainRestrictionLoader();
+        solvedAudienciaSchedule = restrictionLoader.loadRestrictions(solvedAudienciaSchedule);
 
         SolverFactory<AudienciaSchedule> solverFactory = SolverFactory.createFromXmlResource("org/optaplanner/examples/audienciaTimeGrain/solver/audienciaTimeGrainSolverConfig.xml");
         Solver<AudienciaSchedule> solver = solverFactory.buildSolver();

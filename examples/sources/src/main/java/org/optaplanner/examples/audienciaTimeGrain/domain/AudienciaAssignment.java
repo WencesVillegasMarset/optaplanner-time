@@ -8,6 +8,7 @@ import java.sql.Time;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.List;
 
 
 @PlanningEntity
@@ -20,6 +21,7 @@ public class AudienciaAssignment {
     private TimeGrain startingTimeGrain;
     private int id;
     private boolean pinned = false;
+    private boolean scorable;
 
     /* Setters y Getters */
 
@@ -64,6 +66,14 @@ public class AudienciaAssignment {
     @PlanningPin
     public boolean isPinned(){
         return pinned;
+    }
+
+    public boolean isScorable() {
+        return scorable;
+    }
+
+    public void setScorable(boolean scorable) {
+        this.scorable = scorable;
     }
 
     /* Helper functions */
@@ -120,6 +130,18 @@ public class AudienciaAssignment {
 
             }
 //        }
+        return respuesta;
+    }
+
+    public int timeGrainJuezRestriction(){
+        int respuesta = 0;
+        for(TimeGrain timeGrain : this.getJuez().getProhibitedTimeGrains()){
+            for(int i = this.getStartingTimeGrainIndex(); i < this.getLastTimeGrainIndex() + 1; i++){
+                if(i == timeGrain.getGrainIndex()){
+                    respuesta++;
+                }
+            }
+        }
         return respuesta;
     }
 

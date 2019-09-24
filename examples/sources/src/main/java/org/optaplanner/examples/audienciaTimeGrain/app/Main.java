@@ -28,7 +28,7 @@ public class Main {
 
         createDirectories();
 
-        LocalDate diaCalendarizar = LocalDate.of(2018, 11, 20);
+        LocalDate diaCalendarizar = LocalDate.of(2018, 11, 28);
 
         for(int i = 0; i < 160; i++){
             ExcelReader excelReader = new ExcelReader();

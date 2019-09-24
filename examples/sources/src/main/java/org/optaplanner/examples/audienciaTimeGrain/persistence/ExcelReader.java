@@ -311,7 +311,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             LocalDate fechaActual = fechainicial.minusDays(5);
 
 
-            LocalTime startTime = LocalTime.of(7,0);
+            LocalTime startTime = LocalTime.of(8,0);
             LocalTime endTime = LocalTime.of(21,0);
             LocalTime lastStartingMinute = LocalTime.of(18,0);
             int startMinuteOfDay = startTime.getHour() * 60 + startTime.getMinute();
@@ -532,7 +532,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
 
                 XSSFCell sala = nextCell();
                 if(sala.getCellTypeEnum() == CellType.NUMERIC){
-                    audienciaAssignment.setScorable(true);
+                    audienciaAssignment.setScorable(false);
                     int salaRead = (int)sala.getNumericCellValue();
                     LocalDate fechaCalendarizado = nextCell().getDateCellValue().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                     String horaMinutosRead = nextStringCell().getStringCellValue();

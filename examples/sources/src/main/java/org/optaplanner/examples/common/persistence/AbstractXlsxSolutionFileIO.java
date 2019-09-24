@@ -411,7 +411,7 @@ public abstract class AbstractXlsxSolutionFileIO<Solution_> implements SolutionF
             hardPenaltyStyle = createStyle(HARD_PENALTY_COLOR);
             mediumPenaltyStyle = createStyle(MEDIUM_PENALTY_COLOR);
             softPenaltyStyle = createStyle(SOFT_PENALTY_COLOR);
-            wrappedStyle = createStyle(null);
+            wrappedStyle = createStyle(PINNED_COLOR);
             planningVariableStyle = createStyle(PLANNING_VARIABLE_COLOR);
             republishedStyle = createStyle(REPUBLISHED_COLOR);
         }

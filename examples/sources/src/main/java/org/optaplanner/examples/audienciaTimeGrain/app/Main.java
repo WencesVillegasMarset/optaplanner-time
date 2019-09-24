@@ -26,11 +26,7 @@ public class Main {
 
     public static void main(String[] args) {
 
-
-        /*
-            Para correr el solver con calendarizacion ya completa, se debe cambiar el ExcelReader para que drools
-            calcule el score para esas audiencias tambien. El booleano scorable debe ser True
-         */
+        createDirectories();
 
         LocalDate diaCalendarizar = LocalDate.of(2018, 11, 20);
 
@@ -50,14 +46,12 @@ public class Main {
                 solvedAudienciaSchedule = solver.solve(solvedAudienciaSchedule);
 
                 String fileName = "Result-" + diaCalendarizar.toString() + ".xlsx";
-                excelReader.write(solvedAudienciaSchedule, new File("data/excel/" + fileName));
+                excelReader.write(solvedAudienciaSchedule, new File("data/excel/scheduled/" + fileName));
 
                 XMLExporter xmlExporter = new XMLExporter(DATA_DIR_NAME + "/");
                 try {
                     xmlExporter.write(solvedAudienciaSchedule);
-                } catch (JAXBException e) {
-                    e.printStackTrace();
-                } catch (FileNotFoundException e) {
+                } catch (JAXBException | FileNotFoundException e) {
                     e.printStackTrace();
                 }
 
@@ -169,4 +163,52 @@ public class Main {
 
     }
 
+
+    private static void createDirectories(){
+
+        File directory = new File("data/unsolved/");
+        if(!directory.exists()){
+            directory.mkdir();
+        }
+
+        directory = new File("data/unsolved/scheduled/");
+        if(!directory.exists()){
+            directory.mkdir();
+        }
+
+        directory = new File("data/unsolved/to_schedule/");
+        if(!directory.exists()){
+            directory.mkdir();
+        }
+
+        directory = new File("data/excel/");
+        if(!directory.exists()){
+            directory.mkdir();
+        }
+
+        directory = new File("data/excel/scheduled/");
+        if(!directory.exists()){
+            directory.mkdir();
+        }
+
+        directory = new File("data/excel/to_schedule/");
+        if(!directory.exists()){
+            directory.mkdir();
+        }
+
+        directory = new File("data/benchmark/");
+        if(!directory.exists()){
+            directory.mkdir();
+        }
+
+        directory = new File("data/audienciascheduling/");
+        if(!directory.exists()){
+            directory.mkdir();
+        }
+
+        directory = new File("data/audienciaschedulingBenchmark/");
+        if(!directory.exists()){
+            directory.mkdir();
+        }
+    }
 }

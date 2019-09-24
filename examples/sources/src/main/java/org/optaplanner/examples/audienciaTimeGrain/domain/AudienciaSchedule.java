@@ -15,6 +15,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 @PlanningSolution
@@ -56,7 +57,6 @@ public class AudienciaSchedule {
     @ProblemFactCollectionProperty
     private List<Fiscal> fiscalList;
 
-    @ValueRangeProvider(id = "timeGrainRange")
     @ProblemFactCollectionProperty
     private List<TimeGrain> timeGrainList;
 
@@ -176,12 +176,9 @@ public class AudienciaSchedule {
         this.possibleRooms = posibleRooms;
     }
 
-    public boolean isRoomPossible(Room room){
-        if (this.getPossibleRooms().contains(room)){
-            return true;
-        }else {
-            return false;
-        }
+    @ValueRangeProvider(id = "timeGrainRange")
+    public List<TimeGrain> getPossibleTimeGrains(){
+        return this.timeGrainList.stream().filter(timeGrain -> timeGrain.getDay().toDate().isBefore(this.fechaCorrida.plusDays(25))).collect(Collectors.toList());
     }
 
     /* toString */

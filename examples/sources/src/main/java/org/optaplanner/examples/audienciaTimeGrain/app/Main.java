@@ -15,6 +15,8 @@ import org.optaplanner.examples.audienciaTimeGrain.helper.JuezTimeGrainRestricti
 import org.optaplanner.examples.audienciaTimeGrain.persistence.ExcelReader;
 import org.optaplanner.examples.audienciaTimeGrain.persistence.XMLExporter;
 import org.optaplanner.examples.audienciaTimeGrain.persistence.XMLImporter;
+import org.optaplanner.examples.common.persistence.generator.StringDataGenerator;
+
 
 import javax.xml.bind.JAXBException;
 
@@ -33,7 +35,7 @@ public class Main {
         for(int i = 0; i < 160; i++){
             ExcelReader excelReader = new ExcelReader();
             excelReader.setDate(diaCalendarizar);
-            File excelFile = new File("data/unsolved/scheduled/" + diaCalendarizar.getYear() + "-" + diaCalendarizar.getMonthValue() + "-" + diaCalendarizar.getDayOfMonth() + ".xlsx");
+            File excelFile = new File("data/unsolved/to_schedule/" + diaCalendarizar.getYear() + "-" + String.format("%02d", diaCalendarizar.getMonthValue()) + "-" + String.format("%02d", diaCalendarizar.getDayOfMonth()) + ".xlsx");
             if(excelFile.exists()){
                 AudienciaSchedule solvedAudienciaSchedule = excelReader.read(excelFile);
 

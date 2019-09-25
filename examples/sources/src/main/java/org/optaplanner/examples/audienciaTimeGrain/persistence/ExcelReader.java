@@ -463,7 +463,9 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                 int id = (int)nextNumericCell().getNumericCellValue();
                 audiencia.setIdAudiencia(id);
                 audienciaAssignment.setId(id);
-                readAudienciaDuration(audiencia);
+                if(!readAudienciaDuration(audiencia)){
+                    continue;
+                }
                 int tipoRead = (int)nextNumericCell().getNumericCellValue();
 //                System.out.println(tipoRead);
                 int juezRead = (int)nextNumericCell().getNumericCellValue();
@@ -592,7 +594,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                 }
                 audienciaAssignmentList.add(audienciaAssignment);
 //                System.out.println(audiencia.getNumTimeGrains() + " " + audiencia.getDefensor().getNombreDefensor() + audiencia.getFiscal().getNombreFiscal() + audiencia.getJuez().getIdJuez());
-                }
+            }
 
             solution.setAudienciaList(audienciaList);
             solution.setAudienciaAssignmentList(audienciaAssignmentList);
@@ -618,7 +620,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             return list.stream().anyMatch(o -> o.getIdRoom() == numero);
         }
 
-        private void readAudienciaDuration(Audiencia audiencia) {
+        private boolean readAudienciaDuration(Audiencia audiencia) {
             String durationDouble = nextCell().getStringCellValue();
 //            System.out.println(durationDouble);
             String[] time = durationDouble.split ( ":" );
@@ -626,18 +628,21 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             int min = Integer.parseInt ( time[1].trim() );
             int totalMinutes = 60 * hour + min;
             if (totalMinutes <= 0 || totalMinutes != Math.floor(totalMinutes)) {
-                throw new IllegalStateException(
-                        currentPosition() + ": The audiencia with id (" + audiencia.getIdAudiencia()
-                                + ")'s has a duration (" + durationDouble + ") that isn't a strictly positive integer number.");
+                //                throw new IllegalStateException(
+//                        currentPosition() + ": The audiencia with id (" + audiencia.getIdAudiencia()
+//                                + ")'s has a duration (" + durationDouble + ") that isn't a strictly positive integer number.");
 //                totalMinutes = 15;
+                return false;
             }
             if (totalMinutes % TimeGrain.GRAIN_LENGTH_IN_MINUTES != 0) {
-                throw new IllegalStateException(
-                        currentPosition() + ": The audiencia with id (" + audiencia.getIdAudiencia()
-                                + ") has a duration (" + durationDouble + ") that isn't a multiple of "
-                                + TimeGrain.GRAIN_LENGTH_IN_MINUTES + ".");
+                //                throw new IllegalStateException(
+//                        currentPosition() + ": The audiencia with id (" + audiencia.getIdAudiencia()
+//                                + ")'s has a duration (" + durationDouble + ") that isn't a strictly positive integer number.");
+//                totalMinutes = 15;
+                return false;
             }
             audiencia.setNumTimeGrains(totalMinutes / TimeGrain.GRAIN_LENGTH_IN_MINUTES);
+            return true;
         }
 
     }
@@ -815,7 +820,6 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                     // Filter out positive constraints
                     .filter(indictmentScore -> !(indictmentScore.getHardScore() >= 0 && indictmentScore.getSoftScore() >= 0))
                     .reduce(Score::add).orElse(HardMediumSoftScore.ZERO);
-
 
             XSSFCell cell = getXSSFCellOfScore(score);
 

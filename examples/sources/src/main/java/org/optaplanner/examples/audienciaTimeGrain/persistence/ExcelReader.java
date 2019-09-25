@@ -821,7 +821,18 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                     .filter(indictmentScore -> !(indictmentScore.getHardScore() >= 0 && indictmentScore.getSoftScore() >= 0))
                     .reduce(Score::add).orElse(HardMediumSoftScore.ZERO);
 
-            XSSFCell cell = getXSSFCellOfScore(score);
+            boolean pinned = false;
+            boolean scorable = true;
+            for (AudienciaAssignment audienciaAssignment : audienciaAssignmentList){
+                if (audienciaAssignment.isPinned()){
+                    pinned = true;
+                }
+                if (!audienciaAssignment.isScorable()){
+                    scorable = false;
+                }
+            }
+
+            XSSFCell cell = getXSSFCellOfScore(score, pinned, scorable);
 
             if (!audienciaAssignmentList.isEmpty()) {
                 ClientAnchor anchor = creationHelper.createClientAnchor();
@@ -838,9 +849,13 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             currentRow.setHeightInPoints(Math.max(currentRow.getHeightInPoints(), audienciaAssignmentList.size() * currentSheet.getDefaultRowHeightInPoints()));
         }
 
-        private XSSFCell getXSSFCellOfScore(HardMediumSoftScore score) {
+        private XSSFCell getXSSFCellOfScore(HardMediumSoftScore score, boolean pinned, boolean scorable) {
             XSSFCell cell;
-            if (!score.isFeasible()) {
+            if (!scorable){
+                cell = nextCell(republishedStyle);
+            } else if (pinned){
+                cell = nextCell(pinnedStyle);
+            } else if (!score.isFeasible()) {
                 cell = nextCell(hardPenaltyStyle);
             } else if (score.getMediumScore() < 0) {
                 cell = nextCell(mediumPenaltyStyle);

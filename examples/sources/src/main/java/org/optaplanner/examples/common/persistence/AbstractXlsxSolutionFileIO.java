@@ -81,7 +81,7 @@ public abstract class AbstractXlsxSolutionFileIO<Solution_> implements SolutionF
     protected static final XSSFColor MEDIUM_PENALTY_COLOR = new XSSFColor(TangoColorFactory.SCARLET_3);
     protected static final XSSFColor SOFT_PENALTY_COLOR = new XSSFColor(TangoColorFactory.ORANGE_1);
     protected static final XSSFColor PLANNING_VARIABLE_COLOR = new XSSFColor(TangoColorFactory.BUTTER_1);
-    protected static final XSSFColor REPUBLISHED_COLOR = new XSSFColor(TangoColorFactory.MAGENTA);
+    protected static final XSSFColor REPUBLISHED_COLOR = new XSSFColor(TangoColorFactory.ALUMINIUM_3);
 
     @Override
     public String getInputFileExtension() {
@@ -411,7 +411,7 @@ public abstract class AbstractXlsxSolutionFileIO<Solution_> implements SolutionF
             hardPenaltyStyle = createStyle(HARD_PENALTY_COLOR);
             mediumPenaltyStyle = createStyle(MEDIUM_PENALTY_COLOR);
             softPenaltyStyle = createStyle(SOFT_PENALTY_COLOR);
-            wrappedStyle = createStyle(PINNED_COLOR);
+            wrappedStyle = createStyle(null);
             planningVariableStyle = createStyle(PLANNING_VARIABLE_COLOR);
             republishedStyle = createStyle(REPUBLISHED_COLOR);
         }

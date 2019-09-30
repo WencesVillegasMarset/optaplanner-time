@@ -18,7 +18,7 @@ public class HistrogramHelper {
 
         AudienciaSchedule schedule = null;
         LocalDate dia = LocalDate.of(2019,4,1);
-        String directory = "data/histograma/2019-04-01-number-1";
+        String directory = "data/histograma/2019-04-01-scheduled";
 
         File file = new File(directory);
         JAXBContext jaxbContext;
@@ -38,7 +38,7 @@ public class HistrogramHelper {
         }
         System.out.println(schedule.getAudienciaAssignmentList().size());
         HashMap<String, Integer> mapa = new HashMap<String, Integer>();
-        List<AudienciaAssignment> audienciaAssignmentList = schedule.getAudienciaAssignmentList().stream().filter(audienciaAssignment -> audienciaAssignment.getFechaPedido().isEqual(dia) ).collect(Collectors.toList());
+        List<AudienciaAssignment> audienciaAssignmentList = schedule.getAudienciaAssignmentList().stream().filter(audienciaAssignment -> audienciaAssignment.getFechaPedido().isEqual(dia)).collect(Collectors.toList());
         System.out.println(audienciaAssignmentList.size());
         for(AudienciaAssignment audienciaAssignment : audienciaAssignmentList){
             boolean jump = true;

@@ -29,7 +29,7 @@ public class Main {
 
         createDirectories();
 
-        LocalDate diaCalendarizar = LocalDate.of(2018, 12, 28);
+        LocalDate diaCalendarizar = LocalDate.of(2019, 4, 1);
 
         for(int i = 0; i < 160; i++){
             ExcelReader excelReader = new ExcelReader();
@@ -46,15 +46,17 @@ public class Main {
 
                 solvedAudienciaSchedule = solver.solve(solvedAudienciaSchedule);
 
-                String fileName = "Result-" + diaCalendarizar.toString() + ".xlsx";
-                excelReader.write(solvedAudienciaSchedule, new File("data/excel/to_schedule/" + fileName));
-
                 XMLExporter xmlExporter = new XMLExporter(DATA_DIR_NAME + "/");
                 try {
                     xmlExporter.write(solvedAudienciaSchedule);
                 } catch (JAXBException | FileNotFoundException e) {
                     e.printStackTrace();
                 }
+
+                String fileName = "Result-" + diaCalendarizar.toString() + ".xlsx";
+                excelReader.write(solvedAudienciaSchedule, new File("data/excel/to_schedule/" + fileName));
+
+
 
                 diaCalendarizar = diaCalendarizar.plusDays(1);
 

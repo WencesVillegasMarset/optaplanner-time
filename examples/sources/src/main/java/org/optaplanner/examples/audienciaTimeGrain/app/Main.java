@@ -30,12 +30,12 @@ public class Main {
 
         createDirectories();
 
-        LocalDate diaCalendarizar = LocalDate.of(2018, 11, 20);
+        LocalDate diaCalendarizar = LocalDate.of(2019, 3, 18);
 
         for(int i = 0; i < 160; i++){
             ExcelReader excelReader = new ExcelReader();
             excelReader.setDate(diaCalendarizar);
-            File excelFile = new File("data/unsolved/to_schedule/" + diaCalendarizar.getYear() + "-" + String.format("%02d", diaCalendarizar.getMonthValue()) + "-" + String.format("%02d", diaCalendarizar.getDayOfMonth()) + ".xlsx");
+            File excelFile = new File("data/unsolved/scheduled/" + diaCalendarizar.getYear() + "-" + String.format("%02d", diaCalendarizar.getMonthValue()) + "-" + String.format("%02d", diaCalendarizar.getDayOfMonth()) + ".xlsx");
             if(excelFile.exists()){
                 AudienciaSchedule solvedAudienciaSchedule = excelReader.read(excelFile);
 

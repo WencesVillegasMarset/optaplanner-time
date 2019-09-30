@@ -687,7 +687,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
         }
 
         private void cleanAudienciaSchedule(){
-            LocalDate endingDate = startingDate.plusDays(31);
+            LocalDate endingDate = startingDate.plusDays(15);
             List<TimeGrain> validTimeGrains = solution.getTimeGrainList().stream().filter(timeGrain -> timeGrain.getDate().isBefore(endingDate)).collect(toList());
             List<AudienciaAssignment> validAudienciaAssignments = solution.getAudienciaAssignmentList().stream().filter(audienciaAssignment -> audienciaAssignment.getStartingTimeGrain().getDate().isBefore(endingDate)).collect(toList());
             solution.setTimeGrainList(validTimeGrains);

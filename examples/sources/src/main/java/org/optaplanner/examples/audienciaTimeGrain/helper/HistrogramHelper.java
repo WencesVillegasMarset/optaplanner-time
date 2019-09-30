@@ -17,13 +17,13 @@ public class HistrogramHelper {
     public static void main(String[] args){
 
         AudienciaSchedule schedule = null;
-        LocalDate dia = LocalDate.of(2019,4,3);
-        String directory = "data/histograma/audienciascheduling/2019-04-03-number-1";
+        LocalDate dia = LocalDate.of(2019,4,1);
+        String directory = "data/histograma/2019-04-01-number-1";
 
         File file = new File(directory);
         JAXBContext jaxbContext;
 
-        int[] salas = {500, 499, 0, 456, 498, 502, 458, 454, 501, 497, 457, 521, 451, 504, 503, 455, 875, 452, 484, 469, 314};
+
 
         try {
             jaxbContext = JAXBContext.newInstance(AudienciaSchedule.class);
@@ -38,13 +38,13 @@ public class HistrogramHelper {
         }
         System.out.println(schedule.getAudienciaAssignmentList().size());
         HashMap<String, Integer> mapa = new HashMap<String, Integer>();
-        List<AudienciaAssignment> audienciaAssignmentList = schedule.getAudienciaAssignmentList().stream().filter(audienciaAssignment -> audienciaAssignment.getFechaPedido().isEqual(dia)).collect(Collectors.toList());
+        List<AudienciaAssignment> audienciaAssignmentList = schedule.getAudienciaAssignmentList().stream().filter(audienciaAssignment -> audienciaAssignment.getFechaPedido().isEqual(dia) ).collect(Collectors.toList());
         System.out.println(audienciaAssignmentList.size());
         for(AudienciaAssignment audienciaAssignment : audienciaAssignmentList){
-            boolean jump = false;
-            for(int i = 0; i < salas.length; i++){
-                if(audienciaAssignment.getRoom().getIdRoom() == salas[i]){
-                    jump = true;
+            boolean jump = true;
+            for(Room room : schedule.getPossibleRooms()){
+                if(audienciaAssignment.getRoom().getIdRoom() == room.getIdRoom()){
+                    jump = false;
                     break;
                 }
             }
@@ -63,10 +63,12 @@ public class HistrogramHelper {
 
         }
 
+        int counter = 0;
         for(String localDate : mapa.keySet()){
             System.out.println(localDate + ", " + mapa.get(localDate));
-
+            counter += mapa.get(localDate);
         }
+        System.out.println(counter);
 
     }
 }

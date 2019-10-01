@@ -70,5 +70,20 @@ public class HistrogramHelper {
         }
         System.out.println(counter);
 
+        /* Cantidad de audiencias que interfieren */
+
+        List<AudienciaAssignment> interferingAudiences = schedule.getAudienciaAssignmentList().stream().filter(audienciaAssignment -> audienciaAssignment.getStartingTimeGrain().getDate().isAfter(dia) && audienciaAssignment.getFechaPedido().isBefore(dia)).collect(Collectors.toList());
+        System.out.println(interferingAudiences.size());
+        int contador = 0;
+        for(AudienciaAssignment audienciaAssignment : interferingAudiences){
+            for(Room room : schedule.getPossibleRooms()){
+                if(audienciaAssignment.getRoom().getIdRoom() == room.getIdRoom()){
+                    contador++;
+                }
+            }
+        }
+
+        System.out.println("La cantidad de audiencias que interfieren es = " + contador);
+
     }
 }

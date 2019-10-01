@@ -628,17 +628,28 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             int min = Integer.parseInt ( time[1].trim() );
             int totalMinutes = 60 * hour + min;
             if (totalMinutes <= 0 || totalMinutes != Math.floor(totalMinutes)) {
+<<<<<<< HEAD
 //                throw new IllegalStateException(
+=======
+                //                throw new IllegalStateException(
+>>>>>>> master
 //                        currentPosition() + ": The audiencia with id (" + audiencia.getIdAudiencia()
 //                                + ")'s has a duration (" + durationDouble + ") that isn't a strictly positive integer number.");
 //                totalMinutes = 15;
                 return false;
             }
             if (totalMinutes % TimeGrain.GRAIN_LENGTH_IN_MINUTES != 0) {
+<<<<<<< HEAD
 //                throw new IllegalStateException(
 //                        currentPosition() + ": The audiencia with id (" + audiencia.getIdAudiencia()
 //                                + ") has a duration (" + durationDouble + ") that isn't a multiple of "
 //                                + TimeGrain.GRAIN_LENGTH_IN_MINUTES + ".");
+=======
+                //                throw new IllegalStateException(
+//                        currentPosition() + ": The audiencia with id (" + audiencia.getIdAudiencia()
+//                                + ")'s has a duration (" + durationDouble + ") that isn't a strictly positive integer number.");
+//                totalMinutes = 15;
+>>>>>>> master
                 return false;
             }
             audiencia.setNumTimeGrains(totalMinutes / TimeGrain.GRAIN_LENGTH_IN_MINUTES);
@@ -687,7 +698,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
         }
 
         private void cleanAudienciaSchedule(){
-            LocalDate endingDate = startingDate.plusDays(31);
+            LocalDate endingDate = startingDate.plusDays(15);
             List<TimeGrain> validTimeGrains = solution.getTimeGrainList().stream().filter(timeGrain -> timeGrain.getDate().isBefore(endingDate)).collect(toList());
             List<AudienciaAssignment> validAudienciaAssignments = solution.getAudienciaAssignmentList().stream().filter(audienciaAssignment -> audienciaAssignment.getStartingTimeGrain().getDate().isBefore(endingDate)).collect(toList());
             solution.setTimeGrainList(validTimeGrains);

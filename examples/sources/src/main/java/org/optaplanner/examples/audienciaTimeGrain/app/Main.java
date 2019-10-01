@@ -15,6 +15,8 @@ import org.optaplanner.examples.audienciaTimeGrain.helper.JuezTimeGrainRestricti
 import org.optaplanner.examples.audienciaTimeGrain.persistence.ExcelReader;
 import org.optaplanner.examples.audienciaTimeGrain.persistence.XMLExporter;
 import org.optaplanner.examples.audienciaTimeGrain.persistence.XMLImporter;
+import org.optaplanner.examples.common.persistence.generator.StringDataGenerator;
+
 
 import javax.xml.bind.JAXBException;
 
@@ -28,12 +30,16 @@ public class Main {
 
         createDirectories();
 
+<<<<<<< HEAD
         LocalDate diaCalendarizar = LocalDate.of(2018, 11, 28);
+=======
+        LocalDate diaCalendarizar = LocalDate.of(2019, 4, 1);
+>>>>>>> master
 
         for(int i = 0; i < 160; i++){
             ExcelReader excelReader = new ExcelReader();
             excelReader.setDate(diaCalendarizar);
-            File excelFile = new File("data/unsolved/scheduled/" + diaCalendarizar.getYear() + "-" + diaCalendarizar.getMonthValue() + "-" + diaCalendarizar.getDayOfMonth() + ".xlsx");
+            File excelFile = new File("data/unsolved/scheduled/" + diaCalendarizar.getYear() + "-" + String.format("%02d", diaCalendarizar.getMonthValue()) + "-" + String.format("%02d", diaCalendarizar.getDayOfMonth()) + ".xlsx");
             if(excelFile.exists()){
                 AudienciaSchedule solvedAudienciaSchedule = excelReader.read(excelFile);
 
@@ -44,9 +50,7 @@ public class Main {
                 Solver<AudienciaSchedule> solver = solverFactory.buildSolver();
 
                 solvedAudienciaSchedule = solver.solve(solvedAudienciaSchedule);
-
-                String fileName = "Result-" + diaCalendarizar.toString() + ".xlsx";
-                excelReader.write(solvedAudienciaSchedule, new File("data/excel/scheduled/" + fileName));
+                System.out.println(solvedAudienciaSchedule.getAudienciaAssignmentList().size());
 
                 XMLExporter xmlExporter = new XMLExporter(DATA_DIR_NAME + "/");
                 try {
@@ -54,6 +58,15 @@ public class Main {
                 } catch (JAXBException | FileNotFoundException e) {
                     e.printStackTrace();
                 }
+
+                System.out.println(solvedAudienciaSchedule.getAudienciaAssignmentList().size());
+
+                String fileName = "Result-" + diaCalendarizar.toString() + ".xlsx";
+                excelReader.write(solvedAudienciaSchedule, new File("data/excel/scheduled/" + fileName));
+
+
+
+
 
                 diaCalendarizar = diaCalendarizar.plusDays(1);
 

@@ -6,5 +6,5 @@ idea/
 examples/sources/optaplanner-examples\.iml
 
 *.class
-sources/
+/sources/
 javadocs/

@@ -1,0 +1,10 @@
+<Jueces>
+    <Juez>
+        <id>463</id>
+        <day>
+            <dayofweek>1</dayofweek>
+            <startingTime>8:00</startingTime>
+            <endingTime>13:30</endingTime>
+        </day>
+    </Juez>
+</Jueces>

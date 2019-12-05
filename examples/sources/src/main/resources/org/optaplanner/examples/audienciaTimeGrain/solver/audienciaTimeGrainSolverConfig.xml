@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<solver>
+  <!--<environmentMode>FULL_ASSERT</environmentMode>--><!-- To slowly prove there are no bugs in this code -->
+  <!--<moveThreadCount>AUTO</moveThreadCount>--><!-- To solve faster by saturating multiple CPU cores -->
+
+  <solutionClass>org.optaplanner.examples.audienciaTimeGrain.domain.AudienciaSchedule</solutionClass>
+  <entityClass>org.optaplanner.examples.audienciaTimeGrain.domain.AudienciaAssignment</entityClass>
+<!--  <scanAnnotatedClasses/>-->
+
+  <scoreDirectorFactory>
+    <scoreDrl>org/optaplanner/examples/audienciaTimeGrain/solver/audienciaTimeGrainScoreRules.drl</scoreDrl>
+    <initializingScoreTrend>ONLY_DOWN</initializingScoreTrend>
+  </scoreDirectorFactory>
+
+  <constructionHeuristic>
+    <constructionHeuristicType>FIRST_FIT</constructionHeuristicType>
+<!--    <constructionHeuristicType>ALLOCATE_ENTITY_FROM_QUEUE</constructionHeuristicType>-->
+
+    <changeMoveSelector>
+      <valueSelector variableName="startingTimeGrain"/>
+    </changeMoveSelector>
+    <changeMoveSelector>
+      <valueSelector variableName="room"/>
+    </changeMoveSelector>
+
+<!--    <forager>-->
+<!--      <pickEarlyType>FIRST_FEASIBLE_SCORE_OR_NON_DETERIORATING_HARD</pickEarlyType>-->
+<!--    </forager>-->
+  </constructionHeuristic>
+
+  <localSearch>
+    <localSearchType>LATE_ACCEPTANCE</localSearchType>
+
+    <!-- PARA TABU SEARCH -->
+
+<!--    <acceptor>-->
+<!--      <entityTabuRatio>0.04</entityTabuRatio>-->
+<!--&lt;!&ndash;      <valueTabuRatio>0.04</valueTabuRatio>&ndash;&gt;-->
+<!--    </acceptor>-->
+<!--    <forager>-->
+<!--      <acceptedCountLimit>1000</acceptedCountLimit>-->
+<!--      <finalistPodiumType>STRATEGIC_OSCILLATION</finalistPodiumType>-->
+<!--    </forager>-->
+    <termination>
+      <unimprovedSecondsSpentLimit>120</unimprovedSecondsSpentLimit>
+      <unimprovedScoreDifferenceThreshold>0hard/0medium/1000soft</unimprovedScoreDifferenceThreshold>
+      <minutesSpentLimit>7</minutesSpentLimit>
+    </termination>
+  </localSearch>
+
+
+
+
+
+</solver>

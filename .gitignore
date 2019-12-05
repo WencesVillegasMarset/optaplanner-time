@@ -7,4 +7,5 @@ examples/sources/optaplanner-examples\.iml
 
 *.class
 /sources/
+/examples/binaries
 javadocs/

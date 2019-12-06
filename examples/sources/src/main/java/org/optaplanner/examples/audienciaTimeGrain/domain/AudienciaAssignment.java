@@ -135,37 +135,18 @@ public class AudienciaAssignment {
 
     public int timeGrainJuezRestriction(){
         int respuesta = 0;
-        for(TimeGrain timeGrain : this.getJuez().getProhibitedTimeGrains()){
-            for(int i = this.getStartingTimeGrainIndex(); i < this.getLastTimeGrainIndex() + 1; i++){
-                if(i == timeGrain.getGrainIndex()){
-                    respuesta++;
+        for (Juez juez : this.getAudiencia().getJuezList()){
+            for(TimeGrain timeGrain : juez.getProhibitedTimeGrains()){
+                for(int i = this.getStartingTimeGrainIndex(); i < this.getLastTimeGrainIndex() + 1; i++){
+                    if(i == timeGrain.getGrainIndex()){
+                        respuesta++;
+                    }
                 }
             }
         }
         return respuesta;
     }
 
-    /* Devuelve el id del Juez de la audiencia */
-    public int getJuezId(){
-        return this.audiencia.getJuez().getIdJuez();
-    }
-
-    public Juez getJuez(){
-        return this.audiencia.getJuez();
-    }
-
-    /* Devuelve el id del Defensor de la audiencia */
-    public Defensor getDefensor(){ return this.audiencia.getDefensor();}
-
-    /* Devuelve el id del Fiscal de la audiencia */
-    public int getFiscalId(){ return this.audiencia.getFiscal().getIdFiscal();}
-
-    public Fiscal getFiscal(){
-        return this.audiencia.getFiscal();
-    }
-
-    /* Devuelve el id del Tipo de la audiencia */
-    public int getTipo(){ return this.audiencia.getTipo().getIdTipo();}
 
     /* toString */
     public String toString(){

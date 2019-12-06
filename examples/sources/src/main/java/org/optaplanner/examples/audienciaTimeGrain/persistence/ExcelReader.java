@@ -455,6 +455,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             readHeaderCell("Fecha Calendarizado");
             readHeaderCell("Hora de Comienzo");
 
+
             List<Audiencia> audienciaList = new ArrayList<>(currentSheet.getLastRowNum() - 1);
             List<AudienciaAssignment> audienciaAssignmentList = new ArrayList<>(currentSheet.getLastRowNum() - 1);
             while(nextRow()){
@@ -463,6 +464,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                 int id = (int)nextNumericCell().getNumericCellValue();
                 audiencia.setIdAudiencia(id);
                 audienciaAssignment.setId(id);
+
                 if(!readAudienciaDuration(audiencia)){
                     continue;
                 }
@@ -498,7 +500,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                 if(containsJuez(solution.getJuezList(), juezRead)){
                     for (Juez juez : solution.getJuezList()) {
                         if (juez.getIdJuez() == juezRead){
-                            audiencia.setJuez(juez);
+                            audiencia.addJuez(juez);
                             break;
                         }
                     }
@@ -510,7 +512,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                 if(containsDefensor(solution.getDefensorList(), defensorNombre)){
                     for (Defensor defensor : solution.getDefensorList()) {
                         if (defensor.getIdDefensor().equals(defensorNombre)){
-                            audiencia.setDefensor(defensor);
+                            audiencia.addDefensor(defensor);
                             break;
                         }
                     }
@@ -522,7 +524,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                 if(containsFiscal(solution.getFiscalList(), fiscalRead)){
                     for (Fiscal fiscal : solution.getFiscalList()) {
                         if (fiscal.getIdFiscal() == fiscalRead){
-                            audiencia.setFiscal(fiscal);
+                            audiencia.addFiscal(fiscal);
                             break;
                         }
                     }
@@ -761,12 +763,16 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
 //                    AudienciaScheduleConstraintConfiguration.DONT_CONFLICT_FISCAL_LOCATION,
                     AudienciaScheduleConstraintConfiguration.DONT_START_AFTER_MAXIMUM_STARTING_MINUTE,
                     AudienciaScheduleConstraintConfiguration.DONT_CONFLICT_JUEZ_AND_TIMEGRAIN,
+                    AudienciaScheduleConstraintConfiguration.DO_NOT_CONFLICT_QUERELLANTE,
+                    AudienciaScheduleConstraintConfiguration.DO_NOT_CONFLICT_ASESOR,
 
                     AudienciaScheduleConstraintConfiguration.ONE_TIME_GRAIN_BREAK_BETWEEN_TWO_CONSECUTIVE_MEETINGS,
                     AudienciaScheduleConstraintConfiguration.ONE_TIMEGRAIN_JUEZ,
                     AudienciaScheduleConstraintConfiguration.ONE_TIMEGRAIN_DEFENSOR,
                     AudienciaScheduleConstraintConfiguration.ONE_TIMEGRAIN_FISCAL,
                     AudienciaScheduleConstraintConfiguration.DO_ALL_MEETINGS_AS_SOON_AS_POSSIBLE,
+                    AudienciaScheduleConstraintConfiguration.ONE_TIMEGRAIN_QUERELLANTE,
+                    AudienciaScheduleConstraintConfiguration.ONE_TIMEGRAIN_ASESOR,
 //                    AudienciaScheduleConstraintConfiguration.DISTRIBUTE_WORKLOAD_FAIRLY,
             };
             int mergeStart = -1;
@@ -916,8 +922,14 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             for(Juez juez : solution.getJuezList()){
                 boolean tieneAudiencias = false;
                 for (Audiencia audiencia : solution.getAudienciaList()){
-                    if (audiencia.getJuez() == juez){
-                        tieneAudiencias = true;
+                    for(Juez juezaudiencia : audiencia.getJuezList()){
+                        if (juezaudiencia.equals(juez)){
+                            tieneAudiencias = true;
+                            break;
+                        }
+                    }
+
+                    if (tieneAudiencias){
                         break;
                     }
                 }
@@ -936,7 +948,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
 
             List<Audiencia> juezAudienciaList;
 
-            juezAudienciaList = solution.getAudienciaList().stream().filter(audiencia -> audiencia.getJuez().equals(juez)).collect(toList());
+            juezAudienciaList = solution.getAudienciaList().stream().filter(audiencia -> audiencia.getJuezList().contains(juez)).collect(toList());
 
             List<AudienciaAssignment> juezAudienciaAssignmentList = solution.getAudienciaAssignmentList().stream()
                     .filter(audienciaAssignment -> juezAudienciaList.contains(audienciaAssignment.getAudiencia()))
@@ -956,8 +968,13 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             for(Fiscal fiscal : solution.getFiscalList()){
                 boolean tieneAudiencias = false;
                 for (Audiencia audiencia : solution.getAudienciaList()){
-                    if (audiencia.getFiscal() == fiscal){
-                        tieneAudiencias = true;
+                    for(Fiscal fiscalAudiencia : audiencia.getFiscalList()){
+                        if (fiscalAudiencia.equals(fiscal)){
+                            tieneAudiencias = true;
+                            break;
+                        }
+                    }
+                    if(tieneAudiencias){
                         break;
                     }
                 }
@@ -976,7 +993,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
 
             List<Audiencia> fiscalAudienciaList;
 
-            fiscalAudienciaList = solution.getAudienciaList().stream().filter(audiencia -> audiencia.getFiscal().equals(fiscal)).collect(toList());
+            fiscalAudienciaList = solution.getAudienciaList().stream().filter(audiencia -> audiencia.getFiscalList().contains(fiscal)).collect(toList());
 
             List<AudienciaAssignment> fiscalAudienciaAssignmentList = solution.getAudienciaAssignmentList().stream()
                     .filter(audienciaAssignment -> fiscalAudienciaList.contains(audienciaAssignment.getAudiencia()))
@@ -995,8 +1012,13 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             for(Defensor defensor : solution.getDefensorList()){
                 boolean tieneAudiencias = false;
                 for (Audiencia audiencia : solution.getAudienciaList()){
-                    if (audiencia.getDefensor() == defensor){
-                        tieneAudiencias = true;
+                    for (Defensor defensorAudiencia : audiencia.getDefensorList()){
+                        if (defensorAudiencia.equals(defensor)){
+                            tieneAudiencias = true;
+                            break;
+                        }
+                    }
+                    if (tieneAudiencias){
                         break;
                     }
                 }
@@ -1015,7 +1037,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
 
             List<Audiencia> defensorAudienciaList;
 
-            defensorAudienciaList = solution.getAudienciaList().stream().filter(audiencia -> audiencia.getDefensor().equals(defensor)).collect(toList());
+            defensorAudienciaList = solution.getAudienciaList().stream().filter(audiencia -> audiencia.getDefensorList().contains(defensor)).collect(toList());
 
             List<AudienciaAssignment> defensorAudienciaAssignmentList = solution.getAudienciaAssignmentList().stream()
                     .filter(audienciaAssignment -> defensorAudienciaList.contains(audienciaAssignment.getAudiencia()))

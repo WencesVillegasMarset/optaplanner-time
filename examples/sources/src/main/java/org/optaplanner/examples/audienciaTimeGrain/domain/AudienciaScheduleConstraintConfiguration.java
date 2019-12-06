@@ -82,6 +82,17 @@ public class AudienciaScheduleConstraintConfiguration {
     //HARD - No permite que se asigne una audiencia en un TimeGrain que el Juez no este disponible
     public static final String DONT_CONFLICT_JUEZ_AND_TIMEGRAIN = "Do not conflict Juez with TimeGrain";
 
+    //HARD - Que el Querellante no este en más de una Audiencia al mismo tiempo
+    public static final String DO_NOT_CONFLICT_QUERELLANTE = "Do not conflict Querellante";
+
+    //HARD - Que el Asesor no este en más de una Audiencia al mismo tiempo
+    public static final String DO_NOT_CONFLICT_ASESOR = "Do not conflict Asesor";
+
+    //SOFT - One TimeGrain between two consecutive audiencias with the same Querellante
+    public static final String ONE_TIMEGRAIN_QUERELLANTE = "One TimeGrain Querellante";
+
+    //SOFT - One TimeGrain between two consecutive audiencias with the same Asesor
+    public static final String ONE_TIMEGRAIN_ASESOR = "One TimeGrain Asesor";
 
     /* Hard Constraints */
     @ConstraintWeight(ROOM_CONFLICT)
@@ -116,6 +127,10 @@ public class AudienciaScheduleConstraintConfiguration {
     private HardMediumSoftScore dontStartAfterMaximumStartingMinute = HardMediumSoftScore.ofHard(1);
     @ConstraintWeight(DONT_CONFLICT_JUEZ_AND_TIMEGRAIN)
     private HardMediumSoftScore dontConflictJuezAndTimeGrain = HardMediumSoftScore.ofHard(1);
+    @ConstraintWeight(DO_NOT_CONFLICT_QUERELLANTE)
+    private HardMediumSoftScore dontConflictQuerellante = HardMediumSoftScore.ofHard(1);
+    @ConstraintWeight(DO_NOT_CONFLICT_ASESOR)
+    private HardMediumSoftScore dontConflictAsesor = HardMediumSoftScore.ofHard(1);
 
 
     /* Soft Constraints */
@@ -132,7 +147,10 @@ public class AudienciaScheduleConstraintConfiguration {
     private HardMediumSoftScore oneTimeGrainDefensor = HardMediumSoftScore.ofSoft(100);
     @ConstraintWeight(ONE_TIMEGRAIN_FISCAL)
     private HardMediumSoftScore oneTimeGrainFiscal = HardMediumSoftScore.ofSoft(100);
-
+    @ConstraintWeight(ONE_TIMEGRAIN_QUERELLANTE)
+    private HardMediumSoftScore oneTimeGrainQuerellante = HardMediumSoftScore.ofSoft(100);
+    @ConstraintWeight(ONE_TIMEGRAIN_ASESOR)
+    private HardMediumSoftScore oneTimeGrainAsesor = HardMediumSoftScore.ofSoft(100);
 
     /* Constructor */
 
@@ -330,5 +348,37 @@ public class AudienciaScheduleConstraintConfiguration {
 
     public void setDontStartAfterMaximumStartingMinute(HardMediumSoftScore dontStartAfterMaximumStartingMinute) {
         this.dontStartAfterMaximumStartingMinute = dontStartAfterMaximumStartingMinute;
+    }
+
+    public HardMediumSoftScore getDontConflictQuerellante() {
+        return dontConflictQuerellante;
+    }
+
+    public void setDontConflictQuerellante(HardMediumSoftScore dontConflictQuerellante) {
+        this.dontConflictQuerellante = dontConflictQuerellante;
+    }
+
+    public HardMediumSoftScore getDontConflictAsesor() {
+        return dontConflictAsesor;
+    }
+
+    public void setDontConflictAsesor(HardMediumSoftScore dontConflictAsesor) {
+        this.dontConflictAsesor = dontConflictAsesor;
+    }
+
+    public HardMediumSoftScore getOneTimeGrainQuerellante() {
+        return oneTimeGrainQuerellante;
+    }
+
+    public void setOneTimeGrainQuerellante(HardMediumSoftScore oneTimeGrainQuerellante) {
+        this.oneTimeGrainQuerellante = oneTimeGrainQuerellante;
+    }
+
+    public HardMediumSoftScore getOneTimeGrainAsesor() {
+        return oneTimeGrainAsesor;
+    }
+
+    public void setOneTimeGrainAsesor(HardMediumSoftScore oneTimeGrainAsesor) {
+        this.oneTimeGrainAsesor = oneTimeGrainAsesor;
     }
 }

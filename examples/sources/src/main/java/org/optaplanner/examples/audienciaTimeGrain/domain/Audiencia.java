@@ -2,8 +2,12 @@ package org.optaplanner.examples.audienciaTimeGrain.domain;
 
 import org.optaplanner.examples.audienciaTimeGrain.helper.LocalDateAdapter;
 
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Audiencia {
 
@@ -12,21 +16,25 @@ public class Audiencia {
     private int idAudiencia;
     private int numTimeGrains; //Cantidad de TimeGrains que necesita
     private Tipo tipo; //Tipo de Audiencia
-    private Juez juez; //Juez
-    private Defensor defensor; //Defensor
-    private Fiscal fiscal; //Fiscal
+    private List<Juez> juezList = new ArrayList<>(); //Juez
+    private List<Defensor> defensorList = new ArrayList<>(); //Defensor
+    private List<Fiscal> fiscalList = new ArrayList<>(); //Fiscal
 //    private int ubicacion; //Ubicacion geografica
     private LocalDate fechaPedido;
+    private List<Querellante> querellanteList = new ArrayList<>();
+    private List<Asesor> asesorList = new ArrayList<>();
 
     /* Constructors */
 
-    public Audiencia(int idAudiencia, int numTimeGrains, Tipo tipo, Juez juez, Defensor defensor, Fiscal fiscal, LocalDate fechaPedido){
+    public Audiencia(int idAudiencia, int numTimeGrains, Tipo tipo, Juez juez, Defensor defensor, Fiscal fiscal, Querellante querellante, Asesor asesor, LocalDate fechaPedido){
         this.idAudiencia = idAudiencia;
         this.numTimeGrains = numTimeGrains;
         this.tipo = tipo;
-        this.juez = juez;
-        this.defensor = defensor;
-        this.fiscal = fiscal;
+        this.juezList.add(juez);
+        this.fiscalList.add(fiscal);
+        this.defensorList.add(defensor);
+        this.querellanteList.add(querellante);
+        this.asesorList.add(asesor);
 //        this.ubicacion = ubicacion;
         this.fechaPedido = fechaPedido;
     }
@@ -59,28 +67,50 @@ public class Audiencia {
         this.tipo = tipo;
     }
 
-    public Juez getJuez() {
-        return juez;
+    public Juez getJuez(int index) {
+        return juezList.get(index);
     }
 
-    public void setJuez(Juez juez) {
-        this.juez = juez;
+    public void addJuez(Juez juez) {
+        this.juezList.add(juez);
     }
 
-    public Defensor getDefensor() {
-        return defensor;
+    @XmlElementWrapper(name = "juezList")
+    @XmlElement(name = "Juez")
+    public List<Juez> getJuezList(){
+        return this.juezList;
     }
 
-    public void setDefensor(Defensor defensor) {
-        this.defensor = defensor;
+    public void setJuezList (List<Juez> juezList){
+        this.juezList = juezList;
     }
 
-    public Fiscal getFiscal() {
-        return fiscal;
+    public Defensor getDefensor(int index) {
+        return defensorList.get(index);
     }
 
-    public void setFiscal(Fiscal fiscal) {
-        this.fiscal = fiscal;
+    public void addDefensor(Defensor defensor) {
+        this.defensorList.add(defensor);
+    }
+
+    @XmlElementWrapper(name = "defensorList")
+    @XmlElement(name = "Defensor")
+    public List<Defensor> getDefensorList(){
+        return this.defensorList;
+    }
+
+    public Fiscal getFiscal(int index) {
+        return fiscalList.get(index);
+    }
+
+    public void addFiscal(Fiscal fiscal) {
+        this.fiscalList.add(fiscal);
+    }
+
+    @XmlElementWrapper(name = "fiscalList")
+    @XmlElement(name = "Fiscal")
+    public List<Fiscal> getFiscalList(){
+        return this.fiscalList;
     }
 
 //    public int getUbicacion() {
@@ -98,5 +128,49 @@ public class Audiencia {
 
     public void setFechaPedido(LocalDate fechaPedido) {
         this.fechaPedido = fechaPedido;
+    }
+
+    public Querellante getQuerellante(int index){
+        return this.querellanteList.get(index);
+    }
+
+    public void addQuerellante(Querellante querellante){
+        this.querellanteList.add(querellante);
+    }
+
+    public Asesor getAsesor(int index){
+        return this.asesorList.get(index);
+    }
+
+    public void addAsesor(Asesor asesor){
+        this.asesorList.add(asesor);
+    }
+
+    @XmlElementWrapper(name = "querellanteList")
+    @XmlElement(name = "Querellante")
+    public List<Querellante> getQuerellanteList(){
+        return this.querellanteList;
+    }
+
+    @XmlElementWrapper(name = "asesorList")
+    @XmlElement(name = "Asesor")
+    public List<Asesor> getAsesorList(){
+        return this.asesorList;
+    }
+
+    public void setDefensorList(List<Defensor> defensorList) {
+        this.defensorList = defensorList;
+    }
+
+    public void setFiscalList(List<Fiscal> fiscalList) {
+        this.fiscalList = fiscalList;
+    }
+
+    public void setQuerellanteList(List<Querellante> querellanteList) {
+        this.querellanteList = querellanteList;
+    }
+
+    public void setAsesorList(List<Asesor> asesorList) {
+        this.asesorList = asesorList;
     }
 }

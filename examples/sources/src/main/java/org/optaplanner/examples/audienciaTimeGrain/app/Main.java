@@ -128,7 +128,7 @@ public class Main {
                     counter++;
                 }while (new File("data/excel/to_schedule/" + fileName).exists());
 
-                excelReader.write(solvedAudienciaSchedule, new File("data/excel/" + fileName));
+                excelReader.write(solvedAudienciaSchedule, new File("data/excel/to_schedule/" + fileName));
                 correctInput = true;
             } else if (excelInput.equals("N")  || excelInput.equals("n")){
                 System.out.print("No se generará un informe en Excel\n");

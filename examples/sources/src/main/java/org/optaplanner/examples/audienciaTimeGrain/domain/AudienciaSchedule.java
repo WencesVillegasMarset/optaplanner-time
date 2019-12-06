@@ -64,6 +64,12 @@ public class AudienciaSchedule {
     @ProblemFactCollectionProperty
     private List<Room> roomList;
 
+//    @ProblemFactCollectionProperty
+//    private List<Querellante> querellanteList;
+//
+//    @ProblemFactCollectionProperty
+//    private List<Asesor> asesorList;
+
     @ValueRangeProvider(id = "roomRange")
     private List<Room> possibleRooms;
 
@@ -72,8 +78,6 @@ public class AudienciaSchedule {
 
     @PlanningScore
     private HardMediumSoftScore score;
-
-    // HACE FALTA AGREGAR COMO PROBLEM FACT A LAS AUDIENCIAS??
 
     /* Setters y Getters */
 
@@ -181,6 +185,22 @@ public class AudienciaSchedule {
     public List<TimeGrain> getPossibleTimeGrains(){
         return this.timeGrainList.stream().filter(timeGrain -> timeGrain.getDay().toDate().isBefore(this.fechaCorrida.plusDays(25))).collect(Collectors.toList());
     }
+
+//    public List<Querellante> getQuerellanteList() {
+//        return querellanteList;
+//    }
+//
+//    public void setQuerellanteList(List<Querellante> querellanteList) {
+//        this.querellanteList = querellanteList;
+//    }
+//
+//    public List<Asesor> getAsesorList() {
+//        return asesorList;
+//    }
+//
+//    public void setAsesorList(List<Asesor> asesorList) {
+//        this.asesorList = asesorList;
+//    }
 
     /* toString */
 

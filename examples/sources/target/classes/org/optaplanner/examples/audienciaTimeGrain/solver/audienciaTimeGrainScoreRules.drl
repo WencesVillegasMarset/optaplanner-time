@@ -25,6 +25,11 @@ import org.optaplanner.examples.audienciaTimeGrain.domain.AudienciaSchedule;
 import org.optaplanner.examples.audienciaTimeGrain.domain.Room;
 import org.optaplanner.examples.audienciaTimeGrain.domain.TimeGrain;
 import org.optaplanner.examples.audienciaTimeGrain.domain.Day;
+import org.optaplanner.examples.audienciaTimeGrain.domain.Juez;
+import org.optaplanner.examples.audienciaTimeGrain.domain.Fiscal;
+import org.optaplanner.examples.audienciaTimeGrain.domain.Defensor;
+import org.optaplanner.examples.audienciaTimeGrain.domain.Querellante;
+import org.optaplanner.examples.audienciaTimeGrain.domain.Asesor;
 import java.util.List;
 
 global HardMediumSoftScoreHolder scoreHolder;
@@ -78,26 +83,57 @@ end
 
 rule "Do not conflict Juez"
        when
-           $leftAssignment : AudienciaAssignment(scorable, startingTimeGrain != null, $Juez : getJuezId(), $id : id)
-           AudienciaAssignment(id != $id, calculateOverlap($leftAssignment) > 0, getJuezId() == $Juez)
+           $leftAssignment : AudienciaAssignment(scorable, startingTimeGrain != null, $audienciaLeft : getAudiencia(), $id : id)
+           $valueLeft : Juez() from $audienciaLeft.getJuezList()
+           $rightAssignment : AudienciaAssignment(scorable, startingTimeGrain != null, $audienciaRight : getAudiencia(), id != $id)
+           Juez(idJuez == $valueLeft.idJuez) from $audienciaRight.getJuezList()
+           $overlap : Number(intValue() > 0) from $rightAssignment.calculateOverlap($leftAssignment)
        then
-           scoreHolder.penalize(kcontext);
+           scoreHolder.penalize(kcontext, $overlap.intValue());
 end
 
 rule "Do not conflict Defensor"
     when
-        $leftAssignment : AudienciaAssignment(scorable, startingTimeGrain != null, $Defensor : getDefensor(), $id : id)
-        AudienciaAssignment(id != $id, calculateOverlap($leftAssignment) > 0, getDefensor()== $Defensor)
+       $leftAssignment : AudienciaAssignment(scorable, startingTimeGrain != null, $audienciaLeft : getAudiencia(), $id : id)
+       $valueLeft : Defensor() from $audienciaLeft.getDefensorList()
+       $rightAssignment : AudienciaAssignment(scorable, startingTimeGrain != null, $audienciaRight : getAudiencia(), id != $id)
+       Defensor(idDefensor == $valueLeft.idDefensor) from $audienciaRight.getDefensorList()
+       $overlap : Number(intValue() > 0) from $rightAssignment.calculateOverlap($leftAssignment)
     then
-        scoreHolder.penalize(kcontext);
+       scoreHolder.penalize(kcontext, $overlap.intValue());
 end
 
 rule "Do not conflict Fiscal"
     when
-        $leftAssignment : AudienciaAssignment(scorable, startingTimeGrain != null, $Fiscal : getFiscalId(), $id : id)
-        AudienciaAssignment(id != $id, calculateOverlap($leftAssignment) > 0, getFiscalId() == $Fiscal)
+       $leftAssignment : AudienciaAssignment(scorable, startingTimeGrain != null, $audienciaLeft : getAudiencia(), $id : id)
+       $valueLeft : Fiscal() from $audienciaLeft.getFiscalList()
+       $rightAssignment : AudienciaAssignment(scorable, startingTimeGrain != null, $audienciaRight : getAudiencia(), id != $id)
+       Fiscal(idFiscal == $valueLeft.idFiscal) from $audienciaRight.getFiscalList()
+       $overlap : Number(intValue() > 0) from $rightAssignment.calculateOverlap($leftAssignment)
     then
-        scoreHolder.penalize(kcontext);
+       scoreHolder.penalize(kcontext, $overlap.intValue());
+end
+
+rule "Do not conflict Querellante"
+    when
+        $leftAssignment : AudienciaAssignment(scorable, startingTimeGrain != null, $audienciaLeft : getAudiencia(), $id : id)
+        $valueLeft : Querellante() from $audienciaLeft.getQuerellanteList()
+        $rightAssignment : AudienciaAssignment(scorable, startingTimeGrain != null, $audienciaRight : getAudiencia(), id != $id)
+        Querellante(idQuerellante == $valueLeft.idQuerellante) from $audienciaRight.getQuerellanteList()
+        $overlap : Number(intValue() > 0) from $rightAssignment.calculateOverlap($leftAssignment)
+    then
+        scoreHolder.penalize(kcontext, $overlap.intValue());
+end
+
+rule "Do not conflict Asesor"
+    when
+            $leftAssignment : AudienciaAssignment(scorable, startingTimeGrain != null, $audienciaLeft : getAudiencia(), $id : id)
+            $valueLeft : Asesor() from $audienciaLeft.getAsesorList()
+            $rightAssignment : AudienciaAssignment(scorable, startingTimeGrain != null, $audienciaRight : getAudiencia(), id != $id)
+            Asesor(idAsesor == $valueLeft.idAsesor) from $audienciaRight.getAsesorList()
+            $overlap : Number(intValue() > 0) from $rightAssignment.calculateOverlap($leftAssignment)
+        then
+            scoreHolder.penalize(kcontext, $overlap.intValue());
 end
 
 rule "Do not use room in prohibited time"
@@ -162,7 +198,7 @@ end
 //end
 
 // ############################################################################
-// Soft constraints usually
+// Soft constraints
 // ############################################################################
 
 rule "Do all meetings as soon as possible"
@@ -183,8 +219,10 @@ end
 
 rule "One TimeGrain Juez"
     when
-        $left : AudienciaAssignment(scorable, startingTimeGrain != null,  $leftEnd : getLastTimeGrainIndex(), $leftFirstTimeGrain : startingTimeGrain, $juez : getJuezId())
-        AudienciaAssignment(startingTimeGrain != null, $leftEnd == startingTimeGrain.getGrainIndex() - 1, $rightFirstTimeGrainIndex : startingTimeGrain.grainIndex, $rightFirstTimeGrain : startingTimeGrain, getJuezId() == $juez, isThereABreak($left) == false)
+        $leftAssignment : AudienciaAssignment(scorable, startingTimeGrain != null, $leftEnd : getLastTimeGrainIndex(),$leftFirstTimeGrain : startingTimeGrain, $audienciaLeft : getAudiencia(), $id : id)
+        $valueLeft : Juez() from $audienciaLeft.getJuezList()
+        $rightAssignment : AudienciaAssignment(id != $id, startingTimeGrain != null, $leftEnd == startingTimeGrain.getGrainIndex() - 1, $rightFirstTimeGrainIndex : startingTimeGrain.grainIndex, $rightFirstTimeGrain : startingTimeGrain, $audienciaRight : getAudiencia())
+        Juez(idJuez == $valueLeft.idJuez) from $audienciaRight.getJuezList()
         TimeGrain(grainIndex == $rightFirstTimeGrainIndex, $leftFirstTimeGrain.day == $rightFirstTimeGrain.day)
     then
         scoreHolder.penalize(kcontext);
@@ -192,8 +230,10 @@ end
 
 rule "One TimeGrain Defensor"
     when
-        $left : AudienciaAssignment(scorable, startingTimeGrain != null,  $leftEnd : getLastTimeGrainIndex(), $leftFirstTimeGrain : startingTimeGrain, $defensor : getDefensor())
-        AudienciaAssignment(startingTimeGrain != null, $leftEnd == startingTimeGrain.getGrainIndex() - 1, $rightFirstTimeGrainIndex : startingTimeGrain.grainIndex, $rightFirstTimeGrain : startingTimeGrain, getDefensor() == $defensor, isThereABreak($left) == false)
+        $leftAssignment : AudienciaAssignment(scorable, startingTimeGrain != null, $leftEnd : getLastTimeGrainIndex(),$leftFirstTimeGrain : startingTimeGrain, $audienciaLeft : getAudiencia(), $id : id)
+        $valueLeft : Defensor() from $audienciaLeft.getDefensorList()
+        $rightAssignment : AudienciaAssignment(id != $id, startingTimeGrain != null, $leftEnd == startingTimeGrain.getGrainIndex() - 1, $rightFirstTimeGrainIndex : startingTimeGrain.grainIndex, $rightFirstTimeGrain : startingTimeGrain, $audienciaRight : getAudiencia())
+        Defensor(idDefensor == $valueLeft.idDefensor) from $audienciaRight.getDefensorList()
         TimeGrain(grainIndex == $rightFirstTimeGrainIndex, $leftFirstTimeGrain.day == $rightFirstTimeGrain.day)
 
     then
@@ -202,8 +242,32 @@ end
 
 rule "One TimeGrain Fiscal"
     when
-        $left : AudienciaAssignment(scorable, startingTimeGrain != null,  $leftEnd : getLastTimeGrainIndex(), $leftFirstTimeGrain : startingTimeGrain, $fiscal : getFiscalId())
-        AudienciaAssignment(startingTimeGrain != null, $leftEnd == startingTimeGrain.getGrainIndex() - 1, $rightFirstTimeGrainIndex : startingTimeGrain.grainIndex, $rightFirstTimeGrain : startingTimeGrain, getFiscalId() == $fiscal, isThereABreak($left) == false)
+        $leftAssignment : AudienciaAssignment(scorable, startingTimeGrain != null, $leftEnd : getLastTimeGrainIndex(),$leftFirstTimeGrain : startingTimeGrain, $audienciaLeft : getAudiencia(), $id : id)
+        $valueLeft : Fiscal() from $audienciaLeft.getFiscalList()
+        $rightAssignment : AudienciaAssignment(id != $id, startingTimeGrain != null, $leftEnd == startingTimeGrain.getGrainIndex() - 1, $rightFirstTimeGrainIndex : startingTimeGrain.grainIndex, $rightFirstTimeGrain : startingTimeGrain, $audienciaRight : getAudiencia())
+        Fiscal(idFiscal == $valueLeft.idFiscal) from $audienciaRight.getFiscalList()
+        TimeGrain(grainIndex == $rightFirstTimeGrainIndex, $leftFirstTimeGrain.day == $rightFirstTimeGrain.day)
+    then
+        scoreHolder.penalize(kcontext);
+end
+
+rule "One TimeGrain Querellante"
+    when
+        $leftAssignment : AudienciaAssignment(scorable, startingTimeGrain != null, $leftEnd : getLastTimeGrainIndex(),$leftFirstTimeGrain : startingTimeGrain, $audienciaLeft : getAudiencia(), $id : id)
+        $valueLeft : Querellante() from $audienciaLeft.getQuerellanteList()
+        $rightAssignment : AudienciaAssignment(id != $id, startingTimeGrain != null, $leftEnd == startingTimeGrain.getGrainIndex() - 1, $rightFirstTimeGrainIndex : startingTimeGrain.grainIndex, $rightFirstTimeGrain : startingTimeGrain, $audienciaRight : getAudiencia())
+        Querellante(idQuerellante == $valueLeft.idQuerellante) from $audienciaRight.getQuerellanteList()
+        TimeGrain(grainIndex == $rightFirstTimeGrainIndex, $leftFirstTimeGrain.day == $rightFirstTimeGrain.day)
+    then
+        scoreHolder.penalize(kcontext);
+end
+
+rule "One TimeGrain Asesor"
+    when
+        $leftAssignment : AudienciaAssignment(scorable, startingTimeGrain != null, $leftEnd : getLastTimeGrainIndex(),$leftFirstTimeGrain : startingTimeGrain, $audienciaLeft : getAudiencia(), $id : id)
+        $valueLeft : Asesor() from $audienciaLeft.getAsesorList()
+        $rightAssignment : AudienciaAssignment(id != $id, startingTimeGrain != null, $leftEnd == startingTimeGrain.getGrainIndex() - 1, $rightFirstTimeGrainIndex : startingTimeGrain.grainIndex, $rightFirstTimeGrain : startingTimeGrain, $audienciaRight : getAudiencia())
+        Asesor(idAsesor == $valueLeft.idAsesor) from $audienciaRight.getAsesorList()
         TimeGrain(grainIndex == $rightFirstTimeGrainIndex, $leftFirstTimeGrain.day == $rightFirstTimeGrain.day)
     then
         scoreHolder.penalize(kcontext);

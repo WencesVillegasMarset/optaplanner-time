@@ -293,7 +293,7 @@ end
 rule "Problematic Hearings for last"
     when
         $left : AudienciaAssignment(scorable, startingTimeGrain != null, room != null, $room : room, audiencia.riesgosa, $startingTimeGrainIndex : startingTimeGrainIndex, $day : startingTimeGrain.day.idDay, $id : id)
-        AudienciaAssignment(startingTimeGrain != null, room == $room, id != $id, audiencia.riesgosa == false, startingTimeGrain.day.idDay == $day, startingTimeGrainIndex > $startingTimeGrainIndex)
+        AudienciaAssignment(startingTimeGrain != null, room == $room, id != $id, startingTimeGrain.day.idDay == $day, startingTimeGrainIndex > $startingTimeGrainIndex)
     then
         scoreHolder.penalize(kcontext);
 end

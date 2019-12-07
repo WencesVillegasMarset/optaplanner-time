@@ -165,6 +165,15 @@ rule "Respect Maximum Starting Time"
         scoreHolder.penalize(kcontext, $left.isMinimumStartingTime());
 end
 
+rule "Appeals in the afternoon"
+    when
+        $left : AudienciaAssignment(scorable, startingTimeGrain != null, audiencia.aLaTarde, $startingTimeGrainIndex : startingTimeGrainIndex)
+        TimeGrain(grainIndex == $startingTimeGrainIndex, $startingMinute : getStartingMinuteOfDay() < 780)
+    then
+        scoreHolder.penalize(kcontext, 780 - $startingMinute);
+end
+
+
 
 //rule "Respect Locations"
 //    when
@@ -280,6 +289,14 @@ end
 //    then
 //        scoreHolder.penalize(kcontext, ($roomList.size() * $roomList.size()));
 //end
+
+rule "Problematic Hearings for last"
+    when
+        $left : AudienciaAssignment(scorable, startingTimeGrain != null, room != null, $room : room, audiencia.riesgosa, $startingTimeGrainIndex : startingTimeGrainIndex, $day : startingTimeGrain.day.idDay, $id : id)
+        AudienciaAssignment(startingTimeGrain != null, room == $room, id != $id, audiencia.riesgosa == false, startingTimeGrain.day.idDay == $day, startingTimeGrainIndex > $startingTimeGrainIndex)
+    then
+        scoreHolder.penalize(kcontext);
+end
 
 
 

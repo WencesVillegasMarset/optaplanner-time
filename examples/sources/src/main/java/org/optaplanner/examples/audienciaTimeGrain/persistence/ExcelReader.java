@@ -765,6 +765,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                     AudienciaScheduleConstraintConfiguration.DONT_CONFLICT_JUEZ_AND_TIMEGRAIN,
                     AudienciaScheduleConstraintConfiguration.DO_NOT_CONFLICT_QUERELLANTE,
                     AudienciaScheduleConstraintConfiguration.DO_NOT_CONFLICT_ASESOR,
+                    AudienciaScheduleConstraintConfiguration.APPEALS_IN_AFTERNOON,
 
                     AudienciaScheduleConstraintConfiguration.ONE_TIME_GRAIN_BREAK_BETWEEN_TWO_CONSECUTIVE_MEETINGS,
                     AudienciaScheduleConstraintConfiguration.ONE_TIMEGRAIN_JUEZ,
@@ -773,6 +774,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                     AudienciaScheduleConstraintConfiguration.DO_ALL_MEETINGS_AS_SOON_AS_POSSIBLE,
                     AudienciaScheduleConstraintConfiguration.ONE_TIMEGRAIN_QUERELLANTE,
                     AudienciaScheduleConstraintConfiguration.ONE_TIMEGRAIN_ASESOR,
+                    AudienciaScheduleConstraintConfiguration.PROBLEMATIC_HEARINGS_FOR_LAST,
 //                    AudienciaScheduleConstraintConfiguration.DISTRIBUTE_WORKLOAD_FAIRLY,
             };
             int mergeStart = -1;

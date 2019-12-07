@@ -23,6 +23,9 @@ public class Audiencia {
     private LocalDate fechaPedido;
     private List<Querellante> querellanteList = new ArrayList<>();
     private List<Asesor> asesorList = new ArrayList<>();
+    private boolean aLaTarde = false;
+    private boolean detenido = false;
+    private boolean riesgosa = false;
 
     /* Constructors */
 
@@ -172,5 +175,29 @@ public class Audiencia {
 
     public void setAsesorList(List<Asesor> asesorList) {
         this.asesorList = asesorList;
+    }
+
+    public boolean isaLaTarde() {
+        return aLaTarde;
+    }
+
+    public void setaLaTarde(boolean aLaTarde) {
+        this.aLaTarde = aLaTarde;
+    }
+
+    public boolean isDetenido() {
+        return detenido;
+    }
+
+    public void setDetenido(boolean detenido) {
+        this.detenido = detenido;
+    }
+
+    public boolean isRiesgosa() {
+        return riesgosa;
+    }
+
+    public void setRiesgosa(boolean riesgosa) {
+        this.riesgosa = riesgosa;
     }
 }

@@ -15,6 +15,7 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 import java.sql.Time;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -64,11 +65,11 @@ public class AudienciaSchedule {
     @ProblemFactCollectionProperty
     private List<Room> roomList;
 
-//    @ProblemFactCollectionProperty
-//    private List<Querellante> querellanteList;
-//
-//    @ProblemFactCollectionProperty
-//    private List<Asesor> asesorList;
+    @ProblemFactCollectionProperty
+    private List<Querellante> querellanteList = new ArrayList<>();
+
+    @ProblemFactCollectionProperty
+    private List<Asesor> asesorList = new ArrayList<>();
 
     @ValueRangeProvider(id = "roomRange")
     private List<Room> possibleRooms;
@@ -186,21 +187,21 @@ public class AudienciaSchedule {
         return this.timeGrainList.stream().filter(timeGrain -> timeGrain.getDay().toDate().isBefore(this.fechaCorrida.plusDays(25))).collect(Collectors.toList());
     }
 
-//    public List<Querellante> getQuerellanteList() {
-//        return querellanteList;
-//    }
-//
-//    public void setQuerellanteList(List<Querellante> querellanteList) {
-//        this.querellanteList = querellanteList;
-//    }
-//
-//    public List<Asesor> getAsesorList() {
-//        return asesorList;
-//    }
-//
-//    public void setAsesorList(List<Asesor> asesorList) {
-//        this.asesorList = asesorList;
-//    }
+    public List<Querellante> getQuerellanteList() {
+        return querellanteList;
+    }
+
+    public void setQuerellanteList(List<Querellante> querellanteList) {
+        this.querellanteList = querellanteList;
+    }
+
+    public List<Asesor> getAsesorList() {
+        return asesorList;
+    }
+
+    public void setAsesorList(List<Asesor> asesorList) {
+        this.asesorList = asesorList;
+    }
 
     /* toString */
 

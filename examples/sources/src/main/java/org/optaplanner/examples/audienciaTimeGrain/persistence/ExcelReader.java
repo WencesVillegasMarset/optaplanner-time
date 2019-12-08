@@ -450,18 +450,57 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             readHeaderCell("Defensor");
             readHeaderCell("Nombre Defensor");
             readHeaderCell("Fiscal");
+            readHeaderCell("Querellante");
+            readHeaderCell("Asesor");
+            readHeaderCell("Riesgosa");
+            readHeaderCell("Detenido");
+            readHeaderCell("A la Tarde");
             readHeaderCell("Fecha de Pedido");
             readHeaderCell("Sala");
             readHeaderCell("Fecha Calendarizado");
             readHeaderCell("Hora de Comienzo");
 
 
-            List<Audiencia> audienciaList = new ArrayList<>(currentSheet.getLastRowNum() - 1);
-            List<AudienciaAssignment> audienciaAssignmentList = new ArrayList<>(currentSheet.getLastRowNum() - 1);
+            List<Audiencia> audienciaList = new ArrayList<>();
+            List<AudienciaAssignment> audienciaAssignmentList = new ArrayList<>();
             while(nextRow()){
+                int id = (int)nextNumericCell().getNumericCellValue();
+                if(!audienciaList.isEmpty() && id == audienciaList.get(audienciaList.size()-1).getIdAudiencia()){
+                    Audiencia audiencia = audienciaList.get(audienciaList.size()-1);
+                    nextCell();
+                    nextCell();
+                    XSSFCell juezCell = nextCell();
+                    if(juezCell.getCellTypeEnum() != CellType.BLANK){
+                        int juezRead = (int)juezCell.getNumericCellValue();
+                        containsJuez(solution.getJuezList(), juezRead, audiencia);
+                    }
+                    nextCell();
+                    XSSFCell defensorCell = nextCell();
+                    if(defensorCell.getCellTypeEnum() != CellType.BLANK){
+                        String defensorRead =  Base64.getEncoder().encodeToString(defensorCell.getStringCellValue().getBytes());
+
+                        containsDefensor(solution.getDefensorList(), defensorRead, audiencia);
+                    }
+                    XSSFCell fiscalCell = nextCell();
+                    if(fiscalCell.getCellTypeEnum() != CellType.BLANK){
+                        int fiscalRead = (int)fiscalCell.getNumericCellValue();
+                        containsFiscal(solution.getFiscalList(), fiscalRead, audiencia);
+                    }
+                    XSSFCell querellanteCell = nextCell();
+                    if(querellanteCell.getCellTypeEnum() != CellType.BLANK){
+                        int querellanteRead = (int)querellanteCell.getNumericCellValue();
+                        containsQuerellante(solution.getQuerellanteList(), querellanteRead, audiencia);
+                    }
+                    XSSFCell asesorCell = nextCell();
+                    if(asesorCell.getCellTypeEnum() != CellType.BLANK){
+                        int asesorRead = (int)asesorCell.getNumericCellValue();
+                        containsAsesor(solution.getAsesorList(), asesorRead, audiencia);
+                    }
+
+                    continue;
+                }
                 Audiencia audiencia = new Audiencia();
                 AudienciaAssignment audienciaAssignment = new AudienciaAssignment();
-                int id = (int)nextNumericCell().getNumericCellValue();
                 audiencia.setIdAudiencia(id);
                 audienciaAssignment.setId(id);
 
@@ -469,69 +508,44 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                     continue;
                 }
                 int tipoRead = (int)nextNumericCell().getNumericCellValue();
-//                System.out.println(tipoRead);
                 int juezRead = (int)nextNumericCell().getNumericCellValue();
-//                System.out.println(juezRead);
                 int defensorRead = (int)nextNumericCell().getNumericCellValue();
-//                System.out.println(defensorRead);
                 String defensorNombre =  nextStringCell().getStringCellValue();
-//                System.out.println(defensorNombre);
                 defensorNombre = Base64.getEncoder().encodeToString(defensorNombre.getBytes());
-//                System.out.println(defensorNombre);
                 int fiscalRead = (int)nextNumericCell().getNumericCellValue();
-//                System.out.println(fiscalRead);
-//                audiencia.setUbicacion((int)nextNumericCell().getNumericCellValue());
-                LocalDate fechaPedido = nextCell().getDateCellValue().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                audiencia.setFechaPedido(fechaPedido);
 
-//                System.out.println(audiencia.getFechaPedido());
-                if(containsTipo(solution.getTipoList(), tipoRead)){
-                    for (Tipo tipo : solution.getTipoList()) {
-                        if (tipo.getIdTipo() == tipoRead){
-                            audiencia.setTipo(tipo);
-                            break;
-                        }
-                    }
-                } else {
-                    throw new IllegalStateException(
-                            currentPosition() + ": The tipo with id (" + tipoRead
-                                    + ") does not exist.");
+                int querellanteRead = (int)nextCell().getNumericCellValue();
+                int asesorRead = (int)nextCell().getNumericCellValue();
+
+                XSSFCell riesgosa = nextCell();
+                if(riesgosa.getCellTypeEnum() != CellType.BLANK && riesgosa.getNumericCellValue() == 1){
+                    audiencia.setRiesgosa(true);
                 }
-                if(containsJuez(solution.getJuezList(), juezRead)){
-                    for (Juez juez : solution.getJuezList()) {
-                        if (juez.getIdJuez() == juezRead){
-                            audiencia.addJuez(juez);
-                            break;
-                        }
-                    }
-                } else {
-                    throw new IllegalStateException(
-                            currentPosition() + ": The juez with id (" + juezRead
-                                    + ") does not exist.");
+                XSSFCell detenido = nextCell();
+                if(detenido.getCellTypeEnum() != CellType.BLANK && detenido.getNumericCellValue() == 1){
+                    audiencia.setDetenido(true);
                 }
-                if(containsDefensor(solution.getDefensorList(), defensorNombre)){
-                    for (Defensor defensor : solution.getDefensorList()) {
-                        if (defensor.getIdDefensor().equals(defensorNombre)){
-                            audiencia.addDefensor(defensor);
-                            break;
-                        }
-                    }
-                } else {
-                    throw new IllegalStateException(
-                            currentPosition() + ": The defensor with id (" + defensorNombre
-                                    + ") does not exist.");
+                XSSFCell tarde = nextCell();
+                if(tarde.getCellTypeEnum() != CellType.BLANK && tarde.getNumericCellValue() == 1){
+                    audiencia.setaLaTarde(true);
                 }
-                if(containsFiscal(solution.getFiscalList(), fiscalRead)){
-                    for (Fiscal fiscal : solution.getFiscalList()) {
-                        if (fiscal.getIdFiscal() == fiscalRead){
-                            audiencia.addFiscal(fiscal);
-                            break;
-                        }
-                    }
-                } else {
-                    throw new IllegalStateException(
-                            currentPosition() + ": The fiscal with id (" + fiscalRead
-                                    + ") does not exist.");
+
+                XSSFCell fechaPedidoCell = nextCell();
+                if(fechaPedidoCell.getCellTypeEnum() != CellType.BLANK){
+                    LocalDate fechaPedido = fechaPedidoCell.getDateCellValue().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                    audiencia.setFechaPedido(fechaPedido);
+                }
+
+
+                containsTipo(solution.getTipoList(), tipoRead, audiencia);
+                containsJuez(solution.getJuezList(), juezRead, audiencia);
+                containsDefensor(solution.getDefensorList(), defensorNombre, audiencia);
+                containsFiscal(solution.getFiscalList(), fiscalRead, audiencia);
+                if(querellanteRead != 0){
+                    containsQuerellante(solution.getQuerellanteList(), querellanteRead, audiencia);
+                }
+                if(asesorRead != 0){
+                    containsAsesor(solution.getAsesorList(), asesorRead, audiencia);
                 }
 
                 XSSFCell sala = nextCell();
@@ -544,18 +558,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                     int horaRead = Integer.parseInt(splitString[0]);
                     int minutosRead = Integer.parseInt(splitString[1]);
                     int startingMinute = horaRead * 60 + minutosRead;
-                    if(containsSala(solution.getRoomList(), salaRead)){
-                        for (Room room : solution.getRoomList()) {
-                            if (room.getIdRoom() == salaRead){
-                                audienciaAssignment.setRoom(room);
-                                break;
-                            }
-                        }
-                    } else {
-                        throw new IllegalStateException(
-                                currentPosition() + ": The room with id (" + salaRead
-                                        + ") does not exist.");
-                    }
+                    containsSala(solution.getRoomList(), salaRead, audienciaAssignment);
                     Day dayToUse = null;
                     for (Day day : solution.getDayList()){
                         if (day.toDate().isEqual(fechaCalendarizado)){
@@ -602,24 +605,116 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             solution.setAudienciaAssignmentList(audienciaAssignmentList);
             }
 
-        private boolean containsTipo(final List<Tipo> list, final int numero){
-            return list.stream().anyMatch(o -> o.getIdTipo() == numero);
+        private void containsTipo(final List<Tipo> list, final int numero, Audiencia audiencia){
+            boolean existe = list.stream().anyMatch(o -> o.getIdTipo() == numero);
+            if(existe){
+                for (Tipo tipo : solution.getTipoList()) {
+                    if (tipo.getIdTipo() == numero){
+                        audiencia.setTipo(tipo);
+                        break;
+                    }
+                }
+            } else {
+                throw new IllegalStateException(
+                        currentPosition() + ": The tipo with id (" + numero
+                                + ") does not exist.");
+            }
         }
 
-        private boolean containsJuez(final List<Juez> list, final int numero){
-            return list.stream().anyMatch(o -> o.getIdJuez() == numero);
+        private void containsJuez(final List<Juez> list, final int numero, Audiencia audiencia){
+            boolean existe = list.stream().anyMatch(o -> o.getIdJuez() == numero);
+            if(existe){
+                for (Juez juez : solution.getJuezList()) {
+                    if (juez.getIdJuez() == numero){
+                        audiencia.addJuez(juez);
+                        break;
+                    }
+                }
+            } else {
+                throw new IllegalStateException(
+                        currentPosition() + ": The juez with id (" + numero
+                                + ") does not exist.");
+            }
         }
 
-        private boolean containsDefensor(final List<Defensor> list, final String numero){
-            return list.stream().anyMatch(o -> o.getIdDefensor().equals(numero));
+        private void containsDefensor(final List<Defensor> list, final String nombre, Audiencia audiencia){
+            boolean existe = list.stream().anyMatch(o -> o.getIdDefensor().equals(nombre));
+            if(existe){
+                for (Defensor defensor : solution.getDefensorList()) {
+                    if (defensor.getIdDefensor().equals(nombre)){
+                        audiencia.addDefensor(defensor);
+                        break;
+                    }
+                }
+            } else {
+                throw new IllegalStateException(
+                        currentPosition() + ": The defensor with id (" + nombre
+                                + ") does not exist.");
+            }
         }
 
-        private boolean containsFiscal(final List<Fiscal> list, final int numero){
-            return list.stream().anyMatch(o -> o.getIdFiscal() == numero);
+        private void containsFiscal(final List<Fiscal> list, final int numero, Audiencia audiencia){
+            boolean existe = list.stream().anyMatch(o -> o.getIdFiscal() == numero);
+            if(existe){
+                for (Fiscal fiscal : solution.getFiscalList()) {
+                    if (fiscal.getIdFiscal() == numero){
+                        audiencia.addFiscal(fiscal);
+                        break;
+                    }
+                }
+            } else {
+                throw new IllegalStateException(
+                        currentPosition() + ": The fiscal with id (" + numero
+                                + ") does not exist.");
+            }
         }
 
-        private boolean containsSala(final List<Room> list, final int numero){
-            return list.stream().anyMatch(o -> o.getIdRoom() == numero);
+        private void containsQuerellante(final List<Querellante> list, final int numero, Audiencia audiencia){
+            boolean existe = list.stream().anyMatch(o -> o.getIdQuerellante() == numero);
+            if(existe){
+                for (Querellante querellante : solution.getQuerellanteList()) {
+                    if (querellante.getIdQuerellante() == numero){
+                        audiencia.addQuerellante(querellante);
+                        break;
+                    }
+                }
+            } else {
+                throw new IllegalStateException(
+                        currentPosition() + ": The querellante with id (" + numero
+                                + ") does not exist.");
+            }
+        }
+
+        private void containsAsesor(final List<Asesor> list, final int numero, Audiencia audiencia){
+            boolean existe = list.stream().anyMatch(o -> o.getIdAsesor() == numero);
+            if(existe){
+                for (Asesor asesor : solution.getAsesorList()) {
+                    if (asesor.getIdAsesor() == numero){
+                        audiencia.addAsesor(asesor);
+                        break;
+                    }
+                }
+            } else {
+                throw new IllegalStateException(
+                        currentPosition() + ": The asesor with id (" + numero
+                                + ") does not exist.");
+            }
+        }
+
+        private void containsSala(final List<Room> list, final int numero, AudienciaAssignment audienciaAssignment){
+            boolean existe = list.stream().anyMatch(o -> o.getIdRoom() == numero);
+            if(existe){
+                for (Room room : solution.getRoomList()) {
+                    if (room.getIdRoom() == numero){
+                        audienciaAssignment.setRoom(room);
+                        break;
+                    }
+                }
+            } else {
+                throw new IllegalStateException(
+                        currentPosition() + ": The room with id (" + numero
+                                + ") does not exist.");
+            }
         }
 
         private boolean readAudienciaDuration(Audiencia audiencia) {

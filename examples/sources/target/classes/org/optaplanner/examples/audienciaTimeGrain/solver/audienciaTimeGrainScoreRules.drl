@@ -173,8 +173,6 @@ rule "Appeals in the afternoon"
         scoreHolder.penalize(kcontext, 780 - $startingMinute);
 end
 
-
-
 //rule "Respect Locations"
 //    when
 //        AudienciaAssignment(room != null, audiencia.ubicacion != room.ubicacion)
@@ -215,6 +213,13 @@ rule "Do all meetings as soon as possible"
         AudienciaAssignment(scorable, startingTimeGrain != null, $lastTimeGrainIndex : lastTimeGrainIndex)
     then
         scoreHolder.penalize(kcontext, $lastTimeGrainIndex);
+end
+
+rule "Prioritize Detainees"
+    when
+        AudienciaAssignment(scorable, $timeGrain : startingTimeGrain != null, audiencia.detenido)
+    then
+        scoreHolder.penalize(kcontext, (int)$timeGrain.getDay().getIdDay());
 end
 
 rule "One TimeGrain break between two consecutive meetings"
@@ -290,12 +295,42 @@ end
 //        scoreHolder.penalize(kcontext, ($roomList.size() * $roomList.size()));
 //end
 
-rule "Problematic Hearings for last"
+rule "Problematic Hearings for last - Room"
     when
         $left : AudienciaAssignment(scorable, startingTimeGrain != null, room != null, $room : room, audiencia.riesgosa, $startingTimeGrainIndex : startingTimeGrainIndex, $day : startingTimeGrain.day.idDay, $id : id)
         AudienciaAssignment(startingTimeGrain != null, room == $room, id != $id, startingTimeGrain.day.idDay == $day, startingTimeGrainIndex > $startingTimeGrainIndex)
     then
         scoreHolder.penalize(kcontext);
+end
+
+rule "Problematic Hearings for last - Juez"
+    when
+        $left : AudienciaAssignment(scorable, startingTimeGrain != null, room != null, audiencia.riesgosa, $startingTimeGrainIndex : startingTimeGrainIndex, $day : startingTimeGrain.day.idDay, $id : id)
+        $juezLeft : Juez() from $left.getAudiencia().getJuezList()
+        $right : AudienciaAssignment(startingTimeGrain != null, id != $id, startingTimeGrain.day.idDay == $day, startingTimeGrainIndex > $startingTimeGrainIndex)
+        Juez(idJuez == $juezLeft.idJuez) from $right.getAudiencia().getJuezList()
+    then
+        scoreHolder.penalize(kcontext);
+end
+
+rule "Problematic Hearings for last - Fiscal"
+    when
+       $left : AudienciaAssignment(scorable, startingTimeGrain != null, room != null, audiencia.riesgosa, $startingTimeGrainIndex : startingTimeGrainIndex, $day : startingTimeGrain.day.idDay, $id : id)
+       $fiscalLeft : Fiscal() from $left.getAudiencia().getFiscalList()
+       $right : AudienciaAssignment(startingTimeGrain != null, id != $id, startingTimeGrain.day.idDay == $day, startingTimeGrainIndex > $startingTimeGrainIndex)
+       Fiscal(idFiscal == $fiscalLeft.idFiscal) from $right.getAudiencia().getFiscalList()
+    then
+        scoreHolder.penalize(kcontext);
+end
+
+rule "Problematic Hearings for last - Asesor"
+    when
+       $left : AudienciaAssignment(scorable, startingTimeGrain != null, room != null, audiencia.riesgosa, $startingTimeGrainIndex : startingTimeGrainIndex, $day : startingTimeGrain.day.idDay, $id : id)
+       $asesorLeft : Asesor() from $left.getAudiencia().getAsesorList()
+       $right : AudienciaAssignment(startingTimeGrain != null, id != $id, startingTimeGrain.day.idDay == $day, startingTimeGrainIndex > $startingTimeGrainIndex)
+       Asesor(idAsesor == $asesorLeft.idAsesor) from $right.getAudiencia().getAsesorList()
+    then
+       scoreHolder.penalize(kcontext);
 end
 
 

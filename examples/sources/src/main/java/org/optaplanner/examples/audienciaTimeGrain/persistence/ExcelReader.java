@@ -478,7 +478,6 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                     XSSFCell defensorCell = nextCell();
                     if(defensorCell.getCellTypeEnum() != CellType.BLANK){
                         String defensorRead =  Base64.getEncoder().encodeToString(defensorCell.getStringCellValue().getBytes());
-
                         containsDefensor(solution.getDefensorList(), defensorRead, audiencia);
                     }
                     XSSFCell fiscalCell = nextCell();
@@ -869,7 +868,11 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                     AudienciaScheduleConstraintConfiguration.DO_ALL_MEETINGS_AS_SOON_AS_POSSIBLE,
                     AudienciaScheduleConstraintConfiguration.ONE_TIMEGRAIN_QUERELLANTE,
                     AudienciaScheduleConstraintConfiguration.ONE_TIMEGRAIN_ASESOR,
-                    AudienciaScheduleConstraintConfiguration.PROBLEMATIC_HEARINGS_FOR_LAST,
+                    AudienciaScheduleConstraintConfiguration.PROBLEMATIC_HEARINGS_FOR_LAST_ROOM,
+                    AudienciaScheduleConstraintConfiguration.PROBLEMATIC_HEARINGS_FOR_LAST_JUEZ,
+                    AudienciaScheduleConstraintConfiguration.PROBLEMATIC_HEARINGS_FOR_LAST_FISCAL,
+                    AudienciaScheduleConstraintConfiguration.PROBLEMATIC_HEARINGS_FOR_LAST_ASESOR,
+                    AudienciaScheduleConstraintConfiguration.PRIORITIZE_DETAINEES,
 //                    AudienciaScheduleConstraintConfiguration.DISTRIBUTE_WORKLOAD_FAIRLY,
             };
             int mergeStart = -1;

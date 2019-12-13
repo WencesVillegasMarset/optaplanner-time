@@ -97,8 +97,20 @@ public class AudienciaScheduleConstraintConfiguration {
     //HARD - Appeals need to be appointed in afternoon time
     public static final String APPEALS_IN_AFTERNOON = "Appeals in the afternoon";
 
-    //SOFT - Problematic audiencias need to be the las audiencia in the room
-    public static final String PROBLEMATIC_HEARINGS_FOR_LAST = "Problematic Hearings for last";
+    //SOFT - Las audiencias que tienen detenidos deben ser priorizadas temporalmente
+    public static final String PRIORITIZE_DETAINEES = "Prioritize Detainees";
+
+    //SOFT - Problematic audiencias need to be the last audiencia in the room
+    public static final String PROBLEMATIC_HEARINGS_FOR_LAST_ROOM = "Problematic Hearings for last - Room";
+
+    //SOFT - Problematic audiencias need to be the last audiencia in the room
+    public static final String PROBLEMATIC_HEARINGS_FOR_LAST_JUEZ = "Problematic Hearings for last - Juez";
+
+    //SOFT - Problematic audiencias need to be the last audiencia in the room
+    public static final String PROBLEMATIC_HEARINGS_FOR_LAST_FISCAL = "Problematic Hearings for last - Fiscal";
+
+    //SOFT - Problematic audiencias need to be the last audiencia in the room
+    public static final String PROBLEMATIC_HEARINGS_FOR_LAST_ASESOR = "Problematic Hearings for last - Asesor";
 
     /* Hard Constraints */
     @ConstraintWeight(ROOM_CONFLICT)
@@ -159,8 +171,16 @@ public class AudienciaScheduleConstraintConfiguration {
     private HardMediumSoftScore oneTimeGrainQuerellante = HardMediumSoftScore.ofSoft(100);
     @ConstraintWeight(ONE_TIMEGRAIN_ASESOR)
     private HardMediumSoftScore oneTimeGrainAsesor = HardMediumSoftScore.ofSoft(100);
-    @ConstraintWeight(PROBLEMATIC_HEARINGS_FOR_LAST)
-    private HardMediumSoftScore problematicHearingsForLast = HardMediumSoftScore.ofSoft(200);
+    @ConstraintWeight(PROBLEMATIC_HEARINGS_FOR_LAST_ROOM)
+    private HardMediumSoftScore problematicHearingsForLastRoom = HardMediumSoftScore.ofSoft(200);
+    @ConstraintWeight(PRIORITIZE_DETAINEES)
+    private HardMediumSoftScore prioritizeDetainees = HardMediumSoftScore.ofSoft(10);
+    @ConstraintWeight(PROBLEMATIC_HEARINGS_FOR_LAST_JUEZ)
+    private HardMediumSoftScore problematicHearingsForLastJuez = HardMediumSoftScore.ofSoft(200);
+    @ConstraintWeight(PROBLEMATIC_HEARINGS_FOR_LAST_FISCAL)
+    private HardMediumSoftScore problematicHearingsForLastFiscal = HardMediumSoftScore.ofSoft(200);
+    @ConstraintWeight(PROBLEMATIC_HEARINGS_FOR_LAST_ASESOR)
+    private HardMediumSoftScore problematicHearingsForLastAsesor = HardMediumSoftScore.ofSoft(200);
 
     /* Constructor */
 
@@ -400,11 +420,43 @@ public class AudienciaScheduleConstraintConfiguration {
         this.appealsInAfternoon = appealsInAfternoon;
     }
 
-    public HardMediumSoftScore getProblematicHearingsForLast() {
-        return problematicHearingsForLast;
+    public HardMediumSoftScore getProblematicHearingsForLastRoom() {
+        return problematicHearingsForLastRoom;
     }
 
-    public void setProblematicHearingsForLast(HardMediumSoftScore problematicHearingsForLast) {
-        this.problematicHearingsForLast = problematicHearingsForLast;
+    public void setProblematicHearingsForLastRoom(HardMediumSoftScore problematicHearingsForLastRoom) {
+        this.problematicHearingsForLastRoom = problematicHearingsForLastRoom;
+    }
+
+    public HardMediumSoftScore getPrioritizeDetainees() {
+        return prioritizeDetainees;
+    }
+
+    public void setPrioritizeDetainees(HardMediumSoftScore prioritizeDetainees) {
+        this.prioritizeDetainees = prioritizeDetainees;
+    }
+
+    public HardMediumSoftScore getProblematicHearingsForLastJuez() {
+        return problematicHearingsForLastJuez;
+    }
+
+    public void setProblematicHearingsForLastJuez(HardMediumSoftScore problematicHearingsForLastJuez) {
+        this.problematicHearingsForLastJuez = problematicHearingsForLastJuez;
+    }
+
+    public HardMediumSoftScore getProblematicHearingsForLastFiscal() {
+        return problematicHearingsForLastFiscal;
+    }
+
+    public void setProblematicHearingsForLastFiscal(HardMediumSoftScore problematicHearingsForLastFiscal) {
+        this.problematicHearingsForLastFiscal = problematicHearingsForLastFiscal;
+    }
+
+    public HardMediumSoftScore getProblematicHearingsForLastAsesor() {
+        return problematicHearingsForLastAsesor;
+    }
+
+    public void setProblematicHearingsForLastAsesor(HardMediumSoftScore problematicHearingsForLastAsesor) {
+        this.problematicHearingsForLastAsesor = problematicHearingsForLastAsesor;
     }
 }

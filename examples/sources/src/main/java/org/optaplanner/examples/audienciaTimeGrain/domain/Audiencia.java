@@ -26,6 +26,9 @@ public class Audiencia {
     private boolean aLaTarde = false;
     private boolean detenido = false;
     private boolean riesgosa = false;
+    private boolean externa = false;
+    private boolean almaFuerte = false;
+    private boolean boulogne = false;
 
     /* Constructors */
 
@@ -199,5 +202,29 @@ public class Audiencia {
 
     public void setRiesgosa(boolean riesgosa) {
         this.riesgosa = riesgosa;
+    }
+
+    public boolean isExterna() {
+        return externa;
+    }
+
+    public void setExterna(boolean externa) {
+        this.externa = externa;
+    }
+
+    public boolean isAlmaFuerte() {
+        return almaFuerte;
+    }
+
+    public void setAlmaFuerte(boolean almaFuerte) {
+        this.almaFuerte = almaFuerte;
+    }
+
+    public boolean isBoulogne() {
+        return boulogne;
+    }
+
+    public void setBoulogne(boolean boulogne) {
+        this.boulogne = boulogne;
     }
 }

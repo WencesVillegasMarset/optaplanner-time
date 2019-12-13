@@ -6,6 +6,8 @@ public class Room {
 
     private int idRoom;
     private String nombreRoom;
+    private boolean almaFuerte;
+    private boolean boulogne;
 //    private int ubicacion;
 
     /* Constructor */

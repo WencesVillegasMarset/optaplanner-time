@@ -112,6 +112,9 @@ public class AudienciaScheduleConstraintConfiguration {
     //SOFT - Problematic audiencias need to be the last audiencia in the room
     public static final String PROBLEMATIC_HEARINGS_FOR_LAST_ASESOR = "Problematic Hearings for last - Asesor";
 
+    //SOFT - Defensor that is working in other location needs time to commute
+    public static final String TIME_FOR_EXTERNAL_DEFENSOR = "Time for External Defensor";
+
     /* Hard Constraints */
     @ConstraintWeight(ROOM_CONFLICT)
     private HardMediumSoftScore roomConflict = HardMediumSoftScore.ofHard(1);
@@ -151,6 +154,8 @@ public class AudienciaScheduleConstraintConfiguration {
     private HardMediumSoftScore dontConflictAsesor = HardMediumSoftScore.ofHard(1);
     @ConstraintWeight(APPEALS_IN_AFTERNOON)
     private HardMediumSoftScore appealsInAfternoon = HardMediumSoftScore.ofHard(1);
+    @ConstraintWeight(TIME_FOR_EXTERNAL_DEFENSOR)
+    private HardMediumSoftScore timeExternalDefensor = HardMediumSoftScore.ofHard(1);
 
 
     /* Soft Constraints */
@@ -458,5 +463,13 @@ public class AudienciaScheduleConstraintConfiguration {
 
     public void setProblematicHearingsForLastAsesor(HardMediumSoftScore problematicHearingsForLastAsesor) {
         this.problematicHearingsForLastAsesor = problematicHearingsForLastAsesor;
+    }
+
+    public HardMediumSoftScore getTimeExternalDefensor() {
+        return timeExternalDefensor;
+    }
+
+    public void setTimeExternalDefensor(HardMediumSoftScore timeExternalDefensor) {
+        this.timeExternalDefensor = timeExternalDefensor;
     }
 }

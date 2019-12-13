@@ -173,6 +173,17 @@ rule "Appeals in the afternoon"
         scoreHolder.penalize(kcontext, 780 - $startingMinute);
 end
 
+rule "Time for External Defensor"
+    when
+        $left: AudienciaAssignment(startingTimeGrain != null, $id : id, audiencia.externa, $day : startingTimeGrain.day.idDay)
+        $defensorLeft : Defensor() from $left.audiencia.getDefensorList()
+        $right: AudienciaAssignment(startingTimeGrain != null, id != $id, audiencia.externa == false, startingTimeGrain.day.idDay == $day)
+        $defensorRight : Defensor(idDefensor == $defensorRight.idDefensor) from $right.audiencia.getDefensorList()
+        $overlap : Number(intValue() > 0) from $right.calculateExternal($left)
+    then
+        scoreHolder.penalize(kcontext, (int)$overlap);
+end
+
 //rule "Respect Locations"
 //    when
 //        AudienciaAssignment(room != null, audiencia.ubicacion != room.ubicacion)
@@ -244,9 +255,9 @@ end
 
 rule "One TimeGrain Defensor"
     when
-        $leftAssignment : AudienciaAssignment(scorable, startingTimeGrain != null, $leftEnd : getLastTimeGrainIndex(),$leftFirstTimeGrain : startingTimeGrain, $audienciaLeft : getAudiencia(), $id : id)
+        $leftAssignment : AudienciaAssignment(scorable, startingTimeGrain != null, $leftEnd : getLastTimeGrainIndex(), $leftStart : startingTimeGrainIndex, $leftFirstTimeGrain : startingTimeGrain, $audienciaLeft : getAudiencia(), $id : id)
         $valueLeft : Defensor() from $audienciaLeft.getDefensorList()
-        $rightAssignment : AudienciaAssignment(id != $id, startingTimeGrain != null, $leftEnd == startingTimeGrain.getGrainIndex() - 1, $rightFirstTimeGrainIndex : startingTimeGrain.grainIndex, $rightFirstTimeGrain : startingTimeGrain, $audienciaRight : getAudiencia())
+        $rightAssignment : AudienciaAssignment(id != $id, startingTimeGrain != null, $leftStart == getLastTimeGrainIndex() + 1, $rightFirstTimeGrainIndex : startingTimeGrain.grainIndex, $rightFirstTimeGrain : startingTimeGrain, $audienciaRight : getAudiencia()) or AudienciaAssignment(id != $id, startingTimeGrain != null, ($leftEnd == startingTimeGrain.getGrainIndex() - 1), $rightFirstTimeGrainIndex : startingTimeGrain.grainIndex, $rightFirstTimeGrain : startingTimeGrain, $audienciaRight : getAudiencia())
         Defensor(idDefensor == $valueLeft.idDefensor) from $audienciaRight.getDefensorList()
         TimeGrain(grainIndex == $rightFirstTimeGrainIndex, $leftFirstTimeGrain.day == $rightFirstTimeGrain.day)
 

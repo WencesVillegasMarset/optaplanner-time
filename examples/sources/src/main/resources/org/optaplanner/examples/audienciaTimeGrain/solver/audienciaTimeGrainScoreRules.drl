@@ -236,7 +236,7 @@ end
 rule "One TimeGrain break between two consecutive meetings"
     when
         $left : AudienciaAssignment(scorable, startingTimeGrain != null,  $leftEnd : getLastTimeGrainIndex(), $leftFirstTimeGrain : startingTimeGrain, $room : room)
-        AudienciaAssignment(scorable, startingTimeGrain != null, $leftEnd == startingTimeGrain.getGrainIndex() - 1, $rightFirstTimeGrainIndex : startingTimeGrain.grainIndex, $rightFirstTimeGrain : startingTimeGrain, room == $room, isThereABreak($left) == false)
+        AudienciaAssignment(startingTimeGrain != null, $leftEnd == startingTimeGrain.getGrainIndex() - 1, $rightFirstTimeGrainIndex : startingTimeGrain.grainIndex, $rightFirstTimeGrain : startingTimeGrain, room == $room) or AudienciaAssignment(startingTimeGrain != null, $leftFirstTimeGrain.grainIndex == lastTimeGrainIndex + 1, $rightFirstTimeGrainIndex : startingTimeGrain.grainIndex, $rightFirstTimeGrain : startingTimeGrain, room == $room)
         TimeGrain(grainIndex == $rightFirstTimeGrainIndex, $leftFirstTimeGrain.day == $rightFirstTimeGrain.day)
     then
         scoreHolder.penalize(kcontext);
@@ -246,7 +246,7 @@ rule "One TimeGrain Juez"
     when
         $leftAssignment : AudienciaAssignment(scorable, startingTimeGrain != null, $leftEnd : getLastTimeGrainIndex(),$leftFirstTimeGrain : startingTimeGrain, $audienciaLeft : getAudiencia(), $id : id)
         $valueLeft : Juez() from $audienciaLeft.getJuezList()
-        $rightAssignment : AudienciaAssignment(id != $id, startingTimeGrain != null, $leftEnd == startingTimeGrain.getGrainIndex() - 1, $rightFirstTimeGrainIndex : startingTimeGrain.grainIndex, $rightFirstTimeGrain : startingTimeGrain, $audienciaRight : getAudiencia())
+        $rightAssignment : AudienciaAssignment(id != $id, startingTimeGrain != null, $leftFirstTimeGrain.grainIndex == getLastTimeGrainIndex() + 1, $rightFirstTimeGrainIndex : startingTimeGrain.grainIndex, $rightFirstTimeGrain : startingTimeGrain, $audienciaRight : getAudiencia()) or AudienciaAssignment(id != $id, startingTimeGrain != null, ($leftEnd == startingTimeGrain.getGrainIndex() - 1), $rightFirstTimeGrainIndex : startingTimeGrain.grainIndex, $rightFirstTimeGrain : startingTimeGrain, $audienciaRight : getAudiencia())
         Juez(idJuez == $valueLeft.idJuez) from $audienciaRight.getJuezList()
         TimeGrain(grainIndex == $rightFirstTimeGrainIndex, $leftFirstTimeGrain.day == $rightFirstTimeGrain.day)
     then
@@ -269,7 +269,7 @@ rule "One TimeGrain Fiscal"
     when
         $leftAssignment : AudienciaAssignment(scorable, startingTimeGrain != null, $leftEnd : getLastTimeGrainIndex(),$leftFirstTimeGrain : startingTimeGrain, $audienciaLeft : getAudiencia(), $id : id)
         $valueLeft : Fiscal() from $audienciaLeft.getFiscalList()
-        $rightAssignment : AudienciaAssignment(id != $id, startingTimeGrain != null, $leftEnd == startingTimeGrain.getGrainIndex() - 1, $rightFirstTimeGrainIndex : startingTimeGrain.grainIndex, $rightFirstTimeGrain : startingTimeGrain, $audienciaRight : getAudiencia())
+        $rightAssignment : AudienciaAssignment(id != $id, startingTimeGrain != null, $leftFirstTimeGrain.grainIndex == getLastTimeGrainIndex() + 1, $rightFirstTimeGrainIndex : startingTimeGrain.grainIndex, $rightFirstTimeGrain : startingTimeGrain, $audienciaRight : getAudiencia()) or AudienciaAssignment(id != $id, startingTimeGrain != null, ($leftEnd == startingTimeGrain.getGrainIndex() - 1), $rightFirstTimeGrainIndex : startingTimeGrain.grainIndex, $rightFirstTimeGrain : startingTimeGrain, $audienciaRight : getAudiencia())
         Fiscal(idFiscal == $valueLeft.idFiscal) from $audienciaRight.getFiscalList()
         TimeGrain(grainIndex == $rightFirstTimeGrainIndex, $leftFirstTimeGrain.day == $rightFirstTimeGrain.day)
     then
@@ -280,7 +280,7 @@ rule "One TimeGrain Querellante"
     when
         $leftAssignment : AudienciaAssignment(scorable, startingTimeGrain != null, $leftEnd : getLastTimeGrainIndex(),$leftFirstTimeGrain : startingTimeGrain, $audienciaLeft : getAudiencia(), $id : id)
         $valueLeft : Querellante() from $audienciaLeft.getQuerellanteList()
-        $rightAssignment : AudienciaAssignment(id != $id, startingTimeGrain != null, $leftEnd == startingTimeGrain.getGrainIndex() - 1, $rightFirstTimeGrainIndex : startingTimeGrain.grainIndex, $rightFirstTimeGrain : startingTimeGrain, $audienciaRight : getAudiencia())
+        $rightAssignment : AudienciaAssignment(id != $id, startingTimeGrain != null, $leftFirstTimeGrain.grainIndex == getLastTimeGrainIndex() + 1, $rightFirstTimeGrainIndex : startingTimeGrain.grainIndex, $rightFirstTimeGrain : startingTimeGrain, $audienciaRight : getAudiencia()) or AudienciaAssignment(id != $id, startingTimeGrain != null, ($leftEnd == startingTimeGrain.getGrainIndex() - 1), $rightFirstTimeGrainIndex : startingTimeGrain.grainIndex, $rightFirstTimeGrain : startingTimeGrain, $audienciaRight : getAudiencia())
         Querellante(idQuerellante == $valueLeft.idQuerellante) from $audienciaRight.getQuerellanteList()
         TimeGrain(grainIndex == $rightFirstTimeGrainIndex, $leftFirstTimeGrain.day == $rightFirstTimeGrain.day)
     then
@@ -291,7 +291,7 @@ rule "One TimeGrain Asesor"
     when
         $leftAssignment : AudienciaAssignment(scorable, startingTimeGrain != null, $leftEnd : getLastTimeGrainIndex(),$leftFirstTimeGrain : startingTimeGrain, $audienciaLeft : getAudiencia(), $id : id)
         $valueLeft : Asesor() from $audienciaLeft.getAsesorList()
-        $rightAssignment : AudienciaAssignment(id != $id, startingTimeGrain != null, $leftEnd == startingTimeGrain.getGrainIndex() - 1, $rightFirstTimeGrainIndex : startingTimeGrain.grainIndex, $rightFirstTimeGrain : startingTimeGrain, $audienciaRight : getAudiencia())
+        $rightAssignment : AudienciaAssignment(id != $id, startingTimeGrain != null, $leftFirstTimeGrain.grainIndex == getLastTimeGrainIndex() + 1, $rightFirstTimeGrainIndex : startingTimeGrain.grainIndex, $rightFirstTimeGrain : startingTimeGrain, $audienciaRight : getAudiencia()) or AudienciaAssignment(id != $id, startingTimeGrain != null, ($leftEnd == startingTimeGrain.getGrainIndex() - 1), $rightFirstTimeGrainIndex : startingTimeGrain.grainIndex, $rightFirstTimeGrain : startingTimeGrain, $audienciaRight : getAudiencia())
         Asesor(idAsesor == $valueLeft.idAsesor) from $audienciaRight.getAsesorList()
         TimeGrain(grainIndex == $rightFirstTimeGrainIndex, $leftFirstTimeGrain.day == $rightFirstTimeGrain.day)
     then

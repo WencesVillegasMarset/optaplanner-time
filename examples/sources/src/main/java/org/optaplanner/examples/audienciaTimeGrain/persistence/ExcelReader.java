@@ -455,6 +455,8 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             readHeaderCell("Riesgosa");
             readHeaderCell("Detenido");
             readHeaderCell("A la Tarde");
+            readHeaderCell("Boulogne");
+            readHeaderCell("Alma Fuerte");
             readHeaderCell("Fecha de Pedido");
             readHeaderCell("Sala");
             readHeaderCell("Fecha Calendarizado");
@@ -527,6 +529,14 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                 XSSFCell tarde = nextCell();
                 if(tarde.getCellTypeEnum() != CellType.BLANK && tarde.getNumericCellValue() == 1){
                     audiencia.setaLaTarde(true);
+                }
+                XSSFCell boulogne = nextCell();
+                if(boulogne.getCellTypeEnum() != CellType.BLANK && boulogne.getNumericCellValue() == 1){
+                    audiencia.setBoulogne(true);
+                }
+                XSSFCell almaFuerte = nextCell();
+                if(almaFuerte.getCellTypeEnum() != CellType.BLANK && almaFuerte.getNumericCellValue() == 1){
+                    audiencia.setAlmaFuerte(true);
                 }
 
                 XSSFCell fechaPedidoCell = nextCell();
@@ -625,7 +635,9 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             if(existe){
                 for (Juez juez : solution.getJuezList()) {
                     if (juez.getIdJuez() == numero){
-                        audiencia.addJuez(juez);
+                        if(!audiencia.getJuezList().contains(juez)){
+                            audiencia.addJuez(juez);
+                        }
                         break;
                     }
                 }
@@ -641,7 +653,9 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             if(existe){
                 for (Defensor defensor : solution.getDefensorList()) {
                     if (defensor.getIdDefensor().equals(nombre)){
-                        audiencia.addDefensor(defensor);
+                        if(!audiencia.getDefensorList().contains(defensor)){
+                            audiencia.addDefensor(defensor);
+                        }
                         break;
                     }
                 }
@@ -657,7 +671,9 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             if(existe){
                 for (Fiscal fiscal : solution.getFiscalList()) {
                     if (fiscal.getIdFiscal() == numero){
-                        audiencia.addFiscal(fiscal);
+                        if(!audiencia.getFiscalList().contains(fiscal)){
+                            audiencia.addFiscal(fiscal);
+                        }
                         break;
                     }
                 }
@@ -673,7 +689,9 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             if(existe){
                 for (Querellante querellante : solution.getQuerellanteList()) {
                     if (querellante.getIdQuerellante() == numero){
-                        audiencia.addQuerellante(querellante);
+                        if(!audiencia.getQuerellanteList().contains(querellante)){
+                            audiencia.addQuerellante(querellante);
+                        }
                         break;
                     }
                 }
@@ -689,7 +707,9 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             if(existe){
                 for (Asesor asesor : solution.getAsesorList()) {
                     if (asesor.getIdAsesor() == numero){
-                        audiencia.addAsesor(asesor);
+                        if(!audiencia.getAsesorList().contains(asesor)){
+                            audiencia.addAsesor(asesor);
+                        }
                         break;
                     }
                 }

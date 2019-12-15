@@ -42,8 +42,8 @@
 <!--      <finalistPodiumType>STRATEGIC_OSCILLATION</finalistPodiumType>-->
 <!--    </forager>-->
     <termination>
-      <unimprovedSecondsSpentLimit>10</unimprovedSecondsSpentLimit>
-      <unimprovedScoreDifferenceThreshold>0hard/0medium/1000soft</unimprovedScoreDifferenceThreshold>
+      <unimprovedSecondsSpentLimit>200</unimprovedSecondsSpentLimit>
+      <unimprovedScoreDifferenceThreshold>0hard/0medium/500soft</unimprovedScoreDifferenceThreshold>
       <minutesSpentLimit>7</minutesSpentLimit>
     </termination>
   </localSearch>

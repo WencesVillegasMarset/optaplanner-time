@@ -43,7 +43,7 @@
 <!--    </forager>-->
     <termination>
       <unimprovedSecondsSpentLimit>200</unimprovedSecondsSpentLimit>
-      <unimprovedScoreDifferenceThreshold>0hard/0medium/500soft</unimprovedScoreDifferenceThreshold>
+      <unimprovedScoreDifferenceThreshold>[0/0]hard/[10/0/0]soft</unimprovedScoreDifferenceThreshold>
       <minutesSpentLimit>7</minutesSpentLimit>
     </termination>
   </localSearch>

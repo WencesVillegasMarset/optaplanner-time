@@ -6,6 +6,7 @@ import org.optaplanner.core.api.domain.solution.PlanningScore;
 import org.optaplanner.core.api.domain.solution.PlanningSolution;
 import org.optaplanner.core.api.domain.solution.drools.ProblemFactCollectionProperty;
 import org.optaplanner.core.api.domain.valuerange.ValueRangeProvider;
+import org.optaplanner.core.api.score.buildin.bendable.BendableScore;
 import org.optaplanner.core.api.score.buildin.hardmediumsoft.HardMediumSoftScore;
 import org.optaplanner.examples.audienciaTimeGrain.helper.LocalDateAdapter;
 import org.optaplanner.examples.audienciaTimeGrain.helper.ScoreAdapter;
@@ -77,8 +78,8 @@ public class AudienciaSchedule {
     @PlanningEntityCollectionProperty
     private List<AudienciaAssignment> audienciaAssignmentList;
 
-    @PlanningScore
-    private HardMediumSoftScore score;
+    @PlanningScore(bendableHardLevelsSize = 2, bendableSoftLevelsSize = 3)
+    private BendableScore score;
 
     /* Setters y Getters */
 
@@ -157,11 +158,11 @@ public class AudienciaSchedule {
 
     @XmlElement(name = "score")
     @XmlJavaTypeAdapter(value = ScoreAdapter.class)
-    public HardMediumSoftScore getScore() {
+    public BendableScore getScore() {
         return score;
     }
 
-    public void setScore(HardMediumSoftScore score) {
+    public void setScore(BendableScore score) {
         this.score = score;
     }
 

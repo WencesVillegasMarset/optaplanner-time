@@ -17,7 +17,7 @@
 package org.optaplanner.examples.audienciaTimeGrain.solver;
     dialect "java"
 
-import org.optaplanner.core.api.score.buildin.hardmediumsoft.HardMediumSoftScoreHolder;
+import org.optaplanner.core.api.score.buildin.bendable.BendableScoreHolder;
 
 import org.optaplanner.examples.audienciaTimeGrain.domain.Audiencia;
 import org.optaplanner.examples.audienciaTimeGrain.domain.AudienciaAssignment;
@@ -32,7 +32,7 @@ import org.optaplanner.examples.audienciaTimeGrain.domain.Querellante;
 import org.optaplanner.examples.audienciaTimeGrain.domain.Asesor;
 import java.util.List;
 
-global HardMediumSoftScoreHolder scoreHolder;
+global BendableScoreHolder scoreHolder;
 
 // ############################################################################
 // Hard constraints usually

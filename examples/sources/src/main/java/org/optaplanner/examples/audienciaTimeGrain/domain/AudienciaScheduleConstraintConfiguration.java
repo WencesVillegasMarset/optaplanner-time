@@ -3,6 +3,7 @@ package org.optaplanner.examples.audienciaTimeGrain.domain;
 import org.apache.commons.math3.fitting.HarmonicCurveFitter;
 import org.optaplanner.core.api.domain.constraintweight.ConstraintConfiguration;
 import org.optaplanner.core.api.domain.constraintweight.ConstraintWeight;
+import org.optaplanner.core.api.score.buildin.bendable.BendableScore;
 import org.optaplanner.core.api.score.buildin.hardmediumsoft.HardMediumSoftScore;
 import org.optaplanner.examples.audienciaTimeGrain.helper.ScoreAdapter;
 import org.optaplanner.examples.common.domain.AbstractPersistable;
@@ -127,73 +128,82 @@ public class AudienciaScheduleConstraintConfiguration {
     //SOFT - Jueces can't work for more than 6 hours a day (72 timegrains)
     public static final String MAXIMUM_WORK_TIME_JUEZ = "Maximum work time Juez";
 
-    /* Hard Constraints */
+    /* SCHEDULING */
     @ConstraintWeight(ROOM_CONFLICT)
-    private HardMediumSoftScore roomConflict = HardMediumSoftScore.ofHard(1);
+    private BendableScore roomConflict = BendableScore.ofHard(2, 3, 0, 1);
     @ConstraintWeight(DONT_GO_IN_OVERTIME)
-    private HardMediumSoftScore dontGoInOvertime = HardMediumSoftScore.ofHard(1);
+    private BendableScore contGoInOvertime = BendableScore.ofHard(2, 3, 0, 1);
     @ConstraintWeight(START_AND_END_ON_SAME_DAY)
-    private HardMediumSoftScore startAndEndOnSameDay = HardMediumSoftScore.ofHard(1);
+    private BendableScore startAndEndOnSameDay = BendableScore.ofHard(2, 3, 0, 1);
     @ConstraintWeight(DO_NOT_CONFLICT_JUEZ)
-    private HardMediumSoftScore dontConflictJuez = HardMediumSoftScore.ofHard(1);
-    @ConstraintWeight(DO_NOT_USE_ROOM_IN_PRHOHIBITED_TIME)
-    private HardMediumSoftScore dontConflictRoomTime = HardMediumSoftScore.ofHard(1);
+    private BendableScore dontConflictJuez = BendableScore.ofHard(2, 3, 0, 1);
     @ConstraintWeight(DO_NOT_CONFLICT_FISCAL)
-    private HardMediumSoftScore dontConflictFiscal = HardMediumSoftScore.ofHard(1);
+    private BendableScore dontConflictFiscal = BendableScore.ofHard(2, 3, 0, 1);
     @ConstraintWeight(DO_NOT_CONFLICT_DEFENSOR)
-    private HardMediumSoftScore dontConflictDefensor = HardMediumSoftScore.ofHard(1);
-    @ConstraintWeight(RESPECT_MINIMUM_STARTING_TIME)
-    private HardMediumSoftScore respectMinimumStartingTime = HardMediumSoftScore.ofHard(1);
-    @ConstraintWeight(RESPECT_MAXIMUM_STARTING_TIME)
-    private HardMediumSoftScore respectMaximumStartingTime = HardMediumSoftScore.ofHard(1);
-    @ConstraintWeight(DONT_START_AFTER_MAXIMUM_STARTING_MINUTE)
-    private HardMediumSoftScore dontStartAfterMaximumStartingMinute = HardMediumSoftScore.ofHard(1);
-    @ConstraintWeight(DONT_CONFLICT_JUEZ_AND_TIMEGRAIN)
-    private HardMediumSoftScore dontConflictJuezAndTimeGrain = HardMediumSoftScore.ofHard(1);
+    private BendableScore dontConflictDefensor = BendableScore.ofHard(2, 3, 0, 1);
     @ConstraintWeight(DO_NOT_CONFLICT_QUERELLANTE)
-    private HardMediumSoftScore dontConflictQuerellante = HardMediumSoftScore.ofHard(1);
+    private BendableScore dontConflictQuerellante = BendableScore.ofHard(2, 3, 0, 1);
     @ConstraintWeight(DO_NOT_CONFLICT_ASESOR)
-    private HardMediumSoftScore dontConflictAsesor = HardMediumSoftScore.ofHard(1);
-    @ConstraintWeight(APPEALS_IN_AFTERNOON)
-    private HardMediumSoftScore appealsInAfternoon = HardMediumSoftScore.ofHard(1);
-    @ConstraintWeight(TIME_FOR_EXTERNAL_DEFENSOR)
-    private HardMediumSoftScore timeExternalDefensor = HardMediumSoftScore.ofHard(1);
-    @ConstraintWeight(HEARINGS_IN_BOULOGNE)
-    private HardMediumSoftScore hearingsInBoulogne = HardMediumSoftScore.ofHard(1);
-    @ConstraintWeight(HEARINGS_IN_ALMA_FUERTE)
-    private HardMediumSoftScore hearingsInAlmaFuerte = HardMediumSoftScore.ofHard(1);
-    @ConstraintWeight(HEARTINGS_NOT_EJEC)
-    private HardMediumSoftScore hearingsNotEjec = HardMediumSoftScore.ofHard(1);
-
-
-    /* Soft Constraints */
-
+    private BendableScore dontConflictAsesor = BendableScore.ofHard(2, 3, 0, 1);
+    @ConstraintWeight(DO_NOT_USE_ROOM_IN_PRHOHIBITED_TIME)
+    private BendableScore dontConflictRoomTime = BendableScore.ofHard(2, 3, 0, 1);
     @ConstraintWeight(ONE_TIME_GRAIN_BREAK_BETWEEN_TWO_CONSECUTIVE_MEETINGS)
-    private HardMediumSoftScore oneTimeGrainBreakBetweenTwoConsecutiveMeetings = HardMediumSoftScore.ofSoft(100);
-    @ConstraintWeight(DO_ALL_MEETINGS_AS_SOON_AS_POSSIBLE)
-    private HardMediumSoftScore doAllMeetingsAsSoonAsPossible = HardMediumSoftScore.ofSoft(1);
+    private BendableScore oneTimeGrainBreakBetweenTwoConsecutiveMeetings = BendableScore.ofHard(2, 3, 0, 1);
     @ConstraintWeight(ONE_TIMEGRAIN_JUEZ)
-    private HardMediumSoftScore oneTimeGrainJuez = HardMediumSoftScore.ofSoft(100);
+    private BendableScore oneTimeGrainJuez = BendableScore.ofHard(2, 3, 0, 1);
     @ConstraintWeight(ONE_TIMEGRAIN_DEFENSOR)
-    private HardMediumSoftScore oneTimeGrainDefensor = HardMediumSoftScore.ofSoft(100);
+    private BendableScore oneTimeGrainDefensor = BendableScore.ofHard(2, 3, 0, 1);
     @ConstraintWeight(ONE_TIMEGRAIN_FISCAL)
-    private HardMediumSoftScore oneTimeGrainFiscal = HardMediumSoftScore.ofSoft(100);
+    private BendableScore oneTimeGrainFiscal = BendableScore.ofHard(2, 3, 0, 1);
     @ConstraintWeight(ONE_TIMEGRAIN_QUERELLANTE)
-    private HardMediumSoftScore oneTimeGrainQuerellante = HardMediumSoftScore.ofSoft(100);
+    private BendableScore oneTimeGrainQuerellante = BendableScore.ofHard(2, 3, 0, 1);
     @ConstraintWeight(ONE_TIMEGRAIN_ASESOR)
-    private HardMediumSoftScore oneTimeGrainAsesor = HardMediumSoftScore.ofSoft(100);
-    @ConstraintWeight(PROBLEMATIC_HEARINGS_FOR_LAST_ROOM)
-    private HardMediumSoftScore problematicHearingsForLastRoom = HardMediumSoftScore.ofSoft(200);
+    private BendableScore oneTimeGrainAsesor = BendableScore.ofHard(2, 3, 0, 1);
+    @ConstraintWeight(TIME_FOR_EXTERNAL_DEFENSOR)
+    private BendableScore timeExternalDefensor = BendableScore.ofHard(2, 3, 0, 1);
+    @ConstraintWeight(DONT_START_AFTER_MAXIMUM_STARTING_MINUTE)
+    private BendableScore dontStartAfterMaximumStartingMinute = BendableScore.ofHard(2, 3, 0, 1);
+
+
+    /* LEGAL */
+    @ConstraintWeight(RESPECT_MINIMUM_STARTING_TIME)
+    private BendableScore respectMinimumStartingTime = BendableScore.ofHard(2, 3, 1, 1);
+    @ConstraintWeight(RESPECT_MAXIMUM_STARTING_TIME)
+    private BendableScore respectMaximumStartingTime = BendableScore.ofHard(2, 3, 1, 1);
+    @ConstraintWeight(DONT_CONFLICT_JUEZ_AND_TIMEGRAIN)
+    private BendableScore dontConflictJuezAndTimeGrain = BendableScore.ofHard(2, 3, 1, 1);
+    @ConstraintWeight(APPEALS_IN_AFTERNOON)
+    private BendableScore appealsInAfternoon = BendableScore.ofHard(2, 3, 1, 1);
+    @ConstraintWeight(HEARINGS_IN_BOULOGNE)
+    private BendableScore hearingsInBoulogne = BendableScore.ofHard(2, 3, 1, 1);
+    @ConstraintWeight(HEARINGS_IN_ALMA_FUERTE)
+    private BendableScore hearingsInAlmaFuerte = BendableScore.ofHard(2, 3, 1, 1);
+    @ConstraintWeight(HEARTINGS_NOT_EJEC)
+    private BendableScore hearingsNotEjec = BendableScore.ofHard(2, 3, 1, 1);
+
+
+    /* OGAP */
     @ConstraintWeight(PRIORITIZE_DETAINEES)
-    private HardMediumSoftScore prioritizeDetainees = HardMediumSoftScore.ofSoft(10);
+    private BendableScore prioritizeDetainees = BendableScore.ofSoft(2, 3, 0, 2);
+    @ConstraintWeight(PROBLEMATIC_HEARINGS_FOR_LAST_ROOM)
+    private BendableScore problematicHearingsForLastRoom = BendableScore.ofSoft(2, 3, 0, 2);
     @ConstraintWeight(PROBLEMATIC_HEARINGS_FOR_LAST_JUEZ)
-    private HardMediumSoftScore problematicHearingsForLastJuez = HardMediumSoftScore.ofSoft(200);
+    private BendableScore problematicHearingsForLastJuez = BendableScore.ofSoft(2, 3, 0, 2);
     @ConstraintWeight(PROBLEMATIC_HEARINGS_FOR_LAST_FISCAL)
-    private HardMediumSoftScore problematicHearingsForLastFiscal = HardMediumSoftScore.ofSoft(200);
+    private BendableScore problematicHearingsForLastFiscal = BendableScore.ofSoft(2, 3, 0, 2);
     @ConstraintWeight(PROBLEMATIC_HEARINGS_FOR_LAST_ASESOR)
-    private HardMediumSoftScore problematicHearingsForLastAsesor = HardMediumSoftScore.ofSoft(200);
+    private BendableScore problematicHearingsForLastAsesor = BendableScore.ofSoft(2, 3, 0, 2);
     @ConstraintWeight(MAXIMUM_WORK_TIME_JUEZ)
-    private HardMediumSoftScore maximumWorkTimeJuez = HardMediumSoftScore.ofSoft(100);
+    private BendableScore maximumWorkTimeJuez = BendableScore.ofSoft(2, 3, 0, 1);
+
+    /* MAGISTRADOS */
+
+
+    /* SOFT */
+    @ConstraintWeight(DO_ALL_MEETINGS_AS_SOON_AS_POSSIBLE)
+    private BendableScore doAllMeetingsAsSoonAsPossible = BendableScore.ofSoft(2, 3, 2, 1);
+
+
 
     /* Constructor */
 
@@ -201,268 +211,283 @@ public class AudienciaScheduleConstraintConfiguration {
     }
 
     /* Setters y Getters */
+
     @XmlJavaTypeAdapter(value = ScoreAdapter.class)
-    public HardMediumSoftScore getRoomConflict() {
+    public BendableScore getRoomConflict() {
         return roomConflict;
     }
 
-    public void setRoomConflict(HardMediumSoftScore roomConflict) {
+    public void setRoomConflict(BendableScore roomConflict) {
         this.roomConflict = roomConflict;
     }
 
     @XmlJavaTypeAdapter(value = ScoreAdapter.class)
-    public HardMediumSoftScore getOneTimeGrainBreakBetweenTwoConsecutiveMeetings() {
-        return oneTimeGrainBreakBetweenTwoConsecutiveMeetings;
+    public BendableScore getContGoInOvertime() {
+        return contGoInOvertime;
     }
 
-    public void setOneTimeGrainBreakBetweenTwoConsecutiveMeetings(HardMediumSoftScore oneTimeGrainBreakBetweenTwoConsecutiveMeetings) {
-        this.oneTimeGrainBreakBetweenTwoConsecutiveMeetings = oneTimeGrainBreakBetweenTwoConsecutiveMeetings;
-    }
-
-    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
-    public HardMediumSoftScore getDontGoInOvertime() {
-        return dontGoInOvertime;
-    }
-
-    public void setDontGoInOvertime(HardMediumSoftScore dontGoInOvertime) {
-        this.dontGoInOvertime = dontGoInOvertime;
+    public void setContGoInOvertime(BendableScore contGoInOvertime) {
+        this.contGoInOvertime = contGoInOvertime;
     }
 
     @XmlJavaTypeAdapter(value = ScoreAdapter.class)
-    public HardMediumSoftScore getStartAndEndOnSameDay() {
+    public BendableScore getStartAndEndOnSameDay() {
         return startAndEndOnSameDay;
     }
 
-    public void setStartAndEndOnSameDay(HardMediumSoftScore startAndEndOnSameDay) {
+    public void setStartAndEndOnSameDay(BendableScore startAndEndOnSameDay) {
         this.startAndEndOnSameDay = startAndEndOnSameDay;
     }
 
     @XmlJavaTypeAdapter(value = ScoreAdapter.class)
-    public HardMediumSoftScore getDoAllMeetingsAsSoonAsPossible() {
-        return doAllMeetingsAsSoonAsPossible;
-    }
-
-    public void setDoAllMeetingsAsSoonAsPossible(HardMediumSoftScore doAllMeetingsAsSoonAsPossible) {
-        this.doAllMeetingsAsSoonAsPossible = doAllMeetingsAsSoonAsPossible;
-    }
-
-    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
-    public HardMediumSoftScore getDontConflictJuez() {
+    public BendableScore getDontConflictJuez() {
         return dontConflictJuez;
     }
 
-    public void setDontConflictJuez(HardMediumSoftScore dontConflictJuez) {
+    public void setDontConflictJuez(BendableScore dontConflictJuez) {
         this.dontConflictJuez = dontConflictJuez;
     }
 
     @XmlJavaTypeAdapter(value = ScoreAdapter.class)
-    public HardMediumSoftScore getDontConflictRoomTime() {
-        return dontConflictRoomTime;
-    }
-
-    public void setDontConflictRoomTime(HardMediumSoftScore dontConflictRoomTime) {
-        this.dontConflictRoomTime = dontConflictRoomTime;
-    }
-
-    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
-    public HardMediumSoftScore getDontConflictFiscal() {
+    public BendableScore getDontConflictFiscal() {
         return dontConflictFiscal;
     }
 
-    public void setDontConflictFiscal(HardMediumSoftScore dontConflictFiscal) {
+    public void setDontConflictFiscal(BendableScore dontConflictFiscal) {
         this.dontConflictFiscal = dontConflictFiscal;
     }
 
     @XmlJavaTypeAdapter(value = ScoreAdapter.class)
-    public HardMediumSoftScore getDontConflictDefensor() {
+    public BendableScore getDontConflictDefensor() {
         return dontConflictDefensor;
     }
 
-    public void setDontConflictDefensor(HardMediumSoftScore dontConflictDefensor) {
+    public void setDontConflictDefensor(BendableScore dontConflictDefensor) {
         this.dontConflictDefensor = dontConflictDefensor;
     }
 
-
     @XmlJavaTypeAdapter(value = ScoreAdapter.class)
-    public HardMediumSoftScore getRespectMinimumStartingTime() {
-        return respectMinimumStartingTime;
+    public BendableScore getDontConflictQuerellante() {
+        return dontConflictQuerellante;
     }
 
-    public void setRespectMinimumStartingTime(HardMediumSoftScore respectMinimumStartingTime) {
-        this.respectMinimumStartingTime = respectMinimumStartingTime;
-    }
-
-    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
-    public HardMediumSoftScore getRespectMaximumStartingTime() {
-        return respectMaximumStartingTime;
-    }
-
-    public void setRespectMaximumStartingTime(HardMediumSoftScore respectMaximumStartingTime) {
-        this.respectMaximumStartingTime = respectMaximumStartingTime;
+    public void setDontConflictQuerellante(BendableScore dontConflictQuerellante) {
+        this.dontConflictQuerellante = dontConflictQuerellante;
     }
 
     @XmlJavaTypeAdapter(value = ScoreAdapter.class)
-    public HardMediumSoftScore getOneTimeGrainJuez() {
+    public BendableScore getDontConflictAsesor() {
+        return dontConflictAsesor;
+    }
+
+    public void setDontConflictAsesor(BendableScore dontConflictAsesor) {
+        this.dontConflictAsesor = dontConflictAsesor;
+    }
+
+    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
+    public BendableScore getDontConflictRoomTime() {
+        return dontConflictRoomTime;
+    }
+
+    public void setDontConflictRoomTime(BendableScore dontConflictRoomTime) {
+        this.dontConflictRoomTime = dontConflictRoomTime;
+    }
+
+    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
+    public BendableScore getOneTimeGrainBreakBetweenTwoConsecutiveMeetings() {
+        return oneTimeGrainBreakBetweenTwoConsecutiveMeetings;
+    }
+
+    public void setOneTimeGrainBreakBetweenTwoConsecutiveMeetings(BendableScore oneTimeGrainBreakBetweenTwoConsecutiveMeetings) {
+        this.oneTimeGrainBreakBetweenTwoConsecutiveMeetings = oneTimeGrainBreakBetweenTwoConsecutiveMeetings;
+    }
+
+    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
+    public BendableScore getOneTimeGrainJuez() {
         return oneTimeGrainJuez;
     }
 
-    public void setOneTimeGrainJuez(HardMediumSoftScore oneTimeGrainJuez) {
+    public void setOneTimeGrainJuez(BendableScore oneTimeGrainJuez) {
         this.oneTimeGrainJuez = oneTimeGrainJuez;
     }
 
     @XmlJavaTypeAdapter(value = ScoreAdapter.class)
-    public HardMediumSoftScore getOneTimeGrainDefensor() {
+    public BendableScore getOneTimeGrainDefensor() {
         return oneTimeGrainDefensor;
     }
 
-    public void setOneTimeGrainDefensor(HardMediumSoftScore oneTimeGrainDefensor) {
+    public void setOneTimeGrainDefensor(BendableScore oneTimeGrainDefensor) {
         this.oneTimeGrainDefensor = oneTimeGrainDefensor;
     }
 
     @XmlJavaTypeAdapter(value = ScoreAdapter.class)
-    public HardMediumSoftScore getOneTimeGrainFiscal() {
+    public BendableScore getOneTimeGrainFiscal() {
         return oneTimeGrainFiscal;
     }
 
-    public void setOneTimeGrainFiscal(HardMediumSoftScore oneTimeGrainFiscal) {
+    public void setOneTimeGrainFiscal(BendableScore oneTimeGrainFiscal) {
         this.oneTimeGrainFiscal = oneTimeGrainFiscal;
     }
 
     @XmlJavaTypeAdapter(value = ScoreAdapter.class)
-    public HardMediumSoftScore getDontConflictJuezAndTimeGrain() {
+    public BendableScore getOneTimeGrainQuerellante() {
+        return oneTimeGrainQuerellante;
+    }
+
+    public void setOneTimeGrainQuerellante(BendableScore oneTimeGrainQuerellante) {
+        this.oneTimeGrainQuerellante = oneTimeGrainQuerellante;
+    }
+
+    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
+    public BendableScore getOneTimeGrainAsesor() {
+        return oneTimeGrainAsesor;
+    }
+
+    public void setOneTimeGrainAsesor(BendableScore oneTimeGrainAsesor) {
+        this.oneTimeGrainAsesor = oneTimeGrainAsesor;
+    }
+
+    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
+    public BendableScore getTimeExternalDefensor() {
+        return timeExternalDefensor;
+    }
+
+    public void setTimeExternalDefensor(BendableScore timeExternalDefensor) {
+        this.timeExternalDefensor = timeExternalDefensor;
+    }
+
+    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
+    public BendableScore getDontStartAfterMaximumStartingMinute() {
+        return dontStartAfterMaximumStartingMinute;
+    }
+
+    public void setDontStartAfterMaximumStartingMinute(BendableScore dontStartAfterMaximumStartingMinute) {
+        this.dontStartAfterMaximumStartingMinute = dontStartAfterMaximumStartingMinute;
+    }
+
+    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
+    public BendableScore getRespectMinimumStartingTime() {
+        return respectMinimumStartingTime;
+    }
+
+    public void setRespectMinimumStartingTime(BendableScore respectMinimumStartingTime) {
+        this.respectMinimumStartingTime = respectMinimumStartingTime;
+    }
+
+    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
+    public BendableScore getRespectMaximumStartingTime() {
+        return respectMaximumStartingTime;
+    }
+
+    public void setRespectMaximumStartingTime(BendableScore respectMaximumStartingTime) {
+        this.respectMaximumStartingTime = respectMaximumStartingTime;
+    }
+
+    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
+    public BendableScore getDontConflictJuezAndTimeGrain() {
         return dontConflictJuezAndTimeGrain;
     }
 
-    public void setDontConflictJuezAndTimeGrain(HardMediumSoftScore dontConflictJuezAndTimeGrain) {
+    public void setDontConflictJuezAndTimeGrain(BendableScore dontConflictJuezAndTimeGrain) {
         this.dontConflictJuezAndTimeGrain = dontConflictJuezAndTimeGrain;
     }
 
     @XmlJavaTypeAdapter(value = ScoreAdapter.class)
-    public HardMediumSoftScore getDontStartAfterMaximumStartingMinute() {
-        return dontStartAfterMaximumStartingMinute;
-    }
-
-    public void setDontStartAfterMaximumStartingMinute(HardMediumSoftScore dontStartAfterMaximumStartingMinute) {
-        this.dontStartAfterMaximumStartingMinute = dontStartAfterMaximumStartingMinute;
-    }
-
-    public HardMediumSoftScore getDontConflictQuerellante() {
-        return dontConflictQuerellante;
-    }
-
-    public void setDontConflictQuerellante(HardMediumSoftScore dontConflictQuerellante) {
-        this.dontConflictQuerellante = dontConflictQuerellante;
-    }
-
-    public HardMediumSoftScore getDontConflictAsesor() {
-        return dontConflictAsesor;
-    }
-
-    public void setDontConflictAsesor(HardMediumSoftScore dontConflictAsesor) {
-        this.dontConflictAsesor = dontConflictAsesor;
-    }
-
-    public HardMediumSoftScore getOneTimeGrainQuerellante() {
-        return oneTimeGrainQuerellante;
-    }
-
-    public void setOneTimeGrainQuerellante(HardMediumSoftScore oneTimeGrainQuerellante) {
-        this.oneTimeGrainQuerellante = oneTimeGrainQuerellante;
-    }
-
-    public HardMediumSoftScore getOneTimeGrainAsesor() {
-        return oneTimeGrainAsesor;
-    }
-
-    public void setOneTimeGrainAsesor(HardMediumSoftScore oneTimeGrainAsesor) {
-        this.oneTimeGrainAsesor = oneTimeGrainAsesor;
-    }
-
-    public HardMediumSoftScore getAppealsInAfternoon() {
+    public BendableScore getAppealsInAfternoon() {
         return appealsInAfternoon;
     }
 
-    public void setAppealsInAfternoon(HardMediumSoftScore appealsInAfternoon) {
+    public void setAppealsInAfternoon(BendableScore appealsInAfternoon) {
         this.appealsInAfternoon = appealsInAfternoon;
     }
 
-    public HardMediumSoftScore getProblematicHearingsForLastRoom() {
-        return problematicHearingsForLastRoom;
-    }
-
-    public void setProblematicHearingsForLastRoom(HardMediumSoftScore problematicHearingsForLastRoom) {
-        this.problematicHearingsForLastRoom = problematicHearingsForLastRoom;
-    }
-
-    public HardMediumSoftScore getPrioritizeDetainees() {
-        return prioritizeDetainees;
-    }
-
-    public void setPrioritizeDetainees(HardMediumSoftScore prioritizeDetainees) {
-        this.prioritizeDetainees = prioritizeDetainees;
-    }
-
-    public HardMediumSoftScore getProblematicHearingsForLastJuez() {
-        return problematicHearingsForLastJuez;
-    }
-
-    public void setProblematicHearingsForLastJuez(HardMediumSoftScore problematicHearingsForLastJuez) {
-        this.problematicHearingsForLastJuez = problematicHearingsForLastJuez;
-    }
-
-    public HardMediumSoftScore getProblematicHearingsForLastFiscal() {
-        return problematicHearingsForLastFiscal;
-    }
-
-    public void setProblematicHearingsForLastFiscal(HardMediumSoftScore problematicHearingsForLastFiscal) {
-        this.problematicHearingsForLastFiscal = problematicHearingsForLastFiscal;
-    }
-
-    public HardMediumSoftScore getProblematicHearingsForLastAsesor() {
-        return problematicHearingsForLastAsesor;
-    }
-
-    public void setProblematicHearingsForLastAsesor(HardMediumSoftScore problematicHearingsForLastAsesor) {
-        this.problematicHearingsForLastAsesor = problematicHearingsForLastAsesor;
-    }
-
-    public HardMediumSoftScore getTimeExternalDefensor() {
-        return timeExternalDefensor;
-    }
-
-    public void setTimeExternalDefensor(HardMediumSoftScore timeExternalDefensor) {
-        this.timeExternalDefensor = timeExternalDefensor;
-    }
-
-    public HardMediumSoftScore getHearingsInBoulogne() {
+    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
+    public BendableScore getHearingsInBoulogne() {
         return hearingsInBoulogne;
     }
 
-    public void setHearingsInBoulogne(HardMediumSoftScore hearingsInBoulogne) {
+    public void setHearingsInBoulogne(BendableScore hearingsInBoulogne) {
         this.hearingsInBoulogne = hearingsInBoulogne;
     }
 
-    public HardMediumSoftScore getHearingsInAlmaFuerte() {
+    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
+    public BendableScore getHearingsInAlmaFuerte() {
         return hearingsInAlmaFuerte;
     }
 
-    public void setHearingsInAlmaFuerte(HardMediumSoftScore hearingsInAlmaFuerte) {
+    public void setHearingsInAlmaFuerte(BendableScore hearingsInAlmaFuerte) {
         this.hearingsInAlmaFuerte = hearingsInAlmaFuerte;
     }
 
-    public HardMediumSoftScore getHearingsNotEjec() {
+    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
+    public BendableScore getHearingsNotEjec() {
         return hearingsNotEjec;
     }
 
-    public void setHearingsNotEjec(HardMediumSoftScore hearingsNotEjec) {
+    public void setHearingsNotEjec(BendableScore hearingsNotEjec) {
         this.hearingsNotEjec = hearingsNotEjec;
     }
 
-    public HardMediumSoftScore getMaximumWorkTimeJuez() {
+    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
+    public BendableScore getPrioritizeDetainees() {
+        return prioritizeDetainees;
+    }
+
+    public void setPrioritizeDetainees(BendableScore prioritizeDetainees) {
+        this.prioritizeDetainees = prioritizeDetainees;
+    }
+
+    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
+    public BendableScore getProblematicHearingsForLastRoom() {
+        return problematicHearingsForLastRoom;
+    }
+
+    public void setProblematicHearingsForLastRoom(BendableScore problematicHearingsForLastRoom) {
+        this.problematicHearingsForLastRoom = problematicHearingsForLastRoom;
+    }
+
+    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
+    public BendableScore getProblematicHearingsForLastJuez() {
+        return problematicHearingsForLastJuez;
+    }
+
+    public void setProblematicHearingsForLastJuez(BendableScore problematicHearingsForLastJuez) {
+        this.problematicHearingsForLastJuez = problematicHearingsForLastJuez;
+    }
+
+    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
+    public BendableScore getProblematicHearingsForLastFiscal() {
+        return problematicHearingsForLastFiscal;
+    }
+
+    public void setProblematicHearingsForLastFiscal(BendableScore problematicHearingsForLastFiscal) {
+        this.problematicHearingsForLastFiscal = problematicHearingsForLastFiscal;
+    }
+
+    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
+    public BendableScore getProblematicHearingsForLastAsesor() {
+        return problematicHearingsForLastAsesor;
+    }
+
+    public void setProblematicHearingsForLastAsesor(BendableScore problematicHearingsForLastAsesor) {
+        this.problematicHearingsForLastAsesor = problematicHearingsForLastAsesor;
+    }
+
+    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
+    public BendableScore getMaximumWorkTimeJuez() {
         return maximumWorkTimeJuez;
     }
 
-    public void setMaximumWorkTimeJuez(HardMediumSoftScore maximumWorkTimeJuez) {
+    public void setMaximumWorkTimeJuez(BendableScore maximumWorkTimeJuez) {
         this.maximumWorkTimeJuez = maximumWorkTimeJuez;
+    }
+
+    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
+    public BendableScore getDoAllMeetingsAsSoonAsPossible() {
+        return doAllMeetingsAsSoonAsPossible;
+    }
+
+    public void setDoAllMeetingsAsSoonAsPossible(BendableScore doAllMeetingsAsSoonAsPossible) {
+        this.doAllMeetingsAsSoonAsPossible = doAllMeetingsAsSoonAsPossible;
     }
 }

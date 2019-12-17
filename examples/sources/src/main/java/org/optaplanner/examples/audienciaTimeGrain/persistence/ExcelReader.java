@@ -566,6 +566,13 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                     String[] splitString = horaMinutosRead.split(":");
                     int horaRead = Integer.parseInt(splitString[0]);
                     int minutosRead = Integer.parseInt(splitString[1]);
+                    if (String.valueOf(minutosRead).endsWith("5")){
+                        minutosRead += 5;
+                        if(minutosRead == 60){
+                            minutosRead = 0;
+                            horaRead += 1;
+                        }
+                    }
                     int startingMinute = horaRead * 60 + minutosRead;
                     containsSala(solution.getRoomList(), salaRead, audienciaAssignment);
 
@@ -577,6 +584,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                             break;
                         }
                     }
+
 
                     Day dayToUse = null;
                     for (Day day : solution.getDayList()){
@@ -903,6 +911,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                     AudienciaScheduleConstraintConfiguration.PROBLEMATIC_HEARINGS_FOR_LAST_ASESOR,
                     AudienciaScheduleConstraintConfiguration.PRIORITIZE_DETAINEES,
                     AudienciaScheduleConstraintConfiguration.MAXIMUM_WORK_TIME_JUEZ,
+                    AudienciaScheduleConstraintConfiguration.GROUP_JUEZ_TIPO,
 //                    AudienciaScheduleConstraintConfiguration.DISTRIBUTE_WORKLOAD_FAIRLY,
             };
             int mergeStart = -1;

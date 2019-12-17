@@ -325,5 +325,18 @@ rule "Maximum work time Juez"
         scoreHolder.penalize(kcontext, (int)$horas - 72);
 end
 
+rule "Group Juez Tipo"
+    when
+        $left : AudienciaAssignment(pinned == false, $id : id, startingTimeGrain != null, room != null, $room : room,
+                $leftday : startingTimeGrain.day, $audiencia : audiencia,
+                $leftGrain : startingTimeGrain.grainIndex)
+//        $maxRightGrain : Number() from accumulate( AudienciaAssignment(id != $id, startingTimeGrain != null,
+//                room != null, room == $room, startingTimeGrain.day == $leftday, $rightGrain : startingTimeGrain.grainIndex,
+//                startingTimeGrain.grainIndex < $leftGrain,$rightPedido : fechaPedido), max($rightGrain))
+//        $right : AudienciaAssignment(room == $room, startingTimeGrain == $maxRightGrain, $rightEndingGrain : lastTimeGrainIndex, !isSameCategory($left))
+    then
+        scoreHolder.penalize(kcontext);
+end
+
 
 

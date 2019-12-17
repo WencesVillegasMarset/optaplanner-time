@@ -223,7 +223,14 @@ public class AudienciaAssignment {
 
     }
 
-
+    public boolean isSameCategory(AudienciaAssignment assignment){
+        if (this.getAudiencia().getJuezList().stream().anyMatch(a -> assignment.audiencia.getJuezList().contains(a))){
+            if (this.getAudiencia().getTipo().equals(assignment.getAudiencia().getTipo())){
+                return true;
+            }
+        }
+        return false;
+    }
 
 
 }

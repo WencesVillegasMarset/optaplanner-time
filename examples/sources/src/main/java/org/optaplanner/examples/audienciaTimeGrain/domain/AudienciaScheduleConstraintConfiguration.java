@@ -128,6 +128,9 @@ public class AudienciaScheduleConstraintConfiguration {
     //SOFT - Jueces can't work for more than 6 hours a day (72 timegrains)
     public static final String MAXIMUM_WORK_TIME_JUEZ = "Maximum work time Juez";
 
+    //OGAP - Group Audiencias by Tipo and Juez
+    public static final String GROUP_JUEZ_TIPO = "Group Juez Tipo";
+
     /* SCHEDULING */
     @ConstraintWeight(ROOM_CONFLICT)
     private BendableScore roomConflict = BendableScore.ofHard(2, 3, 0, 1);
@@ -195,6 +198,8 @@ public class AudienciaScheduleConstraintConfiguration {
     private BendableScore problematicHearingsForLastAsesor = BendableScore.ofSoft(2, 3, 0, 2);
     @ConstraintWeight(MAXIMUM_WORK_TIME_JUEZ)
     private BendableScore maximumWorkTimeJuez = BendableScore.ofSoft(2, 3, 0, 1);
+    @ConstraintWeight(GROUP_JUEZ_TIPO)
+    private BendableScore groupJuezTipo = BendableScore.ofSoft(2, 3, 0, 1);
 
     /* MAGISTRADOS */
 
@@ -489,5 +494,14 @@ public class AudienciaScheduleConstraintConfiguration {
 
     public void setDoAllMeetingsAsSoonAsPossible(BendableScore doAllMeetingsAsSoonAsPossible) {
         this.doAllMeetingsAsSoonAsPossible = doAllMeetingsAsSoonAsPossible;
+    }
+
+    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
+    public BendableScore getGroupJuezTipo() {
+        return groupJuezTipo;
+    }
+
+    public void setGroupJuezTipo(BendableScore groupJuezTipo) {
+        this.groupJuezTipo = groupJuezTipo;
     }
 }

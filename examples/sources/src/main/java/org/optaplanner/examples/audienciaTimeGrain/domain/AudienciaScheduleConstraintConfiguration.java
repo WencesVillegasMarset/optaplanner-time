@@ -115,6 +115,18 @@ public class AudienciaScheduleConstraintConfiguration {
     //SOFT - Defensor that is working in other location needs time to commute
     public static final String TIME_FOR_EXTERNAL_DEFENSOR = "Time for External Defensor";
 
+    //HARD - Audiencias de Boulogne Sur Mer
+    public static final String HEARINGS_IN_BOULOGNE = "Rooms in Boulogne";
+
+    //HARD - Audiencias de Alma Fuerte
+    public static final String HEARINGS_IN_ALMA_FUERTE = "Rooms in Alma Fuerte";
+
+    //HARD - Audiencias que no son de Boulogne o Alma Fuerte no se calendarizan en sus salas
+    public static final String HEARTINGS_NOT_EJEC = "Rooms not in Boulogne or Alma Fuerte";
+
+    //SOFT - Jueces can't work for more than 6 hours a day (72 timegrains)
+    public static final String MAXIMUM_WORK_TIME_JUEZ = "Maximum work time Juez";
+
     /* Hard Constraints */
     @ConstraintWeight(ROOM_CONFLICT)
     private HardMediumSoftScore roomConflict = HardMediumSoftScore.ofHard(1);
@@ -130,20 +142,10 @@ public class AudienciaScheduleConstraintConfiguration {
     private HardMediumSoftScore dontConflictFiscal = HardMediumSoftScore.ofHard(1);
     @ConstraintWeight(DO_NOT_CONFLICT_DEFENSOR)
     private HardMediumSoftScore dontConflictDefensor = HardMediumSoftScore.ofHard(1);
-//    @ConstraintWeight(DO_NOT_USE_BREAKS)
-//    private HardMediumSoftScore dontUseBreaks = HardMediumSoftScore.ofHard(1);
-//    @ConstraintWeight(RESPECT_LOCATIONS)
-//    private HardMediumSoftScore respectLocations = HardMediumSoftScore.ofHard(1);
     @ConstraintWeight(RESPECT_MINIMUM_STARTING_TIME)
     private HardMediumSoftScore respectMinimumStartingTime = HardMediumSoftScore.ofHard(1);
     @ConstraintWeight(RESPECT_MAXIMUM_STARTING_TIME)
     private HardMediumSoftScore respectMaximumStartingTime = HardMediumSoftScore.ofHard(1);
-//    @ConstraintWeight(DONT_CONFLICT_JUEZ_LOCATION)
-//    private HardMediumSoftScore dontConflictJuezLocation = HardMediumSoftScore.ofHard(1);
-//    @ConstraintWeight(DONT_CONFLICT_DEFENSOR_LOCATION)
-//    private HardMediumSoftScore dontConflictDefensorLocation = HardMediumSoftScore.ofHard(1);
-//    @ConstraintWeight(DONT_CONFLICT_FISCAL_LOCATION)
-//    private HardMediumSoftScore dontConflictFiscalLocation = HardMediumSoftScore.ofHard(1);
     @ConstraintWeight(DONT_START_AFTER_MAXIMUM_STARTING_MINUTE)
     private HardMediumSoftScore dontStartAfterMaximumStartingMinute = HardMediumSoftScore.ofHard(1);
     @ConstraintWeight(DONT_CONFLICT_JUEZ_AND_TIMEGRAIN)
@@ -156,6 +158,12 @@ public class AudienciaScheduleConstraintConfiguration {
     private HardMediumSoftScore appealsInAfternoon = HardMediumSoftScore.ofHard(1);
     @ConstraintWeight(TIME_FOR_EXTERNAL_DEFENSOR)
     private HardMediumSoftScore timeExternalDefensor = HardMediumSoftScore.ofHard(1);
+    @ConstraintWeight(HEARINGS_IN_BOULOGNE)
+    private HardMediumSoftScore hearingsInBoulogne = HardMediumSoftScore.ofHard(1);
+    @ConstraintWeight(HEARINGS_IN_ALMA_FUERTE)
+    private HardMediumSoftScore hearingsInAlmaFuerte = HardMediumSoftScore.ofHard(1);
+    @ConstraintWeight(HEARTINGS_NOT_EJEC)
+    private HardMediumSoftScore hearingsNotEjec = HardMediumSoftScore.ofHard(1);
 
 
     /* Soft Constraints */
@@ -164,8 +172,6 @@ public class AudienciaScheduleConstraintConfiguration {
     private HardMediumSoftScore oneTimeGrainBreakBetweenTwoConsecutiveMeetings = HardMediumSoftScore.ofSoft(100);
     @ConstraintWeight(DO_ALL_MEETINGS_AS_SOON_AS_POSSIBLE)
     private HardMediumSoftScore doAllMeetingsAsSoonAsPossible = HardMediumSoftScore.ofSoft(1);
-//    @ConstraintWeight(DISTRIBUTE_WORKLOAD_FAIRLY)
-//    private HardMediumSoftScore distributeWorkloadFairly = HardMediumSoftScore.ofSoft(1);
     @ConstraintWeight(ONE_TIMEGRAIN_JUEZ)
     private HardMediumSoftScore oneTimeGrainJuez = HardMediumSoftScore.ofSoft(100);
     @ConstraintWeight(ONE_TIMEGRAIN_DEFENSOR)
@@ -186,6 +192,8 @@ public class AudienciaScheduleConstraintConfiguration {
     private HardMediumSoftScore problematicHearingsForLastFiscal = HardMediumSoftScore.ofSoft(200);
     @ConstraintWeight(PROBLEMATIC_HEARINGS_FOR_LAST_ASESOR)
     private HardMediumSoftScore problematicHearingsForLastAsesor = HardMediumSoftScore.ofSoft(200);
+    @ConstraintWeight(MAXIMUM_WORK_TIME_JUEZ)
+    private HardMediumSoftScore maximumWorkTimeJuez = HardMediumSoftScore.ofSoft(100);
 
     /* Constructor */
 
@@ -274,29 +282,6 @@ public class AudienciaScheduleConstraintConfiguration {
         this.dontConflictDefensor = dontConflictDefensor;
     }
 
-//    public HardMediumSoftScore getDontUseBreaks() {
-//        return dontUseBreaks;
-//    }
-//
-//    public void setDontUseBreaks(HardMediumSoftScore dontUseBreaks) {
-//        this.dontUseBreaks = dontUseBreaks;
-//    }
-//
-//    public HardMediumSoftScore getDistributeWorkloadFairly() {
-//        return distributeWorkloadFairly;
-//    }
-//
-//    public void setDistributeWorkloadFairly(HardMediumSoftScore distributeWorkloadFairly) {
-//        this.distributeWorkloadFairly = distributeWorkloadFairly;
-//    }
-//
-//    public HardMediumSoftScore getRespectLocations() {
-//        return respectLocations;
-//    }
-//
-//    public void setRespectLocations(HardMediumSoftScore respectLocations) {
-//        this.respectLocations = respectLocations;
-//    }
 
     @XmlJavaTypeAdapter(value = ScoreAdapter.class)
     public HardMediumSoftScore getRespectMinimumStartingTime() {
@@ -342,30 +327,6 @@ public class AudienciaScheduleConstraintConfiguration {
     public void setOneTimeGrainFiscal(HardMediumSoftScore oneTimeGrainFiscal) {
         this.oneTimeGrainFiscal = oneTimeGrainFiscal;
     }
-
-//    public HardMediumSoftScore getDontConflictJuezLocation() {
-//        return dontConflictJuezLocation;
-//    }
-//
-//    public void setDontConflictJuezLocation(HardMediumSoftScore dontConflictJuezLocation) {
-//        this.dontConflictJuezLocation = dontConflictJuezLocation;
-//    }
-//
-//    public HardMediumSoftScore getDontConflictDefensorLocation() {
-//        return dontConflictDefensorLocation;
-//    }
-//
-//    public void setDontConflictDefensorLocation(HardMediumSoftScore dontConflictDefensorLocation) {
-//        this.dontConflictDefensorLocation = dontConflictDefensorLocation;
-//    }
-//
-//    public HardMediumSoftScore getDontConflictFiscalLocation() {
-//        return dontConflictFiscalLocation;
-//    }
-//
-//    public void setDontConflictFiscalLocation(HardMediumSoftScore dontConflictFiscalLocation) {
-//        this.dontConflictFiscalLocation = dontConflictFiscalLocation;
-//    }
 
     @XmlJavaTypeAdapter(value = ScoreAdapter.class)
     public HardMediumSoftScore getDontConflictJuezAndTimeGrain() {
@@ -471,5 +432,37 @@ public class AudienciaScheduleConstraintConfiguration {
 
     public void setTimeExternalDefensor(HardMediumSoftScore timeExternalDefensor) {
         this.timeExternalDefensor = timeExternalDefensor;
+    }
+
+    public HardMediumSoftScore getHearingsInBoulogne() {
+        return hearingsInBoulogne;
+    }
+
+    public void setHearingsInBoulogne(HardMediumSoftScore hearingsInBoulogne) {
+        this.hearingsInBoulogne = hearingsInBoulogne;
+    }
+
+    public HardMediumSoftScore getHearingsInAlmaFuerte() {
+        return hearingsInAlmaFuerte;
+    }
+
+    public void setHearingsInAlmaFuerte(HardMediumSoftScore hearingsInAlmaFuerte) {
+        this.hearingsInAlmaFuerte = hearingsInAlmaFuerte;
+    }
+
+    public HardMediumSoftScore getHearingsNotEjec() {
+        return hearingsNotEjec;
+    }
+
+    public void setHearingsNotEjec(HardMediumSoftScore hearingsNotEjec) {
+        this.hearingsNotEjec = hearingsNotEjec;
+    }
+
+    public HardMediumSoftScore getMaximumWorkTimeJuez() {
+        return maximumWorkTimeJuez;
+    }
+
+    public void setMaximumWorkTimeJuez(HardMediumSoftScore maximumWorkTimeJuez) {
+        this.maximumWorkTimeJuez = maximumWorkTimeJuez;
     }
 }

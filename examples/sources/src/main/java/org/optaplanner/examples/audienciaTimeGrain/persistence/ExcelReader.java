@@ -559,7 +559,6 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
 
                 XSSFCell sala = nextCell();
                 if(sala.getCellTypeEnum() == CellType.NUMERIC){
-                    audienciaAssignment.setScorable(false);
                     int salaRead = (int)sala.getNumericCellValue();
                     LocalDate fechaCalendarizado = nextCell().getDateCellValue().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                     String horaMinutosRead = nextStringCell().getStringCellValue();
@@ -568,6 +567,16 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                     int minutosRead = Integer.parseInt(splitString[1]);
                     int startingMinute = horaRead * 60 + minutosRead;
                     containsSala(solution.getRoomList(), salaRead, audienciaAssignment);
+
+                    int[] salasExternas = {484, 452, 875, 503, 504, 451, 458, 469, 521, 457, 497, 501, 454, 455, 502, 498, 456, 499, 500, };
+
+                    for (int i : salasExternas){
+                        if (audienciaAssignment.getRoom().getIdRoom() == i){
+                            audiencia.setExterna(true);
+                            break;
+                        }
+                    }
+
                     Day dayToUse = null;
                     for (Day day : solution.getDayList()){
                         if (day.toDate().isEqual(fechaCalendarizado)){
@@ -594,12 +603,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                         System.out.println("No hay timegrain para el horario " + horaMinutosRead);
                         continue;
                     }
-                } else {
-                    audienciaAssignment.setScorable(true);
                 }
-
-
-
 
                 audienciaList.add(audiencia);
                 audienciaAssignment.setAudiencia(audiencia);
@@ -881,6 +885,9 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                     AudienciaScheduleConstraintConfiguration.DO_NOT_CONFLICT_ASESOR,
                     AudienciaScheduleConstraintConfiguration.APPEALS_IN_AFTERNOON,
                     AudienciaScheduleConstraintConfiguration.TIME_FOR_EXTERNAL_DEFENSOR,
+                    AudienciaScheduleConstraintConfiguration.HEARINGS_IN_BOULOGNE,
+                    AudienciaScheduleConstraintConfiguration.HEARINGS_IN_ALMA_FUERTE,
+                    AudienciaScheduleConstraintConfiguration.HEARTINGS_NOT_EJEC,
 
                     AudienciaScheduleConstraintConfiguration.ONE_TIME_GRAIN_BREAK_BETWEEN_TWO_CONSECUTIVE_MEETINGS,
                     AudienciaScheduleConstraintConfiguration.ONE_TIMEGRAIN_JUEZ,
@@ -894,6 +901,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                     AudienciaScheduleConstraintConfiguration.PROBLEMATIC_HEARINGS_FOR_LAST_FISCAL,
                     AudienciaScheduleConstraintConfiguration.PROBLEMATIC_HEARINGS_FOR_LAST_ASESOR,
                     AudienciaScheduleConstraintConfiguration.PRIORITIZE_DETAINEES,
+                    AudienciaScheduleConstraintConfiguration.MAXIMUM_WORK_TIME_JUEZ,
 //                    AudienciaScheduleConstraintConfiguration.DISTRIBUTE_WORKLOAD_FAIRLY,
             };
             int mergeStart = -1;
@@ -949,17 +957,17 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                     .reduce(Score::add).orElse(HardMediumSoftScore.ZERO);
 
             boolean pinned = false;
-            boolean scorable = true;
+            boolean externa = false;
             for (AudienciaAssignment audienciaAssignment : audienciaAssignmentList){
                 if (audienciaAssignment.isPinned()){
                     pinned = true;
                 }
-                if (!audienciaAssignment.isScorable()){
-                    scorable = false;
+                if (audienciaAssignment.getAudiencia().isExterna()){
+                    externa = true;
                 }
             }
 
-            XSSFCell cell = getXSSFCellOfScore(score, pinned, scorable);
+            XSSFCell cell = getXSSFCellOfScore(score, pinned, externa);
 
             if (!audienciaAssignmentList.isEmpty()) {
                 ClientAnchor anchor = creationHelper.createClientAnchor();
@@ -976,9 +984,9 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             currentRow.setHeightInPoints(Math.max(currentRow.getHeightInPoints(), audienciaAssignmentList.size() * currentSheet.getDefaultRowHeightInPoints()));
         }
 
-        private XSSFCell getXSSFCellOfScore(HardMediumSoftScore score, boolean pinned, boolean scorable) {
+        private XSSFCell getXSSFCellOfScore(HardMediumSoftScore score, boolean pinned, boolean externa) {
             XSSFCell cell;
-            if (!scorable){
+            if (externa){
                 cell = nextCell(republishedStyle);
             } else if (pinned){
                 cell = nextCell(pinnedStyle);

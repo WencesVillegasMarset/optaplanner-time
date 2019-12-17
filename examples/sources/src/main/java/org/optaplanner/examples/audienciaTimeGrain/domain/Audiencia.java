@@ -227,4 +227,8 @@ public class Audiencia {
     public void setBoulogne(boolean boulogne) {
         this.boulogne = boulogne;
     }
+
+    public boolean containsJuez(int idJuez){
+        return juezList.stream().anyMatch(o -> o.getIdJuez() == idJuez);
+    }
 }

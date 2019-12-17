@@ -318,11 +318,11 @@ end
 
 rule "Maximum work time Juez"
     when
-        $juez : Juez()
-        $day : Day()
-        $horas : Number(intValue() > 10) from accumulate( AudienciaAssignment(pinned == false, $day.idDay == startingTimeGrain.day.idDay, audiencia.containsJuez($juez.idJuez), $timeGrains : audiencia.numTimeGrains), sum($timeGrains))
+        Juez($idJuez : idJuez)
+        Day($idDay : idDay)
+        $horas : Number(intValue() > 72) from accumulate( AudienciaAssignment(pinned == false, !audiencia.externa, startingTimeGrain != null, $idDay == startingTimeGrain.day.idDay, audiencia.containsJuez($idJuez), $timeGrains : audiencia.numTimeGrains), sum($timeGrains))
     then
-        scoreHolder.penalize(kcontext, (int)$horas - 10);
+        scoreHolder.penalize(kcontext, (int)$horas - 72);
 end
 
 

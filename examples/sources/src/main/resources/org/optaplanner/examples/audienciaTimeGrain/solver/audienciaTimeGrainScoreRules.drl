@@ -328,15 +328,41 @@ end
 rule "Group Juez Tipo"
     when
         $left : AudienciaAssignment(pinned == false, $id : id, startingTimeGrain != null, room != null, $room : room,
-                $leftday : startingTimeGrain.day, $audiencia : audiencia,
-                $leftGrain : startingTimeGrain.grainIndex)
-        $maxRightGrain : Number() from accumulate( AudienciaAssignment(id != $id, startingTimeGrain != null,
-                room != null, room == $room, startingTimeGrain.day == $leftday, $rightGrain : startingTimeGrain.grainIndex,
-                startingTimeGrain.grainIndex < $leftGrain,$rightPedido : fechaPedido), max($rightGrain))
-        $right : AudienciaAssignment(room == $room, startingTimeGrain == $maxRightGrain, $rightEndingGrain : lastTimeGrainIndex, !isSameCategory($left))
+                $leftday : startingTimeGrain.day, $leftDayId : startingTimeGrain.day.idDay, $audiencia : audiencia, $leftGrain : startingTimeGrain.grainIndex)
+        $right : AudienciaAssignment(id != $id, $rightid : id, startingTimeGrain != null,room != null, room == $room, startingTimeGrain.day == $leftday,
+            $rightGrain : startingTimeGrain.grainIndex, $rightEndingGrain : lastTimeGrainIndex, startingTimeGrain.grainIndex < $leftGrain, !isSameCategory($left))
+        not AudienciaAssignment(id != $rightid && id != $id, room != null, room == $room,
+            startingTimeGrain.grainIndex > $rightGrain && startingTimeGrain.grainIndex < $leftGrain)
+        AudienciaSchedule($fecha : fechaCorrida.dayOfYear)
+        $firstDay : Day(dayOfYear == $fecha)
+        $number : Number(intValue() < Math.abs($leftDayId - 2 - $firstDay.idDay) * 3) from $leftGrain - $rightEndingGrain
+    then
+        scoreHolder.penalize(kcontext, 10 - (int)$number);
+end
+
+rule "Penalize Creation of Prohibited Zone"
+    when
+        $left : AudienciaAssignment(pinned == false, $id : id, startingTimeGrain != null, room != null, $room : room,
+                $leftday : startingTimeGrain.day, $audiencia : audiencia, $leftGrain : startingTimeGrain.grainIndex)
+        not AudienciaAssignment(id != $id, startingTimeGrain != null, room != null, room == $room, startingTimeGrain.day == $leftday,
+            $rightGrain : startingTimeGrain.grainIndex, startingTimeGrain.grainIndex < $leftGrain, isSameCategory($left))
     then
         scoreHolder.penalize(kcontext);
 end
 
+rule "Penalize Different Room Juez"
+    when
+        $left : AudienciaAssignment(pinned == false, $id : id, startingTimeGrain != null, room != null, $room : room,
+                $leftday : startingTimeGrain.day, $audiencia : audiencia, $leftGrain : startingTimeGrain.grainIndex)
+        $leftJuez : Juez() from $left.audiencia.juezList
+        $right : AudienciaAssignment(id != $id, $rightid : id, startingTimeGrain != null,room != null, room != $room, startingTimeGrain.day == $leftday,
+            $rightGrain : startingTimeGrain.grainIndex, startingTimeGrain.grainIndex < $leftGrain)
+        $rightJuez : Juez(idJuez == $leftJuez.idJuez) from $right.audiencia.juezList
+        not AudienciaAssignment(id != $rightid && id != $id, room != null, room == $room,
+            startingTimeGrain.grainIndex > $rightGrain && startingTimeGrain.grainIndex < $leftGrain)
+        $number : Number(intValue() < 10) from $leftGrain - $rightGrain
+    then
+        scoreHolder.penalize(kcontext, 10 - (int)$number);
+end
 
 

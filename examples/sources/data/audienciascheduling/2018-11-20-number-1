@@ -110,14 +110,14 @@
         </room>
         <startingTimeGrain>
             <day>
-                <date>2018-11-22</date>
-                <dayOfYear>326</dayOfYear>
-                <idDay>4</idDay>
+                <date>2018-11-23</date>
+                <dayOfYear>327</dayOfYear>
+                <idDay>5</idDay>
                 <lastStartingMinute>1080</lastStartingMinute>
             </day>
-            <grainIndex>156</grainIndex>
-            <idTimeGrain>156</idTimeGrain>
-            <startingMinuteOfDay>480</startingMinuteOfDay>
+            <grainIndex>264</grainIndex>
+            <idTimeGrain>264</idTimeGrain>
+            <startingMinuteOfDay>780</startingMinuteOfDay>
         </startingTimeGrain>
     </AudienciaAssignment>
     <AudienciaAssignment>
@@ -295,8 +295,8 @@
         <room>
             <almaFuerte>false</almaFuerte>
             <boulogne>false</boulogne>
-            <idRoom>316</idRoom>
-            <nombreRoom>Sala 32 - Tercer Piso</nombreRoom>
+            <idRoom>271</idRoom>
+            <nombreRoom>Sala 1 - Planta Suelo</nombreRoom>
         </room>
         <startingTimeGrain>
             <day>
@@ -305,9 +305,9 @@
                 <idDay>4</idDay>
                 <lastStartingMinute>1080</lastStartingMinute>
             </day>
-            <grainIndex>156</grainIndex>
-            <idTimeGrain>156</idTimeGrain>
-            <startingMinuteOfDay>480</startingMinuteOfDay>
+            <grainIndex>174</grainIndex>
+            <idTimeGrain>174</idTimeGrain>
+            <startingMinuteOfDay>660</startingMinuteOfDay>
         </startingTimeGrain>
     </AudienciaAssignment>
     <AudienciaAssignment>
@@ -665,9 +665,9 @@
                 <idDay>4</idDay>
                 <lastStartingMinute>1080</lastStartingMinute>
             </day>
-            <grainIndex>160</grainIndex>
-            <idTimeGrain>160</idTimeGrain>
-            <startingMinuteOfDay>520</startingMinuteOfDay>
+            <grainIndex>159</grainIndex>
+            <idTimeGrain>159</idTimeGrain>
+            <startingMinuteOfDay>510</startingMinuteOfDay>
         </startingTimeGrain>
     </AudienciaAssignment>
     <AudienciaAssignment>
@@ -715,8 +715,8 @@
         <room>
             <almaFuerte>false</almaFuerte>
             <boulogne>false</boulogne>
-            <idRoom>271</idRoom>
-            <nombreRoom>Sala 1 - Planta Suelo</nombreRoom>
+            <idRoom>872</idRoom>
+            <nombreRoom>Sala 22 - Segundo Piso</nombreRoom>
         </room>
         <startingTimeGrain>
             <day>
@@ -785,9 +785,9 @@
                 <idDay>4</idDay>
                 <lastStartingMinute>1080</lastStartingMinute>
             </day>
-            <grainIndex>163</grainIndex>
-            <idTimeGrain>163</idTimeGrain>
-            <startingMinuteOfDay>550</startingMinuteOfDay>
+            <grainIndex>211</grainIndex>
+            <idTimeGrain>211</idTimeGrain>
+            <startingMinuteOfDay>1030</startingMinuteOfDay>
         </startingTimeGrain>
     </AudienciaAssignment>
     <AudienciaAssignment>
@@ -845,9 +845,9 @@
                 <idDay>4</idDay>
                 <lastStartingMinute>1080</lastStartingMinute>
             </day>
-            <grainIndex>166</grainIndex>
-            <idTimeGrain>166</idTimeGrain>
-            <startingMinuteOfDay>580</startingMinuteOfDay>
+            <grainIndex>194</grainIndex>
+            <idTimeGrain>194</idTimeGrain>
+            <startingMinuteOfDay>860</startingMinuteOfDay>
         </startingTimeGrain>
     </AudienciaAssignment>
     <AudienciaAssignment>
@@ -1265,9 +1265,9 @@
                 <idDay>4</idDay>
                 <lastStartingMinute>1080</lastStartingMinute>
             </day>
-            <grainIndex>178</grainIndex>
-            <idTimeGrain>178</idTimeGrain>
-            <startingMinuteOfDay>700</startingMinuteOfDay>
+            <grainIndex>202</grainIndex>
+            <idTimeGrain>202</idTimeGrain>
+            <startingMinuteOfDay>940</startingMinuteOfDay>
         </startingTimeGrain>
     </AudienciaAssignment>
     <AudienciaAssignment>
@@ -1375,8 +1375,8 @@
         <room>
             <almaFuerte>false</almaFuerte>
             <boulogne>false</boulogne>
-            <idRoom>516</idRoom>
-            <nombreRoom>Sala 7 - Planta Suelo</nombreRoom>
+            <idRoom>872</idRoom>
+            <nombreRoom>Sala 22 - Segundo Piso</nombreRoom>
         </room>
         <startingTimeGrain>
             <day>
@@ -1435,8 +1435,8 @@
         <room>
             <almaFuerte>false</almaFuerte>
             <boulogne>false</boulogne>
-            <idRoom>272</idRoom>
-            <nombreRoom>Sala 3 - Planta Suelo </nombreRoom>
+            <idRoom>314</idRoom>
+            <nombreRoom>Sala 10 - Primer Piso</nombreRoom>
         </room>
         <startingTimeGrain>
             <day>
@@ -1495,8 +1495,8 @@
         <room>
             <almaFuerte>false</almaFuerte>
             <boulogne>false</boulogne>
-            <idRoom>271</idRoom>
-            <nombreRoom>Sala 1 - Planta Suelo</nombreRoom>
+            <idRoom>272</idRoom>
+            <nombreRoom>Sala 3 - Planta Suelo </nombreRoom>
         </room>
         <startingTimeGrain>
             <day>
@@ -1570,8 +1570,8 @@
         <room>
             <almaFuerte>false</almaFuerte>
             <boulogne>false</boulogne>
-            <idRoom>517</idRoom>
-            <nombreRoom>Sala 9 - Planta Suelo</nombreRoom>
+            <idRoom>314</idRoom>
+            <nombreRoom>Sala 10 - Primer Piso</nombreRoom>
         </room>
         <startingTimeGrain>
             <day>
@@ -1690,8 +1690,8 @@
         <room>
             <almaFuerte>false</almaFuerte>
             <boulogne>false</boulogne>
-            <idRoom>316</idRoom>
-            <nombreRoom>Sala 32 - Tercer Piso</nombreRoom>
+            <idRoom>511</idRoom>
+            <nombreRoom>Sala 8 - Planta Suelo</nombreRoom>
         </room>
         <startingTimeGrain>
             <day>
@@ -1990,8 +1990,8 @@
         <room>
             <almaFuerte>false</almaFuerte>
             <boulogne>false</boulogne>
-            <idRoom>517</idRoom>
-            <nombreRoom>Sala 9 - Planta Suelo</nombreRoom>
+            <idRoom>314</idRoom>
+            <nombreRoom>Sala 10 - Primer Piso</nombreRoom>
         </room>
         <startingTimeGrain>
             <day>
@@ -2415,8 +2415,8 @@
         <room>
             <almaFuerte>false</almaFuerte>
             <boulogne>false</boulogne>
-            <idRoom>272</idRoom>
-            <nombreRoom>Sala 3 - Planta Suelo </nombreRoom>
+            <idRoom>310</idRoom>
+            <nombreRoom>Sala 21 - Segundo Piso</nombreRoom>
         </room>
         <startingTimeGrain>
             <day>
@@ -2475,19 +2475,19 @@
         <room>
             <almaFuerte>false</almaFuerte>
             <boulogne>false</boulogne>
-            <idRoom>271</idRoom>
-            <nombreRoom>Sala 1 - Planta Suelo</nombreRoom>
+            <idRoom>270</idRoom>
+            <nombreRoom>Sala 20 - Segundo Piso </nombreRoom>
         </room>
         <startingTimeGrain>
             <day>
-                <date>2018-11-22</date>
-                <dayOfYear>326</dayOfYear>
-                <idDay>4</idDay>
+                <date>2018-11-23</date>
+                <dayOfYear>327</dayOfYear>
+                <idDay>5</idDay>
                 <lastStartingMinute>1080</lastStartingMinute>
             </day>
-            <grainIndex>181</grainIndex>
-            <idTimeGrain>181</idTimeGrain>
-            <startingMinuteOfDay>730</startingMinuteOfDay>
+            <grainIndex>237</grainIndex>
+            <idTimeGrain>237</idTimeGrain>
+            <startingMinuteOfDay>510</startingMinuteOfDay>
         </startingTimeGrain>
     </AudienciaAssignment>
     <AudienciaAssignment>
@@ -2595,8 +2595,8 @@
         <room>
             <almaFuerte>false</almaFuerte>
             <boulogne>false</boulogne>
-            <idRoom>316</idRoom>
-            <nombreRoom>Sala 32 - Tercer Piso</nombreRoom>
+            <idRoom>271</idRoom>
+            <nombreRoom>Sala 1 - Planta Suelo</nombreRoom>
         </room>
         <startingTimeGrain>
             <day>
@@ -2715,8 +2715,8 @@
         <room>
             <almaFuerte>false</almaFuerte>
             <boulogne>false</boulogne>
-            <idRoom>517</idRoom>
-            <nombreRoom>Sala 9 - Planta Suelo</nombreRoom>
+            <idRoom>314</idRoom>
+            <nombreRoom>Sala 10 - Primer Piso</nombreRoom>
         </room>
         <startingTimeGrain>
             <day>
@@ -2775,8 +2775,8 @@
         <room>
             <almaFuerte>false</almaFuerte>
             <boulogne>false</boulogne>
-            <idRoom>515</idRoom>
-            <nombreRoom>Sala 5 - Planta Suelo</nombreRoom>
+            <idRoom>856</idRoom>
+            <nombreRoom>Sala 6 - Planta Suelo</nombreRoom>
         </room>
         <startingTimeGrain>
             <day>
@@ -2835,8 +2835,8 @@
         <room>
             <almaFuerte>false</almaFuerte>
             <boulogne>false</boulogne>
-            <idRoom>310</idRoom>
-            <nombreRoom>Sala 21 - Segundo Piso</nombreRoom>
+            <idRoom>317</idRoom>
+            <nombreRoom>Sala 11 - Primer Piso</nombreRoom>
         </room>
         <startingTimeGrain>
             <day>
@@ -2895,8 +2895,8 @@
         <room>
             <almaFuerte>false</almaFuerte>
             <boulogne>false</boulogne>
-            <idRoom>314</idRoom>
-            <nombreRoom>Sala 10 - Primer Piso</nombreRoom>
+            <idRoom>316</idRoom>
+            <nombreRoom>Sala 32 - Tercer Piso</nombreRoom>
         </room>
         <startingTimeGrain>
             <day>
@@ -2960,8 +2960,8 @@
         <room>
             <almaFuerte>false</almaFuerte>
             <boulogne>false</boulogne>
-            <idRoom>872</idRoom>
-            <nombreRoom>Sala 22 - Segundo Piso</nombreRoom>
+            <idRoom>1064</idRoom>
+            <nombreRoom>Sala Juicio por Jurados</nombreRoom>
         </room>
         <startingTimeGrain>
             <day>
@@ -3080,8 +3080,8 @@
         <room>
             <almaFuerte>false</almaFuerte>
             <boulogne>false</boulogne>
-            <idRoom>935</idRoom>
-            <nombreRoom>Sala N°3 Penal</nombreRoom>
+            <idRoom>271</idRoom>
+            <nombreRoom>Sala 1 - Planta Suelo</nombreRoom>
         </room>
         <startingTimeGrain>
             <day>
@@ -3090,9 +3090,9 @@
                 <idDay>4</idDay>
                 <lastStartingMinute>1080</lastStartingMinute>
             </day>
-            <grainIndex>160</grainIndex>
-            <idTimeGrain>160</idTimeGrain>
-            <startingMinuteOfDay>520</startingMinuteOfDay>
+            <grainIndex>181</grainIndex>
+            <idTimeGrain>181</idTimeGrain>
+            <startingMinuteOfDay>730</startingMinuteOfDay>
         </startingTimeGrain>
     </AudienciaAssignment>
     <AudienciaAssignment>
@@ -3560,8 +3560,8 @@
         <room>
             <almaFuerte>false</almaFuerte>
             <boulogne>false</boulogne>
-            <idRoom>872</idRoom>
-            <nombreRoom>Sala 22 - Segundo Piso</nombreRoom>
+            <idRoom>516</idRoom>
+            <nombreRoom>Sala 7 - Planta Suelo</nombreRoom>
         </room>
         <startingTimeGrain>
             <day>
@@ -3920,8 +3920,8 @@
         <room>
             <almaFuerte>false</almaFuerte>
             <boulogne>false</boulogne>
-            <idRoom>272</idRoom>
-            <nombreRoom>Sala 3 - Planta Suelo </nombreRoom>
+            <idRoom>517</idRoom>
+            <nombreRoom>Sala 9 - Planta Suelo</nombreRoom>
         </room>
         <startingTimeGrain>
             <day>
@@ -3980,8 +3980,8 @@
         <room>
             <almaFuerte>false</almaFuerte>
             <boulogne>false</boulogne>
-            <idRoom>314</idRoom>
-            <nombreRoom>Sala 10 - Primer Piso</nombreRoom>
+            <idRoom>272</idRoom>
+            <nombreRoom>Sala 3 - Planta Suelo </nombreRoom>
         </room>
         <startingTimeGrain>
             <day>
@@ -4100,8 +4100,8 @@
         <room>
             <almaFuerte>false</almaFuerte>
             <boulogne>false</boulogne>
-            <idRoom>316</idRoom>
-            <nombreRoom>Sala 32 - Tercer Piso</nombreRoom>
+            <idRoom>935</idRoom>
+            <nombreRoom>Sala N°3 Penal</nombreRoom>
         </room>
         <startingTimeGrain>
             <day>
@@ -4110,9 +4110,9 @@
                 <idDay>4</idDay>
                 <lastStartingMinute>1080</lastStartingMinute>
             </day>
-            <grainIndex>164</grainIndex>
-            <idTimeGrain>164</idTimeGrain>
-            <startingMinuteOfDay>560</startingMinuteOfDay>
+            <grainIndex>171</grainIndex>
+            <idTimeGrain>171</idTimeGrain>
+            <startingMinuteOfDay>630</startingMinuteOfDay>
         </startingTimeGrain>
     </AudienciaAssignment>
     <AudienciaAssignment>
@@ -4285,8 +4285,8 @@
         <room>
             <almaFuerte>false</almaFuerte>
             <boulogne>false</boulogne>
-            <idRoom>517</idRoom>
-            <nombreRoom>Sala 9 - Planta Suelo</nombreRoom>
+            <idRoom>314</idRoom>
+            <nombreRoom>Sala 10 - Primer Piso</nombreRoom>
         </room>
         <startingTimeGrain>
             <day>
@@ -4405,8 +4405,8 @@
         <room>
             <almaFuerte>false</almaFuerte>
             <boulogne>false</boulogne>
-            <idRoom>271</idRoom>
-            <nombreRoom>Sala 1 - Planta Suelo</nombreRoom>
+            <idRoom>314</idRoom>
+            <nombreRoom>Sala 10 - Primer Piso</nombreRoom>
         </room>
         <startingTimeGrain>
             <day>
@@ -4525,8 +4525,8 @@
         <room>
             <almaFuerte>false</almaFuerte>
             <boulogne>false</boulogne>
-            <idRoom>271</idRoom>
-            <nombreRoom>Sala 1 - Planta Suelo</nombreRoom>
+            <idRoom>314</idRoom>
+            <nombreRoom>Sala 10 - Primer Piso</nombreRoom>
         </room>
         <startingTimeGrain>
             <day>
@@ -4645,8 +4645,8 @@
         <room>
             <almaFuerte>false</almaFuerte>
             <boulogne>false</boulogne>
-            <idRoom>272</idRoom>
-            <nombreRoom>Sala 3 - Planta Suelo </nombreRoom>
+            <idRoom>316</idRoom>
+            <nombreRoom>Sala 32 - Tercer Piso</nombreRoom>
         </room>
         <startingTimeGrain>
             <day>
@@ -4945,8 +4945,8 @@
         <room>
             <almaFuerte>false</almaFuerte>
             <boulogne>false</boulogne>
-            <idRoom>270</idRoom>
-            <nombreRoom>Sala 20 - Segundo Piso </nombreRoom>
+            <idRoom>1064</idRoom>
+            <nombreRoom>Sala Juicio por Jurados</nombreRoom>
         </room>
         <startingTimeGrain>
             <day>
@@ -5080,8 +5080,8 @@
         <room>
             <almaFuerte>false</almaFuerte>
             <boulogne>false</boulogne>
-            <idRoom>314</idRoom>
-            <nombreRoom>Sala 10 - Primer Piso</nombreRoom>
+            <idRoom>310</idRoom>
+            <nombreRoom>Sala 21 - Segundo Piso</nombreRoom>
         </room>
         <startingTimeGrain>
             <day>
@@ -5140,8 +5140,8 @@
         <room>
             <almaFuerte>false</almaFuerte>
             <boulogne>false</boulogne>
-            <idRoom>310</idRoom>
-            <nombreRoom>Sala 21 - Segundo Piso</nombreRoom>
+            <idRoom>272</idRoom>
+            <nombreRoom>Sala 3 - Planta Suelo </nombreRoom>
         </room>
         <startingTimeGrain>
             <day>
@@ -5200,8 +5200,8 @@
         <room>
             <almaFuerte>false</almaFuerte>
             <boulogne>false</boulogne>
-            <idRoom>272</idRoom>
-            <nombreRoom>Sala 3 - Planta Suelo </nombreRoom>
+            <idRoom>310</idRoom>
+            <nombreRoom>Sala 21 - Segundo Piso</nombreRoom>
         </room>
         <startingTimeGrain>
             <day>
@@ -5380,8 +5380,8 @@
         <room>
             <almaFuerte>false</almaFuerte>
             <boulogne>false</boulogne>
-            <idRoom>856</idRoom>
-            <nombreRoom>Sala 6 - Planta Suelo</nombreRoom>
+            <idRoom>515</idRoom>
+            <nombreRoom>Sala 5 - Planta Suelo</nombreRoom>
         </room>
         <startingTimeGrain>
             <day>
@@ -5505,8 +5505,8 @@
         <room>
             <almaFuerte>false</almaFuerte>
             <boulogne>false</boulogne>
-            <idRoom>515</idRoom>
-            <nombreRoom>Sala 5 - Planta Suelo</nombreRoom>
+            <idRoom>311</idRoom>
+            <nombreRoom>Sala 31 - Tercer Piso</nombreRoom>
         </room>
         <startingTimeGrain>
             <day>
@@ -5565,8 +5565,8 @@
         <room>
             <almaFuerte>false</almaFuerte>
             <boulogne>false</boulogne>
-            <idRoom>316</idRoom>
-            <nombreRoom>Sala 32 - Tercer Piso</nombreRoom>
+            <idRoom>271</idRoom>
+            <nombreRoom>Sala 1 - Planta Suelo</nombreRoom>
         </room>
         <startingTimeGrain>
             <day>
@@ -5625,8 +5625,8 @@
         <room>
             <almaFuerte>false</almaFuerte>
             <boulogne>false</boulogne>
-            <idRoom>318</idRoom>
-            <nombreRoom>Sala 30 - Tercer Piso</nombreRoom>
+            <idRoom>935</idRoom>
+            <nombreRoom>Sala N°3 Penal</nombreRoom>
         </room>
         <startingTimeGrain>
             <day>
@@ -5635,9 +5635,9 @@
                 <idDay>4</idDay>
                 <lastStartingMinute>1080</lastStartingMinute>
             </day>
-            <grainIndex>163</grainIndex>
-            <idTimeGrain>163</idTimeGrain>
-            <startingMinuteOfDay>550</startingMinuteOfDay>
+            <grainIndex>190</grainIndex>
+            <idTimeGrain>190</idTimeGrain>
+            <startingMinuteOfDay>820</startingMinuteOfDay>
         </startingTimeGrain>
     </AudienciaAssignment>
     <AudienciaAssignment>
@@ -5685,8 +5685,8 @@
         <room>
             <almaFuerte>false</almaFuerte>
             <boulogne>false</boulogne>
-            <idRoom>517</idRoom>
-            <nombreRoom>Sala 9 - Planta Suelo</nombreRoom>
+            <idRoom>316</idRoom>
+            <nombreRoom>Sala 32 - Tercer Piso</nombreRoom>
         </room>
         <startingTimeGrain>
             <day>
@@ -5695,9 +5695,9 @@
                 <idDay>4</idDay>
                 <lastStartingMinute>1080</lastStartingMinute>
             </day>
-            <grainIndex>174</grainIndex>
-            <idTimeGrain>174</idTimeGrain>
-            <startingMinuteOfDay>660</startingMinuteOfDay>
+            <grainIndex>156</grainIndex>
+            <idTimeGrain>156</idTimeGrain>
+            <startingMinuteOfDay>480</startingMinuteOfDay>
         </startingTimeGrain>
     </AudienciaAssignment>
     <AudienciaAssignment>
@@ -9636,6 +9636,8 @@
         <oneTimeGrainFiscal>0/1/0/0/0/0</oneTimeGrainFiscal>
         <oneTimeGrainJuez>0/1/0/0/0/0</oneTimeGrainJuez>
         <oneTimeGrainQuerellante>0/1/0/0/0/0</oneTimeGrainQuerellante>
+        <penalizeCreationZone>0/0/0/1/0/0</penalizeCreationZone>
+        <penalizeDifferentRoomJuez>0/0/0/1/0/0</penalizeDifferentRoomJuez>
         <prioritizeDetainees>0/0/0/2/0/0</prioritizeDetainees>
         <problematicHearingsForLastAsesor>0/0/0/2/0/0</problematicHearingsForLastAsesor>
         <problematicHearingsForLastFiscal>0/0/0/2/0/0</problematicHearingsForLastFiscal>
@@ -33395,7 +33397,7 @@
         <idRoom>484</idRoom>
         <nombreRoom>Sala de Garantías General Alvear</nombreRoom>
     </roomList>
-    <score>0/0/0/-136/0/-12569</score>
+    <score>0/0/0/-191/0/-12887</score>
     <timeGrainList>
         <day>
             <date>2018-11-20</date>

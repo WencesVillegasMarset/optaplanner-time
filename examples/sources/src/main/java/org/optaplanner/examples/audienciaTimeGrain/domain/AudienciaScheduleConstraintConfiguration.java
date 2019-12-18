@@ -131,6 +131,12 @@ public class AudienciaScheduleConstraintConfiguration {
     //OGAP - Group Audiencias by Tipo and Juez
     public static final String GROUP_JUEZ_TIPO = "Group Juez Tipo";
 
+    //OGAP - Penalize Creation of Prohibited Zone
+    public static final String PENALIZE_CREATION_OF_ZONE = "Penalize Creation of Prohibited Zone";
+
+    //OGAP - Penalize Different Room Juez
+    public static final String PENALIZE_DIFFERENT_ROOM_JUEZ = "Penalize Different Room Juez";
+
     /* SCHEDULING */
     @ConstraintWeight(ROOM_CONFLICT)
     private BendableScore roomConflict = BendableScore.ofHard(2, 3, 0, 1);
@@ -200,6 +206,10 @@ public class AudienciaScheduleConstraintConfiguration {
     private BendableScore maximumWorkTimeJuez = BendableScore.ofSoft(2, 3, 0, 1);
     @ConstraintWeight(GROUP_JUEZ_TIPO)
     private BendableScore groupJuezTipo = BendableScore.ofSoft(2, 3, 0, 1);
+    @ConstraintWeight(PENALIZE_CREATION_OF_ZONE)
+    private BendableScore penalizeCreationZone = BendableScore.ofSoft(2, 3, 0, 1);
+    @ConstraintWeight(PENALIZE_DIFFERENT_ROOM_JUEZ)
+    private BendableScore penalizeDifferentRoomJuez = BendableScore.ofSoft(2, 3, 0, 1);
 
     /* MAGISTRADOS */
 
@@ -503,5 +513,23 @@ public class AudienciaScheduleConstraintConfiguration {
 
     public void setGroupJuezTipo(BendableScore groupJuezTipo) {
         this.groupJuezTipo = groupJuezTipo;
+    }
+
+    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
+    public BendableScore getPenalizeCreationZone() {
+        return penalizeCreationZone;
+    }
+
+    public void setPenalizeCreationZone(BendableScore penalizeCreationZone) {
+        this.penalizeCreationZone = penalizeCreationZone;
+    }
+
+    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
+    public BendableScore getPenalizeDifferentRoomJuez() {
+        return penalizeDifferentRoomJuez;
+    }
+
+    public void setPenalizeDifferentRoomJuez(BendableScore penalizeDifferentRoomJuez) {
+        this.penalizeDifferentRoomJuez = penalizeDifferentRoomJuez;
     }
 }

@@ -8,6 +8,7 @@ import java.sql.Time;
 import java.time.*;
 import java.util.*;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.apache.commons.lang3.StringUtils;
@@ -576,15 +577,9 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                     int startingMinute = horaRead * 60 + minutosRead;
                     containsSala(solution.getRoomList(), salaRead, audienciaAssignment);
 
-                    int[] salasExternas = {484, 452, 875, 503, 504, 451, 458, 469, 521, 457, 497, 501, 454, 455, 502, 498, 456, 499, 500, };
-
-                    for (int i : salasExternas){
-                        if (audienciaAssignment.getRoom().getIdRoom() == i){
-                            audiencia.setExterna(true);
-                            break;
-                        }
+                    if(solution.getRoomList().stream().filter(r -> !solution.getPossibleRooms().contains(r)).collect(Collectors.toList()).contains(audienciaAssignment.getRoom())){
+                        audiencia.setExterna(true);
                     }
-
 
                     Day dayToUse = null;
                     for (Day day : solution.getDayList()){
@@ -912,6 +907,8 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                     AudienciaScheduleConstraintConfiguration.PRIORITIZE_DETAINEES,
                     AudienciaScheduleConstraintConfiguration.MAXIMUM_WORK_TIME_JUEZ,
                     AudienciaScheduleConstraintConfiguration.GROUP_JUEZ_TIPO,
+                    AudienciaScheduleConstraintConfiguration.PENALIZE_CREATION_OF_ZONE,
+                    AudienciaScheduleConstraintConfiguration.PENALIZE_DIFFERENT_ROOM_JUEZ,
 //                    AudienciaScheduleConstraintConfiguration.DISTRIBUTE_WORKLOAD_FAIRLY,
             };
             int mergeStart = -1;

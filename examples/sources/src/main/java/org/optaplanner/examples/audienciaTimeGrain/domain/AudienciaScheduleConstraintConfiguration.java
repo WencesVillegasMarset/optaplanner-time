@@ -15,127 +15,86 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 public class AudienciaScheduleConstraintConfiguration {
 
-    /* Declarations */
+    /* Declarations Scheduling */
 
-    //HARD - Previene el conflicto de uso de una Room mas de una vez al mismo tiempo
+    //Previene el conflicto de uso de una Room mas de una vez al mismo tiempo
     public static final String ROOM_CONFLICT = "Room conflict";
-
-    //SOFT - Inserta un TimeGrain preventivo entre cada Audiencia
-    public static final String ONE_TIME_GRAIN_BREAK_BETWEEN_TWO_CONSECUTIVE_MEETINGS = "One TimeGrain break between two consecutive meetings";
-
-    //HARD - Las audiencias deben empezar y terminar el mismo día
-    public static final String START_AND_END_ON_SAME_DAY = "Start and end on same day";
-
-    //HARD - Asegura que el TimeGrain en el que termina la Audiencia exista, es decir, que no pase el horario estipulado
+    //Asegura que el TimeGrain en el que termina la Audiencia exista, es decir, que no pase el horario estipulado
     public static final String DONT_GO_IN_OVERTIME = "Don't go in overtime";
-
-    //SOFT - Planificar las Audiencias para tiempos mas cercanos si es posible
-    public static final String DO_ALL_MEETINGS_AS_SOON_AS_POSSIBLE = "Do all meetings as soon as possible";
-
-    //HARD - Que el Juez no este en más de una Audiencia al mismo tiempo
+    //Las audiencias deben empezar y terminar el mismo día
+    public static final String START_AND_END_ON_SAME_DAY = "Start and end on same day";
+    //Que el Juez no este en más de una Audiencia al mismo tiempo
     public static final String DO_NOT_CONFLICT_JUEZ = "Do not conflict Juez";
-
-    //HARD - Que no se utilice una Room en un tiempo que se determinó que no está disponible
+    //Que no se utilice una Room en un tiempo que se determinó que no está disponible
     public static final String DO_NOT_USE_ROOM_IN_PRHOHIBITED_TIME = "Do not use room in prohibited time";
-
-    //HARD - Que el Fiscal no este en más de una Audiencia al mismo tiempo
+    //Que el Fiscal no este en más de una Audiencia al mismo tiempo
     public static final String DO_NOT_CONFLICT_FISCAL = "Do not conflict Fiscal";
-
-    //HARD - Que el Defensor no este en más de una Audiencia al mismo tiempo
+    //Que el Defensor no este en más de una Audiencia al mismo tiempo
     public static final String DO_NOT_CONFLICT_DEFENSOR = "Do not conflict Defensor";
-
-    //HARD - Que se respeten los breaks durante un mismo dia
-//    public static final String DO_NOT_USE_BREAKS = "Avoid Mid-break";
-
-    //SOFT - Que se asignen similares cantidades de audiencias por Room
-//    public static final String DISTRIBUTE_WORKLOAD_FAIRLY = "Distribute workload fairly";
-
-    //HARD - Que se resteten las ubicaciones
-//    public static final String RESPECT_LOCATIONS = "Respect Locations";
-
-    //HARD - Que se respeten los tiempos minimos de realizacion
-    public static final String RESPECT_MINIMUM_STARTING_TIME = "Respect Minimum Starting Time";
-
-    //HARD - Que se respeten los tiempos maximos de realizacion
-    public static final String RESPECT_MAXIMUM_STARTING_TIME = "Respect Maximum Starting Time";
-
-    //SOFT - One TimeGrain between two consecutive audiencias with the same Juez
+    //Que el Querellante no este en más de una Audiencia al mismo tiempo
+    public static final String DO_NOT_CONFLICT_QUERELLANTE = "Do not conflict Querellante";
+    //Que el Asesor no este en más de una Audiencia al mismo tiempo
+    public static final String DO_NOT_CONFLICT_ASESOR = "Do not conflict Asesor";
+    //Inserta un TimeGrain preventivo entre cada Audiencia
+    public static final String ONE_TIME_GRAIN_BREAK_BETWEEN_TWO_CONSECUTIVE_MEETINGS = "One TimeGrain break between two consecutive meetings";
+    //One TimeGrain between two consecutive audiencias with the same Juez
     public static final String ONE_TIMEGRAIN_JUEZ = "One TimeGrain Juez";
-
-    //SOFT - One TimeGrain between two consecutive audiencias with the same Defensor
+    //One TimeGrain between two consecutive audiencias with the same Defensor
     public static final String ONE_TIMEGRAIN_DEFENSOR = "One TimeGrain Defensor";
-
-    //SOFT - One TimeGrain between two consecutive audiencias with the same Fiscal
+    //One TimeGrain between two consecutive audiencias with the same Fiscal
     public static final String ONE_TIMEGRAIN_FISCAL = "One TimeGrain Fiscal";
-
-    //HARD - Que un Juez no tenga audiencias en distintas ubicaciones el mismo dia
-//    public static final String DONT_CONFLICT_JUEZ_LOCATION = "Dont conflict Juez with locations";
-
-    //HARD - Que un Defensor no tenga audiencias en distintas ubicaciones el mismo dia
-//    public static final String DONT_CONFLICT_DEFENSOR_LOCATION = "Dont conflict Defensor with locations";
-
-    //HARD - Que un Fiscal no tenga audiencias en distintas ubicaciones el mismo dia
-//    public static final String DONT_CONFLICT_FISCAL_LOCATION = "Dont conflict Fiscal with locations";
-
-    //HARD - No permite que una audiencia comience después del horario permitido de comienzo
+    //One TimeGrain between two consecutive audiencias with the same Querellante
+    public static final String ONE_TIMEGRAIN_QUERELLANTE = "One TimeGrain Querellante";
+    //One TimeGrain between two consecutive audiencias with the same Asesor
+    public static final String ONE_TIMEGRAIN_ASESOR = "One TimeGrain Asesor";
+    //Defensor that is working in other location needs time to commute
+    public static final String TIME_FOR_EXTERNAL_DEFENSOR = "Time for External Defensor";
+    //No permite que una audiencia comience después del horario permitido de comienzo
     public static final String DONT_START_AFTER_MAXIMUM_STARTING_MINUTE = "Don't start after maximum starting time of the day";
 
-    //HARD - No permite que se asigne una audiencia en un TimeGrain que el Juez no este disponible
+    /* Declarations Legal */
+
+    //Que se respeten los tiempos minimos de realizacion
+    public static final String RESPECT_MINIMUM_STARTING_TIME = "Respect Minimum Starting Time";
+    //Que se respeten los tiempos maximos de realizacion
+    public static final String RESPECT_MAXIMUM_STARTING_TIME = "Respect Maximum Starting Time";
+    //No permite que se asigne una audiencia en un TimeGrain que el Juez no este disponible
     public static final String DONT_CONFLICT_JUEZ_AND_TIMEGRAIN = "Do not conflict Juez with TimeGrain";
-
-    //HARD - Que el Querellante no este en más de una Audiencia al mismo tiempo
-    public static final String DO_NOT_CONFLICT_QUERELLANTE = "Do not conflict Querellante";
-
-    //HARD - Que el Asesor no este en más de una Audiencia al mismo tiempo
-    public static final String DO_NOT_CONFLICT_ASESOR = "Do not conflict Asesor";
-
-    //SOFT - One TimeGrain between two consecutive audiencias with the same Querellante
-    public static final String ONE_TIMEGRAIN_QUERELLANTE = "One TimeGrain Querellante";
-
-    //SOFT - One TimeGrain between two consecutive audiencias with the same Asesor
-    public static final String ONE_TIMEGRAIN_ASESOR = "One TimeGrain Asesor";
-
-    //HARD - Appeals need to be appointed in afternoon time
+    //Appeals need to be appointed in afternoon time
     public static final String APPEALS_IN_AFTERNOON = "Appeals in the afternoon";
-
-    //SOFT - Las audiencias que tienen detenidos deben ser priorizadas temporalmente
-    public static final String PRIORITIZE_DETAINEES = "Prioritize Detainees";
-
-    //SOFT - Problematic audiencias need to be the last audiencia in the room
-    public static final String PROBLEMATIC_HEARINGS_FOR_LAST_ROOM = "Problematic Hearings for last - Room";
-
-    //SOFT - Problematic audiencias need to be the last audiencia in the room
-    public static final String PROBLEMATIC_HEARINGS_FOR_LAST_JUEZ = "Problematic Hearings for last - Juez";
-
-    //SOFT - Problematic audiencias need to be the last audiencia in the room
-    public static final String PROBLEMATIC_HEARINGS_FOR_LAST_FISCAL = "Problematic Hearings for last - Fiscal";
-
-    //SOFT - Problematic audiencias need to be the last audiencia in the room
-    public static final String PROBLEMATIC_HEARINGS_FOR_LAST_ASESOR = "Problematic Hearings for last - Asesor";
-
-    //SOFT - Defensor that is working in other location needs time to commute
-    public static final String TIME_FOR_EXTERNAL_DEFENSOR = "Time for External Defensor";
-
-    //HARD - Audiencias de Boulogne Sur Mer
+    //Audiencias de Boulogne Sur Mer
     public static final String HEARINGS_IN_BOULOGNE = "Rooms in Boulogne";
-
-    //HARD - Audiencias de Alma Fuerte
+    //Audiencias de Alma Fuerte
     public static final String HEARINGS_IN_ALMA_FUERTE = "Rooms in Alma Fuerte";
-
-    //HARD - Audiencias que no son de Boulogne o Alma Fuerte no se calendarizan en sus salas
+    //Audiencias que no son de Boulogne o Alma Fuerte no se calendarizan en sus salas
     public static final String HEARTINGS_NOT_EJEC = "Rooms not in Boulogne or Alma Fuerte";
 
-    //SOFT - Jueces can't work for more than 6 hours a day (72 timegrains)
+    /* Declarations OGAP */
+
+    //Las audiencias que tienen detenidos deben ser priorizadas temporalmente
+    public static final String PRIORITIZE_DETAINEES = "Prioritize Detainees";
+    //Problematic audiencias need to be the last audiencia in the room
+    public static final String PROBLEMATIC_HEARINGS_FOR_LAST_ROOM = "Problematic Hearings for last - Room";
+    //Problematic audiencias need to be the last audiencia in the room
+    public static final String PROBLEMATIC_HEARINGS_FOR_LAST_JUEZ = "Problematic Hearings for last - Juez";
+    //Problematic audiencias need to be the last audiencia in the room
+    public static final String PROBLEMATIC_HEARINGS_FOR_LAST_FISCAL = "Problematic Hearings for last - Fiscal";
+    //Problematic audiencias need to be the last audiencia in the room
+    public static final String PROBLEMATIC_HEARINGS_FOR_LAST_ASESOR = "Problematic Hearings for last - Asesor";
+    //Jueces can't work for more than 6 hours a day (72 timegrains)
     public static final String MAXIMUM_WORK_TIME_JUEZ = "Maximum work time Juez";
-
-    //OGAP - Group Audiencias by Tipo and Juez
+    //Group Audiencias by Tipo and Juez
     public static final String GROUP_JUEZ_TIPO = "Group Juez Tipo";
-
-    //OGAP - Penalize Creation of Prohibited Zone
+    //Penalize Creation of Prohibited Zone
     public static final String PENALIZE_CREATION_OF_ZONE = "Penalize Creation of Prohibited Zone";
-
-    //OGAP - Penalize Different Room Juez
+    //Penalize Different Room Juez
     public static final String PENALIZE_DIFFERENT_ROOM_JUEZ = "Penalize Different Room Juez";
+
+    /* Declarations Soft */
+
+    //Planificar las Audiencias para tiempos mas cercanos si es posible
+    public static final String DO_ALL_MEETINGS_AS_SOON_AS_POSSIBLE = "Do all meetings as soon as possible";
+
 
     /* SCHEDULING */
     @ConstraintWeight(ROOM_CONFLICT)

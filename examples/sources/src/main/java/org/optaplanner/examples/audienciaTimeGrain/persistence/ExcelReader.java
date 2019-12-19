@@ -79,164 +79,11 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
 
         public AudienciaSchedule read(){
             solution = new AudienciaSchedule();
-//            readConfiguration();
             readXML();
             readDayList();
             readPossibleRooms();
-//            readRoomList();
-//            readJuezList();
-//            readFiscalList();
-//            readDefensorList();
-//            readTipoList();
             readAudienciaList();
             return solution;
-        }
-
-        private void readConfiguration(){
-            nextSheet("Configuration");
-            nextRow();
-            fechainicial = LocalDate.parse(nextStringCell().getStringCellValue(), DAY_FORMATTER);
-            solution.setFechaCorrida(fechainicial);
-            nextRow(true);
-            readHeaderCell("Constraint");
-            readHeaderCell("Weight");
-            readHeaderCell("Description");
-
-            AudienciaScheduleConstraintConfiguration constraintConfiguration = new AudienciaScheduleConstraintConfiguration();
-
-//            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.ROOM_CONFLICT, hardScore -> constraintConfiguration.setRoomConflict(HardMediumSoftScore.ofHard(hardScore)), "");
-//            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.START_AND_END_ON_SAME_DAY, hardScore -> constraintConfiguration.setStartAndEndOnSameDay(HardMediumSoftScore.ofHard(hardScore)), "");
-//            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.DONT_GO_IN_OVERTIME, hardScore -> constraintConfiguration.setDontGoInOvertime(HardMediumSoftScore.ofHard(hardScore)), "");
-//            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.DO_NOT_CONFLICT_JUEZ, hardScore -> constraintConfiguration.setDontConflictJuez(HardMediumSoftScore.ofHard(hardScore)), "");
-//            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.DO_NOT_USE_ROOM_IN_PRHOHIBITED_TIME, hardScore -> constraintConfiguration.setDontConflictRoomTime(HardMediumSoftScore.ofHard(hardScore)), "");
-//            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.DO_NOT_CONFLICT_FISCAL, hardScore -> constraintConfiguration.setDontConflictFiscal(HardMediumSoftScore.ofHard(hardScore)), "");
-//            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.DO_NOT_CONFLICT_DEFENSOR, hardScore -> constraintConfiguration.setDontConflictDefensor(HardMediumSoftScore.ofHard(hardScore)), "");
-//            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.DO_NOT_USE_BREAKS, hardScore -> constraintConfiguration.setDontUseBreaks(HardMediumSoftScore.ofHard(hardScore)), "");
-//            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.RESPECT_LOCATIONS, hardScore -> constraintConfiguration.setRespectLocations(HardMediumSoftScore.ofHard(hardScore)), "");
-//            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.RESPECT_MINIMUM_STARTING_TIME, hardScore -> constraintConfiguration.setRespectMinimumStartingTime(HardMediumSoftScore.ofHard(hardScore)), "");
-//            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.RESPECT_MAXIMUM_STARTING_TIME, hardScore -> constraintConfiguration.setRespectMaximumStartingTime(HardMediumSoftScore.ofHard(hardScore)), "");
-//            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.DONT_CONFLICT_JUEZ_LOCATION, hardScore -> constraintConfiguration.setDontConflictJuezLocation(HardMediumSoftScore.ofHard(hardScore)), "");
-//            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.DONT_CONFLICT_DEFENSOR_LOCATION, hardScore -> constraintConfiguration.setDontConflictDefensorLocation(HardMediumSoftScore.ofHard(hardScore)), "");
-//            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.DONT_CONFLICT_FISCAL_LOCATION, hardScore -> constraintConfiguration.setDontConflictFiscalLocation(HardMediumSoftScore.ofHard(hardScore)), "");
-//            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.DONT_START_AFTER_MAXIMUM_STARTING_MINUTE, hardScore -> constraintConfiguration.setDontStartAfterMaximumStartingMinute(HardMediumSoftScore.ofHard(hardScore)), "");
-//
-//
-//            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.ONE_TIME_GRAIN_BREAK_BETWEEN_TWO_CONSECUTIVE_MEETINGS, softScore -> constraintConfiguration.setOneTimeGrainBreakBetweenTwoConsecutiveMeetings(HardMediumSoftScore.ofSoft(softScore)), "");
-//            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.ONE_TIMEGRAIN_JUEZ, softScore -> constraintConfiguration.setOneTimeGrainJuez(HardMediumSoftScore.ofSoft(softScore)), "");
-//            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.ONE_TIMEGRAIN_DEFENSOR, softScore -> constraintConfiguration.setOneTimeGrainDefensor(HardMediumSoftScore.ofSoft(softScore)), "");
-//            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.ONE_TIMEGRAIN_FISCAL, softScore -> constraintConfiguration.setOneTimeGrainFiscal(HardMediumSoftScore.ofSoft(softScore)), "");
-//            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.DO_ALL_MEETINGS_AS_SOON_AS_POSSIBLE, softScore -> constraintConfiguration.setDoAllMeetingsAsSoonAsPossible(HardMediumSoftScore.ofSoft(softScore)), "");
-//            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.DISTRIBUTE_WORKLOAD_FAIRLY, softScore -> constraintConfiguration.setDistributeWorkloadFairly(HardMediumSoftScore.ofSoft(softScore)), "");
-
-            solution.setConstraintConfiguration(constraintConfiguration);
-        }
-
-        private void readJuezList(){
-            nextSheet("Jueces");
-            nextRow(false);
-            readHeaderCell("Nombre Completo");
-            readHeaderCell("Id");
-            List<Juez> juezList = new ArrayList<>(currentSheet.getLastRowNum() - 1);
-//            System.out.println("Jueces: ");
-            while (nextRow()) {
-                Juez juez = new Juez();
-                juez.setNombre(nextStringCell().getStringCellValue());
-                juez.setIdJuez((int)nextNumericCell().getNumericCellValue());
-//                if (!VALID_NAME_PATTERN.matcher(juez.getNombre()).matches()) {
-//                    throw new IllegalStateException(
-//                            currentPosition() + ": The person name (" + juez.getNombre()
-//                                    + ") must match to the regular expression (" + VALID_NAME_PATTERN + ").");
-//                }
-                juezList.add(juez);
-//                System.out.println(juez.getNombre() + " con id numero " + juez.getIdJuez());
-            }
-            solution.setJuezList(juezList);
-        }
-
-        private void readDefensorList(){
-            nextSheet("Defensores");
-            nextRow(false);
-            readHeaderCell("Nombre Completo");
-            readHeaderCell("Id");
-            List<Defensor> defensorList = new ArrayList<>(currentSheet.getLastRowNum() - 1);
-//            System.out.println("Defensores: ");
-            while (nextRow()) {
-                Defensor defensor = new Defensor();
-                String nombredefensor = nextStringCell().getStringCellValue();
-                defensor.setNombreDefensor(nombredefensor);
-                String id = Base64.getEncoder().encodeToString(nombredefensor.getBytes());
-                defensor.setIdDefensor(id);
-                defensor.setIdNegocio((int)nextNumericCell().getNumericCellValue());
-//                if (!VALID_NAME_PATTERN.matcher(defensor.getNombreDefensor()).matches()) {
-//                    throw new IllegalStateException(
-//                            currentPosition() + ": The person name (" + defensor.getNombreDefensor()
-//                                    + ") must match to the regular expression (" + VALID_NAME_PATTERN + ").");
-//                }
-                defensorList.add(defensor);
-//                System.out.println(defensor.getNombreDefensor() + " con id numero " + defensor.getIdDefensor());
-            }
-            solution.setDefensorList(defensorList);
-        }
-
-        private void readFiscalList(){
-            nextSheet("Fiscales");
-            nextRow(false);
-            readHeaderCell("Nombre Completo");
-            readHeaderCell("Id");
-            List<Fiscal> fiscalList = new ArrayList<>(currentSheet.getLastRowNum() - 1);
-//            System.out.println("Fiscales: ");
-            while (nextRow()) {
-                Fiscal fiscal = new Fiscal();
-                fiscal.setNombreFiscal(nextStringCell().getStringCellValue());
-                fiscal.setIdFiscal((int)nextNumericCell().getNumericCellValue());
-//                if (!VALID_NAME_PATTERN.matcher(fiscal.getNombreFiscal()).matches()) {
-//                    throw new IllegalStateException(
-//                            currentPosition() + ": The person name (" + fiscal.getNombreFiscal()
-//                                    + ") must match to the regular expression (" + VALID_NAME_PATTERN + ").");
-//                }
-                fiscalList.add(fiscal);
-//                System.out.println(fiscal.getNombreFiscal() + " con id numero " + fiscal.getIdFiscal());
-            }
-            solution.setFiscalList(fiscalList);
-        }
-
-        private void readTipoList(){
-            nextSheet("Tipos de Audiencia");
-            nextRow(false);
-            readHeaderCell("Tipo");
-            readHeaderCell("Id");
-            readHeaderCell("Tiempo Realizacion Minimo");
-            readHeaderCell("Tiempo Realizacion Maximo");
-            readHeaderCell("Tiempo de fijacion");
-            List<Tipo> tipoList = new ArrayList<>(currentSheet.getLastRowNum() - 1);
-//            System.out.println("Tipos: ");
-            while (nextRow()){
-                Tipo tipo = new Tipo();
-                tipo.setNombreTipo(nextStringCell().getStringCellValue());
-                tipo.setIdTipo((int)nextNumericCell().getNumericCellValue());
-                XSSFCell minimo = nextCell();
-                if(minimo.getNumericCellValue() != 0){
-                    tipo.setTiempoRealizacionMinimo((int)minimo.getNumericCellValue());
-//                    System.out.println((int)minimo.getNumericCellValue());
-                }else {
-                    tipo.setTiempoRealizacionMinimo(2);
-                }
-                XSSFCell maximo = nextCell();
-                if(maximo.getNumericCellValue() != 0){
-                    tipo.setTiempoRealizacionMaximo((int)maximo.getNumericCellValue());
-//                    System.out.println((int)maximo.getNumericCellValue());
-                }
-                tipo.setTiempoFijacion((int)nextNumericCell().getNumericCellValue());
-//                System.out.println(tipo.getTiempoRealizacionMinimo() + " " + tipo.getTiempoRealizacionMaximo());
-//                if (!VALID_NAME_PATTERN.matcher(tipo.getNombreTipo()).matches()) {
-//                    throw new IllegalStateException(
-//                            currentPosition() + ": The person name (" + tipo.getNombreTipo()
-//                                    + ") must match to the regular expression (" + VALID_NAME_PATTERN + ").");
-//                }
-                tipoList.add(tipo);
-//                System.out.println(tipo.getNombreTipo() + " con id numero " + tipo.getIdTipo());
-            }
-            solution.setTipoList(tipoList);
         }
 
         private void readXML(){
@@ -291,11 +138,6 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
 
 
         private void readDayList(){
-//            nextSheet("Días");
-//            nextRow(false);
-//            readHeaderCell("Inicio");
-//            readHeaderCell("Fin");
-//            readHeaderCell("Tiempo Maximo de Inicio");
             solution.setFechaCorrida(fechainicial);
             List<Day> dayList = new ArrayList<>(60);
             List<TimeGrain> timeGrainList = new ArrayList<>();
@@ -348,7 +190,6 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                 day.setDayOfYear(diaLeido.getDayOfYear());
                 day.setDate(diaLeido);
                 dayList.add(day);
-//                System.out.println("Día " + day.getDateString());
 
                 dayId++;
                 fechaActual = fechaActual.plusDays(1);
@@ -364,7 +205,6 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                     timeGrain.setStartingMinuteOfDay(timeGrainStartingMinuteOfDay);
                     timeGrainList.add(timeGrain);
                     timeGrainId++;
-//                    System.out.println(timeGrain.getDateTimeString() + " " + timeGrain.getIdTimeGrain() + " " + timeGrain.getGrainIndex());
                 }
             }
             solution.setDayList(dayList);
@@ -400,17 +240,11 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                 }
                 in.close();
 
-
-
-//                 System.out.print(response.toString());
                 JSONArray jsonArray = new JSONArray(response.toString());
 
                 for (int i = 0; i< jsonArray.length(); i++){
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
-//                    System.out.println(jsonObject.toString());
-//                    System.out.println(dia + ' ' + mes);
                     LocalDate feriado = LocalDate.of(anoActual, jsonObject.getInt("mes"), jsonObject.getInt("dia"));
-//                    System.out.println(feriado.toString());
                     feriadosList.add(feriado);
                 }
 
@@ -418,28 +252,6 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             }
 
             return feriadosList;
-        }
-
-        private void readRoomList(){
-            nextSheet("Salas");
-            nextRow(false);
-            readHeaderCell("Sala");
-            readHeaderCell("Id");
-//            readHeaderCell("Ubicacion");
-            List<Room> roomList = new ArrayList<>(currentSheet.getLastRowNum() - 1);
-            while (nextRow()){
-                Room room = new Room();
-                room.setNombreRoom(nextStringCell().getStringCellValue());
-                room.setIdRoom((int)nextNumericCell().getNumericCellValue());
-//                room.setUbicacion((int)nextNumericCell().getNumericCellValue());
-                roomList.add(room);
-//                System.out.println(room.getNombreRoom() + " con id numero " + room.getIdRoom());
-            }
-            solution.setRoomList(roomList);
-//            for(Room room :solution.getRoomList()){
-//                System.out.println(room.getNombreRoom() + " " + room.getIdRoom());
-//            }
-
         }
 
         private void readAudienciaList(){
@@ -746,23 +558,14 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
 
         private boolean readAudienciaDuration(Audiencia audiencia) {
             String durationDouble = nextCell().getStringCellValue();
-//            System.out.println(durationDouble);
             String[] time = durationDouble.split ( ":" );
             int hour = Integer.parseInt ( time[0].trim() );
             int min = Integer.parseInt ( time[1].trim() );
             int totalMinutes = 60 * hour + min;
             if (totalMinutes <= 0 || totalMinutes != Math.floor(totalMinutes)) {
-//                throw new IllegalStateException(
-//                        currentPosition() + ": The audiencia with id (" + audiencia.getIdAudiencia()
-//                                + ")'s has a duration (" + durationDouble + ") that isn't a strictly positive integer number.");
-//                totalMinutes = 15;
                 return false;
             }
             if (totalMinutes % TimeGrain.GRAIN_LENGTH_IN_MINUTES != 0) {
-//                throw new IllegalStateException(
-//                        currentPosition() + ": The audiencia with id (" + audiencia.getIdAudiencia()
-//                                + ") has a duration (" + durationDouble + ") that isn't a multiple of "
-//                                + TimeGrain.GRAIN_LENGTH_IN_MINUTES + ".");
                 return false;
             }
             audiencia.setNumTimeGrains(totalMinutes / TimeGrain.GRAIN_LENGTH_IN_MINUTES);

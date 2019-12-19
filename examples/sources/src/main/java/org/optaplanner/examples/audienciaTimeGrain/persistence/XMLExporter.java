@@ -26,31 +26,8 @@ public class XMLExporter {
     public void write(AudienciaSchedule audienciaSchedule) throws JAXBException, FileNotFoundException {
 
         LocalDate fechaCorrida = audienciaSchedule.getFechaCorrida();
-//        Day dayCorrida = null;
-//
-//        for(Day day : audienciaSchedule.getDayList()){
-//            if(day.toDate().isEqual(fechaCorrida)){
-//                dayCorrida = day;
-//                break;
-//            }
-//        }
 
         for(AudienciaAssignment audienciaAssignment : audienciaSchedule.getAudienciaAssignmentList()){
-//            if(audienciaAssignment.getStartingTimeGrain().getDay().getIdDay() == dayCorrida.getIdDay() + 1 || audienciaAssignment.getStartingTimeGrain().getDay().getIdDay() == dayCorrida.getIdDay() + 2){
-//                audienciaAssignment.setPinned(true);
-//            }
-            
-//            int idDayPedido = 0;
-//            for (Day day : audienciaSchedule.getDayList()){
-//                if(day.toDate().isEqual(audienciaAssignment.getFechaPedido())){
-//                    idDayPedido = (int)day.getIdDay();
-//                }
-//            }
-//
-//            if(audienciaAssignment.getAudiencia().getTipo().getTiempoFijacion() == dayCorrida.getIdDay() - idDayPedido){
-//                audienciaAssignment.setPinned(true);
-//            }
-
             audienciaAssignment.setPinned(true);
         }
 

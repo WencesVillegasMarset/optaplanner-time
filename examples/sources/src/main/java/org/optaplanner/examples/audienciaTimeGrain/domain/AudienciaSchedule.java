@@ -1,11 +1,14 @@
 package org.optaplanner.examples.audienciaTimeGrain.domain;
 
+import com.google.common.collect.HashBasedTable;
+import com.google.common.collect.Table;
 import org.optaplanner.core.api.domain.constraintweight.ConstraintConfigurationProvider;
 import org.optaplanner.core.api.domain.solution.PlanningEntityCollectionProperty;
 import org.optaplanner.core.api.domain.solution.PlanningScore;
 import org.optaplanner.core.api.domain.solution.PlanningSolution;
 import org.optaplanner.core.api.domain.solution.drools.ProblemFactCollectionProperty;
 import org.optaplanner.core.api.domain.valuerange.ValueRangeProvider;
+import org.optaplanner.core.api.score.buildin.bendable.BendableScore;
 import org.optaplanner.core.api.score.buildin.hardmediumsoft.HardMediumSoftScore;
 import org.optaplanner.examples.audienciaTimeGrain.helper.LocalDateAdapter;
 import org.optaplanner.examples.audienciaTimeGrain.helper.ScoreAdapter;
@@ -13,7 +16,10 @@ import org.optaplanner.examples.audienciaTimeGrain.helper.ScoreAdapter;
 import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
+import java.sql.Time;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -63,18 +69,37 @@ public class AudienciaSchedule {
     @ProblemFactCollectionProperty
     private List<Room> roomList;
 
+    @ProblemFactCollectionProperty
+    private List<Querellante> querellanteList = new ArrayList<>();
+
+    @ProblemFactCollectionProperty
+    private List<Asesor> asesorList = new ArrayList<>();
+
     @ValueRangeProvider(id = "roomRange")
     private List<Room> possibleRooms;
 
     @PlanningEntityCollectionProperty
     private List<AudienciaAssignment> audienciaAssignmentList;
 
-    @PlanningScore
-    private HardMediumSoftScore score;
+    @PlanningScore(bendableHardLevelsSize = 2, bendableSoftLevelsSize = 3)
+    private BendableScore score;
 
-    // HACE FALTA AGREGAR COMO PROBLEM FACT A LAS AUDIENCIAS??
+    private Table<Juez, Day, Integer> table = HashBasedTable.create();
 
     /* Setters y Getters */
+
+//    public void createTable() {
+//        for(Juez juez : this.juezList){
+//            for(Day day : this.dayList){
+//                if (table.get(juez, day) == null){
+//                    int timeGrains = this.audienciaAssignmentList.stream().filter(a -> a.getStartingTimeGrain().getDay() == day && a.getAudiencia().getJuezList().contains(juez)).mapToInt(a -> a.getAudiencia().getNumTimeGrains()).sum();
+//                    table.put(juez, day, timeGrains);
+//                } else {
+//                    table.put(juez, day, table.get(juez, day) )
+//                }
+//            }
+//        }
+//    }
 
     public List<Day> getDayList() {
         return dayList;
@@ -151,11 +176,11 @@ public class AudienciaSchedule {
 
     @XmlElement(name = "score")
     @XmlJavaTypeAdapter(value = ScoreAdapter.class)
-    public HardMediumSoftScore getScore() {
+    public BendableScore getScore() {
         return score;
     }
 
-    public void setScore(HardMediumSoftScore score) {
+    public void setScore(BendableScore score) {
         this.score = score;
     }
 
@@ -180,6 +205,27 @@ public class AudienciaSchedule {
     public List<TimeGrain> getPossibleTimeGrains(){
         return this.timeGrainList.stream().filter(timeGrain -> timeGrain.getDay().toDate().isBefore(this.fechaCorrida.plusDays(25))).collect(Collectors.toList());
     }
+
+    public List<Querellante> getQuerellanteList() {
+        return querellanteList;
+    }
+
+    public void setQuerellanteList(List<Querellante> querellanteList) {
+        this.querellanteList = querellanteList;
+    }
+
+    public List<Asesor> getAsesorList() {
+        return asesorList;
+    }
+
+    public void setAsesorList(List<Asesor> asesorList) {
+        this.asesorList = asesorList;
+    }
+
+//    public int maximumWorkTimeJuez(){
+//        Table<Juez, Day, Integer> table = HashBasedTable.create();
+//        table.
+//    }
 
     /* toString */
 

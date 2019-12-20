@@ -8,6 +8,7 @@ import java.sql.Time;
 import java.time.*;
 import java.util.*;
 import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.apache.commons.lang3.StringUtils;
@@ -20,6 +21,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.optaplanner.core.api.score.Score;
 import org.optaplanner.core.api.score.buildin.hardmediumsoft.HardMediumSoftScore;
+import org.optaplanner.core.api.score.buildin.bendable.BendableScore;
 import org.optaplanner.core.api.score.constraint.ConstraintMatch;
 import org.optaplanner.core.api.score.constraint.Indictment;
 import org.optaplanner.core.api.solver.Solver;
@@ -77,164 +79,11 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
 
         public AudienciaSchedule read(){
             solution = new AudienciaSchedule();
-//            readConfiguration();
             readXML();
             readDayList();
             readPossibleRooms();
-//            readRoomList();
-//            readJuezList();
-//            readFiscalList();
-//            readDefensorList();
-//            readTipoList();
             readAudienciaList();
             return solution;
-        }
-
-        private void readConfiguration(){
-            nextSheet("Configuration");
-            nextRow();
-            fechainicial = LocalDate.parse(nextStringCell().getStringCellValue(), DAY_FORMATTER);
-            solution.setFechaCorrida(fechainicial);
-            nextRow(true);
-            readHeaderCell("Constraint");
-            readHeaderCell("Weight");
-            readHeaderCell("Description");
-
-            AudienciaScheduleConstraintConfiguration constraintConfiguration = new AudienciaScheduleConstraintConfiguration();
-
-            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.ROOM_CONFLICT, hardScore -> constraintConfiguration.setRoomConflict(HardMediumSoftScore.ofHard(hardScore)), "");
-            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.START_AND_END_ON_SAME_DAY, hardScore -> constraintConfiguration.setStartAndEndOnSameDay(HardMediumSoftScore.ofHard(hardScore)), "");
-            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.DONT_GO_IN_OVERTIME, hardScore -> constraintConfiguration.setDontGoInOvertime(HardMediumSoftScore.ofHard(hardScore)), "");
-            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.DO_NOT_CONFLICT_JUEZ, hardScore -> constraintConfiguration.setDontConflictJuez(HardMediumSoftScore.ofHard(hardScore)), "");
-            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.DO_NOT_USE_ROOM_IN_PRHOHIBITED_TIME, hardScore -> constraintConfiguration.setDontConflictRoomTime(HardMediumSoftScore.ofHard(hardScore)), "");
-            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.DO_NOT_CONFLICT_FISCAL, hardScore -> constraintConfiguration.setDontConflictFiscal(HardMediumSoftScore.ofHard(hardScore)), "");
-            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.DO_NOT_CONFLICT_DEFENSOR, hardScore -> constraintConfiguration.setDontConflictDefensor(HardMediumSoftScore.ofHard(hardScore)), "");
-//            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.DO_NOT_USE_BREAKS, hardScore -> constraintConfiguration.setDontUseBreaks(HardMediumSoftScore.ofHard(hardScore)), "");
-//            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.RESPECT_LOCATIONS, hardScore -> constraintConfiguration.setRespectLocations(HardMediumSoftScore.ofHard(hardScore)), "");
-            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.RESPECT_MINIMUM_STARTING_TIME, hardScore -> constraintConfiguration.setRespectMinimumStartingTime(HardMediumSoftScore.ofHard(hardScore)), "");
-            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.RESPECT_MAXIMUM_STARTING_TIME, hardScore -> constraintConfiguration.setRespectMaximumStartingTime(HardMediumSoftScore.ofHard(hardScore)), "");
-//            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.DONT_CONFLICT_JUEZ_LOCATION, hardScore -> constraintConfiguration.setDontConflictJuezLocation(HardMediumSoftScore.ofHard(hardScore)), "");
-//            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.DONT_CONFLICT_DEFENSOR_LOCATION, hardScore -> constraintConfiguration.setDontConflictDefensorLocation(HardMediumSoftScore.ofHard(hardScore)), "");
-//            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.DONT_CONFLICT_FISCAL_LOCATION, hardScore -> constraintConfiguration.setDontConflictFiscalLocation(HardMediumSoftScore.ofHard(hardScore)), "");
-            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.DONT_START_AFTER_MAXIMUM_STARTING_MINUTE, hardScore -> constraintConfiguration.setDontStartAfterMaximumStartingMinute(HardMediumSoftScore.ofHard(hardScore)), "");
-
-
-            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.ONE_TIME_GRAIN_BREAK_BETWEEN_TWO_CONSECUTIVE_MEETINGS, softScore -> constraintConfiguration.setOneTimeGrainBreakBetweenTwoConsecutiveMeetings(HardMediumSoftScore.ofSoft(softScore)), "");
-            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.ONE_TIMEGRAIN_JUEZ, softScore -> constraintConfiguration.setOneTimeGrainJuez(HardMediumSoftScore.ofSoft(softScore)), "");
-            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.ONE_TIMEGRAIN_DEFENSOR, softScore -> constraintConfiguration.setOneTimeGrainDefensor(HardMediumSoftScore.ofSoft(softScore)), "");
-            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.ONE_TIMEGRAIN_FISCAL, softScore -> constraintConfiguration.setOneTimeGrainFiscal(HardMediumSoftScore.ofSoft(softScore)), "");
-            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.DO_ALL_MEETINGS_AS_SOON_AS_POSSIBLE, softScore -> constraintConfiguration.setDoAllMeetingsAsSoonAsPossible(HardMediumSoftScore.ofSoft(softScore)), "");
-//            readIntConstraintParameterLine(AudienciaScheduleConstraintConfiguration.DISTRIBUTE_WORKLOAD_FAIRLY, softScore -> constraintConfiguration.setDistributeWorkloadFairly(HardMediumSoftScore.ofSoft(softScore)), "");
-
-            solution.setConstraintConfiguration(constraintConfiguration);
-        }
-
-        private void readJuezList(){
-            nextSheet("Jueces");
-            nextRow(false);
-            readHeaderCell("Nombre Completo");
-            readHeaderCell("Id");
-            List<Juez> juezList = new ArrayList<>(currentSheet.getLastRowNum() - 1);
-//            System.out.println("Jueces: ");
-            while (nextRow()) {
-                Juez juez = new Juez();
-                juez.setNombre(nextStringCell().getStringCellValue());
-                juez.setIdJuez((int)nextNumericCell().getNumericCellValue());
-//                if (!VALID_NAME_PATTERN.matcher(juez.getNombre()).matches()) {
-//                    throw new IllegalStateException(
-//                            currentPosition() + ": The person name (" + juez.getNombre()
-//                                    + ") must match to the regular expression (" + VALID_NAME_PATTERN + ").");
-//                }
-                juezList.add(juez);
-//                System.out.println(juez.getNombre() + " con id numero " + juez.getIdJuez());
-            }
-            solution.setJuezList(juezList);
-        }
-
-        private void readDefensorList(){
-            nextSheet("Defensores");
-            nextRow(false);
-            readHeaderCell("Nombre Completo");
-            readHeaderCell("Id");
-            List<Defensor> defensorList = new ArrayList<>(currentSheet.getLastRowNum() - 1);
-//            System.out.println("Defensores: ");
-            while (nextRow()) {
-                Defensor defensor = new Defensor();
-                String nombredefensor = nextStringCell().getStringCellValue();
-                defensor.setNombreDefensor(nombredefensor);
-                String id = Base64.getEncoder().encodeToString(nombredefensor.getBytes());
-                defensor.setIdDefensor(id);
-                defensor.setIdNegocio((int)nextNumericCell().getNumericCellValue());
-//                if (!VALID_NAME_PATTERN.matcher(defensor.getNombreDefensor()).matches()) {
-//                    throw new IllegalStateException(
-//                            currentPosition() + ": The person name (" + defensor.getNombreDefensor()
-//                                    + ") must match to the regular expression (" + VALID_NAME_PATTERN + ").");
-//                }
-                defensorList.add(defensor);
-//                System.out.println(defensor.getNombreDefensor() + " con id numero " + defensor.getIdDefensor());
-            }
-            solution.setDefensorList(defensorList);
-        }
-
-        private void readFiscalList(){
-            nextSheet("Fiscales");
-            nextRow(false);
-            readHeaderCell("Nombre Completo");
-            readHeaderCell("Id");
-            List<Fiscal> fiscalList = new ArrayList<>(currentSheet.getLastRowNum() - 1);
-//            System.out.println("Fiscales: ");
-            while (nextRow()) {
-                Fiscal fiscal = new Fiscal();
-                fiscal.setNombreFiscal(nextStringCell().getStringCellValue());
-                fiscal.setIdFiscal((int)nextNumericCell().getNumericCellValue());
-//                if (!VALID_NAME_PATTERN.matcher(fiscal.getNombreFiscal()).matches()) {
-//                    throw new IllegalStateException(
-//                            currentPosition() + ": The person name (" + fiscal.getNombreFiscal()
-//                                    + ") must match to the regular expression (" + VALID_NAME_PATTERN + ").");
-//                }
-                fiscalList.add(fiscal);
-//                System.out.println(fiscal.getNombreFiscal() + " con id numero " + fiscal.getIdFiscal());
-            }
-            solution.setFiscalList(fiscalList);
-        }
-
-        private void readTipoList(){
-            nextSheet("Tipos de Audiencia");
-            nextRow(false);
-            readHeaderCell("Tipo");
-            readHeaderCell("Id");
-            readHeaderCell("Tiempo Realizacion Minimo");
-            readHeaderCell("Tiempo Realizacion Maximo");
-            readHeaderCell("Tiempo de fijacion");
-            List<Tipo> tipoList = new ArrayList<>(currentSheet.getLastRowNum() - 1);
-//            System.out.println("Tipos: ");
-            while (nextRow()){
-                Tipo tipo = new Tipo();
-                tipo.setNombreTipo(nextStringCell().getStringCellValue());
-                tipo.setIdTipo((int)nextNumericCell().getNumericCellValue());
-                XSSFCell minimo = nextCell();
-                if(minimo.getNumericCellValue() != 0){
-                    tipo.setTiempoRealizacionMinimo((int)minimo.getNumericCellValue());
-//                    System.out.println((int)minimo.getNumericCellValue());
-                }else {
-                    tipo.setTiempoRealizacionMinimo(2);
-                }
-                XSSFCell maximo = nextCell();
-                if(maximo.getNumericCellValue() != 0){
-                    tipo.setTiempoRealizacionMaximo((int)maximo.getNumericCellValue());
-//                    System.out.println((int)maximo.getNumericCellValue());
-                }
-                tipo.setTiempoFijacion((int)nextNumericCell().getNumericCellValue());
-//                System.out.println(tipo.getTiempoRealizacionMinimo() + " " + tipo.getTiempoRealizacionMaximo());
-//                if (!VALID_NAME_PATTERN.matcher(tipo.getNombreTipo()).matches()) {
-//                    throw new IllegalStateException(
-//                            currentPosition() + ": The person name (" + tipo.getNombreTipo()
-//                                    + ") must match to the regular expression (" + VALID_NAME_PATTERN + ").");
-//                }
-                tipoList.add(tipo);
-//                System.out.println(tipo.getNombreTipo() + " con id numero " + tipo.getIdTipo());
-            }
-            solution.setTipoList(tipoList);
         }
 
         private void readXML(){
@@ -289,11 +138,6 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
 
 
         private void readDayList(){
-//            nextSheet("Días");
-//            nextRow(false);
-//            readHeaderCell("Inicio");
-//            readHeaderCell("Fin");
-//            readHeaderCell("Tiempo Maximo de Inicio");
             solution.setFechaCorrida(fechainicial);
             List<Day> dayList = new ArrayList<>(60);
             List<TimeGrain> timeGrainList = new ArrayList<>();
@@ -311,7 +155,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             LocalDate fechaActual = fechainicial.minusDays(5);
 
 
-            LocalTime startTime = LocalTime.of(7,0);
+            LocalTime startTime = LocalTime.of(8,0);
             LocalTime endTime = LocalTime.of(21,0);
             LocalTime lastStartingMinute = LocalTime.of(18,0);
             int startMinuteOfDay = startTime.getHour() * 60 + startTime.getMinute();
@@ -346,7 +190,6 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                 day.setDayOfYear(diaLeido.getDayOfYear());
                 day.setDate(diaLeido);
                 dayList.add(day);
-//                System.out.println("Día " + day.getDateString());
 
                 dayId++;
                 fechaActual = fechaActual.plusDays(1);
@@ -362,7 +205,6 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                     timeGrain.setStartingMinuteOfDay(timeGrainStartingMinuteOfDay);
                     timeGrainList.add(timeGrain);
                     timeGrainId++;
-//                    System.out.println(timeGrain.getDateTimeString() + " " + timeGrain.getIdTimeGrain() + " " + timeGrain.getGrainIndex());
                 }
             }
             solution.setDayList(dayList);
@@ -398,17 +240,11 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                 }
                 in.close();
 
-
-
-//                 System.out.print(response.toString());
                 JSONArray jsonArray = new JSONArray(response.toString());
 
                 for (int i = 0; i< jsonArray.length(); i++){
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
-//                    System.out.println(jsonObject.toString());
-//                    System.out.println(dia + ' ' + mes);
                     LocalDate feriado = LocalDate.of(anoActual, jsonObject.getInt("mes"), jsonObject.getInt("dia"));
-//                    System.out.println(feriado.toString());
                     feriadosList.add(feriado);
                 }
 
@@ -416,28 +252,6 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             }
 
             return feriadosList;
-        }
-
-        private void readRoomList(){
-            nextSheet("Salas");
-            nextRow(false);
-            readHeaderCell("Sala");
-            readHeaderCell("Id");
-//            readHeaderCell("Ubicacion");
-            List<Room> roomList = new ArrayList<>(currentSheet.getLastRowNum() - 1);
-            while (nextRow()){
-                Room room = new Room();
-                room.setNombreRoom(nextStringCell().getStringCellValue());
-                room.setIdRoom((int)nextNumericCell().getNumericCellValue());
-//                room.setUbicacion((int)nextNumericCell().getNumericCellValue());
-                roomList.add(room);
-//                System.out.println(room.getNombreRoom() + " con id numero " + room.getIdRoom());
-            }
-            solution.setRoomList(roomList);
-//            for(Room room :solution.getRoomList()){
-//                System.out.println(room.getNombreRoom() + " " + room.getIdRoom());
-//            }
-
         }
 
         private void readAudienciaList(){
@@ -450,110 +264,135 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             readHeaderCell("Defensor");
             readHeaderCell("Nombre Defensor");
             readHeaderCell("Fiscal");
+            readHeaderCell("Querellante");
+            readHeaderCell("Asesor");
+            readHeaderCell("Riesgosa");
+            readHeaderCell("Detenido");
+            readHeaderCell("A la Tarde");
+            readHeaderCell("Boulogne");
+            readHeaderCell("Alma Fuerte");
             readHeaderCell("Fecha de Pedido");
             readHeaderCell("Sala");
             readHeaderCell("Fecha Calendarizado");
             readHeaderCell("Hora de Comienzo");
 
-            List<Audiencia> audienciaList = new ArrayList<>(currentSheet.getLastRowNum() - 1);
-            List<AudienciaAssignment> audienciaAssignmentList = new ArrayList<>(currentSheet.getLastRowNum() - 1);
+
+            List<Audiencia> audienciaList = new ArrayList<>();
+            List<AudienciaAssignment> audienciaAssignmentList = new ArrayList<>();
             while(nextRow()){
+                int id = (int)nextNumericCell().getNumericCellValue();
+                if(!audienciaList.isEmpty() && id == audienciaList.get(audienciaList.size()-1).getIdAudiencia()){
+                    Audiencia audiencia = audienciaList.get(audienciaList.size()-1);
+                    nextCell();
+                    nextCell();
+                    XSSFCell juezCell = nextCell();
+                    if(juezCell.getCellTypeEnum() != CellType.BLANK){
+                        int juezRead = (int)juezCell.getNumericCellValue();
+                        containsJuez(solution.getJuezList(), juezRead, audiencia);
+                    }
+                    nextCell();
+                    XSSFCell defensorCell = nextCell();
+                    if(defensorCell.getCellTypeEnum() != CellType.BLANK){
+                        String defensorRead =  Base64.getEncoder().encodeToString(defensorCell.getStringCellValue().getBytes());
+                        containsDefensor(solution.getDefensorList(), defensorRead, audiencia);
+                    }
+                    XSSFCell fiscalCell = nextCell();
+                    if(fiscalCell.getCellTypeEnum() != CellType.BLANK){
+                        int fiscalRead = (int)fiscalCell.getNumericCellValue();
+                        containsFiscal(solution.getFiscalList(), fiscalRead, audiencia);
+                    }
+                    XSSFCell querellanteCell = nextCell();
+                    if(querellanteCell.getCellTypeEnum() != CellType.BLANK){
+                        int querellanteRead = (int)querellanteCell.getNumericCellValue();
+                        containsQuerellante(solution.getQuerellanteList(), querellanteRead, audiencia);
+                    }
+                    XSSFCell asesorCell = nextCell();
+                    if(asesorCell.getCellTypeEnum() != CellType.BLANK){
+                        int asesorRead = (int)asesorCell.getNumericCellValue();
+                        containsAsesor(solution.getAsesorList(), asesorRead, audiencia);
+                    }
+
+                    continue;
+                }
                 Audiencia audiencia = new Audiencia();
                 AudienciaAssignment audienciaAssignment = new AudienciaAssignment();
-                int id = (int)nextNumericCell().getNumericCellValue();
                 audiencia.setIdAudiencia(id);
                 audienciaAssignment.setId(id);
+
                 if(!readAudienciaDuration(audiencia)){
                     continue;
                 }
                 int tipoRead = (int)nextNumericCell().getNumericCellValue();
-//                System.out.println(tipoRead);
                 int juezRead = (int)nextNumericCell().getNumericCellValue();
-//                System.out.println(juezRead);
                 int defensorRead = (int)nextNumericCell().getNumericCellValue();
-//                System.out.println(defensorRead);
                 String defensorNombre =  nextStringCell().getStringCellValue();
-//                System.out.println(defensorNombre);
                 defensorNombre = Base64.getEncoder().encodeToString(defensorNombre.getBytes());
-//                System.out.println(defensorNombre);
                 int fiscalRead = (int)nextNumericCell().getNumericCellValue();
-//                System.out.println(fiscalRead);
-//                audiencia.setUbicacion((int)nextNumericCell().getNumericCellValue());
-                LocalDate fechaPedido = nextCell().getDateCellValue().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-                audiencia.setFechaPedido(fechaPedido);
 
-//                System.out.println(audiencia.getFechaPedido());
-                if(containsTipo(solution.getTipoList(), tipoRead)){
-                    for (Tipo tipo : solution.getTipoList()) {
-                        if (tipo.getIdTipo() == tipoRead){
-                            audiencia.setTipo(tipo);
-                            break;
-                        }
-                    }
-                } else {
-                    throw new IllegalStateException(
-                            currentPosition() + ": The tipo with id (" + tipoRead
-                                    + ") does not exist.");
+                int querellanteRead = (int)nextCell().getNumericCellValue();
+                int asesorRead = (int)nextCell().getNumericCellValue();
+
+                XSSFCell riesgosa = nextCell();
+                if(riesgosa.getCellTypeEnum() != CellType.BLANK && riesgosa.getNumericCellValue() == 1){
+                    audiencia.setRiesgosa(true);
                 }
-                if(containsJuez(solution.getJuezList(), juezRead)){
-                    for (Juez juez : solution.getJuezList()) {
-                        if (juez.getIdJuez() == juezRead){
-                            audiencia.setJuez(juez);
-                            break;
-                        }
-                    }
-                } else {
-                    throw new IllegalStateException(
-                            currentPosition() + ": The juez with id (" + juezRead
-                                    + ") does not exist.");
+                XSSFCell detenido = nextCell();
+                if(detenido.getCellTypeEnum() != CellType.BLANK && detenido.getNumericCellValue() == 1){
+                    audiencia.setDetenido(true);
                 }
-                if(containsDefensor(solution.getDefensorList(), defensorNombre)){
-                    for (Defensor defensor : solution.getDefensorList()) {
-                        if (defensor.getIdDefensor().equals(defensorNombre)){
-                            audiencia.setDefensor(defensor);
-                            break;
-                        }
-                    }
-                } else {
-                    throw new IllegalStateException(
-                            currentPosition() + ": The defensor with id (" + defensorNombre
-                                    + ") does not exist.");
+                XSSFCell tarde = nextCell();
+                if(tarde.getCellTypeEnum() != CellType.BLANK && tarde.getNumericCellValue() == 1){
+                    audiencia.setaLaTarde(true);
                 }
-                if(containsFiscal(solution.getFiscalList(), fiscalRead)){
-                    for (Fiscal fiscal : solution.getFiscalList()) {
-                        if (fiscal.getIdFiscal() == fiscalRead){
-                            audiencia.setFiscal(fiscal);
-                            break;
-                        }
-                    }
-                } else {
-                    throw new IllegalStateException(
-                            currentPosition() + ": The fiscal with id (" + fiscalRead
-                                    + ") does not exist.");
+                XSSFCell boulogne = nextCell();
+                if(boulogne.getCellTypeEnum() != CellType.BLANK && boulogne.getNumericCellValue() == 1){
+                    audiencia.setBoulogne(true);
+                }
+                XSSFCell almaFuerte = nextCell();
+                if(almaFuerte.getCellTypeEnum() != CellType.BLANK && almaFuerte.getNumericCellValue() == 1){
+                    audiencia.setAlmaFuerte(true);
+                }
+
+                XSSFCell fechaPedidoCell = nextCell();
+                if(fechaPedidoCell.getCellTypeEnum() != CellType.BLANK){
+                    LocalDate fechaPedido = fechaPedidoCell.getDateCellValue().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                    audiencia.setFechaPedido(fechaPedido);
+                }
+
+
+                containsTipo(solution.getTipoList(), tipoRead, audiencia);
+                containsJuez(solution.getJuezList(), juezRead, audiencia);
+                containsDefensor(solution.getDefensorList(), defensorNombre, audiencia);
+                containsFiscal(solution.getFiscalList(), fiscalRead, audiencia);
+                if(querellanteRead != 0){
+                    containsQuerellante(solution.getQuerellanteList(), querellanteRead, audiencia);
+                }
+                if(asesorRead != 0){
+                    containsAsesor(solution.getAsesorList(), asesorRead, audiencia);
                 }
 
                 XSSFCell sala = nextCell();
                 if(sala.getCellTypeEnum() == CellType.NUMERIC){
-                    audienciaAssignment.setScorable(true);
                     int salaRead = (int)sala.getNumericCellValue();
                     LocalDate fechaCalendarizado = nextCell().getDateCellValue().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
                     String horaMinutosRead = nextStringCell().getStringCellValue();
                     String[] splitString = horaMinutosRead.split(":");
                     int horaRead = Integer.parseInt(splitString[0]);
                     int minutosRead = Integer.parseInt(splitString[1]);
-                    int startingMinute = horaRead * 60 + minutosRead;
-                    if(containsSala(solution.getRoomList(), salaRead)){
-                        for (Room room : solution.getRoomList()) {
-                            if (room.getIdRoom() == salaRead){
-                                audienciaAssignment.setRoom(room);
-                                break;
-                            }
+                    if (String.valueOf(minutosRead).endsWith("5")){
+                        minutosRead += 5;
+                        if(minutosRead == 60){
+                            minutosRead = 0;
+                            horaRead += 1;
                         }
-                    } else {
-                        throw new IllegalStateException(
-                                currentPosition() + ": The room with id (" + salaRead
-                                        + ") does not exist.");
                     }
+                    int startingMinute = horaRead * 60 + minutosRead;
+                    containsSala(solution.getRoomList(), salaRead, audienciaAssignment);
+
+                    if(solution.getRoomList().stream().filter(r -> !solution.getPossibleRooms().contains(r)).collect(Collectors.toList()).contains(audienciaAssignment.getRoom())){
+                        audiencia.setExterna(true);
+                    }
+
                     Day dayToUse = null;
                     for (Day day : solution.getDayList()){
                         if (day.toDate().isEqual(fechaCalendarizado)){
@@ -580,12 +419,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                         System.out.println("No hay timegrain para el horario " + horaMinutosRead);
                         continue;
                     }
-                } else {
-                    audienciaAssignment.setScorable(true);
                 }
-
-
-
 
                 audienciaList.add(audiencia);
                 audienciaAssignment.setAudiencia(audiencia);
@@ -600,56 +434,138 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             solution.setAudienciaAssignmentList(audienciaAssignmentList);
             }
 
-        private boolean containsTipo(final List<Tipo> list, final int numero){
-            return list.stream().anyMatch(o -> o.getIdTipo() == numero);
+        private void containsTipo(final List<Tipo> list, final int numero, Audiencia audiencia){
+            boolean existe = list.stream().anyMatch(o -> o.getIdTipo() == numero);
+            if(existe){
+                for (Tipo tipo : solution.getTipoList()) {
+                    if (tipo.getIdTipo() == numero){
+                        audiencia.setTipo(tipo);
+                        break;
+                    }
+                }
+            } else {
+                throw new IllegalStateException(
+                        currentPosition() + ": The tipo with id (" + numero
+                                + ") does not exist.");
+            }
         }
 
-        private boolean containsJuez(final List<Juez> list, final int numero){
-            return list.stream().anyMatch(o -> o.getIdJuez() == numero);
+        private void containsJuez(final List<Juez> list, final int numero, Audiencia audiencia){
+            boolean existe = list.stream().anyMatch(o -> o.getIdJuez() == numero);
+            if(existe){
+                for (Juez juez : solution.getJuezList()) {
+                    if (juez.getIdJuez() == numero){
+                        if(!audiencia.getJuezList().contains(juez)){
+                            audiencia.addJuez(juez);
+                        }
+                        break;
+                    }
+                }
+            } else {
+                throw new IllegalStateException(
+                        currentPosition() + ": The juez with id (" + numero
+                                + ") does not exist.");
+            }
         }
 
-        private boolean containsDefensor(final List<Defensor> list, final String numero){
-            return list.stream().anyMatch(o -> o.getIdDefensor().equals(numero));
+        private void containsDefensor(final List<Defensor> list, final String nombre, Audiencia audiencia){
+            boolean existe = list.stream().anyMatch(o -> o.getIdDefensor().equals(nombre));
+            if(existe){
+                for (Defensor defensor : solution.getDefensorList()) {
+                    if (defensor.getIdDefensor().equals(nombre)){
+                        if(!audiencia.getDefensorList().contains(defensor)){
+                            audiencia.addDefensor(defensor);
+                        }
+                        break;
+                    }
+                }
+            } else {
+                throw new IllegalStateException(
+                        currentPosition() + ": The defensor with id (" + nombre
+                                + ") does not exist.");
+            }
         }
 
-        private boolean containsFiscal(final List<Fiscal> list, final int numero){
-            return list.stream().anyMatch(o -> o.getIdFiscal() == numero);
+        private void containsFiscal(final List<Fiscal> list, final int numero, Audiencia audiencia){
+            boolean existe = list.stream().anyMatch(o -> o.getIdFiscal() == numero);
+            if(existe){
+                for (Fiscal fiscal : solution.getFiscalList()) {
+                    if (fiscal.getIdFiscal() == numero){
+                        if(!audiencia.getFiscalList().contains(fiscal)){
+                            audiencia.addFiscal(fiscal);
+                        }
+                        break;
+                    }
+                }
+            } else {
+                throw new IllegalStateException(
+                        currentPosition() + ": The fiscal with id (" + numero
+                                + ") does not exist.");
+            }
         }
 
-        private boolean containsSala(final List<Room> list, final int numero){
-            return list.stream().anyMatch(o -> o.getIdRoom() == numero);
+        private void containsQuerellante(final List<Querellante> list, final int numero, Audiencia audiencia){
+            boolean existe = list.stream().anyMatch(o -> o.getIdQuerellante() == numero);
+            if(existe){
+                for (Querellante querellante : solution.getQuerellanteList()) {
+                    if (querellante.getIdQuerellante() == numero){
+                        if(!audiencia.getQuerellanteList().contains(querellante)){
+                            audiencia.addQuerellante(querellante);
+                        }
+                        break;
+                    }
+                }
+            } else {
+                throw new IllegalStateException(
+                        currentPosition() + ": The querellante with id (" + numero
+                                + ") does not exist.");
+            }
+        }
+
+        private void containsAsesor(final List<Asesor> list, final int numero, Audiencia audiencia){
+            boolean existe = list.stream().anyMatch(o -> o.getIdAsesor() == numero);
+            if(existe){
+                for (Asesor asesor : solution.getAsesorList()) {
+                    if (asesor.getIdAsesor() == numero){
+                        if(!audiencia.getAsesorList().contains(asesor)){
+                            audiencia.addAsesor(asesor);
+                        }
+                        break;
+                    }
+                }
+            } else {
+                throw new IllegalStateException(
+                        currentPosition() + ": The asesor with id (" + numero
+                                + ") does not exist.");
+            }
+        }
+
+        private void containsSala(final List<Room> list, final int numero, AudienciaAssignment audienciaAssignment){
+            boolean existe = list.stream().anyMatch(o -> o.getIdRoom() == numero);
+            if(existe){
+                for (Room room : solution.getRoomList()) {
+                    if (room.getIdRoom() == numero){
+                        audienciaAssignment.setRoom(room);
+                        break;
+                    }
+                }
+            } else {
+                throw new IllegalStateException(
+                        currentPosition() + ": The room with id (" + numero
+                                + ") does not exist.");
+            }
         }
 
         private boolean readAudienciaDuration(Audiencia audiencia) {
             String durationDouble = nextCell().getStringCellValue();
-//            System.out.println(durationDouble);
             String[] time = durationDouble.split ( ":" );
             int hour = Integer.parseInt ( time[0].trim() );
             int min = Integer.parseInt ( time[1].trim() );
             int totalMinutes = 60 * hour + min;
             if (totalMinutes <= 0 || totalMinutes != Math.floor(totalMinutes)) {
-<<<<<<< HEAD
-//                throw new IllegalStateException(
-=======
-                //                throw new IllegalStateException(
->>>>>>> master
-//                        currentPosition() + ": The audiencia with id (" + audiencia.getIdAudiencia()
-//                                + ")'s has a duration (" + durationDouble + ") that isn't a strictly positive integer number.");
-//                totalMinutes = 15;
                 return false;
             }
             if (totalMinutes % TimeGrain.GRAIN_LENGTH_IN_MINUTES != 0) {
-<<<<<<< HEAD
-//                throw new IllegalStateException(
-//                        currentPosition() + ": The audiencia with id (" + audiencia.getIdAudiencia()
-//                                + ") has a duration (" + durationDouble + ") that isn't a multiple of "
-//                                + TimeGrain.GRAIN_LENGTH_IN_MINUTES + ".");
-=======
-                //                throw new IllegalStateException(
-//                        currentPosition() + ": The audiencia with id (" + audiencia.getIdAudiencia()
-//                                + ")'s has a duration (" + durationDouble + ") that isn't a strictly positive integer number.");
-//                totalMinutes = 15;
->>>>>>> master
                 return false;
             }
             audiencia.setNumTimeGrains(totalMinutes / TimeGrain.GRAIN_LENGTH_IN_MINUTES);
@@ -772,12 +688,30 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
 //                    AudienciaScheduleConstraintConfiguration.DONT_CONFLICT_FISCAL_LOCATION,
                     AudienciaScheduleConstraintConfiguration.DONT_START_AFTER_MAXIMUM_STARTING_MINUTE,
                     AudienciaScheduleConstraintConfiguration.DONT_CONFLICT_JUEZ_AND_TIMEGRAIN,
+                    AudienciaScheduleConstraintConfiguration.DO_NOT_CONFLICT_QUERELLANTE,
+                    AudienciaScheduleConstraintConfiguration.DO_NOT_CONFLICT_ASESOR,
+                    AudienciaScheduleConstraintConfiguration.APPEALS_IN_AFTERNOON,
+                    AudienciaScheduleConstraintConfiguration.TIME_FOR_EXTERNAL_DEFENSOR,
+                    AudienciaScheduleConstraintConfiguration.HEARINGS_IN_BOULOGNE,
+                    AudienciaScheduleConstraintConfiguration.HEARINGS_IN_ALMA_FUERTE,
+                    AudienciaScheduleConstraintConfiguration.HEARTINGS_NOT_EJEC,
 
                     AudienciaScheduleConstraintConfiguration.ONE_TIME_GRAIN_BREAK_BETWEEN_TWO_CONSECUTIVE_MEETINGS,
                     AudienciaScheduleConstraintConfiguration.ONE_TIMEGRAIN_JUEZ,
                     AudienciaScheduleConstraintConfiguration.ONE_TIMEGRAIN_DEFENSOR,
                     AudienciaScheduleConstraintConfiguration.ONE_TIMEGRAIN_FISCAL,
                     AudienciaScheduleConstraintConfiguration.DO_ALL_MEETINGS_AS_SOON_AS_POSSIBLE,
+                    AudienciaScheduleConstraintConfiguration.ONE_TIMEGRAIN_QUERELLANTE,
+                    AudienciaScheduleConstraintConfiguration.ONE_TIMEGRAIN_ASESOR,
+                    AudienciaScheduleConstraintConfiguration.PROBLEMATIC_HEARINGS_FOR_LAST_ROOM,
+                    AudienciaScheduleConstraintConfiguration.PROBLEMATIC_HEARINGS_FOR_LAST_JUEZ,
+                    AudienciaScheduleConstraintConfiguration.PROBLEMATIC_HEARINGS_FOR_LAST_FISCAL,
+                    AudienciaScheduleConstraintConfiguration.PROBLEMATIC_HEARINGS_FOR_LAST_ASESOR,
+                    AudienciaScheduleConstraintConfiguration.PRIORITIZE_DETAINEES,
+                    AudienciaScheduleConstraintConfiguration.MAXIMUM_WORK_TIME_JUEZ,
+                    AudienciaScheduleConstraintConfiguration.GROUP_JUEZ_TIPO,
+                    AudienciaScheduleConstraintConfiguration.PENALIZE_CREATION_OF_ZONE,
+                    AudienciaScheduleConstraintConfiguration.PENALIZE_DIFFERENT_ROOM_JUEZ,
 //                    AudienciaScheduleConstraintConfiguration.DISTRIBUTE_WORKLOAD_FAIRLY,
             };
             int mergeStart = -1;
@@ -821,18 +755,29 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             if (audienciaAssignmentList == null) {
                 audienciaAssignmentList = Collections.emptyList();
             }
-            HardMediumSoftScore score = audienciaAssignmentList.stream()
+            BendableScore score = audienciaAssignmentList.stream()
                     .map(indictmentMap::get).filter(Objects::nonNull)
                     .flatMap(indictment -> indictment.getConstraintMatchSet().stream())
                     // Filter out filtered constraints
                     .filter(constraintMatch -> filteredConstraintNames == null
                             || filteredConstraintNames.contains(constraintMatch.getConstraintName()))
-                    .map(constraintMatch -> (HardMediumSoftScore) constraintMatch.getScore())
+                    .map(constraintMatch -> (BendableScore) constraintMatch.getScore())
                     // Filter out positive constraints
-                    .filter(indictmentScore -> !(indictmentScore.getHardScore() >= 0 && indictmentScore.getSoftScore() >= 0))
-                    .reduce(Score::add).orElse(HardMediumSoftScore.ZERO);
+                    .filter(indictmentScore -> !(indictmentScore.getHardScore(0) >= 0 && indictmentScore.getHardScore(1) >= 0 && indictmentScore.getSoftScore(0) >= 0 && indictmentScore.getSoftScore(1) >= 0 && indictmentScore.getSoftScore(2) >= 0))
+                    .reduce(Score::add).orElse(BendableScore.zero(2, 3));
 
-            XSSFCell cell = getXSSFCellOfScore(score);
+            boolean pinned = false;
+            boolean externa = false;
+            for (AudienciaAssignment audienciaAssignment : audienciaAssignmentList){
+                if (audienciaAssignment.isPinned()){
+                    pinned = true;
+                }
+                if (audienciaAssignment.getAudiencia().isExterna()){
+                    externa = true;
+                }
+            }
+
+            XSSFCell cell = getXSSFCellOfScore(score, pinned, externa);
 
             if (!audienciaAssignmentList.isEmpty()) {
                 ClientAnchor anchor = creationHelper.createClientAnchor();
@@ -849,13 +794,15 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             currentRow.setHeightInPoints(Math.max(currentRow.getHeightInPoints(), audienciaAssignmentList.size() * currentSheet.getDefaultRowHeightInPoints()));
         }
 
-        private XSSFCell getXSSFCellOfScore(HardMediumSoftScore score) {
+        private XSSFCell getXSSFCellOfScore(BendableScore score, boolean pinned, boolean externa) {
             XSSFCell cell;
-            if (!score.isFeasible()) {
+            if (externa){
+                cell = nextCell(republishedStyle);
+            } else if (pinned){
+                cell = nextCell(pinnedStyle);
+            } else if (!score.isFeasible()) {
                 cell = nextCell(hardPenaltyStyle);
-            } else if (score.getMediumScore() < 0) {
-                cell = nextCell(mediumPenaltyStyle);
-            } else if (score.getSoftScore() < 0) {
+            } else if (score.getSoftScore(0) < 0 || score.getSoftScore(1) < 0 || score.getSoftScore(2) < 0) {
                 cell = nextCell(softPenaltyStyle);
             } else {
                 cell = nextCell(wrappedStyle);
@@ -881,10 +828,10 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                         List<ConstraintMatch> filteredConstraintMatchList = constraintMatchSet.stream()
                                 .filter(constraintMatch -> constraintMatch.getConstraintName().equals(constraintName))
                                 .collect(toList());
-                        HardMediumSoftScore sum = filteredConstraintMatchList.stream()
-                                .map(constraintMatch -> (HardMediumSoftScore) constraintMatch.getScore())
-                                .reduce(HardMediumSoftScore::add)
-                                .orElse(HardMediumSoftScore.ZERO);
+                        BendableScore sum = filteredConstraintMatchList.stream()
+                                .map(constraintMatch -> (BendableScore) constraintMatch.getScore())
+                                .reduce(BendableScore::add)
+                                .orElse(BendableScore.zero(2, 3));
                         String justificationTalkCodes = filteredConstraintMatchList.stream()
                                 .flatMap(constraintMatch -> constraintMatch.getJustificationList().stream())
                                 .filter(justification -> justification instanceof AudienciaAssignment && justification != audienciaAssignment)
@@ -912,8 +859,14 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             for(Juez juez : solution.getJuezList()){
                 boolean tieneAudiencias = false;
                 for (Audiencia audiencia : solution.getAudienciaList()){
-                    if (audiencia.getJuez() == juez){
-                        tieneAudiencias = true;
+                    for(Juez juezaudiencia : audiencia.getJuezList()){
+                        if (juezaudiencia.equals(juez)){
+                            tieneAudiencias = true;
+                            break;
+                        }
+                    }
+
+                    if (tieneAudiencias){
                         break;
                     }
                 }
@@ -932,7 +885,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
 
             List<Audiencia> juezAudienciaList;
 
-            juezAudienciaList = solution.getAudienciaList().stream().filter(audiencia -> audiencia.getJuez().equals(juez)).collect(toList());
+            juezAudienciaList = solution.getAudienciaList().stream().filter(audiencia -> audiencia.getJuezList().contains(juez)).collect(toList());
 
             List<AudienciaAssignment> juezAudienciaAssignmentList = solution.getAudienciaAssignmentList().stream()
                     .filter(audienciaAssignment -> juezAudienciaList.contains(audienciaAssignment.getAudiencia()))
@@ -952,8 +905,13 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             for(Fiscal fiscal : solution.getFiscalList()){
                 boolean tieneAudiencias = false;
                 for (Audiencia audiencia : solution.getAudienciaList()){
-                    if (audiencia.getFiscal() == fiscal){
-                        tieneAudiencias = true;
+                    for(Fiscal fiscalAudiencia : audiencia.getFiscalList()){
+                        if (fiscalAudiencia.equals(fiscal)){
+                            tieneAudiencias = true;
+                            break;
+                        }
+                    }
+                    if(tieneAudiencias){
                         break;
                     }
                 }
@@ -972,7 +930,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
 
             List<Audiencia> fiscalAudienciaList;
 
-            fiscalAudienciaList = solution.getAudienciaList().stream().filter(audiencia -> audiencia.getFiscal().equals(fiscal)).collect(toList());
+            fiscalAudienciaList = solution.getAudienciaList().stream().filter(audiencia -> audiencia.getFiscalList().contains(fiscal)).collect(toList());
 
             List<AudienciaAssignment> fiscalAudienciaAssignmentList = solution.getAudienciaAssignmentList().stream()
                     .filter(audienciaAssignment -> fiscalAudienciaList.contains(audienciaAssignment.getAudiencia()))
@@ -991,8 +949,13 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             for(Defensor defensor : solution.getDefensorList()){
                 boolean tieneAudiencias = false;
                 for (Audiencia audiencia : solution.getAudienciaList()){
-                    if (audiencia.getDefensor() == defensor){
-                        tieneAudiencias = true;
+                    for (Defensor defensorAudiencia : audiencia.getDefensorList()){
+                        if (defensorAudiencia.equals(defensor)){
+                            tieneAudiencias = true;
+                            break;
+                        }
+                    }
+                    if (tieneAudiencias){
                         break;
                     }
                 }
@@ -1011,7 +974,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
 
             List<Audiencia> defensorAudienciaList;
 
-            defensorAudienciaList = solution.getAudienciaList().stream().filter(audiencia -> audiencia.getDefensor().equals(defensor)).collect(toList());
+            defensorAudienciaList = solution.getAudienciaList().stream().filter(audiencia -> audiencia.getDefensorList().contains(defensor)).collect(toList());
 
             List<AudienciaAssignment> defensorAudienciaAssignmentList = solution.getAudienciaAssignmentList().stream()
                     .filter(audienciaAssignment -> defensorAudienciaList.contains(audienciaAssignment.getAudiencia()))

@@ -30,16 +30,12 @@ public class Main {
 
         createDirectories();
 
-<<<<<<< HEAD
-        LocalDate diaCalendarizar = LocalDate.of(2018, 11, 28);
-=======
-        LocalDate diaCalendarizar = LocalDate.of(2019, 4, 1);
->>>>>>> master
+        LocalDate diaCalendarizar = LocalDate.of(2018, 11, 20);
 
         for(int i = 0; i < 160; i++){
             ExcelReader excelReader = new ExcelReader();
             excelReader.setDate(diaCalendarizar);
-            File excelFile = new File("data/unsolved/scheduled/" + diaCalendarizar.getYear() + "-" + String.format("%02d", diaCalendarizar.getMonthValue()) + "-" + String.format("%02d", diaCalendarizar.getDayOfMonth()) + ".xlsx");
+            File excelFile = new File("data/unsolved/to_schedule/" + diaCalendarizar.getYear() + "-" + String.format("%02d", diaCalendarizar.getMonthValue()) + "-" + String.format("%02d", diaCalendarizar.getDayOfMonth()) + ".xlsx");
             if(excelFile.exists()){
                 AudienciaSchedule solvedAudienciaSchedule = excelReader.read(excelFile);
 
@@ -52,17 +48,15 @@ public class Main {
                 solvedAudienciaSchedule = solver.solve(solvedAudienciaSchedule);
                 System.out.println(solvedAudienciaSchedule.getAudienciaAssignmentList().size());
 
+                String fileName = "Result-" + diaCalendarizar.toString() + ".xlsx";
+                excelReader.write(solvedAudienciaSchedule, new File("data/excel/to_schedule/" + fileName));
+
                 XMLExporter xmlExporter = new XMLExporter(DATA_DIR_NAME + "/");
                 try {
                     xmlExporter.write(solvedAudienciaSchedule);
                 } catch (JAXBException | FileNotFoundException e) {
                     e.printStackTrace();
                 }
-
-                System.out.println(solvedAudienciaSchedule.getAudienciaAssignmentList().size());
-
-                String fileName = "Result-" + diaCalendarizar.toString() + ".xlsx";
-                excelReader.write(solvedAudienciaSchedule, new File("data/excel/scheduled/" + fileName));
 
 
 
@@ -86,7 +80,7 @@ public class Main {
 //            fechaDeseada = scanner.nextLine();
 //            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 //            LocalDate fechaDeseadaLocalDate = LocalDate.parse(fechaDeseada, formatter);
-//            File excelFile = new File("data/unsolved/" + fechaDeseadaLocalDate.getYear() + "-" + fechaDeseadaLocalDate.getMonthValue() + "-" + fechaDeseadaLocalDate.getDayOfMonth() + ".xlsx");
+//            File excelFile = new File("data/unsolved/to_schedule/" + fechaDeseadaLocalDate.getYear() + "-" + fechaDeseadaLocalDate.getMonthValue() + "-" + fechaDeseadaLocalDate.getDayOfMonth() + ".xlsx");
 //            if(excelFile.exists()){
 //                excelReader.setDate(fechaDeseadaLocalDate);
 //                solvedAudienciaSchedule = excelReader.read(excelFile);
@@ -136,9 +130,9 @@ public class Main {
 //                do{
 //                    fileName = "Excel-result-" + counter + ".xlsx";
 //                    counter++;
-//                }while (new File("data/excel/" + fileName).exists());
+//                }while (new File("data/excel/to_schedule/" + fileName).exists());
 //
-//                excelReader.write(solvedAudienciaSchedule, new File("data/excel/" + fileName));
+//                excelReader.write(solvedAudienciaSchedule, new File("data/excel/to_schedule/" + fileName));
 //                correctInput = true;
 //            } else if (excelInput.equals("N")  || excelInput.equals("n")){
 //                System.out.print("No se generará un informe en Excel\n");
@@ -174,8 +168,9 @@ public class Main {
 //        } while (!isDone);
 
 
-    }
 
+
+    }
 
     private static void createDirectories(){
 
@@ -224,4 +219,5 @@ public class Main {
             directory.mkdir();
         }
     }
+
 }

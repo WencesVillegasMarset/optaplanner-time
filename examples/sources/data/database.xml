@@ -12404,6 +12404,7 @@
     <roomList>
         <idRoom>273</idRoom>
         <nombreRoom>Sala 1° B. Sur Mer </nombreRoom>
+        <boulogne>true</boulogne>
     </roomList>
     <roomList>
         <idRoom>502</idRoom>
@@ -12500,6 +12501,7 @@
     <roomList>
         <idRoom>353</idRoom>
         <nombreRoom>Sala 2° B. Sur Mer</nombreRoom>
+        <boulogne>true</boulogne>
     </roomList>
     <roomList>
         <idRoom>1064</idRoom>
@@ -12512,6 +12514,7 @@
     <roomList>
         <idRoom>406</idRoom>
         <nombreRoom>Sala 1° Almafuerte</nombreRoom>
+        <almaFuerte>true</almaFuerte>
     </roomList>
     <roomList>
         <idRoom>451</idRoom>

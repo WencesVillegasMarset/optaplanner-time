@@ -6,7 +6,8 @@ public class Room {
 
     private int idRoom;
     private String nombreRoom;
-//    private int ubicacion;
+    private boolean almaFuerte = false;
+    private boolean boulogne = false;
 
     /* Constructor */
 
@@ -36,11 +37,19 @@ public class Room {
         this.nombreRoom = nombreRoom;
     }
 
-//    public int getUbicacion() {
-//        return ubicacion;
-//    }
-//
-//    public void setUbicacion(int ubicacion) {
-//        this.ubicacion = ubicacion;
-//    }
+    public boolean isAlmaFuerte() {
+        return almaFuerte;
+    }
+
+    public void setAlmaFuerte(boolean almaFuerte) {
+        this.almaFuerte = almaFuerte;
+    }
+
+    public boolean isBoulogne() {
+        return boulogne;
+    }
+
+    public void setBoulogne(boolean boulogne) {
+        this.boulogne = boulogne;
+    }
 }

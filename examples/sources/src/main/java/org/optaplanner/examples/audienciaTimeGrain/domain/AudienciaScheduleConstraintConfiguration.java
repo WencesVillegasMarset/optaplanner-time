@@ -3,6 +3,7 @@ package org.optaplanner.examples.audienciaTimeGrain.domain;
 import org.apache.commons.math3.fitting.HarmonicCurveFitter;
 import org.optaplanner.core.api.domain.constraintweight.ConstraintConfiguration;
 import org.optaplanner.core.api.domain.constraintweight.ConstraintWeight;
+import org.optaplanner.core.api.score.buildin.bendable.BendableScore;
 import org.optaplanner.core.api.score.buildin.hardmediumsoft.HardMediumSoftScore;
 import org.optaplanner.examples.audienciaTimeGrain.helper.ScoreAdapter;
 import org.optaplanner.examples.common.domain.AbstractPersistable;
@@ -14,124 +15,168 @@ import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 public class AudienciaScheduleConstraintConfiguration {
 
-    /* Declarations */
+    /* Declarations Scheduling */
 
-    //HARD - Previene el conflicto de uso de una Room mas de una vez al mismo tiempo
+    //Previene el conflicto de uso de una Room mas de una vez al mismo tiempo
     public static final String ROOM_CONFLICT = "Room conflict";
-
-    //SOFT - Inserta un TimeGrain preventivo entre cada Audiencia
-    public static final String ONE_TIME_GRAIN_BREAK_BETWEEN_TWO_CONSECUTIVE_MEETINGS = "One TimeGrain break between two consecutive meetings";
-
-    //HARD - Las audiencias deben empezar y terminar el mismo día
-    public static final String START_AND_END_ON_SAME_DAY = "Start and end on same day";
-
-    //HARD - Asegura que el TimeGrain en el que termina la Audiencia exista, es decir, que no pase el horario estipulado
+    //Asegura que el TimeGrain en el que termina la Audiencia exista, es decir, que no pase el horario estipulado
     public static final String DONT_GO_IN_OVERTIME = "Don't go in overtime";
-
-    //SOFT - Planificar las Audiencias para tiempos mas cercanos si es posible
-    public static final String DO_ALL_MEETINGS_AS_SOON_AS_POSSIBLE = "Do all meetings as soon as possible";
-
-    //HARD - Que el Juez no este en más de una Audiencia al mismo tiempo
+    //Las audiencias deben empezar y terminar el mismo día
+    public static final String START_AND_END_ON_SAME_DAY = "Start and end on same day";
+    //Que el Juez no este en más de una Audiencia al mismo tiempo
     public static final String DO_NOT_CONFLICT_JUEZ = "Do not conflict Juez";
-
-    //HARD - Que no se utilice una Room en un tiempo que se determinó que no está disponible
+    //Que no se utilice una Room en un tiempo que se determinó que no está disponible
     public static final String DO_NOT_USE_ROOM_IN_PRHOHIBITED_TIME = "Do not use room in prohibited time";
-
-    //HARD - Que el Fiscal no este en más de una Audiencia al mismo tiempo
+    //Que el Fiscal no este en más de una Audiencia al mismo tiempo
     public static final String DO_NOT_CONFLICT_FISCAL = "Do not conflict Fiscal";
-
-    //HARD - Que el Defensor no este en más de una Audiencia al mismo tiempo
+    //Que el Defensor no este en más de una Audiencia al mismo tiempo
     public static final String DO_NOT_CONFLICT_DEFENSOR = "Do not conflict Defensor";
-
-    //HARD - Que se respeten los breaks durante un mismo dia
-//    public static final String DO_NOT_USE_BREAKS = "Avoid Mid-break";
-
-    //SOFT - Que se asignen similares cantidades de audiencias por Room
-//    public static final String DISTRIBUTE_WORKLOAD_FAIRLY = "Distribute workload fairly";
-
-    //HARD - Que se resteten las ubicaciones
-//    public static final String RESPECT_LOCATIONS = "Respect Locations";
-
-    //HARD - Que se respeten los tiempos minimos de realizacion
-    public static final String RESPECT_MINIMUM_STARTING_TIME = "Respect Minimum Starting Time";
-
-    //HARD - Que se respeten los tiempos maximos de realizacion
-    public static final String RESPECT_MAXIMUM_STARTING_TIME = "Respect Maximum Starting Time";
-
-    //SOFT - One TimeGrain between two consecutive audiencias with the same Juez
+    //Que el Querellante no este en más de una Audiencia al mismo tiempo
+    public static final String DO_NOT_CONFLICT_QUERELLANTE = "Do not conflict Querellante";
+    //Que el Asesor no este en más de una Audiencia al mismo tiempo
+    public static final String DO_NOT_CONFLICT_ASESOR = "Do not conflict Asesor";
+    //Inserta un TimeGrain preventivo entre cada Audiencia
+    public static final String ONE_TIME_GRAIN_BREAK_BETWEEN_TWO_CONSECUTIVE_MEETINGS = "One TimeGrain break between two consecutive meetings";
+    //One TimeGrain between two consecutive audiencias with the same Juez
     public static final String ONE_TIMEGRAIN_JUEZ = "One TimeGrain Juez";
-
-    //SOFT - One TimeGrain between two consecutive audiencias with the same Defensor
+    //One TimeGrain between two consecutive audiencias with the same Defensor
     public static final String ONE_TIMEGRAIN_DEFENSOR = "One TimeGrain Defensor";
-
-    //SOFT - One TimeGrain between two consecutive audiencias with the same Fiscal
+    //One TimeGrain between two consecutive audiencias with the same Fiscal
     public static final String ONE_TIMEGRAIN_FISCAL = "One TimeGrain Fiscal";
-
-    //HARD - Que un Juez no tenga audiencias en distintas ubicaciones el mismo dia
-//    public static final String DONT_CONFLICT_JUEZ_LOCATION = "Dont conflict Juez with locations";
-
-    //HARD - Que un Defensor no tenga audiencias en distintas ubicaciones el mismo dia
-//    public static final String DONT_CONFLICT_DEFENSOR_LOCATION = "Dont conflict Defensor with locations";
-
-    //HARD - Que un Fiscal no tenga audiencias en distintas ubicaciones el mismo dia
-//    public static final String DONT_CONFLICT_FISCAL_LOCATION = "Dont conflict Fiscal with locations";
-
-    //HARD - No permite que una audiencia comience después del horario permitido de comienzo
+    //One TimeGrain between two consecutive audiencias with the same Querellante
+    public static final String ONE_TIMEGRAIN_QUERELLANTE = "One TimeGrain Querellante";
+    //One TimeGrain between two consecutive audiencias with the same Asesor
+    public static final String ONE_TIMEGRAIN_ASESOR = "One TimeGrain Asesor";
+    //Defensor that is working in other location needs time to commute
+    public static final String TIME_FOR_EXTERNAL_DEFENSOR = "Time for External Defensor";
+    //No permite que una audiencia comience después del horario permitido de comienzo
     public static final String DONT_START_AFTER_MAXIMUM_STARTING_MINUTE = "Don't start after maximum starting time of the day";
 
-    //HARD - No permite que se asigne una audiencia en un TimeGrain que el Juez no este disponible
+    /* Declarations Legal */
+
+    //Que se respeten los tiempos minimos de realizacion
+    public static final String RESPECT_MINIMUM_STARTING_TIME = "Respect Minimum Starting Time";
+    //Que se respeten los tiempos maximos de realizacion
+    public static final String RESPECT_MAXIMUM_STARTING_TIME = "Respect Maximum Starting Time";
+    //No permite que se asigne una audiencia en un TimeGrain que el Juez no este disponible
     public static final String DONT_CONFLICT_JUEZ_AND_TIMEGRAIN = "Do not conflict Juez with TimeGrain";
+    //Appeals need to be appointed in afternoon time
+    public static final String APPEALS_IN_AFTERNOON = "Appeals in the afternoon";
+    //Audiencias de Boulogne Sur Mer
+    public static final String HEARINGS_IN_BOULOGNE = "Rooms in Boulogne";
+    //Audiencias de Alma Fuerte
+    public static final String HEARINGS_IN_ALMA_FUERTE = "Rooms in Alma Fuerte";
+    //Audiencias que no son de Boulogne o Alma Fuerte no se calendarizan en sus salas
+    public static final String HEARTINGS_NOT_EJEC = "Rooms not in Boulogne or Alma Fuerte";
+
+    /* Declarations OGAP */
+
+    //Las audiencias que tienen detenidos deben ser priorizadas temporalmente
+    public static final String PRIORITIZE_DETAINEES = "Prioritize Detainees";
+    //Problematic audiencias need to be the last audiencia in the room
+    public static final String PROBLEMATIC_HEARINGS_FOR_LAST_ROOM = "Problematic Hearings for last - Room";
+    //Problematic audiencias need to be the last audiencia in the room
+    public static final String PROBLEMATIC_HEARINGS_FOR_LAST_JUEZ = "Problematic Hearings for last - Juez";
+    //Problematic audiencias need to be the last audiencia in the room
+    public static final String PROBLEMATIC_HEARINGS_FOR_LAST_FISCAL = "Problematic Hearings for last - Fiscal";
+    //Problematic audiencias need to be the last audiencia in the room
+    public static final String PROBLEMATIC_HEARINGS_FOR_LAST_ASESOR = "Problematic Hearings for last - Asesor";
+    //Jueces can't work for more than 6 hours a day (72 timegrains)
+    public static final String MAXIMUM_WORK_TIME_JUEZ = "Maximum work time Juez";
+    //Group Audiencias by Tipo and Juez
+    public static final String GROUP_JUEZ_TIPO = "Group Juez Tipo";
+    //Penalize Creation of Prohibited Zone
+    public static final String PENALIZE_CREATION_OF_ZONE = "Penalize Creation of Prohibited Zone";
+    //Penalize Different Room Juez
+    public static final String PENALIZE_DIFFERENT_ROOM_JUEZ = "Penalize Different Room Juez";
+
+    /* Declarations Soft */
+
+    //Planificar las Audiencias para tiempos mas cercanos si es posible
+    public static final String DO_ALL_MEETINGS_AS_SOON_AS_POSSIBLE = "Do all meetings as soon as possible";
 
 
-    /* Hard Constraints */
+    /* SCHEDULING */
     @ConstraintWeight(ROOM_CONFLICT)
-    private HardMediumSoftScore roomConflict = HardMediumSoftScore.ofHard(1);
+    private BendableScore roomConflict = BendableScore.ofHard(2, 3, 0, 1);
     @ConstraintWeight(DONT_GO_IN_OVERTIME)
-    private HardMediumSoftScore dontGoInOvertime = HardMediumSoftScore.ofHard(1);
+    private BendableScore contGoInOvertime = BendableScore.ofHard(2, 3, 0, 1);
     @ConstraintWeight(START_AND_END_ON_SAME_DAY)
-    private HardMediumSoftScore startAndEndOnSameDay = HardMediumSoftScore.ofHard(1);
+    private BendableScore startAndEndOnSameDay = BendableScore.ofHard(2, 3, 0, 1);
     @ConstraintWeight(DO_NOT_CONFLICT_JUEZ)
-    private HardMediumSoftScore dontConflictJuez = HardMediumSoftScore.ofHard(1);
-    @ConstraintWeight(DO_NOT_USE_ROOM_IN_PRHOHIBITED_TIME)
-    private HardMediumSoftScore dontConflictRoomTime = HardMediumSoftScore.ofHard(1);
+    private BendableScore dontConflictJuez = BendableScore.ofHard(2, 3, 0, 1);
     @ConstraintWeight(DO_NOT_CONFLICT_FISCAL)
-    private HardMediumSoftScore dontConflictFiscal = HardMediumSoftScore.ofHard(1);
+    private BendableScore dontConflictFiscal = BendableScore.ofHard(2, 3, 0, 1);
     @ConstraintWeight(DO_NOT_CONFLICT_DEFENSOR)
-    private HardMediumSoftScore dontConflictDefensor = HardMediumSoftScore.ofHard(1);
-//    @ConstraintWeight(DO_NOT_USE_BREAKS)
-//    private HardMediumSoftScore dontUseBreaks = HardMediumSoftScore.ofHard(1);
-//    @ConstraintWeight(RESPECT_LOCATIONS)
-//    private HardMediumSoftScore respectLocations = HardMediumSoftScore.ofHard(1);
-    @ConstraintWeight(RESPECT_MINIMUM_STARTING_TIME)
-    private HardMediumSoftScore respectMinimumStartingTime = HardMediumSoftScore.ofHard(1);
-    @ConstraintWeight(RESPECT_MAXIMUM_STARTING_TIME)
-    private HardMediumSoftScore respectMaximumStartingTime = HardMediumSoftScore.ofHard(1);
-//    @ConstraintWeight(DONT_CONFLICT_JUEZ_LOCATION)
-//    private HardMediumSoftScore dontConflictJuezLocation = HardMediumSoftScore.ofHard(1);
-//    @ConstraintWeight(DONT_CONFLICT_DEFENSOR_LOCATION)
-//    private HardMediumSoftScore dontConflictDefensorLocation = HardMediumSoftScore.ofHard(1);
-//    @ConstraintWeight(DONT_CONFLICT_FISCAL_LOCATION)
-//    private HardMediumSoftScore dontConflictFiscalLocation = HardMediumSoftScore.ofHard(1);
-    @ConstraintWeight(DONT_START_AFTER_MAXIMUM_STARTING_MINUTE)
-    private HardMediumSoftScore dontStartAfterMaximumStartingMinute = HardMediumSoftScore.ofHard(1);
-    @ConstraintWeight(DONT_CONFLICT_JUEZ_AND_TIMEGRAIN)
-    private HardMediumSoftScore dontConflictJuezAndTimeGrain = HardMediumSoftScore.ofHard(1);
-
-
-    /* Soft Constraints */
-
+    private BendableScore dontConflictDefensor = BendableScore.ofHard(2, 3, 0, 1);
+    @ConstraintWeight(DO_NOT_CONFLICT_QUERELLANTE)
+    private BendableScore dontConflictQuerellante = BendableScore.ofHard(2, 3, 0, 1);
+    @ConstraintWeight(DO_NOT_CONFLICT_ASESOR)
+    private BendableScore dontConflictAsesor = BendableScore.ofHard(2, 3, 0, 1);
+    @ConstraintWeight(DO_NOT_USE_ROOM_IN_PRHOHIBITED_TIME)
+    private BendableScore dontConflictRoomTime = BendableScore.ofHard(2, 3, 0, 1);
     @ConstraintWeight(ONE_TIME_GRAIN_BREAK_BETWEEN_TWO_CONSECUTIVE_MEETINGS)
-    private HardMediumSoftScore oneTimeGrainBreakBetweenTwoConsecutiveMeetings = HardMediumSoftScore.ofSoft(100);
-    @ConstraintWeight(DO_ALL_MEETINGS_AS_SOON_AS_POSSIBLE)
-    private HardMediumSoftScore doAllMeetingsAsSoonAsPossible = HardMediumSoftScore.ofSoft(1);
-//    @ConstraintWeight(DISTRIBUTE_WORKLOAD_FAIRLY)
-//    private HardMediumSoftScore distributeWorkloadFairly = HardMediumSoftScore.ofSoft(1);
+    private BendableScore oneTimeGrainBreakBetweenTwoConsecutiveMeetings = BendableScore.ofHard(2, 3, 0, 1);
     @ConstraintWeight(ONE_TIMEGRAIN_JUEZ)
-    private HardMediumSoftScore oneTimeGrainJuez = HardMediumSoftScore.ofSoft(100);
+    private BendableScore oneTimeGrainJuez = BendableScore.ofHard(2, 3, 0, 1);
     @ConstraintWeight(ONE_TIMEGRAIN_DEFENSOR)
-    private HardMediumSoftScore oneTimeGrainDefensor = HardMediumSoftScore.ofSoft(100);
+    private BendableScore oneTimeGrainDefensor = BendableScore.ofHard(2, 3, 0, 1);
     @ConstraintWeight(ONE_TIMEGRAIN_FISCAL)
-    private HardMediumSoftScore oneTimeGrainFiscal = HardMediumSoftScore.ofSoft(100);
+    private BendableScore oneTimeGrainFiscal = BendableScore.ofHard(2, 3, 0, 1);
+    @ConstraintWeight(ONE_TIMEGRAIN_QUERELLANTE)
+    private BendableScore oneTimeGrainQuerellante = BendableScore.ofHard(2, 3, 0, 1);
+    @ConstraintWeight(ONE_TIMEGRAIN_ASESOR)
+    private BendableScore oneTimeGrainAsesor = BendableScore.ofHard(2, 3, 0, 1);
+    @ConstraintWeight(TIME_FOR_EXTERNAL_DEFENSOR)
+    private BendableScore timeExternalDefensor = BendableScore.ofHard(2, 3, 0, 1);
+    @ConstraintWeight(DONT_START_AFTER_MAXIMUM_STARTING_MINUTE)
+    private BendableScore dontStartAfterMaximumStartingMinute = BendableScore.ofHard(2, 3, 0, 1);
+
+
+    /* LEGAL */
+    @ConstraintWeight(RESPECT_MINIMUM_STARTING_TIME)
+    private BendableScore respectMinimumStartingTime = BendableScore.ofHard(2, 3, 1, 1);
+    @ConstraintWeight(RESPECT_MAXIMUM_STARTING_TIME)
+    private BendableScore respectMaximumStartingTime = BendableScore.ofHard(2, 3, 1, 1);
+    @ConstraintWeight(DONT_CONFLICT_JUEZ_AND_TIMEGRAIN)
+    private BendableScore dontConflictJuezAndTimeGrain = BendableScore.ofHard(2, 3, 1, 1);
+    @ConstraintWeight(APPEALS_IN_AFTERNOON)
+    private BendableScore appealsInAfternoon = BendableScore.ofHard(2, 3, 1, 1);
+    @ConstraintWeight(HEARINGS_IN_BOULOGNE)
+    private BendableScore hearingsInBoulogne = BendableScore.ofHard(2, 3, 1, 1);
+    @ConstraintWeight(HEARINGS_IN_ALMA_FUERTE)
+    private BendableScore hearingsInAlmaFuerte = BendableScore.ofHard(2, 3, 1, 1);
+    @ConstraintWeight(HEARTINGS_NOT_EJEC)
+    private BendableScore hearingsNotEjec = BendableScore.ofHard(2, 3, 1, 1);
+
+
+    /* OGAP */
+    @ConstraintWeight(PRIORITIZE_DETAINEES)
+    private BendableScore prioritizeDetainees = BendableScore.ofSoft(2, 3, 0, 2);
+    @ConstraintWeight(PROBLEMATIC_HEARINGS_FOR_LAST_ROOM)
+    private BendableScore problematicHearingsForLastRoom = BendableScore.ofSoft(2, 3, 0, 2);
+    @ConstraintWeight(PROBLEMATIC_HEARINGS_FOR_LAST_JUEZ)
+    private BendableScore problematicHearingsForLastJuez = BendableScore.ofSoft(2, 3, 0, 2);
+    @ConstraintWeight(PROBLEMATIC_HEARINGS_FOR_LAST_FISCAL)
+    private BendableScore problematicHearingsForLastFiscal = BendableScore.ofSoft(2, 3, 0, 2);
+    @ConstraintWeight(PROBLEMATIC_HEARINGS_FOR_LAST_ASESOR)
+    private BendableScore problematicHearingsForLastAsesor = BendableScore.ofSoft(2, 3, 0, 2);
+    @ConstraintWeight(MAXIMUM_WORK_TIME_JUEZ)
+    private BendableScore maximumWorkTimeJuez = BendableScore.ofSoft(2, 3, 0, 1);
+    @ConstraintWeight(GROUP_JUEZ_TIPO)
+    private BendableScore groupJuezTipo = BendableScore.ofSoft(2, 3, 0, 1);
+    @ConstraintWeight(PENALIZE_CREATION_OF_ZONE)
+    private BendableScore penalizeCreationZone = BendableScore.ofSoft(2, 3, 0, 1);
+    @ConstraintWeight(PENALIZE_DIFFERENT_ROOM_JUEZ)
+    private BendableScore penalizeDifferentRoomJuez = BendableScore.ofSoft(2, 3, 0, 1);
+
+    /* MAGISTRADOS */
+
+
+    /* SOFT */
+    @ConstraintWeight(DO_ALL_MEETINGS_AS_SOON_AS_POSSIBLE)
+    private BendableScore doAllMeetingsAsSoonAsPossible = BendableScore.ofSoft(2, 3, 2, 1);
+
 
 
     /* Constructor */
@@ -140,195 +185,310 @@ public class AudienciaScheduleConstraintConfiguration {
     }
 
     /* Setters y Getters */
+
     @XmlJavaTypeAdapter(value = ScoreAdapter.class)
-    public HardMediumSoftScore getRoomConflict() {
+    public BendableScore getRoomConflict() {
         return roomConflict;
     }
 
-    public void setRoomConflict(HardMediumSoftScore roomConflict) {
+    public void setRoomConflict(BendableScore roomConflict) {
         this.roomConflict = roomConflict;
     }
 
     @XmlJavaTypeAdapter(value = ScoreAdapter.class)
-    public HardMediumSoftScore getOneTimeGrainBreakBetweenTwoConsecutiveMeetings() {
-        return oneTimeGrainBreakBetweenTwoConsecutiveMeetings;
+    public BendableScore getContGoInOvertime() {
+        return contGoInOvertime;
     }
 
-    public void setOneTimeGrainBreakBetweenTwoConsecutiveMeetings(HardMediumSoftScore oneTimeGrainBreakBetweenTwoConsecutiveMeetings) {
-        this.oneTimeGrainBreakBetweenTwoConsecutiveMeetings = oneTimeGrainBreakBetweenTwoConsecutiveMeetings;
-    }
-
-    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
-    public HardMediumSoftScore getDontGoInOvertime() {
-        return dontGoInOvertime;
-    }
-
-    public void setDontGoInOvertime(HardMediumSoftScore dontGoInOvertime) {
-        this.dontGoInOvertime = dontGoInOvertime;
+    public void setContGoInOvertime(BendableScore contGoInOvertime) {
+        this.contGoInOvertime = contGoInOvertime;
     }
 
     @XmlJavaTypeAdapter(value = ScoreAdapter.class)
-    public HardMediumSoftScore getStartAndEndOnSameDay() {
+    public BendableScore getStartAndEndOnSameDay() {
         return startAndEndOnSameDay;
     }
 
-    public void setStartAndEndOnSameDay(HardMediumSoftScore startAndEndOnSameDay) {
+    public void setStartAndEndOnSameDay(BendableScore startAndEndOnSameDay) {
         this.startAndEndOnSameDay = startAndEndOnSameDay;
     }
 
     @XmlJavaTypeAdapter(value = ScoreAdapter.class)
-    public HardMediumSoftScore getDoAllMeetingsAsSoonAsPossible() {
-        return doAllMeetingsAsSoonAsPossible;
-    }
-
-    public void setDoAllMeetingsAsSoonAsPossible(HardMediumSoftScore doAllMeetingsAsSoonAsPossible) {
-        this.doAllMeetingsAsSoonAsPossible = doAllMeetingsAsSoonAsPossible;
-    }
-
-    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
-    public HardMediumSoftScore getDontConflictJuez() {
+    public BendableScore getDontConflictJuez() {
         return dontConflictJuez;
     }
 
-    public void setDontConflictJuez(HardMediumSoftScore dontConflictJuez) {
+    public void setDontConflictJuez(BendableScore dontConflictJuez) {
         this.dontConflictJuez = dontConflictJuez;
     }
 
     @XmlJavaTypeAdapter(value = ScoreAdapter.class)
-    public HardMediumSoftScore getDontConflictRoomTime() {
-        return dontConflictRoomTime;
-    }
-
-    public void setDontConflictRoomTime(HardMediumSoftScore dontConflictRoomTime) {
-        this.dontConflictRoomTime = dontConflictRoomTime;
-    }
-
-    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
-    public HardMediumSoftScore getDontConflictFiscal() {
+    public BendableScore getDontConflictFiscal() {
         return dontConflictFiscal;
     }
 
-    public void setDontConflictFiscal(HardMediumSoftScore dontConflictFiscal) {
+    public void setDontConflictFiscal(BendableScore dontConflictFiscal) {
         this.dontConflictFiscal = dontConflictFiscal;
     }
 
     @XmlJavaTypeAdapter(value = ScoreAdapter.class)
-    public HardMediumSoftScore getDontConflictDefensor() {
+    public BendableScore getDontConflictDefensor() {
         return dontConflictDefensor;
     }
 
-    public void setDontConflictDefensor(HardMediumSoftScore dontConflictDefensor) {
+    public void setDontConflictDefensor(BendableScore dontConflictDefensor) {
         this.dontConflictDefensor = dontConflictDefensor;
     }
 
-//    public HardMediumSoftScore getDontUseBreaks() {
-//        return dontUseBreaks;
-//    }
-//
-//    public void setDontUseBreaks(HardMediumSoftScore dontUseBreaks) {
-//        this.dontUseBreaks = dontUseBreaks;
-//    }
-//
-//    public HardMediumSoftScore getDistributeWorkloadFairly() {
-//        return distributeWorkloadFairly;
-//    }
-//
-//    public void setDistributeWorkloadFairly(HardMediumSoftScore distributeWorkloadFairly) {
-//        this.distributeWorkloadFairly = distributeWorkloadFairly;
-//    }
-//
-//    public HardMediumSoftScore getRespectLocations() {
-//        return respectLocations;
-//    }
-//
-//    public void setRespectLocations(HardMediumSoftScore respectLocations) {
-//        this.respectLocations = respectLocations;
-//    }
-
     @XmlJavaTypeAdapter(value = ScoreAdapter.class)
-    public HardMediumSoftScore getRespectMinimumStartingTime() {
-        return respectMinimumStartingTime;
+    public BendableScore getDontConflictQuerellante() {
+        return dontConflictQuerellante;
     }
 
-    public void setRespectMinimumStartingTime(HardMediumSoftScore respectMinimumStartingTime) {
-        this.respectMinimumStartingTime = respectMinimumStartingTime;
+    public void setDontConflictQuerellante(BendableScore dontConflictQuerellante) {
+        this.dontConflictQuerellante = dontConflictQuerellante;
     }
 
     @XmlJavaTypeAdapter(value = ScoreAdapter.class)
-    public HardMediumSoftScore getRespectMaximumStartingTime() {
-        return respectMaximumStartingTime;
+    public BendableScore getDontConflictAsesor() {
+        return dontConflictAsesor;
     }
 
-    public void setRespectMaximumStartingTime(HardMediumSoftScore respectMaximumStartingTime) {
-        this.respectMaximumStartingTime = respectMaximumStartingTime;
+    public void setDontConflictAsesor(BendableScore dontConflictAsesor) {
+        this.dontConflictAsesor = dontConflictAsesor;
     }
 
     @XmlJavaTypeAdapter(value = ScoreAdapter.class)
-    public HardMediumSoftScore getOneTimeGrainJuez() {
+    public BendableScore getDontConflictRoomTime() {
+        return dontConflictRoomTime;
+    }
+
+    public void setDontConflictRoomTime(BendableScore dontConflictRoomTime) {
+        this.dontConflictRoomTime = dontConflictRoomTime;
+    }
+
+    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
+    public BendableScore getOneTimeGrainBreakBetweenTwoConsecutiveMeetings() {
+        return oneTimeGrainBreakBetweenTwoConsecutiveMeetings;
+    }
+
+    public void setOneTimeGrainBreakBetweenTwoConsecutiveMeetings(BendableScore oneTimeGrainBreakBetweenTwoConsecutiveMeetings) {
+        this.oneTimeGrainBreakBetweenTwoConsecutiveMeetings = oneTimeGrainBreakBetweenTwoConsecutiveMeetings;
+    }
+
+    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
+    public BendableScore getOneTimeGrainJuez() {
         return oneTimeGrainJuez;
     }
 
-    public void setOneTimeGrainJuez(HardMediumSoftScore oneTimeGrainJuez) {
+    public void setOneTimeGrainJuez(BendableScore oneTimeGrainJuez) {
         this.oneTimeGrainJuez = oneTimeGrainJuez;
     }
 
     @XmlJavaTypeAdapter(value = ScoreAdapter.class)
-    public HardMediumSoftScore getOneTimeGrainDefensor() {
+    public BendableScore getOneTimeGrainDefensor() {
         return oneTimeGrainDefensor;
     }
 
-    public void setOneTimeGrainDefensor(HardMediumSoftScore oneTimeGrainDefensor) {
+    public void setOneTimeGrainDefensor(BendableScore oneTimeGrainDefensor) {
         this.oneTimeGrainDefensor = oneTimeGrainDefensor;
     }
 
     @XmlJavaTypeAdapter(value = ScoreAdapter.class)
-    public HardMediumSoftScore getOneTimeGrainFiscal() {
+    public BendableScore getOneTimeGrainFiscal() {
         return oneTimeGrainFiscal;
     }
 
-    public void setOneTimeGrainFiscal(HardMediumSoftScore oneTimeGrainFiscal) {
+    public void setOneTimeGrainFiscal(BendableScore oneTimeGrainFiscal) {
         this.oneTimeGrainFiscal = oneTimeGrainFiscal;
     }
 
-//    public HardMediumSoftScore getDontConflictJuezLocation() {
-//        return dontConflictJuezLocation;
-//    }
-//
-//    public void setDontConflictJuezLocation(HardMediumSoftScore dontConflictJuezLocation) {
-//        this.dontConflictJuezLocation = dontConflictJuezLocation;
-//    }
-//
-//    public HardMediumSoftScore getDontConflictDefensorLocation() {
-//        return dontConflictDefensorLocation;
-//    }
-//
-//    public void setDontConflictDefensorLocation(HardMediumSoftScore dontConflictDefensorLocation) {
-//        this.dontConflictDefensorLocation = dontConflictDefensorLocation;
-//    }
-//
-//    public HardMediumSoftScore getDontConflictFiscalLocation() {
-//        return dontConflictFiscalLocation;
-//    }
-//
-//    public void setDontConflictFiscalLocation(HardMediumSoftScore dontConflictFiscalLocation) {
-//        this.dontConflictFiscalLocation = dontConflictFiscalLocation;
-//    }
+    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
+    public BendableScore getOneTimeGrainQuerellante() {
+        return oneTimeGrainQuerellante;
+    }
+
+    public void setOneTimeGrainQuerellante(BendableScore oneTimeGrainQuerellante) {
+        this.oneTimeGrainQuerellante = oneTimeGrainQuerellante;
+    }
 
     @XmlJavaTypeAdapter(value = ScoreAdapter.class)
-    public HardMediumSoftScore getDontConflictJuezAndTimeGrain() {
+    public BendableScore getOneTimeGrainAsesor() {
+        return oneTimeGrainAsesor;
+    }
+
+    public void setOneTimeGrainAsesor(BendableScore oneTimeGrainAsesor) {
+        this.oneTimeGrainAsesor = oneTimeGrainAsesor;
+    }
+
+    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
+    public BendableScore getTimeExternalDefensor() {
+        return timeExternalDefensor;
+    }
+
+    public void setTimeExternalDefensor(BendableScore timeExternalDefensor) {
+        this.timeExternalDefensor = timeExternalDefensor;
+    }
+
+    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
+    public BendableScore getDontStartAfterMaximumStartingMinute() {
+        return dontStartAfterMaximumStartingMinute;
+    }
+
+    public void setDontStartAfterMaximumStartingMinute(BendableScore dontStartAfterMaximumStartingMinute) {
+        this.dontStartAfterMaximumStartingMinute = dontStartAfterMaximumStartingMinute;
+    }
+
+    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
+    public BendableScore getRespectMinimumStartingTime() {
+        return respectMinimumStartingTime;
+    }
+
+    public void setRespectMinimumStartingTime(BendableScore respectMinimumStartingTime) {
+        this.respectMinimumStartingTime = respectMinimumStartingTime;
+    }
+
+    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
+    public BendableScore getRespectMaximumStartingTime() {
+        return respectMaximumStartingTime;
+    }
+
+    public void setRespectMaximumStartingTime(BendableScore respectMaximumStartingTime) {
+        this.respectMaximumStartingTime = respectMaximumStartingTime;
+    }
+
+    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
+    public BendableScore getDontConflictJuezAndTimeGrain() {
         return dontConflictJuezAndTimeGrain;
     }
 
-    public void setDontConflictJuezAndTimeGrain(HardMediumSoftScore dontConflictJuezAndTimeGrain) {
+    public void setDontConflictJuezAndTimeGrain(BendableScore dontConflictJuezAndTimeGrain) {
         this.dontConflictJuezAndTimeGrain = dontConflictJuezAndTimeGrain;
     }
 
     @XmlJavaTypeAdapter(value = ScoreAdapter.class)
-    public HardMediumSoftScore getDontStartAfterMaximumStartingMinute() {
-        return dontStartAfterMaximumStartingMinute;
+    public BendableScore getAppealsInAfternoon() {
+        return appealsInAfternoon;
     }
 
-    public void setDontStartAfterMaximumStartingMinute(HardMediumSoftScore dontStartAfterMaximumStartingMinute) {
-        this.dontStartAfterMaximumStartingMinute = dontStartAfterMaximumStartingMinute;
+    public void setAppealsInAfternoon(BendableScore appealsInAfternoon) {
+        this.appealsInAfternoon = appealsInAfternoon;
+    }
+
+    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
+    public BendableScore getHearingsInBoulogne() {
+        return hearingsInBoulogne;
+    }
+
+    public void setHearingsInBoulogne(BendableScore hearingsInBoulogne) {
+        this.hearingsInBoulogne = hearingsInBoulogne;
+    }
+
+    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
+    public BendableScore getHearingsInAlmaFuerte() {
+        return hearingsInAlmaFuerte;
+    }
+
+    public void setHearingsInAlmaFuerte(BendableScore hearingsInAlmaFuerte) {
+        this.hearingsInAlmaFuerte = hearingsInAlmaFuerte;
+    }
+
+    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
+    public BendableScore getHearingsNotEjec() {
+        return hearingsNotEjec;
+    }
+
+    public void setHearingsNotEjec(BendableScore hearingsNotEjec) {
+        this.hearingsNotEjec = hearingsNotEjec;
+    }
+
+    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
+    public BendableScore getPrioritizeDetainees() {
+        return prioritizeDetainees;
+    }
+
+    public void setPrioritizeDetainees(BendableScore prioritizeDetainees) {
+        this.prioritizeDetainees = prioritizeDetainees;
+    }
+
+    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
+    public BendableScore getProblematicHearingsForLastRoom() {
+        return problematicHearingsForLastRoom;
+    }
+
+    public void setProblematicHearingsForLastRoom(BendableScore problematicHearingsForLastRoom) {
+        this.problematicHearingsForLastRoom = problematicHearingsForLastRoom;
+    }
+
+    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
+    public BendableScore getProblematicHearingsForLastJuez() {
+        return problematicHearingsForLastJuez;
+    }
+
+    public void setProblematicHearingsForLastJuez(BendableScore problematicHearingsForLastJuez) {
+        this.problematicHearingsForLastJuez = problematicHearingsForLastJuez;
+    }
+
+    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
+    public BendableScore getProblematicHearingsForLastFiscal() {
+        return problematicHearingsForLastFiscal;
+    }
+
+    public void setProblematicHearingsForLastFiscal(BendableScore problematicHearingsForLastFiscal) {
+        this.problematicHearingsForLastFiscal = problematicHearingsForLastFiscal;
+    }
+
+    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
+    public BendableScore getProblematicHearingsForLastAsesor() {
+        return problematicHearingsForLastAsesor;
+    }
+
+    public void setProblematicHearingsForLastAsesor(BendableScore problematicHearingsForLastAsesor) {
+        this.problematicHearingsForLastAsesor = problematicHearingsForLastAsesor;
+    }
+
+    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
+    public BendableScore getMaximumWorkTimeJuez() {
+        return maximumWorkTimeJuez;
+    }
+
+    public void setMaximumWorkTimeJuez(BendableScore maximumWorkTimeJuez) {
+        this.maximumWorkTimeJuez = maximumWorkTimeJuez;
+    }
+
+    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
+    public BendableScore getDoAllMeetingsAsSoonAsPossible() {
+        return doAllMeetingsAsSoonAsPossible;
+    }
+
+    public void setDoAllMeetingsAsSoonAsPossible(BendableScore doAllMeetingsAsSoonAsPossible) {
+        this.doAllMeetingsAsSoonAsPossible = doAllMeetingsAsSoonAsPossible;
+    }
+
+    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
+    public BendableScore getGroupJuezTipo() {
+        return groupJuezTipo;
+    }
+
+    public void setGroupJuezTipo(BendableScore groupJuezTipo) {
+        this.groupJuezTipo = groupJuezTipo;
+    }
+
+    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
+    public BendableScore getPenalizeCreationZone() {
+        return penalizeCreationZone;
+    }
+
+    public void setPenalizeCreationZone(BendableScore penalizeCreationZone) {
+        this.penalizeCreationZone = penalizeCreationZone;
+    }
+
+    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
+    public BendableScore getPenalizeDifferentRoomJuez() {
+        return penalizeDifferentRoomJuez;
+    }
+
+    public void setPenalizeDifferentRoomJuez(BendableScore penalizeDifferentRoomJuez) {
+        this.penalizeDifferentRoomJuez = penalizeDifferentRoomJuez;
     }
 }

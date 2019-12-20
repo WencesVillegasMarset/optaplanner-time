@@ -21,7 +21,6 @@ public class AudienciaAssignment {
     private TimeGrain startingTimeGrain;
     private int id;
     private boolean pinned = false;
-    private boolean scorable;
 
     /* Setters y Getters */
 
@@ -68,14 +67,6 @@ public class AudienciaAssignment {
         return pinned;
     }
 
-    public boolean isScorable() {
-        return scorable;
-    }
-
-    public void setScorable(boolean scorable) {
-        this.scorable = scorable;
-    }
-
     /* Helper functions */
 
     /* Calcula si dos AudienciaAssignments se superponen temporalmente */
@@ -95,6 +86,22 @@ public class AudienciaAssignment {
         }
         return Math.min(end, otherEnd) - Math.max(start, otherStart);
     }
+
+    public int calculateExternal(AudienciaAssignment other){
+        if (startingTimeGrain == null || other.getStartingTimeGrain() == null) {
+            return 0;
+        }
+        int start = startingTimeGrain.getGrainIndex();
+        int end = start + audiencia.getNumTimeGrains();
+        int otherStart = other.startingTimeGrain.getGrainIndex();
+        int otherEnd = otherStart + other.audiencia.getNumTimeGrains();
+
+        if(end + 24 < otherStart || otherEnd + 24 < start){
+            return 0;
+        }
+        return Math.abs(Math.min(end, otherEnd) + 24 - Math.max(start, otherStart));
+    }
+
 
     /* Devuelve el index del ultimo TimeGrain que utiliza */
     public Integer getLastTimeGrainIndex() {
@@ -135,37 +142,18 @@ public class AudienciaAssignment {
 
     public int timeGrainJuezRestriction(){
         int respuesta = 0;
-        for(TimeGrain timeGrain : this.getJuez().getProhibitedTimeGrains()){
-            for(int i = this.getStartingTimeGrainIndex(); i < this.getLastTimeGrainIndex() + 1; i++){
-                if(i == timeGrain.getGrainIndex()){
-                    respuesta++;
+        for (Juez juez : this.getAudiencia().getJuezList()){
+            for(TimeGrain timeGrain : juez.getProhibitedTimeGrains()){
+                for(int i = this.getStartingTimeGrainIndex(); i < this.getLastTimeGrainIndex() + 1; i++){
+                    if(i == timeGrain.getGrainIndex()){
+                        respuesta++;
+                    }
                 }
             }
         }
         return respuesta;
     }
 
-    /* Devuelve el id del Juez de la audiencia */
-    public int getJuezId(){
-        return this.audiencia.getJuez().getIdJuez();
-    }
-
-    public Juez getJuez(){
-        return this.audiencia.getJuez();
-    }
-
-    /* Devuelve el id del Defensor de la audiencia */
-    public Defensor getDefensor(){ return this.audiencia.getDefensor();}
-
-    /* Devuelve el id del Fiscal de la audiencia */
-    public int getFiscalId(){ return this.audiencia.getFiscal().getIdFiscal();}
-
-    public Fiscal getFiscal(){
-        return this.audiencia.getFiscal();
-    }
-
-    /* Devuelve el id del Tipo de la audiencia */
-    public int getTipo(){ return this.audiencia.getTipo().getIdTipo();}
 
     /* toString */
     public String toString(){
@@ -235,7 +223,14 @@ public class AudienciaAssignment {
 
     }
 
-
+    public boolean isSameCategory(AudienciaAssignment assignment){
+        if (this.getAudiencia().getJuezList().stream().anyMatch(a -> assignment.audiencia.getJuezList().contains(a))){
+            if (this.getAudiencia().getTipo().equals(assignment.getAudiencia().getTipo())){
+                return true;
+            }
+        }
+        return false;
+    }
 
 
 }

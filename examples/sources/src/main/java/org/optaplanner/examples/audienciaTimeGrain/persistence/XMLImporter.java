@@ -111,26 +111,40 @@ public class XMLImporter {
 
             Audiencia audienciaNueva = audienciaAssignment.getAudiencia();
 
-            for(Juez juezexistente : schedule.getJuezList()){
-                if(audienciaNueva.getJuez().getIdJuez() == juezexistente.getIdJuez()){
-                    audienciaNueva.setJuez(juezexistente);
-                    break;
-                }
-            }
+            List<Juez> juezToAdd = new ArrayList<>();
 
-            for(Defensor defensorexistente : schedule.getDefensorList()){
-                if(audienciaNueva.getDefensor().getIdDefensor().equals(defensorexistente.getIdDefensor())){
-                    audienciaNueva.setDefensor(defensorexistente);
-                    break;
+            for(Juez juez : audienciaNueva.getJuezList()){
+                for(Juez juezexistente : schedule.getJuezList()){
+                    if(juez.getIdJuez() == juezexistente.getIdJuez()){
+                        juezToAdd.add(juezexistente);
+                        break;
+                    }
                 }
             }
+            audienciaNueva.setJuezList(juezToAdd);
 
-            for(Fiscal fiscalexistente : schedule.getFiscalList()){
-                if(audienciaNueva.getFiscal().getIdFiscal() == fiscalexistente.getIdFiscal()){
-                    audienciaNueva.setFiscal(fiscalexistente);
-                    break;
+            List<Defensor> defensorToAdd = new ArrayList<>();
+            for(Defensor defensor : audienciaNueva.getDefensorList()){
+                for (Defensor defensorexistente : schedule.getDefensorList()){
+                    if(defensor.getIdDefensor().equals(defensorexistente.getIdDefensor())){
+                        defensorToAdd.add(defensorexistente);
+                        break;
+                    }
                 }
             }
+            audienciaNueva.setDefensorList(defensorToAdd);
+
+            List<Fiscal> fiscalToAdd = new ArrayList<>();
+            for(Fiscal fiscal : audienciaNueva.getFiscalList()){
+                for(Fiscal fiscalexistente : schedule.getFiscalList()) {
+                    if (fiscal.getIdFiscal() == fiscalexistente.getIdFiscal()) {
+                        fiscalToAdd.add(fiscalexistente);
+                        break;
+                    }
+                }
+            }
+            audienciaNueva.setFiscalList(fiscalToAdd);
+
 
             for(Tipo tipoexistente : schedule.getTipoList()){
                 if(audienciaNueva.getTipo().getIdTipo() == tipoexistente.getIdTipo()){
@@ -210,9 +224,15 @@ public class XMLImporter {
     private void compare(AudienciaSchedule audienciaSchedule){
 
         for(AudienciaAssignment audienciaAssignment : audienciaSchedule.getAudienciaAssignmentList()){
-            checkJuez(audienciaAssignment.getAudiencia().getJuez());
-            checkDefensor(audienciaAssignment.getAudiencia().getDefensor());
-            checkFiscal(audienciaAssignment.getAudiencia().getFiscal());
+            for (Juez juez : audienciaAssignment.getAudiencia().getJuezList()){
+                checkJuez(juez);
+            }
+            for (Defensor defensor : audienciaAssignment.getAudiencia().getDefensorList()){
+                checkDefensor(defensor);
+            }
+            for (Fiscal fiscal : audienciaAssignment.getAudiencia().getFiscalList()){
+                checkFiscal(fiscal);
+            }
             checkRoom(audienciaAssignment.getRoom());
             checkTipo(audienciaAssignment.getAudiencia().getTipo());
         }

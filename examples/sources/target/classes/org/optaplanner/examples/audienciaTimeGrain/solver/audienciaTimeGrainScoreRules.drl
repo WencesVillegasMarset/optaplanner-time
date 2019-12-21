@@ -18,6 +18,7 @@ package org.optaplanner.examples.audienciaTimeGrain.solver;
     dialect "java"
 
 import org.optaplanner.core.api.score.buildin.bendable.BendableScoreHolder;
+import java.time.LocalDate;
 
 import org.optaplanner.examples.audienciaTimeGrain.domain.Audiencia;
 import org.optaplanner.examples.audienciaTimeGrain.domain.AudienciaAssignment;
@@ -327,17 +328,16 @@ end
 
 rule "Group Juez Tipo"
     when
-        $left : AudienciaAssignment(pinned == false, $id : id, startingTimeGrain != null, room != null, $room : room,
+        $left : AudienciaAssignment(pinned == false, $id : id, startingTimeGrain != null, room != null, $room : room, $fechaCorrida : fechaCorrida,
                 $leftday : startingTimeGrain.day, $leftDayId : startingTimeGrain.day.idDay, $audiencia : audiencia, $leftGrain : startingTimeGrain.grainIndex)
         $right : AudienciaAssignment(id != $id, $rightid : id, startingTimeGrain != null,room != null, room == $room, startingTimeGrain.day == $leftday,
             $rightGrain : startingTimeGrain.grainIndex, $rightEndingGrain : lastTimeGrainIndex, startingTimeGrain.grainIndex < $leftGrain, !isSameCategory($left))
         not AudienciaAssignment(id != $rightid && id != $id, room != null, room == $room,
             startingTimeGrain.grainIndex > $rightGrain && startingTimeGrain.grainIndex < $leftGrain)
-        AudienciaSchedule($fecha : fechaCorrida.dayOfYear)
-        $firstDay : Day(dayOfYear == $fecha)
-        $number : Number(intValue() < Math.abs($leftDayId - 2 - $firstDay.idDay) * 3) from $leftGrain - $rightEndingGrain
+        $firstDay : Day(dayOfYear == $fechaCorrida.dayOfYear, $firstDayId : idDay)
+        $number : Number(intValue() < ($leftDayId - 2 - $firstDayId)*3) from $leftGrain - $rightEndingGrain
     then
-        scoreHolder.penalize(kcontext, 10 - (int)$number);
+        scoreHolder.penalize(kcontext);
 end
 
 rule "Penalize Creation of Prohibited Zone"
@@ -350,19 +350,32 @@ rule "Penalize Creation of Prohibited Zone"
         scoreHolder.penalize(kcontext);
 end
 
+rule "Penalize Creation of Prohibited Zone Starting Date"
+    when
+         $left : AudienciaAssignment(pinned == false, $id : id, startingTimeGrain != null, room != null, $room : room,
+            $leftday : startingTimeGrain.day, $audiencia : audiencia, $leftGrain : startingTimeGrain.grainIndex, $fechaCorrida : fechaCorrida)
+         not AudienciaAssignment(id != $id, startingTimeGrain != null, room != null, room == $room, startingTimeGrain.day == $leftday,
+            $rightGrain : startingTimeGrain.grainIndex, startingTimeGrain.grainIndex < $leftGrain, isSameCategory($left))
+        Day(dayOfYear == $fechaCorrida.dayOfYear, $idFirstDay : idDay)
+        $number : Number() from $leftday.idDay - $idFirstDay
+    then
+        scoreHolder.penalize(kcontext);
+end
+
 rule "Penalize Different Room Juez"
     when
         $left : AudienciaAssignment(pinned == false, $id : id, startingTimeGrain != null, room != null, $room : room,
-                $leftday : startingTimeGrain.day, $audiencia : audiencia, $leftGrain : startingTimeGrain.grainIndex)
+                $leftday : startingTimeGrain.day, $audiencia : audiencia, $leftGrain : startingTimeGrain.grainIndex, $fechaCorrida : fechaCorrida)
         $leftJuez : Juez() from $left.audiencia.juezList
         $right : AudienciaAssignment(id != $id, $rightid : id, startingTimeGrain != null,room != null, room != $room, startingTimeGrain.day == $leftday,
-            $rightGrain : startingTimeGrain.grainIndex, startingTimeGrain.grainIndex < $leftGrain)
+            $rightGrain : startingTimeGrain.grainIndex, startingTimeGrain.grainIndex < $leftGrain, $rightEndingGrain : lastTimeGrainIndex)
         $rightJuez : Juez(idJuez == $leftJuez.idJuez) from $right.audiencia.juezList
         not AudienciaAssignment(id != $rightid && id != $id, room != null, room == $room,
             startingTimeGrain.grainIndex > $rightGrain && startingTimeGrain.grainIndex < $leftGrain)
-        $number : Number(intValue() < 10) from $leftGrain - $rightGrain
+        $firstDay : Day(dayOfYear == $fechaCorrida.dayOfYear, $firstDayId : idDay)
+        $number : Number(intValue() < ($id- 2 - $firstDayId) * 3) from $leftGrain - $rightEndingGrain
     then
-        scoreHolder.penalize(kcontext, 10 - (int)$number);
+        scoreHolder.penalize(kcontext);
 end
 
 

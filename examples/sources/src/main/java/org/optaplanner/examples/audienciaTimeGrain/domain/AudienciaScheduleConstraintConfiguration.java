@@ -89,6 +89,8 @@ public class AudienciaScheduleConstraintConfiguration {
     public static final String PENALIZE_CREATION_OF_ZONE = "Penalize Creation of Prohibited Zone";
     //Penalize Different Room Juez
     public static final String PENALIZE_DIFFERENT_ROOM_JUEZ = "Penalize Different Room Juez";
+    //Penalize Creation of Prohibited Zone Starting Date
+    public static final String PENALIZE_CREATION_OF_ZONE_PER_DAY = "Penalize Creation of Prohibited Zone Starting Date";
 
     /* Declarations Soft */
 
@@ -169,6 +171,8 @@ public class AudienciaScheduleConstraintConfiguration {
     private BendableScore penalizeCreationZone = BendableScore.ofSoft(2, 3, 0, 1);
     @ConstraintWeight(PENALIZE_DIFFERENT_ROOM_JUEZ)
     private BendableScore penalizeDifferentRoomJuez = BendableScore.ofSoft(2, 3, 0, 1);
+    @ConstraintWeight(PENALIZE_CREATION_OF_ZONE_PER_DAY)
+    private BendableScore penalizeCreationZoneDay = BendableScore.ofSoft(2, 3, 0, 1);
 
     /* MAGISTRADOS */
 
@@ -490,5 +494,14 @@ public class AudienciaScheduleConstraintConfiguration {
 
     public void setPenalizeDifferentRoomJuez(BendableScore penalizeDifferentRoomJuez) {
         this.penalizeDifferentRoomJuez = penalizeDifferentRoomJuez;
+    }
+
+    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
+    public BendableScore getPenalizeCreationZoneDay() {
+        return penalizeCreationZoneDay;
+    }
+
+    public void setPenalizeCreationZoneDay(BendableScore penalizeCreationZoneDay) {
+        this.penalizeCreationZoneDay = penalizeCreationZoneDay;
     }
 }

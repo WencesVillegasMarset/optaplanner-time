@@ -316,6 +316,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                 }
                 Audiencia audiencia = new Audiencia();
                 AudienciaAssignment audienciaAssignment = new AudienciaAssignment();
+                audienciaAssignment.setFechaCorrida(solution.getFechaCorrida());
                 audiencia.setIdAudiencia(id);
                 audienciaAssignment.setId(id);
 
@@ -712,6 +713,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                     AudienciaScheduleConstraintConfiguration.GROUP_JUEZ_TIPO,
                     AudienciaScheduleConstraintConfiguration.PENALIZE_CREATION_OF_ZONE,
                     AudienciaScheduleConstraintConfiguration.PENALIZE_DIFFERENT_ROOM_JUEZ,
+                    AudienciaScheduleConstraintConfiguration.PENALIZE_CREATION_OF_ZONE_PER_DAY,
 //                    AudienciaScheduleConstraintConfiguration.DISTRIBUTE_WORKLOAD_FAIRLY,
             };
             int mergeStart = -1;

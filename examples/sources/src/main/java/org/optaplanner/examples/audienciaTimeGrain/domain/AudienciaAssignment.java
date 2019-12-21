@@ -12,11 +12,12 @@ import java.util.List;
 
 
 @PlanningEntity
-public class AudienciaAssignment {
+public class AudienciaAssignment implements Comparable<AudienciaAssignment> {
 
     /* Variables */
 
     private Audiencia audiencia;
+    private LocalDate fechaCorrida;
     private Room room;
     private TimeGrain startingTimeGrain;
     private int id;
@@ -65,6 +66,14 @@ public class AudienciaAssignment {
     @PlanningPin
     public boolean isPinned(){
         return pinned;
+    }
+
+    public LocalDate getFechaCorrida() {
+        return fechaCorrida;
+    }
+
+    public void setFechaCorrida(LocalDate fechaCorrida) {
+        this.fechaCorrida = fechaCorrida;
     }
 
     /* Helper functions */
@@ -233,4 +242,14 @@ public class AudienciaAssignment {
     }
 
 
+    @Override
+    public int compareTo(AudienciaAssignment o) {
+        if(o.getFechaPedido().isEqual(this.getFechaPedido())){
+            return 0;
+        } else if (o.getFechaPedido().isBefore(this.getFechaPedido())){
+            return 1;
+        } else {
+            return -1;
+        }
+    }
 }

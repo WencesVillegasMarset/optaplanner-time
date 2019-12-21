@@ -75,12 +75,6 @@ public class XMLImporter {
 
                 AudienciaSchedule audienciaSchedule = (AudienciaSchedule) jaxbUnmarshaller.unmarshal(file);
 
-//            System.out.println(audienciaSchedule.toString());
-
-//            for(AudienciaAssignment audienciaAssignment : audienciaSchedule.getAudienciaAssignmentList()){
-//                System.out.println();
-//            }
-
                 audienciaSchedule = cleanAudienciaAssignments(audienciaSchedule);
 
                 compare(audienciaSchedule);

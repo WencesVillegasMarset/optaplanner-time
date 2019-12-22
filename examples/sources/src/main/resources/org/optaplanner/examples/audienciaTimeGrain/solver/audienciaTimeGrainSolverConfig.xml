@@ -30,23 +30,22 @@
 
   <localSearch>
     <localSearchType>TABU_SEARCH</localSearchType>
-    <!-- LATE_ACCEPTANCE -->
-    <!-- PARA TABU SEARCH -->
 
-<!--    <acceptor>-->
-<!--      <entityTabuRatio>0.04</entityTabuRatio>-->
-<!--      <valueTabuRatio>0.04</valueTabuRatio>-->
-<!--    </acceptor>-->
-<!--    <forager>-->
-<!--      <acceptedCountLimit>1000</acceptedCountLimit>-->
-<!--      <finalistPodiumType>STRATEGIC_OSCILLATION</finalistPodiumType>-->
-<!--    </forager>-->
     <termination>
       <unimprovedSecondsSpentLimit>120</unimprovedSecondsSpentLimit>
       <unimprovedScoreDifferenceThreshold>[0/0]hard/[15/0/0]soft</unimprovedScoreDifferenceThreshold>
       <minutesSpentLimit>7</minutesSpentLimit>
     </termination>
   </localSearch>
+<!--  <localSearch>-->
+<!--    <localSearchType>LATE_ACCEPTANCE</localSearchType>-->
+
+<!--    <termination>-->
+<!--      <unimprovedSecondsSpentLimit>60</unimprovedSecondsSpentLimit>-->
+<!--      <unimprovedScoreDifferenceThreshold>[0/0]hard/[15/0/0]soft</unimprovedScoreDifferenceThreshold>-->
+<!--      <minutesSpentLimit>3</minutesSpentLimit>-->
+<!--    </termination>-->
+<!--  </localSearch>-->
 
 
 

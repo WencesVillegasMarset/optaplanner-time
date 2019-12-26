@@ -19,7 +19,6 @@ public class Audiencia {
     private List<Juez> juezList = new ArrayList<>(); //Juez
     private List<Defensor> defensorList = new ArrayList<>(); //Defensor
     private List<Fiscal> fiscalList = new ArrayList<>(); //Fiscal
-//    private int ubicacion; //Ubicacion geografica
     private LocalDate fechaPedido;
     private List<Querellante> querellanteList = new ArrayList<>();
     private List<Asesor> asesorList = new ArrayList<>();
@@ -231,4 +230,6 @@ public class Audiencia {
     public boolean containsJuez(int idJuez){
         return juezList.stream().anyMatch(o -> o.getIdJuez() == idJuez);
     }
+
+
 }

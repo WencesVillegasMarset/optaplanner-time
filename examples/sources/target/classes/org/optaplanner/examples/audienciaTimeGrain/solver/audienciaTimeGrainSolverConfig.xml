@@ -23,29 +23,30 @@
       <valueSelector variableName="room"/>
     </changeMoveSelector>
 
-<!--    <forager>-->
-<!--      <pickEarlyType>FIRST_FEASIBLE_SCORE_OR_NON_DETERIORATING_HARD</pickEarlyType>-->
-<!--    </forager>-->
+    <forager>
+      <pickEarlyType>FIRST_FEASIBLE_SCORE_OR_NON_DETERIORATING_HARD</pickEarlyType>
+    </forager>
   </constructionHeuristic>
 
   <localSearch>
     <localSearchType>TABU_SEARCH</localSearchType>
 
     <termination>
-      <unimprovedSecondsSpentLimit>120</unimprovedSecondsSpentLimit>
-      <unimprovedScoreDifferenceThreshold>[0/0]hard/[15/0/0]soft</unimprovedScoreDifferenceThreshold>
-      <minutesSpentLimit>7</minutesSpentLimit>
+      <unimprovedSecondsSpentLimit>300</unimprovedSecondsSpentLimit>
+      <unimprovedScoreDifferenceThreshold>[0/0]hard/[5/0/0]soft</unimprovedScoreDifferenceThreshold>
+      <minutesSpentLimit>20</minutesSpentLimit>
     </termination>
   </localSearch>
-  <localSearch>
-    <localSearchType>LATE_ACCEPTANCE</localSearchType>
 
-    <termination>
-      <unimprovedSecondsSpentLimit>60</unimprovedSecondsSpentLimit>
-      <unimprovedScoreDifferenceThreshold>[0/0]hard/[15/0/0]soft</unimprovedScoreDifferenceThreshold>
-      <minutesSpentLimit>3</minutesSpentLimit>
-    </termination>
-  </localSearch>
+  <!--  <localSearch>-->
+<!--    <localSearchType>LATE_ACCEPTANCE</localSearchType>-->
+
+<!--    <termination>-->
+<!--      <unimprovedSecondsSpentLimit>60</unimprovedSecondsSpentLimit>-->
+<!--      <unimprovedScoreDifferenceThreshold>[0/0]hard/[15/0/0]soft</unimprovedScoreDifferenceThreshold>-->
+<!--      <minutesSpentLimit>3</minutesSpentLimit>-->
+<!--    </termination>-->
+<!--  </localSearch>-->
 
 
 

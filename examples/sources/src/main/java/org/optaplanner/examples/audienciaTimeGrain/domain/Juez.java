@@ -1,5 +1,6 @@
 package org.optaplanner.examples.audienciaTimeGrain.domain;
 
+import javax.xml.bind.annotation.XmlTransient;
 import java.util.ArrayList;
 
 public class Juez{
@@ -39,6 +40,7 @@ public class Juez{
         this.nombre = nombre;
     }
 
+    @XmlTransient
     public ArrayList<TimeGrain> getProhibitedTimeGrains() {
         return prohibitedTimeGrains;
     }

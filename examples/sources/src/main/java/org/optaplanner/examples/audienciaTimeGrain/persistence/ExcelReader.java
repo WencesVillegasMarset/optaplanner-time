@@ -152,7 +152,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             }
 
 
-            LocalDate fechaActual = fechainicial.minusDays(5);
+            LocalDate fechaActual = fechainicial.minusDays(15);
 
 
             LocalTime startTime = LocalTime.of(8,0);
@@ -195,17 +195,19 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                 fechaActual = fechaActual.plusDays(1);
 
 
-                if(diaLeido.isAfter(solution.getFechaCorrida().minusDays(1)))
-                for (int i = 0; (endMinuteOfDay - startMinuteOfDay) > i * TimeGrain.GRAIN_LENGTH_IN_MINUTES; i++) {
-                    int timeGrainStartingMinuteOfDay = i * TimeGrain.GRAIN_LENGTH_IN_MINUTES + startMinuteOfDay;
-                    TimeGrain timeGrain = new TimeGrain();
-                    timeGrain.setIdTimeGrain(timeGrainId);
-                    timeGrain.setGrainIndex(timeGrainId);
-                    timeGrain.setDay(day);
-                    timeGrain.setStartingMinuteOfDay(timeGrainStartingMinuteOfDay);
-                    timeGrainList.add(timeGrain);
-                    timeGrainId++;
+                if(diaLeido.isAfter(solution.getFechaCorrida().minusDays(1))){
+                    for (int i = 0; (endMinuteOfDay - startMinuteOfDay) > i * TimeGrain.GRAIN_LENGTH_IN_MINUTES; i++) {
+                        int timeGrainStartingMinuteOfDay = i * TimeGrain.GRAIN_LENGTH_IN_MINUTES + startMinuteOfDay;
+                        TimeGrain timeGrain = new TimeGrain();
+                        timeGrain.setIdTimeGrain(timeGrainId);
+                        timeGrain.setGrainIndex(timeGrainId);
+                        timeGrain.setDay(day);
+                        timeGrain.setStartingMinuteOfDay(timeGrainStartingMinuteOfDay);
+                        timeGrainList.add(timeGrain);
+                        timeGrainId++;
+                    }
                 }
+
             }
             solution.setDayList(dayList);
             solution.setTimeGrainList(timeGrainList);
@@ -615,7 +617,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
         }
 
         private void cleanAudienciaSchedule(){
-            LocalDate endingDate = startingDate.plusDays(15);
+            LocalDate endingDate = startingDate.plusDays(25);
             List<TimeGrain> validTimeGrains = solution.getTimeGrainList().stream().filter(timeGrain -> timeGrain.getDate().isBefore(endingDate)).collect(toList());
             List<AudienciaAssignment> validAudienciaAssignments = solution.getAudienciaAssignmentList().stream().filter(audienciaAssignment -> audienciaAssignment.getStartingTimeGrain().getDate().isBefore(endingDate)).collect(toList());
             solution.setTimeGrainList(validTimeGrains);

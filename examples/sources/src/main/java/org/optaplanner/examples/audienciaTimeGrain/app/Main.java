@@ -60,16 +60,8 @@ public class Main {
 //                } catch (JAXBException | FileNotFoundException e) {
 //                    e.printStackTrace();
 //                }
-//
-//
-//
-//
-//
-//                diaCalendarizar = diaCalendarizar.plusDays(1);
-//
-//            } else {
-//                diaCalendarizar = diaCalendarizar.plusDays(1);
 //            }
+//            diaCalendarizar = diaCalendarizar.plusDays(1);
 //        }
 
 

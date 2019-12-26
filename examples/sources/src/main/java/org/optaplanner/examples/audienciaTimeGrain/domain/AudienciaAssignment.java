@@ -3,7 +3,9 @@ package org.optaplanner.examples.audienciaTimeGrain.domain;
 import org.optaplanner.core.api.domain.entity.PlanningEntity;
 import org.optaplanner.core.api.domain.entity.PlanningPin;
 import org.optaplanner.core.api.domain.variable.PlanningVariable;
+import org.optaplanner.examples.audienciaTimeGrain.helper.LocalDateAdapter;
 
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
@@ -72,6 +74,7 @@ public class AudienciaAssignment implements Comparable<AudienciaAssignment> {
         return fechaCorrida;
     }
 
+    @XmlJavaTypeAdapter(value = LocalDateAdapter.class)
     public void setFechaCorrida(LocalDate fechaCorrida) {
         this.fechaCorrida = fechaCorrida;
     }

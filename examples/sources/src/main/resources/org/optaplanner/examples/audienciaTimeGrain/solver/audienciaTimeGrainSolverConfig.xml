@@ -32,12 +32,13 @@
     <localSearchType>TABU_SEARCH</localSearchType>
 
     <termination>
-      <unimprovedSecondsSpentLimit>120</unimprovedSecondsSpentLimit>
-      <unimprovedScoreDifferenceThreshold>[0/0]hard/[15/0/0]soft</unimprovedScoreDifferenceThreshold>
-      <minutesSpentLimit>7</minutesSpentLimit>
+      <unimprovedSecondsSpentLimit>300</unimprovedSecondsSpentLimit>
+      <unimprovedScoreDifferenceThreshold>[0/0]hard/[5/0/0]soft</unimprovedScoreDifferenceThreshold>
+      <minutesSpentLimit>20</minutesSpentLimit>
     </termination>
   </localSearch>
-<!--  <localSearch>-->
+
+  <!--  <localSearch>-->
 <!--    <localSearchType>LATE_ACCEPTANCE</localSearchType>-->
 
 <!--    <termination>-->

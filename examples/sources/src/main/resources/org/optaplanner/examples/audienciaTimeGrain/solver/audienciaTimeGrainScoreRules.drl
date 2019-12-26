@@ -144,16 +144,20 @@ end
 
 rule "Respect Minimum Starting Time"
     when
-        $left : AudienciaAssignment(pinned == false, startingTimeGrain != null, isMinimumStartingTime() > 0)
+        $left : AudienciaAssignment(pinned == false, $audiencia : audiencia, startingTimeGrain != null, $day : startingTimeGrain.day.idDay, $fechaPedido : fechaPedido)
+        Audiencia(idAudiencia == $audiencia.idAudiencia, $tiempoMinimo : tipo.tiempoRealizacionMinimo != 0)
+        (Day(dayOfYear == $fechaPedido.dayOfYear,$idPedido : idDay) and $number : Number(intValue() < $tiempoMinimo) from (int)$day - (int)$idPedido) or Day(dayOfYear == $fechaPedido.dayOfYear,idDay > $day)
     then
-        scoreHolder.penalize(kcontext, $left.isMinimumStartingTime());
+        scoreHolder.penalize(kcontext);
 end
 
 rule "Respect Maximum Starting Time"
     when
-        $left : AudienciaAssignment(pinned == false, startingTimeGrain != null, isMaximumStartingTime() > 0)
+        $left : AudienciaAssignment(pinned == false, $audiencia : audiencia, startingTimeGrain != null, $day : startingTimeGrain.day.idDay, $fechaPedido : fechaPedido)
+        Audiencia(idAudiencia == $audiencia.idAudiencia, $tiempoMaximo : tipo.tiempoRealizacionMaximo != 0)
+        (Day(dayOfYear == $fechaPedido.dayOfYear,$idPedido : idDay) and $number : Number(intValue() > $tiempoMaximo) from (int)$day - (int)$idPedido) or Day(dayOfYear == $fechaPedido.dayOfYear,idDay > $day)
     then
-        scoreHolder.penalize(kcontext, $left.isMinimumStartingTime());
+        scoreHolder.penalize(kcontext);
 end
 
 rule "Appeals in the afternoon"
@@ -209,9 +213,11 @@ end
 
 rule "Prioritize Detainees"
     when
-        AudienciaAssignment(pinned == false, $timeGrain : startingTimeGrain != null, audiencia.detenido)
+        AudienciaAssignment(pinned == false, $timeGrain : startingTimeGrain != null, audiencia.detenido, $fechaCorrida : fechaCorrida)
+        Day(dayOfYear == $fechaCorrida.dayOfYear, $idDay : idDay)
+        $number : Number(intValue() > 0) from (int)$timeGrain.getDay().getIdDay() - 2 - (int)$idDay
     then
-        scoreHolder.penalize(kcontext, (int)$timeGrain.getDay().getIdDay());
+        scoreHolder.penalize(kcontext, (int)$number);
 end
 
 rule "One TimeGrain break between two consecutive meetings"
@@ -330,7 +336,7 @@ rule "Group Juez Tipo"
     when
         $left : AudienciaAssignment(pinned == false, $id : id, startingTimeGrain != null, room != null, $room : room, $fechaCorrida : fechaCorrida,
                 $leftday : startingTimeGrain.day, $leftDayId : startingTimeGrain.day.idDay, $audiencia : audiencia, $leftGrain : startingTimeGrain.grainIndex)
-        $right : AudienciaAssignment(id != $id, $rightid : id, startingTimeGrain != null,room != null, room == $room, startingTimeGrain.day == $leftday,
+        $right : AudienciaAssignment(id != $id, $rightid : id, startingTimeGrain != null, room != null, room == $room, startingTimeGrain.day == $leftday,
             $rightGrain : startingTimeGrain.grainIndex, $rightEndingGrain : lastTimeGrainIndex, startingTimeGrain.grainIndex < $leftGrain, !isSameCategory($left))
         not AudienciaAssignment(id != $rightid && id != $id, room != null, room == $room,
             startingTimeGrain.grainIndex > $rightGrain && startingTimeGrain.grainIndex < $leftGrain)
@@ -367,11 +373,11 @@ rule "Penalize Different Room Juez"
         $left : AudienciaAssignment(pinned == false, $id : id, startingTimeGrain != null, room != null, $room : room,
                 $leftday : startingTimeGrain.day, $audiencia : audiencia, $leftGrain : startingTimeGrain.grainIndex, $fechaCorrida : fechaCorrida)
         $leftJuez : Juez() from $left.audiencia.juezList
-        $right : AudienciaAssignment(id != $id, $rightid : id, startingTimeGrain != null,room != null, room != $room, startingTimeGrain.day == $leftday,
+        $right : AudienciaAssignment(id != $id, $rightid : id, startingTimeGrain != null,room != null, room != $room, $roomRight : room, startingTimeGrain.day == $leftday,
             $rightGrain : startingTimeGrain.grainIndex, startingTimeGrain.grainIndex < $leftGrain, $rightEndingGrain : lastTimeGrainIndex)
         $rightJuez : Juez(idJuez == $leftJuez.idJuez) from $right.audiencia.juezList
-        not AudienciaAssignment(id != $rightid && id != $id, room != null, room == $room,
-            startingTimeGrain.grainIndex > $rightGrain && startingTimeGrain.grainIndex < $leftGrain)
+        not (AudienciaAssignment(id != $rightid && id != $id, room != null, room == $room || room == $roomRight,
+            startingTimeGrain.grainIndex > $rightGrain && startingTimeGrain.grainIndex < $leftGrain, $aud : audiencia) and Juez(idJuez == $leftJuez.idJuez || idJuez == $rightJuez.idJuez) from $aud.juezList)
 //        $firstDay : Day(dayOfYear == $fechaCorrida.dayOfYear, $firstDayId : idDay)
 //        $number : Number(intValue() < ($id- 2 - $firstDayId) * 3) from $leftGrain - $rightEndingGrain
     then

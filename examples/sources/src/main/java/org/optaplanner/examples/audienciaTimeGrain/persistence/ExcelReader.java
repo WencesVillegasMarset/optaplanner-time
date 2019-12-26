@@ -195,7 +195,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                 fechaActual = fechaActual.plusDays(1);
 
 
-                if(diaLeido.isAfter(solution.getFechaCorrida().minusDays(1))){
+                if(diaLeido.isAfter(solution.getFechaCorrida())){
                     for (int i = 0; (endMinuteOfDay - startMinuteOfDay) > i * TimeGrain.GRAIN_LENGTH_IN_MINUTES; i++) {
                         int timeGrainStartingMinuteOfDay = i * TimeGrain.GRAIN_LENGTH_IN_MINUTES + startMinuteOfDay;
                         TimeGrain timeGrain = new TimeGrain();
@@ -404,7 +404,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                         }
                     }
                     if (dayToUse == null){
-                        System.out.println("No existe el dia" + fechaCalendarizado.toString());
+//                        System.out.println("No existe el dia" + fechaCalendarizado.toString());
                         continue;
 
                     }
@@ -419,7 +419,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                     if (timeGrainToUse != null){
                         audienciaAssignment.setStartingTimeGrain(timeGrainToUse);
                     } else{
-                        System.out.println("No hay timegrain para el horario " + horaMinutosRead);
+//                        System.out.println("No hay timegrain para el horario " + horaMinutosRead);
                         continue;
                     }
                 }

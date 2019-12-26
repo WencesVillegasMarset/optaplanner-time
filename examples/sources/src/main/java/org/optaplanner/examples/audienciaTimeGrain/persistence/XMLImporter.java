@@ -187,7 +187,7 @@ public class XMLImporter {
         List<Audiencia> newAudienciaList = new ArrayList<>();
         List<AudienciaAssignment> newAudienciaAssignmentList = new ArrayList<>();
         for(AudienciaAssignment audienciaAssignment: audienciaSchedule.getAudienciaAssignmentList()){
-            if (audienciaAssignment.getStartingTimeGrain().getDate().compareTo(startingDate) < 0){
+            if (audienciaAssignment.getStartingTimeGrain().getDate().compareTo(startingDate.plusDays(1)) < 0){
                 newAudienciaAssignmentList.add(audienciaAssignment);
                 newAudienciaList.add(audienciaAssignment.getAudiencia());
             } else for(AudienciaAssignment audienciaAssignment1 : schedule.getAudienciaAssignmentList()){

@@ -3,6 +3,7 @@ package org.optaplanner.examples.audienciaTimeGrain.domain;
 import org.optaplanner.core.api.domain.entity.PlanningEntity;
 import org.optaplanner.core.api.domain.entity.PlanningPin;
 import org.optaplanner.core.api.domain.variable.PlanningVariable;
+import org.optaplanner.examples.audienciaTimeGrain.helper.AudienciaDifficultyComparator;
 import org.optaplanner.examples.audienciaTimeGrain.helper.LocalDateAdapter;
 
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-@PlanningEntity
+@PlanningEntity(difficultyComparatorClass = AudienciaDifficultyComparator.class)
 public class AudienciaAssignment implements Comparable<AudienciaAssignment> {
 
     /* Variables */

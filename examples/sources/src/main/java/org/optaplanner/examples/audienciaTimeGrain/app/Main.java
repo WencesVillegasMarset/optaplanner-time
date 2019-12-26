@@ -162,9 +162,6 @@ public class Main {
             }
         } while (!isDone);
 
-
-
-
     }
 
     private static void createDirectories(){

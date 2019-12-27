@@ -5,8 +5,8 @@
     <inheritedSolverBenchmark>
         <problemBenchmarks>
             <solutionFileIOClass>org.optaplanner.examples.audienciaTimeGrain.persistence.ExcelSolutionFileIO</solutionFileIOClass>
-            <inputSolutionFile>data/unsolved/2019-8-2.xlsx</inputSolutionFile>
-            <inputSolutionFile>data/unsolved/2019-8-5.xlsx</inputSolutionFile>
+            <inputSolutionFile>data/unsolved/to_schedule/2018-11-20.xlsx</inputSolutionFile>
+            <inputSolutionFile>data/unsolved/to_schedule/2018-11-21.xlsx</inputSolutionFile>
             <writeOutputSolutionEnabled>true</writeOutputSolutionEnabled>
         </problemBenchmarks>
         <solver>
@@ -19,7 +19,7 @@
             </scoreDirectorFactory>
 
             <constructionHeuristic>
-                <constructionHeuristicType>FIRST_FIT</constructionHeuristicType>
+                <constructionHeuristicType>FIRST_FIT_DECREASING</constructionHeuristicType>
                 <changeMoveSelector>
                     <valueSelector variableName="startingTimeGrain"/>
                 </changeMoveSelector>
@@ -36,7 +36,7 @@
             <localSearch>
                 <termination>
                     <unimprovedSecondsSpentLimit>120</unimprovedSecondsSpentLimit>
-                    <unimprovedScoreDifferenceThreshold>0hard/0medium/1000soft</unimprovedScoreDifferenceThreshold>
+                    <unimprovedScoreDifferenceThreshold>[0/0]hard/[5/0/0]soft</unimprovedScoreDifferenceThreshold>
                     <minutesSpentLimit>7</minutesSpentLimit>
                 </termination>
             </localSearch>
@@ -46,10 +46,10 @@
         <name>Tabu Search</name>
         <solver>
             <localSearch>
-                    <localSearchType>TABU_SEARCH</localSearchType>
+                <localSearchType>TABU_SEARCH</localSearchType>
                 <termination>
                     <unimprovedSecondsSpentLimit>120</unimprovedSecondsSpentLimit>
-                    <unimprovedScoreDifferenceThreshold>0hard/0medium/1000soft</unimprovedScoreDifferenceThreshold>
+                    <unimprovedScoreDifferenceThreshold>[0/0]hard/[5/0/0]soft</unimprovedScoreDifferenceThreshold>
                     <minutesSpentLimit>7</minutesSpentLimit>
                 </termination>
             </localSearch>

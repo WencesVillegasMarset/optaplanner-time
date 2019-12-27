@@ -60,7 +60,7 @@ public class Main {
                         XMLImporter xmlImporter = new XMLImporter(solvedAudienciaSchedule, DATA_DIR_NAME);
                         solvedAudienciaSchedule = xmlImporter.importar();
 
-                        SolverFactory<AudienciaSchedule> solverFactory = SolverFactory.createFromXmlResource("org/optaplanner/examples/audienciaTimeGrain/solver/aucienciaTimeGrainSolverConfig.xml");
+                        SolverFactory<AudienciaSchedule> solverFactory = SolverFactory.createFromXmlResource("org/optaplanner/examples/audienciaTimeGrain/solver/audienciaTimeGrainSolverConfig.xml");
                         Solver<AudienciaSchedule> solver = solverFactory.buildSolver();
 
                         JuezTimeGrainRestrictionLoader restrictionLoader = new JuezTimeGrainRestrictionLoader();
@@ -127,7 +127,7 @@ public class Main {
                     }
                 } while (!correctInputXML);
 
-                SolverFactory<AudienciaSchedule> solverFactory = SolverFactory.createFromXmlResource("org/optaplanner/examples/audienciaTimeGrain/solver/aucienciaTimeGrainSolverConfig.xml");
+                SolverFactory<AudienciaSchedule> solverFactory = SolverFactory.createFromXmlResource("org/optaplanner/examples/audienciaTimeGrain/solver/audienciaTimeGrainSolverConfig.xml");
                 Solver<AudienciaSchedule> solver = solverFactory.buildSolver();
 
                 JuezTimeGrainRestrictionLoader restrictionLoader = new JuezTimeGrainRestrictionLoader();

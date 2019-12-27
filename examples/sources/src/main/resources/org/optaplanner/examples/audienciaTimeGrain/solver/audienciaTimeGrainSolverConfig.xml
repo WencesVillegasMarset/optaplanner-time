@@ -28,7 +28,6 @@
 
     <localSearch>
         <localSearchType>TABU_SEARCH</localSearchType>
-
         <termination>
           <unimprovedSecondsSpentLimit>120</unimprovedSecondsSpentLimit>
           <unimprovedScoreDifferenceThreshold>[0/0]hard/[5/0/0]soft</unimprovedScoreDifferenceThreshold>
@@ -39,6 +38,15 @@
 <!--    <localSearch>-->
 <!--        <termination>-->
 <!--            <minutesSpentLimit>1</minutesSpentLimit>-->
+<!--        </termination>-->
+<!--    </localSearch>-->
+
+<!--    <localSearch>-->
+<!--        <localSearchType>TABU_SEARCH</localSearchType>-->
+<!--        <termination>-->
+<!--            <unimprovedSecondsSpentLimit>120</unimprovedSecondsSpentLimit>-->
+<!--            <unimprovedScoreDifferenceThreshold>[0/0]hard/[5/0/0]soft</unimprovedScoreDifferenceThreshold>-->
+<!--            <minutesSpentLimit>7</minutesSpentLimit>-->
 <!--        </termination>-->
 <!--    </localSearch>-->
 

@@ -223,20 +223,22 @@ end
 
 rule "Respect Minimum Starting Time"
     when
-        $left : AudienciaAssignment(pinned == false, $audiencia : audiencia, startingTimeGrain != null, $day : startingTimeGrain.day.idDay, $fechaPedido : fechaPedido)
+        $left : AudienciaAssignment($id : id, pinned == false, $audiencia : audiencia, startingTimeGrain != null, $day : startingTimeGrain.day.idDay, $fechaPedido : fechaPedido)
         Audiencia(idAudiencia == $audiencia.idAudiencia, $tiempoMinimo : tipo.tiempoRealizacionMinimo != 0)
-        Day(dayOfYear == $fechaPedido.dayOfYear,$idPedido : idDay) and $number : Number(intValue() < $tiempoMinimo && intValue() > 0) from $day - $idPedido
+        Day(dayOfYear == $fechaPedido.dayOfYear, $idPedido : idDay)
+        AudienciaAssignment(id == $id, isMinimumStartingTime((int)$idPedido) > 0)
     then
-        scoreHolder.penalize(kcontext, $number.intValue());
+        scoreHolder.penalize(kcontext, $left.isMinimumStartingTime((int)$idPedido));
 end
 
 rule "Respect Maximum Starting Time"
     when
-        $left : AudienciaAssignment(pinned == false, $audiencia : audiencia, startingTimeGrain != null, $day : startingTimeGrain.day.idDay, $fechaPedido : fechaPedido)
+        $left : AudienciaAssignment($id : id, pinned == false, $audiencia : audiencia, startingTimeGrain != null, $day : startingTimeGrain.day.idDay, $fechaPedido : fechaPedido)
         Audiencia(idAudiencia == $audiencia.idAudiencia, $tiempoMaximo : tipo.tiempoRealizacionMaximo != 0)
-        Day(dayOfYear == $fechaPedido.dayOfYear,$idPedido : idDay) and $number : Number(intValue() > $tiempoMaximo && intValue() > 0) from $day - $idPedido
+        Day(dayOfYear == $fechaPedido.dayOfYear,$idPedido : idDay)
+        AudienciaAssignment(id == $id, isMaximumStartingTime((int)$idPedido) > 0)
     then
-        scoreHolder.penalize(kcontext, $number.intValue());
+        scoreHolder.penalize(kcontext, $left.isMaximumStartingTime((int)$idPedido));
 end
 
 rule "Appeals in the afternoon"

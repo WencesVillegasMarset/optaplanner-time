@@ -212,27 +212,35 @@ public class AudienciaAssignment implements Comparable<AudienciaAssignment> {
         return counter;
     }
 
-    public int isMinimumStartingTime(){
-        LocalDate pedidoDate = this.audiencia.getFechaPedido();
-        int days = daysBetween(pedidoDate);
-//        System.out.println(days);
+    public int isMinimumStartingTime(int idDayPedido){
+        int dayUsed = (int)this.startingTimeGrain.getDay().getIdDay();
+        int tiempoMinimo = this.getAudiencia().getTipo().getTiempoRealizacionMinimo();
 
-        if(days >= audiencia.getTipo().getTiempoRealizacionMinimo()){
+        if (tiempoMinimo == 0){
             return 0;
-        } else {
-            return audiencia.getTipo().getTiempoRealizacionMinimo() - (int)days;
         }
+
+        if(dayUsed - idDayPedido > tiempoMinimo){
+            return 0;
+        }
+
+        return Math.abs(tiempoMinimo - (dayUsed - idDayPedido));
+
     }
 
-    public int isMaximumStartingTime(){
-        LocalDate pedidoDate = audiencia.getFechaPedido();
-        int days = daysBetween(pedidoDate);
+    public int isMaximumStartingTime(int idDayPedido){
+        int dayUsed = (int)this.startingTimeGrain.getDay().getIdDay();
+        int tiempoMaximo = this.getAudiencia().getTipo().getTiempoRealizacionMaximo();
 
-        if(audiencia.getTipo().getTiempoRealizacionMaximo() == 0 || audiencia.getTipo().getTiempoRealizacionMaximo() >= days){
+        if (tiempoMaximo == 0){
             return 0;
-        } else {
-            return (int)days - audiencia.getTipo().getTiempoRealizacionMaximo();
         }
+
+        if(dayUsed - idDayPedido < tiempoMaximo){
+            return 0;
+        }
+
+        return Math.abs((dayUsed - idDayPedido) - tiempoMaximo);
 
     }
 

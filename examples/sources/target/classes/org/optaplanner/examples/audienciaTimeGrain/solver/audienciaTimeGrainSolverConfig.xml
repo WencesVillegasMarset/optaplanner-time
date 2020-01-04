@@ -57,6 +57,34 @@
 <!--        </termination>-->
 <!--    </localSearch>-->
 
+<<<<<<< HEAD
 
 
+=======
+<!--    <localSearch>-->
+<!--        <acceptor>-->
+<!--            <entityTabuRatio>0.2</entityTabuRatio>-->
+<!--            <moveTabuSize>14</moveTabuSize>-->
+<!--            <undoMoveTabuSize>14</undoMoveTabuSize>-->
+<!--        </acceptor>-->
+<!--        <forager>-->
+<!--            <acceptedCountLimit>1000</acceptedCountLimit>-->
+<!--        </forager>-->
+<!--        <termination>-->
+<!--            <unimprovedSecondsSpentLimit>400</unimprovedSecondsSpentLimit>-->
+<!--            <unimprovedScoreDifferenceThreshold>[0/0]hard/[5/0/0]soft</unimprovedScoreDifferenceThreshold>-->
+<!--            <minutesSpentLimit>15</minutesSpentLimit>-->
+<!--        </termination>-->
+<!--    </localSearch>-->
+
+    <localSearch>
+        <localSearchType>TABU_SEARCH</localSearchType>
+        <termination>
+            <unimprovedSecondsSpentLimit>400</unimprovedSecondsSpentLimit>
+            <unimprovedScoreDifferenceThreshold>[0/0]hard/[5/0/0]soft</unimprovedScoreDifferenceThreshold>
+            <minutesSpentLimit>15</minutesSpentLimit>
+        </termination>
+    </localSearch>
+
+>>>>>>> master
 </solver>

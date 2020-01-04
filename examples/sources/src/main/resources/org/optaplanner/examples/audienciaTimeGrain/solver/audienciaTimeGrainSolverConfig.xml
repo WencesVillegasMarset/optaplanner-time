@@ -25,7 +25,6 @@
         </changeMoveSelector>
     </constructionHeuristic>
 
-
     <localSearch>
         <acceptor>
             <lateAcceptanceSize>200</lateAcceptanceSize>
@@ -51,9 +50,9 @@
             <acceptedCountLimit>1000</acceptedCountLimit>
         </forager>
         <termination>
-            <unimprovedSecondsSpentLimit>200</unimprovedSecondsSpentLimit>
+            <unimprovedSecondsSpentLimit>400</unimprovedSecondsSpentLimit>
             <unimprovedScoreDifferenceThreshold>[0/0]hard/[5/0/0]soft</unimprovedScoreDifferenceThreshold>
-            <minutesSpentLimit>10</minutesSpentLimit>
+            <minutesSpentLimit>15</minutesSpentLimit>
         </termination>
     </localSearch>
 

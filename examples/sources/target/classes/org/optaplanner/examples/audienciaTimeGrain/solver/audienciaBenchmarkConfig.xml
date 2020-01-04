@@ -32,15 +32,48 @@
         </solver>
     </inheritedSolverBenchmark>
 
+    <solverBenchmark>
+        <name>Tabu Search 0.4 y 14</name>
+        <solver>
+            <localSearch>
+                <acceptor>
+                    <lateAcceptanceSize>200</lateAcceptanceSize>
+                    <entityTabuRatio>0.2</entityTabuRatio>
+                </acceptor>
+                <forager>
+                    <acceptedCountLimit>1</acceptedCountLimit>
+                </forager>
+                <termination>
+                    <unimprovedSecondsSpentLimit>200</unimprovedSecondsSpentLimit>
+                    <unimprovedScoreDifferenceThreshold>[0/0]hard/[5/0/0]soft</unimprovedScoreDifferenceThreshold>
+                    <minutesSpentLimit>7</minutesSpentLimit>
+                </termination>
+            </localSearch>
+            <localSearch>
+                <acceptor>
+                    <entityTabuRatio>0.2</entityTabuRatio>
+                    <moveTabuSize>14</moveTabuSize>
+                    <undoMoveTabuSize>14</undoMoveTabuSize>
+                </acceptor>
+                <forager>
+                    <acceptedCountLimit>1000</acceptedCountLimit>
+                </forager>
+                <termination>
+                    <unimprovedSecondsSpentLimit>300</unimprovedSecondsSpentLimit>
+                    <unimprovedScoreDifferenceThreshold>[0/0]hard/[5/0/0]soft</unimprovedScoreDifferenceThreshold>
+                    <minutesSpentLimit>10</minutesSpentLimit>
+                </termination>
+            </localSearch>
+        </solver>
+    </solverBenchmark>
 <!--    <solverBenchmark>-->
-<!--        <name>Tabu Search 0.05</name>-->
+<!--        <name>Tabu Search 0.2 y 14</name>-->
 <!--        <solver>-->
 <!--            <localSearch>-->
-<!--&lt;!&ndash;                <localSearchType>TABU_SEARCH</localSearchType>&ndash;&gt;-->
 <!--                <acceptor>-->
-<!--                    <entityTabuRatio>0.05</entityTabuRatio>-->
-<!--                    &lt;!&ndash;                    <moveTabuSize>7</moveTabuSize>&ndash;&gt;-->
-<!--                    &lt;!&ndash;                    <undoMoveTabuSize>7</undoMoveTabuSize>&ndash;&gt;-->
+<!--                    <entityTabuRatio>0.2</entityTabuRatio>-->
+<!--                    <moveTabuSize>14</moveTabuSize>-->
+<!--                    <undoMoveTabuSize>14</undoMoveTabuSize>-->
 <!--                </acceptor>-->
 <!--                <forager>-->
 <!--                    <acceptedCountLimit>1000</acceptedCountLimit>-->
@@ -53,64 +86,24 @@
 <!--            </localSearch>-->
 <!--        </solver>-->
 <!--    </solverBenchmark>-->
-    <solverBenchmark>
-        <name>Tabu Search 0.4 y 14</name>
-        <solver>
-            <localSearch>
-                <acceptor>
-                    <entityTabuRatio>0.4</entityTabuRatio>
-                    <moveTabuSize>14</moveTabuSize>
-                    <undoMoveTabuSize>14</undoMoveTabuSize>
-                </acceptor>
-                <forager>
-                    <acceptedCountLimit>1000</acceptedCountLimit>
-                </forager>
-                <termination>
-                    <unimprovedSecondsSpentLimit>120</unimprovedSecondsSpentLimit>
-                    <unimprovedScoreDifferenceThreshold>[0/0]hard/[5/0/0]soft</unimprovedScoreDifferenceThreshold>
-                    <minutesSpentLimit>5</minutesSpentLimit>
-                </termination>
-            </localSearch>
-        </solver>
-    </solverBenchmark>
-    <solverBenchmark>
-        <name>Tabu Search 0.2 y 14</name>
-        <solver>
-            <localSearch>
-                <acceptor>
-                    <entityTabuRatio>0.2</entityTabuRatio>
-                    <moveTabuSize>14</moveTabuSize>
-                    <undoMoveTabuSize>14</undoMoveTabuSize>
-                </acceptor>
-                <forager>
-                    <acceptedCountLimit>1000</acceptedCountLimit>
-                </forager>
-                <termination>
-                    <unimprovedSecondsSpentLimit>120</unimprovedSecondsSpentLimit>
-                    <unimprovedScoreDifferenceThreshold>[0/0]hard/[5/0/0]soft</unimprovedScoreDifferenceThreshold>
-                    <minutesSpentLimit>5</minutesSpentLimit>
-                </termination>
-            </localSearch>
-        </solver>
-    </solverBenchmark>
-    <solverBenchmark>
-        <name>Tabu Search 0.2 y 30</name>
-        <solver>
-            <localSearch>
-                <acceptor>
-                    <entityTabuRatio>0.2</entityTabuRatio>
-                    <moveTabuSize>30</moveTabuSize>
-                    <undoMoveTabuSize>30</undoMoveTabuSize>
-                </acceptor>
-                <forager>
-                    <acceptedCountLimit>1000</acceptedCountLimit>
-                </forager>
-                <termination>
-                    <unimprovedSecondsSpentLimit>120</unimprovedSecondsSpentLimit>
-                    <unimprovedScoreDifferenceThreshold>[0/0]hard/[5/0/0]soft</unimprovedScoreDifferenceThreshold>
-                    <minutesSpentLimit>5</minutesSpentLimit>
-                </termination>
-            </localSearch>
-        </solver>
-    </solverBenchmark>
+<!--    <solverBenchmark>-->
+<!--        <name>Tabu Search 0.2 y 30</name>-->
+<!--        <solver>-->
+<!--            <localSearch>-->
+<!--                <acceptor>-->
+<!--                    <entityTabuRatio>0.2</entityTabuRatio>-->
+<!--                    <moveTabuSize>30</moveTabuSize>-->
+<!--                    <undoMoveTabuSize>30</undoMoveTabuSize>-->
+<!--                </acceptor>-->
+<!--                <forager>-->
+<!--                    <acceptedCountLimit>1000</acceptedCountLimit>-->
+<!--                </forager>-->
+<!--                <termination>-->
+<!--                    <unimprovedSecondsSpentLimit>120</unimprovedSecondsSpentLimit>-->
+<!--                    <unimprovedScoreDifferenceThreshold>[0/0]hard/[5/0/0]soft</unimprovedScoreDifferenceThreshold>-->
+<!--                    <minutesSpentLimit>5</minutesSpentLimit>-->
+<!--                </termination>-->
+<!--            </localSearch>-->
+<!--        </solver>-->
+<!--    </solverBenchmark>-->
 </plannerBenchmark>

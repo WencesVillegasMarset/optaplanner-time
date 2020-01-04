@@ -382,6 +382,9 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                     String[] splitString = horaMinutosRead.split(":");
                     int horaRead = Integer.parseInt(splitString[0]);
                     int minutosRead = Integer.parseInt(splitString[1]);
+
+                    //For timegrain 10 minutes
+
                     if (String.valueOf(minutosRead).endsWith("5")){
                         minutosRead += 5;
                         if(minutosRead == 60){
@@ -389,6 +392,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                             horaRead += 1;
                         }
                     }
+
                     int startingMinute = horaRead * 60 + minutosRead;
                     containsSala(solution.getRoomList(), salaRead, audienciaAssignment);
 
@@ -419,7 +423,6 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                     if (timeGrainToUse != null){
                         audienciaAssignment.setStartingTimeGrain(timeGrainToUse);
                     } else{
-//                        System.out.println("No hay timegrain para el horario " + horaMinutosRead);
                         continue;
                     }
                 }
@@ -430,7 +433,6 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                     audienciaAssignment.setPinned(true);
                 }
                 audienciaAssignmentList.add(audienciaAssignment);
-//                System.out.println(audiencia.getNumTimeGrains() + " " + audiencia.getDefensor().getNombreDefensor() + audiencia.getFiscal().getNombreFiscal() + audiencia.getJuez().getIdJuez());
             }
 
             solution.setAudienciaList(audienciaList);

@@ -244,6 +244,36 @@ public class AudienciaAssignment implements Comparable<AudienciaAssignment> {
 
     }
 
+    public int isMinimum(int idDayPedido, TimeGrain timeGrain){
+        int dayUsed = (int)timeGrain.getDay().getIdDay();
+        int tiempoMinimo = this.getAudiencia().getTipo().getTiempoRealizacionMinimo();
+
+        if (tiempoMinimo == 0){
+            return 0;
+        }
+
+        if(dayUsed - idDayPedido > tiempoMinimo){
+            return 0;
+        }
+
+        return Math.abs(tiempoMinimo - (dayUsed - idDayPedido));
+    }
+
+    public int isMaximum(int idDayPedido, TimeGrain timeGrain){
+        int dayUsed = (int)timeGrain.getDay().getIdDay();
+        int tiempoMaximo = this.getAudiencia().getTipo().getTiempoRealizacionMaximo();
+
+        if (tiempoMaximo == 0){
+            return 0;
+        }
+
+        if(dayUsed - idDayPedido < tiempoMaximo){
+            return 0;
+        }
+
+        return Math.abs((dayUsed - idDayPedido) - tiempoMaximo);
+    }
+
     public boolean isSameCategory(AudienciaAssignment assignment){
         if (this.getAudiencia().getJuezList().stream().anyMatch(a -> assignment.audiencia.getJuezList().contains(a))){
             if (this.getAudiencia().getTipo().equals(assignment.getAudiencia().getTipo())){

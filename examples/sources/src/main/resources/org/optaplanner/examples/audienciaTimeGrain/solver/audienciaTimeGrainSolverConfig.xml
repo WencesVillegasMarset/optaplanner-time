@@ -16,43 +16,30 @@
         <constructionHeuristicType>FIRST_FIT_DECREASING</constructionHeuristicType>
 <!--        <constructionHeuristicType>FIRST_FIT</constructionHeuristicType>-->
         <changeMoveSelector>
-          <valueSelector variableName="startingTimeGrain"/>
+            <filterClass>org.optaplanner.examples.audienciaTimeGrain.helper.FilterInvalidDays</filterClass>
+            <valueSelector variableName="startingTimeGrain"/>
         </changeMoveSelector>
         <changeMoveSelector>
-          <valueSelector variableName="room"/>
+            <filterClass>org.optaplanner.examples.audienciaTimeGrain.helper.FilterDifferentRoom</filterClass>
+            <valueSelector variableName="room"/>
         </changeMoveSelector>
     </constructionHeuristic>
 
+
     <localSearch>
+        <acceptor>
+            <lateAcceptanceSize>200</lateAcceptanceSize>
+            <entityTabuRatio>0.2</entityTabuRatio>
+        </acceptor>
+        <forager>
+            <acceptedCountLimit>1</acceptedCountLimit>
+        </forager>
         <termination>
-            <minutesSpentLimit>7</minutesSpentLimit>
-            <unimprovedSecondsSpentLimit>120</unimprovedSecondsSpentLimit>
+            <unimprovedSecondsSpentLimit>200</unimprovedSecondsSpentLimit>
             <unimprovedScoreDifferenceThreshold>[0/0]hard/[5/0/0]soft</unimprovedScoreDifferenceThreshold>
+            <minutesSpentLimit>5</minutesSpentLimit>
         </termination>
     </localSearch>
-<!--    <localSearch>-->
-<!--        <termination>-->
-<!--            <minutesSpentLimit>7</minutesSpentLimit>-->
-<!--            <unimprovedSecondsSpentLimit>120</unimprovedSecondsSpentLimit>-->
-<!--            <unimprovedScoreDifferenceThreshold>[0/0]hard/[5/0/0]soft</unimprovedScoreDifferenceThreshold>-->
-<!--        </termination>-->
-<!--        <localSearchType>TABU_SEARCH</localSearchType>-->
-<!--    </localSearch>-->
-
-<!--    <localSearch>-->
-<!--        <acceptor>-->
-<!--            <lateAcceptanceSize>200</lateAcceptanceSize>-->
-<!--            <entityTabuRatio>0.2</entityTabuRatio>-->
-<!--        </acceptor>-->
-<!--        <forager>-->
-<!--            <acceptedCountLimit>1</acceptedCountLimit>-->
-<!--        </forager>-->
-<!--        <termination>-->
-<!--            <unimprovedSecondsSpentLimit>200</unimprovedSecondsSpentLimit>-->
-<!--            <unimprovedScoreDifferenceThreshold>[0/0]hard/[5/0/0]soft</unimprovedScoreDifferenceThreshold>-->
-<!--            <minutesSpentLimit>10</minutesSpentLimit>-->
-<!--        </termination>-->
-<!--    </localSearch>-->
 
     <localSearch>
         <acceptor>
@@ -70,11 +57,6 @@
         </termination>
     </localSearch>
 
-<!--    <localSearch>-->
-<!--        <localSearchType>TABU_SEARCH</localSearchType>-->
-<!--        <termination>-->
-<!--            <minutesSpentLimit>5</minutesSpentLimit>-->
-<!--        </termination>-->
-<!--    </localSearch>-->
+
 
 </solver>

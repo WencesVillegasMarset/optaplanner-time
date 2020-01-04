@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 import org.optaplanner.core.api.solver.SolverFactory;
 import org.optaplanner.examples.audienciaTimeGrain.domain.*;
+import org.optaplanner.examples.audienciaTimeGrain.helper.FilterDifferentRoom;
 import org.optaplanner.examples.audienciaTimeGrain.helper.JuezTimeGrainRestrictionLoader;
 import org.optaplanner.examples.audienciaTimeGrain.persistence.ExcelReader;
 import org.optaplanner.examples.audienciaTimeGrain.persistence.XMLExporter;

@@ -35,10 +35,19 @@ public class ExcelSolutionFileIO implements SolutionFileIO<AudienciaSchedule> {
     @Override
     public void write(AudienciaSchedule solution, File outputSolutionFile) {
         XMLExporter xmlExporter = new XMLExporter("data/audienciaschedulingBenchmark/");
+        int counter = 0;
+        String fileName = solution.getFechaCorrida().toString();
+        File file = new File("data/excel/to_schedule/" + fileName + "-number" + counter + ".xlsx");
+        while (file.exists()){
+            counter++;
+            file = new File("data/excel/to_schedule/" + fileName + "-number" + counter + ".xlsx");
+        }
+        excelReader.write(solution, file);
         try {
             xmlExporter.write(solution);
         } catch (JAXBException | FileNotFoundException e) {
             e.printStackTrace();
         }
+
     }
 }

@@ -52,7 +52,7 @@
         <termination>
             <unimprovedSecondsSpentLimit>400</unimprovedSecondsSpentLimit>
             <unimprovedScoreDifferenceThreshold>[0/0]hard/[5/0/0]soft</unimprovedScoreDifferenceThreshold>
-            <minutesSpentLimit>15</minutesSpentLimit>
+            <minutesSpentLimit>10</minutesSpentLimit>
         </termination>
     </localSearch>
 

@@ -9,6 +9,26 @@
             <inputSolutionFile>data/unsolved/to_schedule/2018-11-21.xlsx</inputSolutionFile>
             <inputSolutionFile>data/unsolved/to_schedule/2018-11-22.xlsx</inputSolutionFile>
             <inputSolutionFile>data/unsolved/to_schedule/2018-11-23.xlsx</inputSolutionFile>
+            <inputSolutionFile>data/unsolved/to_schedule/2018-11-26.xlsx</inputSolutionFile>
+            <inputSolutionFile>data/unsolved/to_schedule/2018-11-27.xlsx</inputSolutionFile>
+            <inputSolutionFile>data/unsolved/to_schedule/2018-11-28.xlsx</inputSolutionFile>
+            <inputSolutionFile>data/unsolved/to_schedule/2018-11-29.xlsx</inputSolutionFile>
+            <inputSolutionFile>data/unsolved/to_schedule/2018-11-30.xlsx</inputSolutionFile>
+            <inputSolutionFile>data/unsolved/to_schedule/2018-12-01.xlsx</inputSolutionFile>
+            <inputSolutionFile>data/unsolved/to_schedule/2018-12-03.xlsx</inputSolutionFile>
+            <inputSolutionFile>data/unsolved/to_schedule/2018-12-04.xlsx</inputSolutionFile>
+            <inputSolutionFile>data/unsolved/to_schedule/2018-12-05.xlsx</inputSolutionFile>
+            <inputSolutionFile>data/unsolved/to_schedule/2018-12-06.xlsx</inputSolutionFile>
+            <inputSolutionFile>data/unsolved/to_schedule/2018-12-07.xlsx</inputSolutionFile>
+            <inputSolutionFile>data/unsolved/to_schedule/2018-12-10.xlsx</inputSolutionFile>
+            <inputSolutionFile>data/unsolved/to_schedule/2018-12-11.xlsx</inputSolutionFile>
+            <inputSolutionFile>data/unsolved/to_schedule/2018-12-12.xlsx</inputSolutionFile>
+            <inputSolutionFile>data/unsolved/to_schedule/2018-12-13.xlsx</inputSolutionFile>
+            <inputSolutionFile>data/unsolved/to_schedule/2018-12-14.xlsx</inputSolutionFile>
+            <inputSolutionFile>data/unsolved/to_schedule/2018-12-17.xlsx</inputSolutionFile>
+            <inputSolutionFile>data/unsolved/to_schedule/2018-12-18.xlsx</inputSolutionFile>
+            <inputSolutionFile>data/unsolved/to_schedule/2018-12-19.xlsx</inputSolutionFile>
+            <inputSolutionFile>data/unsolved/to_schedule/2018-12-20.xlsx</inputSolutionFile>
             <writeOutputSolutionEnabled>true</writeOutputSolutionEnabled>
         </problemBenchmarks>
         <solver>
@@ -23,9 +43,11 @@
             <constructionHeuristic>
                 <constructionHeuristicType>FIRST_FIT_DECREASING</constructionHeuristicType>
                 <changeMoveSelector>
+                    <filterClass>org.optaplanner.examples.audienciaTimeGrain.helper.FilterInvalidDays</filterClass>
                     <valueSelector variableName="startingTimeGrain"/>
                 </changeMoveSelector>
                 <changeMoveSelector>
+                    <filterClass>org.optaplanner.examples.audienciaTimeGrain.helper.FilterDifferentRoom</filterClass>
                     <valueSelector variableName="room"/>
                 </changeMoveSelector>
             </constructionHeuristic>
@@ -33,8 +55,22 @@
     </inheritedSolverBenchmark>
 
     <solverBenchmark>
-        <name>Tabu Search 0.4 y 14</name>
+<!--        <name>Simulated Annealing and Tabu Search</name>-->
+        <name>Late Acceptance and Tabu Search</name>
         <solver>
+<!--            <localSearch>-->
+<!--                <termination>-->
+<!--                    <minutesSpentLimit>5</minutesSpentLimit>-->
+<!--                    <unimprovedSecondsSpentLimit>200</unimprovedSecondsSpentLimit>-->
+<!--                    <unimprovedScoreDifferenceThreshold>[0/0]hard/[5/0/0]soft</unimprovedScoreDifferenceThreshold>-->
+<!--                </termination>-->
+<!--                <acceptor>-->
+<!--                    <simulatedAnnealingStartingTemperature>[0/2]hard/[100/0/0]soft</simulatedAnnealingStartingTemperature>-->
+<!--                </acceptor>-->
+<!--                <forager>-->
+<!--                    <acceptedCountLimit>4</acceptedCountLimit>-->
+<!--                </forager>-->
+<!--            </localSearch>-->
             <localSearch>
                 <acceptor>
                     <lateAcceptanceSize>200</lateAcceptanceSize>
@@ -46,7 +82,7 @@
                 <termination>
                     <unimprovedSecondsSpentLimit>200</unimprovedSecondsSpentLimit>
                     <unimprovedScoreDifferenceThreshold>[0/0]hard/[5/0/0]soft</unimprovedScoreDifferenceThreshold>
-                    <minutesSpentLimit>7</minutesSpentLimit>
+                    <minutesSpentLimit>5</minutesSpentLimit>
                 </termination>
             </localSearch>
             <localSearch>
@@ -59,51 +95,12 @@
                     <acceptedCountLimit>1000</acceptedCountLimit>
                 </forager>
                 <termination>
-                    <unimprovedSecondsSpentLimit>300</unimprovedSecondsSpentLimit>
+                    <unimprovedSecondsSpentLimit>400</unimprovedSecondsSpentLimit>
                     <unimprovedScoreDifferenceThreshold>[0/0]hard/[5/0/0]soft</unimprovedScoreDifferenceThreshold>
                     <minutesSpentLimit>10</minutesSpentLimit>
                 </termination>
             </localSearch>
         </solver>
     </solverBenchmark>
-<!--    <solverBenchmark>-->
-<!--        <name>Tabu Search 0.2 y 14</name>-->
-<!--        <solver>-->
-<!--            <localSearch>-->
-<!--                <acceptor>-->
-<!--                    <entityTabuRatio>0.2</entityTabuRatio>-->
-<!--                    <moveTabuSize>14</moveTabuSize>-->
-<!--                    <undoMoveTabuSize>14</undoMoveTabuSize>-->
-<!--                </acceptor>-->
-<!--                <forager>-->
-<!--                    <acceptedCountLimit>1000</acceptedCountLimit>-->
-<!--                </forager>-->
-<!--                <termination>-->
-<!--                    <unimprovedSecondsSpentLimit>120</unimprovedSecondsSpentLimit>-->
-<!--                    <unimprovedScoreDifferenceThreshold>[0/0]hard/[5/0/0]soft</unimprovedScoreDifferenceThreshold>-->
-<!--                    <minutesSpentLimit>5</minutesSpentLimit>-->
-<!--                </termination>-->
-<!--            </localSearch>-->
-<!--        </solver>-->
-<!--    </solverBenchmark>-->
-<!--    <solverBenchmark>-->
-<!--        <name>Tabu Search 0.2 y 30</name>-->
-<!--        <solver>-->
-<!--            <localSearch>-->
-<!--                <acceptor>-->
-<!--                    <entityTabuRatio>0.2</entityTabuRatio>-->
-<!--                    <moveTabuSize>30</moveTabuSize>-->
-<!--                    <undoMoveTabuSize>30</undoMoveTabuSize>-->
-<!--                </acceptor>-->
-<!--                <forager>-->
-<!--                    <acceptedCountLimit>1000</acceptedCountLimit>-->
-<!--                </forager>-->
-<!--                <termination>-->
-<!--                    <unimprovedSecondsSpentLimit>120</unimprovedSecondsSpentLimit>-->
-<!--                    <unimprovedScoreDifferenceThreshold>[0/0]hard/[5/0/0]soft</unimprovedScoreDifferenceThreshold>-->
-<!--                    <minutesSpentLimit>5</minutesSpentLimit>-->
-<!--                </termination>-->
-<!--            </localSearch>-->
-<!--        </solver>-->
-<!--    </solverBenchmark>-->
+
 </plannerBenchmark>

@@ -12,7 +12,7 @@ public class TimeGrain {
 
     public static final int GRAIN_LENGTH_IN_MINUTES = 10;
 
-    /* Variables */ //ARREGLAR REDUNDANCIA ENTRE GRAININDEX Y IDTIMEGRAIN
+    /* Variables */
 
     private int grainIndex; //unique
     private Day day;

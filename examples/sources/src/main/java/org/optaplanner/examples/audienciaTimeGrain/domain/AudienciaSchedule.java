@@ -9,17 +9,14 @@ import org.optaplanner.core.api.domain.solution.PlanningSolution;
 import org.optaplanner.core.api.domain.solution.drools.ProblemFactCollectionProperty;
 import org.optaplanner.core.api.domain.valuerange.ValueRangeProvider;
 import org.optaplanner.core.api.score.buildin.bendable.BendableScore;
-import org.optaplanner.core.api.score.buildin.hardmediumsoft.HardMediumSoftScore;
 import org.optaplanner.examples.audienciaTimeGrain.helper.LocalDateAdapter;
 import org.optaplanner.examples.audienciaTimeGrain.helper.ScoreAdapter;
 
 import javax.xml.bind.annotation.*;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
-import java.sql.Time;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -87,19 +84,6 @@ public class AudienciaSchedule {
     private Table<Juez, Day, Integer> table = HashBasedTable.create();
 
     /* Setters y Getters */
-
-//    public void createTable() {
-//        for(Juez juez : this.juezList){
-//            for(Day day : this.dayList){
-//                if (table.get(juez, day) == null){
-//                    int timeGrains = this.audienciaAssignmentList.stream().filter(a -> a.getStartingTimeGrain().getDay() == day && a.getAudiencia().getJuezList().contains(juez)).mapToInt(a -> a.getAudiencia().getNumTimeGrains()).sum();
-//                    table.put(juez, day, timeGrains);
-//                } else {
-//                    table.put(juez, day, table.get(juez, day) )
-//                }
-//            }
-//        }
-//    }
 
     public List<Day> getDayList() {
         return dayList;
@@ -222,10 +206,6 @@ public class AudienciaSchedule {
         this.asesorList = asesorList;
     }
 
-//    public int maximumWorkTimeJuez(){
-//        Table<Juez, Day, Integer> table = HashBasedTable.create();
-//        table.
-//    }
 
     /* toString */
 

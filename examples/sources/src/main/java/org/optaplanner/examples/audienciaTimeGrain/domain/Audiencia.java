@@ -40,7 +40,6 @@ public class Audiencia {
         this.defensorList.add(defensor);
         this.querellanteList.add(querellante);
         this.asesorList.add(asesor);
-//        this.ubicacion = ubicacion;
         this.fechaPedido = fechaPedido;
     }
 
@@ -118,13 +117,6 @@ public class Audiencia {
         return this.fiscalList;
     }
 
-//    public int getUbicacion() {
-//        return ubicacion;
-//    }
-//
-//    public void setUbicacion(int ubicacion) {
-//        this.ubicacion = ubicacion;
-//    }
 
     @XmlJavaTypeAdapter(value = LocalDateAdapter.class)
     public LocalDate getFechaPedido() {

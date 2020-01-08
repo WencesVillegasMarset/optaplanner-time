@@ -163,7 +163,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             int maximumStartingMinuteOfDay = lastStartingMinute.getHour() * 60 + lastStartingMinute.getMinute();
 
 
-            for(int j=0; j<150; j++){
+            for(int j=0; j<75; j++){
                 boolean isFeriado;
                 do {
                     isFeriado = false;

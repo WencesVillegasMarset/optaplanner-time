@@ -1,9 +1,12 @@
 package org.optaplanner.examples.audienciaTimeGrain.domain;
 
+import org.optaplanner.core.api.domain.lookup.PlanningId;
+
 public class Room {
 
     /* Variables */
 
+    @PlanningId
     private int idRoom;
     private String nombreRoom;
     private boolean almaFuerte = false;

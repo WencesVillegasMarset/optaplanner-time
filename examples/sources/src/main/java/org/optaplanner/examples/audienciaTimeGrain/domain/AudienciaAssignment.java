@@ -2,6 +2,7 @@ package org.optaplanner.examples.audienciaTimeGrain.domain;
 
 import org.optaplanner.core.api.domain.entity.PlanningEntity;
 import org.optaplanner.core.api.domain.entity.PlanningPin;
+import org.optaplanner.core.api.domain.lookup.PlanningId;
 import org.optaplanner.core.api.domain.variable.PlanningVariable;
 import org.optaplanner.examples.audienciaTimeGrain.helper.AudienciaDifficultyComparator;
 import org.optaplanner.examples.audienciaTimeGrain.helper.LocalDateAdapter;
@@ -23,6 +24,8 @@ public class AudienciaAssignment implements Comparable<AudienciaAssignment> {
     private LocalDate fechaCorrida;
     private Room room;
     private TimeGrain startingTimeGrain;
+
+    @PlanningId
     private int id;
     private boolean pinned = false;
 

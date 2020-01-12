@@ -385,13 +385,13 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
 
                     //For timegrain 10 minutes
 
-                    if (String.valueOf(minutosRead).endsWith("5")){
-                        minutosRead += 5;
-                        if(minutosRead == 60){
-                            minutosRead = 0;
-                            horaRead += 1;
-                        }
-                    }
+//                    if (String.valueOf(minutosRead).endsWith("5")){
+//                        minutosRead += 5;
+//                        if(minutosRead == 60){
+//                            minutosRead = 0;
+//                            horaRead += 1;
+//                        }
+//                    }
 
                     int startingMinute = horaRead * 60 + minutosRead;
                     containsSala(solution.getRoomList(), salaRead, audienciaAssignment);

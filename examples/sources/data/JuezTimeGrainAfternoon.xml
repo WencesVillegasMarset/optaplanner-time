@@ -3,7 +3,7 @@
         <date>22-11-2018</date>
         <Jueces>
             <Juez>
-                <id>820</id>
+                <id>430</id>
             </Juez>
             <Juez>
                 <id>817</id>
@@ -20,10 +20,10 @@
         <date>23-11-2018</date>
         <Jueces>
             <Juez>
-                <id>462</id>
+                <id>812</id>
             </Juez>
             <Juez>
-                <id>1221</id>
+                <id>424</id>
             </Juez>
             <Juez>
                 <id>654</id>
@@ -37,10 +37,10 @@
         <date>26-11-2018</date>
         <Jueces>
             <Juez>
-                <id>331</id>
+                <id>439</id>
             </Juez>
             <Juez>
-                <id>437</id>
+                <id>445</id>
             </Juez>
             <Juez>
                 <id>438</id>
@@ -54,16 +54,19 @@
         <date>27-11-2018</date>
         <Jueces>
             <Juez>
-                <id>1220</id>
+                <id>812</id>
             </Juez>
             <Juez>
-                <id>811</id>
+                <id>660</id>
             </Juez>
             <Juez>
-                <id>422</id>
+                <id>439</id>
             </Juez>
             <Juez>
-                <id>346</id>
+                <id>436</id>
+            </Juez>
+            <Juez>
+                <id>428</id>
             </Juez>
         </Jueces>
     </Day>
@@ -71,16 +74,16 @@
         <date>28-11-2018</date>
         <Jueces>
             <Juez>
-                <id>819</id>
+                <id>662</id>
             </Juez>
             <Juez>
-                <id>429</id>
+                <id>576</id>
             </Juez>
             <Juez>
-                <id>433</id>
+                <id>432</id>
             </Juez>
             <Juez>
-                <id>673</id>
+                <id>426</id>
             </Juez>
         </Jueces>
     </Day>
@@ -88,10 +91,10 @@
         <date>29-11-2018</date>
         <Jueces>
             <Juez>
-                <id>463</id>
+                <id>559</id>
             </Juez>
             <Juez>
-                <id>655</id>
+                <id>438</id>
             </Juez>
             <Juez>
                 <id>672</id>
@@ -105,16 +108,16 @@
         <date>30-11-2018</date>
         <Jueces>
             <Juez>
-                <id>563</id>
+                <id>813</id>
             </Juez>
             <Juez>
-                <id>1194</id>
+                <id>438</id>
             </Juez>
             <Juez>
-                <id>657</id>
+                <id>426</id>
             </Juez>
             <Juez>
-                <id>815</id>
+                <id>559</id>
             </Juez>
         </Jueces>
     </Day>
@@ -122,16 +125,28 @@
         <date>01-12-2018</date>
         <Jueces>
             <Juez>
-                <id>351</id>
+                <id>439</id>
+            </Juez>
+            <Juez>
+                <id>429</id>
+            </Juez>
+            <Juez>
+                <id>461</id>
             </Juez>
             <Juez>
                 <id>442</id>
             </Juez>
             <Juez>
-                <id>349</id>
+                <id>563</id>
             </Juez>
             <Juez>
-                <id>1071</id>
+                <id>434</id>
+            </Juez>
+            <Juez>
+                <id>437</id>
+            </Juez>
+            <Juez>
+                <id>426</id>
             </Juez>
         </Jueces>
     </Day>
@@ -139,10 +154,10 @@
         <date>03-12-2018</date>
         <Jueces>
             <Juez>
-                <id>440</id>
+                <id>1071</id>
             </Juez>
             <Juez>
-                <id>424</id>
+                <id>815</id>
             </Juez>
             <Juez>
                 <id>324</id>
@@ -173,10 +188,10 @@
         <date>05-12-2018</date>
         <Jueces>
             <Juez>
-                <id>431</id>
+                <id>662</id>
             </Juez>
             <Juez>
-                <id>353</id>
+                <id>439</id>
             </Juez>
             <Juez>
                 <id>812</id>
@@ -190,7 +205,7 @@
         <date>06-12-2018</date>
         <Jueces>
             <Juez>
-                <id>659</id>
+                <id>682</id>
             </Juez>
             <Juez>
                 <id>671</id>
@@ -207,10 +222,10 @@
         <date>07-12-2018</date>
         <Jueces>
             <Juez>
-                <id>822</id>
+                <id>682</id>
             </Juez>
             <Juez>
-                <id>660</id>
+                <id>432</id>
             </Juez>
             <Juez>
                 <id>821</id>
@@ -224,7 +239,7 @@
         <date>10-12-2018</date>
         <Jueces>
             <Juez>
-                <id>423</id>
+                <id>439</id>
             </Juez>
             <Juez>
                 <id>444</id>
@@ -241,16 +256,16 @@
         <date>11-12-2018</date>
         <Jueces>
             <Juez>
-                <id>662</id>
+                <id>659</id>
             </Juez>
             <Juez>
-                <id>867</id>
+                <id>424</id>
             </Juez>
             <Juez>
-                <id>432</id>
+                <id>433</id>
             </Juez>
             <Juez>
-                <id>336</id>
+                <id>440</id>
             </Juez>
         </Jueces>
     </Day>
@@ -258,7 +273,7 @@
         <date>12-12-2018</date>
         <Jueces>
             <Juez>
-                <id>658</id>
+                <id>563</id>
             </Juez>
             <Juez>
                 <id>461</id>
@@ -275,16 +290,19 @@
         <date>13-12-2018</date>
         <Jueces>
             <Juez>
-                <id>443</id>
+                <id>811</id>
             </Juez>
             <Juez>
-                <id>338</id>
+                <id>423</id>
             </Juez>
             <Juez>
-                <id>682</id>
+                <id>426</id>
             </Juez>
             <Juez>
-                <id>577</id>
+                <id>438</id>
+            </Juez>
+            <Juez>
+                <id>559</id>
             </Juez>
         </Jueces>
     </Day>
@@ -292,7 +310,7 @@
         <date>14-12-2018</date>
         <Jueces>
             <Juez>
-                <id>683</id>
+                <id>577</id>
             </Juez>
             <Juez>
                 <id>681</id>
@@ -306,10 +324,10 @@
         <date>17-12-2018</date>
         <Jueces>
             <Juez>
-                <id>820</id>
+                <id>576</id>
             </Juez>
             <Juez>
-                <id>817</id>
+                <id>563</id>
             </Juez>
             <Juez>
                 <id>816</id>
@@ -323,16 +341,19 @@
         <date>18-12-2018</date>
         <Jueces>
             <Juez>
-                <id>462</id>
+                <id>811</id>
             </Juez>
             <Juez>
-                <id>1221</id>
+                <id>559</id>
             </Juez>
             <Juez>
-                <id>654</id>
+                <id>683</id>
             </Juez>
             <Juez>
-                <id>354</id>
+                <id>657</id>
+            </Juez>
+            <Juez>
+                <id>661</id>
             </Juez>
         </Jueces>
     </Day>
@@ -340,16 +361,22 @@
         <date>19-12-2018</date>
         <Jueces>
             <Juez>
-                <id>331</id>
+                <id>577</id>
             </Juez>
             <Juez>
-                <id>437</id>
+                <id>443</id>
+            </Juez>
+            <Juez>
+                <id>681</id>
+            </Juez>
+            <Juez>
+                <id>440</id>
             </Juez>
             <Juez>
                 <id>438</id>
             </Juez>
             <Juez>
-                <id>436</id>
+                <id>431</id>
             </Juez>
         </Jueces>
     </Day>
@@ -357,16 +384,25 @@
         <date>20-12-2018</date>
         <Jueces>
             <Juez>
-                <id>1220</id>
-            </Juez>
-            <Juez>
                 <id>811</id>
             </Juez>
             <Juez>
-                <id>422</id>
+                <id>461</id>
             </Juez>
             <Juez>
-                <id>346</id>
+                <id>563</id>
+            </Juez>
+            <Juez>
+                <id>440</id>
+            </Juez>
+            <Juez>
+                <id>559</id>
+            </Juez>
+            <Juez>
+                <id>426</id>
+            </Juez>
+            <Juez>
+                <id>438</id>
             </Juez>
         </Jueces>
     </Day>
@@ -374,16 +410,28 @@
         <date>21-12-2018</date>
         <Jueces>
             <Juez>
-                <id>819</id>
+                <id>428</id>
             </Juez>
             <Juez>
-                <id>429</id>
+                <id>426</id>
             </Juez>
             <Juez>
-                <id>433</id>
+                <id>430</id>
             </Juez>
             <Juez>
-                <id>673</id>
+                <id>461</id>
+            </Juez>
+            <Juez>
+                <id>442</id>
+            </Juez>
+            <Juez>
+                <id>563</id>
+            </Juez>
+            <Juez>
+                <id>559</id>
+            </Juez>
+            <Juez>
+                <id>438</id>
             </Juez>
         </Jueces>
     </Day>
@@ -391,7 +439,7 @@
         <date>26-12-2018</date>
         <Jueces>
             <Juez>
-                <id>463</id>
+                <id>812</id>
             </Juez>
             <Juez>
                 <id>655</id>

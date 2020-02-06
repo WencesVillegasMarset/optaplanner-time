@@ -1,5 +1,6 @@
 package org.optaplanner.examples.audienciaTimeGrain.domain;
 
+import org.optaplanner.core.api.domain.lookup.PlanningId;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -10,10 +11,11 @@ public class TimeGrain {
 
     /* Granularidad de los TimeGrains */
 
-    public static final int GRAIN_LENGTH_IN_MINUTES = 10;
+    public static final int GRAIN_LENGTH_IN_MINUTES = 5;
 
     /* Variables */
 
+    @PlanningId
     private int grainIndex; //unique
     private Day day;
     private int startingMinuteOfDay;

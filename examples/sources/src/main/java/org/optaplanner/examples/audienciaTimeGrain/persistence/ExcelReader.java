@@ -385,13 +385,13 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
 
                     //For timegrain 10 minutes
 
-                    if (String.valueOf(minutosRead).endsWith("5")){
-                        minutosRead += 5;
-                        if(minutosRead == 60){
-                            minutosRead = 0;
-                            horaRead += 1;
-                        }
-                    }
+//                    if (String.valueOf(minutosRead).endsWith("5")){
+//                        minutosRead += 5;
+//                        if(minutosRead == 60){
+//                            minutosRead = 0;
+//                            horaRead += 1;
+//                        }1
+//                    }
 
                     int startingMinute = horaRead * 60 + minutosRead;
                     containsSala(solution.getRoomList(), salaRead, audienciaAssignment);
@@ -684,13 +684,8 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                     AudienciaScheduleConstraintConfiguration.DO_NOT_USE_ROOM_IN_PRHOHIBITED_TIME,
                     AudienciaScheduleConstraintConfiguration.DO_NOT_CONFLICT_FISCAL,
                     AudienciaScheduleConstraintConfiguration.DO_NOT_CONFLICT_DEFENSOR,
-//                    AudienciaScheduleConstraintConfiguration.DO_NOT_USE_BREAKS,
-//                    AudienciaScheduleConstraintConfiguration.RESPECT_LOCATIONS,
                     AudienciaScheduleConstraintConfiguration.RESPECT_MINIMUM_STARTING_TIME,
                     AudienciaScheduleConstraintConfiguration.RESPECT_MAXIMUM_STARTING_TIME,
-//                    AudienciaScheduleConstraintConfiguration.DONT_CONFLICT_JUEZ_LOCATION,
-//                    AudienciaScheduleConstraintConfiguration.DONT_CONFLICT_DEFENSOR_LOCATION,
-//                    AudienciaScheduleConstraintConfiguration.DONT_CONFLICT_FISCAL_LOCATION,
                     AudienciaScheduleConstraintConfiguration.DONT_START_AFTER_MAXIMUM_STARTING_MINUTE,
                     AudienciaScheduleConstraintConfiguration.DONT_CONFLICT_JUEZ_AND_TIMEGRAIN,
                     AudienciaScheduleConstraintConfiguration.DO_NOT_CONFLICT_QUERELLANTE,
@@ -700,7 +695,6 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                     AudienciaScheduleConstraintConfiguration.HEARINGS_IN_BOULOGNE,
                     AudienciaScheduleConstraintConfiguration.HEARINGS_IN_ALMA_FUERTE,
                     AudienciaScheduleConstraintConfiguration.HEARTINGS_NOT_EJEC,
-
                     AudienciaScheduleConstraintConfiguration.ONE_TIME_GRAIN_BREAK_BETWEEN_TWO_CONSECUTIVE_MEETINGS,
                     AudienciaScheduleConstraintConfiguration.ONE_TIMEGRAIN_JUEZ,
                     AudienciaScheduleConstraintConfiguration.ONE_TIMEGRAIN_DEFENSOR,
@@ -715,10 +709,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                     AudienciaScheduleConstraintConfiguration.PRIORITIZE_DETAINEES,
                     AudienciaScheduleConstraintConfiguration.MAXIMUM_WORK_TIME_JUEZ,
                     AudienciaScheduleConstraintConfiguration.GROUP_JUEZ_TIPO,
-                    AudienciaScheduleConstraintConfiguration.PENALIZE_CREATION_OF_ZONE,
-                    AudienciaScheduleConstraintConfiguration.PENALIZE_DIFFERENT_ROOM_JUEZ,
-                    AudienciaScheduleConstraintConfiguration.PENALIZE_CREATION_OF_ZONE_PER_DAY,
-//                    AudienciaScheduleConstraintConfiguration.DISTRIBUTE_WORKLOAD_FAIRLY,
+                    AudienciaScheduleConstraintConfiguration.PENALIZE_FIRST_AUDIENCE,
             };
             int mergeStart = -1;
             int previousAudienciaRemainingTimeGrains = 0;

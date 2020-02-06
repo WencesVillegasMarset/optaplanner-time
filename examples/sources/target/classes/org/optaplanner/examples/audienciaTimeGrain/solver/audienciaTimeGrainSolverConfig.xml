@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <solver>
     <!--<environmentMode>FULL_ASSERT</environmentMode>--><!-- To slowly prove there are no bugs in this code -->
-<!--    <moveThreadCount>AUTO</moveThreadCount>-->
+    <moveThreadCount>AUTO</moveThreadCount>
 
     <solutionClass>org.optaplanner.examples.audienciaTimeGrain.domain.AudienciaSchedule</solutionClass>
     <entityClass>org.optaplanner.examples.audienciaTimeGrain.domain.AudienciaAssignment</entityClass>
@@ -55,7 +55,6 @@
             <minutesSpentLimit>10</minutesSpentLimit>
         </termination>
     </localSearch>
-
 
 
 </solver>

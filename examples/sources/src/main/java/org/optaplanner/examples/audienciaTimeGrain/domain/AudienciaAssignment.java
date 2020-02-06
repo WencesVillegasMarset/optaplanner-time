@@ -20,13 +20,12 @@ public class AudienciaAssignment implements Comparable<AudienciaAssignment> {
 
     /* Variables */
 
+    @PlanningId
+    private int id;
     private Audiencia audiencia;
     private LocalDate fechaCorrida;
     private Room room;
     private TimeGrain startingTimeGrain;
-
-    @PlanningId
-    private int id;
     private boolean pinned = false;
 
     /* Setters y Getters */

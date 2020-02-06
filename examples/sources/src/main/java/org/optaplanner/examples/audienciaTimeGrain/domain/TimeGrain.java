@@ -1,7 +1,6 @@
 package org.optaplanner.examples.audienciaTimeGrain.domain;
 
 import org.optaplanner.core.api.domain.lookup.PlanningId;
-
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.LocalTime;

@@ -85,12 +85,8 @@ public class AudienciaScheduleConstraintConfiguration {
     public static final String MAXIMUM_WORK_TIME_JUEZ = "Maximum work time Juez";
     //Group Audiencias by Tipo and Juez
     public static final String GROUP_JUEZ_TIPO = "Group Juez Tipo";
-    //Penalize Creation of Prohibited Zone
-    public static final String PENALIZE_CREATION_OF_ZONE = "Penalize Creation of Prohibited Zone";
-    //Penalize Different Room Juez
-    public static final String PENALIZE_DIFFERENT_ROOM_JUEZ = "Penalize Different Room Juez";
-    //Penalize Creation of Prohibited Zone Starting Date
-    public static final String PENALIZE_CREATION_OF_ZONE_PER_DAY = "Penalize Creation of Prohibited Zone Starting Date";
+    //Penalize first Audience of Day per Room
+    public static final String PENALIZE_FIRST_AUDIENCE = "Penalize First Audience";
 
     /* Declarations Soft */
 
@@ -167,12 +163,8 @@ public class AudienciaScheduleConstraintConfiguration {
     private BendableScore maximumWorkTimeJuez = BendableScore.ofSoft(2, 3, 0, 1);
     @ConstraintWeight(GROUP_JUEZ_TIPO)
     private BendableScore groupJuezTipo = BendableScore.ofSoft(2, 3, 0, 1);
-    @ConstraintWeight(PENALIZE_CREATION_OF_ZONE)
-    private BendableScore penalizeCreationZone = BendableScore.ofSoft(2, 3, 0, 1);
-    @ConstraintWeight(PENALIZE_DIFFERENT_ROOM_JUEZ)
-    private BendableScore penalizeDifferentRoomJuez = BendableScore.ofSoft(2, 3, 0, 1);
-    @ConstraintWeight(PENALIZE_CREATION_OF_ZONE_PER_DAY)
-    private BendableScore penalizeCreationZoneDay = BendableScore.ofSoft(2, 3, 0, 1);
+    @ConstraintWeight(PENALIZE_FIRST_AUDIENCE)
+    private BendableScore penalizeFirstAudience = BendableScore.ofSoft(2, 3, 0, 1);
 
     /* MAGISTRADOS */
 
@@ -479,29 +471,11 @@ public class AudienciaScheduleConstraintConfiguration {
     }
 
     @XmlJavaTypeAdapter(value = ScoreAdapter.class)
-    public BendableScore getPenalizeCreationZone() {
-        return penalizeCreationZone;
+    public BendableScore getPenalizeFirstAudience() {
+        return penalizeFirstAudience;
     }
 
-    public void setPenalizeCreationZone(BendableScore penalizeCreationZone) {
-        this.penalizeCreationZone = penalizeCreationZone;
-    }
-
-    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
-    public BendableScore getPenalizeDifferentRoomJuez() {
-        return penalizeDifferentRoomJuez;
-    }
-
-    public void setPenalizeDifferentRoomJuez(BendableScore penalizeDifferentRoomJuez) {
-        this.penalizeDifferentRoomJuez = penalizeDifferentRoomJuez;
-    }
-
-    @XmlJavaTypeAdapter(value = ScoreAdapter.class)
-    public BendableScore getPenalizeCreationZoneDay() {
-        return penalizeCreationZoneDay;
-    }
-
-    public void setPenalizeCreationZoneDay(BendableScore penalizeCreationZoneDay) {
-        this.penalizeCreationZoneDay = penalizeCreationZoneDay;
+    public void setPenalizeFirstAudience(BendableScore penalizeFirstAudience) {
+        this.penalizeFirstAudience = penalizeFirstAudience;
     }
 }

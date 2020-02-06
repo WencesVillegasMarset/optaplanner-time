@@ -1,19 +1,3 @@
-/*
- * Copyright 2010 Red Hat, Inc. and/or its affiliates.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package org.optaplanner.examples.audienciaTimeGrain.solver;
     dialect "java"
 
@@ -338,48 +322,18 @@ rule "Group Juez Tipo"
             $rightGrain : startingTimeGrain.grainIndex, $rightEndingGrain : lastTimeGrainIndex, startingTimeGrain.grainIndex < $leftGrain, !isSameCategory($left))
         not AudienciaAssignment(id != $rightid && id != $id, room != null, room == $room,
             startingTimeGrain.grainIndex > $rightGrain && startingTimeGrain.grainIndex < $leftGrain)
-//        $firstDay : Day(dayOfYear == $fechaCorrida.dayOfYear, $firstDayId : idDay)
-//        $number : Number(intValue() < ($leftDayId - 2 - $firstDayId)*3) from $leftGrain - $rightEndingGrain
     then
         scoreHolder.penalize(kcontext);
 end
 
-rule "Penalize Creation of Prohibited Zone"
+rule "Penalize First Audience"
     when
         $left : AudienciaAssignment(pinned == false, $id : id, startingTimeGrain != null, room != null, $room : room,
                 $leftday : startingTimeGrain.day, $audiencia : audiencia, $leftGrain : startingTimeGrain.grainIndex)
         not AudienciaAssignment(id != $id, startingTimeGrain != null, room != null, room == $room, startingTimeGrain.day == $leftday,
-            startingTimeGrain.grainIndex < $leftGrain, isSameCategory($left))
+            startingTimeGrain.grainIndex < $leftGrain)
     then
         scoreHolder.penalize(kcontext);
-end
-
-rule "Penalize Creation of Prohibited Zone Starting Date"
-    when
-//         $left : AudienciaAssignment(pinned == false, $id : id, startingTimeGrain != null, room != null, $room : room,
-//            $leftday : startingTimeGrain.day, $audiencia : audiencia, $leftGrain : startingTimeGrain.grainIndex, $fechaCorrida : fechaCorrida)
-//         not AudienciaAssignment(id != $id, startingTimeGrain != null, room != null, room == $room, startingTimeGrain.day == $leftday,
-//            $rightGrain : startingTimeGrain.grainIndex, startingTimeGrain.grainIndex < $leftGrain, isSameCategory($left))
-//        Day(dayOfYear == $fechaCorrida.dayOfYear, $idFirstDay : idDay)
-//        $number : Number(intValue() < 4) from (int)$left.getStartingTimeGrain().getDay().getIdDay() - (int)$idFirstDay
-    then
-//        scoreHolder.penalize(kcontext, 4 - (int)$number);
-end
-
-rule "Penalize Different Room Juez"
-    when
-//        $left : AudienciaAssignment(pinned == false, $id : id, startingTimeGrain != null, room != null, $room : room,
-//                $leftday : startingTimeGrain.day, $audiencia : audiencia, $leftGrain : startingTimeGrain.grainIndex, $fechaCorrida : fechaCorrida)
-//        $leftJuez : Juez() from $left.audiencia.juezList
-//        $right : AudienciaAssignment(id != $id, $rightid : id, startingTimeGrain != null,room != null, room != $room, $roomRight : room, startingTimeGrain.day == $leftday,
-//            $rightGrain : startingTimeGrain.grainIndex, startingTimeGrain.grainIndex < $leftGrain, $rightEndingGrain : lastTimeGrainIndex)
-//        $rightJuez : Juez(idJuez == $leftJuez.idJuez) from $right.audiencia.juezList
-//        not (AudienciaAssignment(id != $rightid && id != $id, room != null, room == $room || room == $roomRight,
-//            startingTimeGrain.grainIndex > $rightGrain && startingTimeGrain.grainIndex < $leftGrain, $aud : audiencia) and Juez(idJuez == $leftJuez.idJuez || idJuez == $rightJuez.idJuez) from $aud.juezList)
-//        $firstDay : Day(dayOfYear == $fechaCorrida.dayOfYear, $firstDayId : idDay)
-//        $number : Number(intValue() < ($id- 2 - $firstDayId) * 3) from $leftGrain - $rightEndingGrain
-    then
-//        scoreHolder.penalize(kcontext);
 end
 
 // ############################################################################
@@ -392,7 +346,4 @@ rule "Do all meetings as soon as possible"
     then
         scoreHolder.penalize(kcontext, $lastTimeGrainIndex);
 end
-
-
-
 

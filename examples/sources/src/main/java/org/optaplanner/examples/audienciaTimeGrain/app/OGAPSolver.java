@@ -8,7 +8,6 @@ import org.optaplanner.examples.audienciaTimeGrain.domain.*;
 import org.optaplanner.examples.audienciaTimeGrain.helper.JuezTimeGrainRestrictionLoader;
 import org.optaplanner.examples.audienciaTimeGrain.persistence.ExcelReader;
 import org.optaplanner.examples.audienciaTimeGrain.persistence.XMLExporter;
-import org.optaplanner.examples.audienciaTimeGrain.persistence.XMLImporter;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;

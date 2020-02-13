@@ -26,7 +26,7 @@ import org.optaplanner.core.api.score.constraint.ConstraintMatch;
 import org.optaplanner.core.api.score.constraint.Indictment;
 import org.optaplanner.core.api.solver.Solver;
 import org.optaplanner.core.api.solver.SolverFactory;
-import org.optaplanner.examples.audienciaTimeGrain.app.Main;
+import org.optaplanner.examples.audienciaTimeGrain.app.OGAPSolver;
 import org.optaplanner.examples.audienciaTimeGrain.domain.*;
 import org.optaplanner.examples.common.persistence.AbstractXlsxSolutionFileIO;
 
@@ -71,7 +71,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
     private static class AudienciaSchedulingXlsxReader extends AbstractXlsxReader<AudienciaSchedule>{
 
         AudienciaSchedulingXlsxReader (XSSFWorkbook workbook, LocalDate fechaCalendarizacion){
-            super(workbook, Main.SOLVER_CONFIG);
+            super(workbook, OGAPSolver.SOLVER_CONFIG);
             fechainicial = fechaCalendarizacion;
         }
 
@@ -603,7 +603,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
         private LocalDate startingDate;
 
         AudienciaSchedulingXlsxWriter(AudienciaSchedule solution, LocalDate startingDate) {
-            super(solution, Main.SOLVER_CONFIG);
+            super(solution, OGAPSolver.SOLVER_CONFIG);
             this.startingDate = startingDate;
 
         }

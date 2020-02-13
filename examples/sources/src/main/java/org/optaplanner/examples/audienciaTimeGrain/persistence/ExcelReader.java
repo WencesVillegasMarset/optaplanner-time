@@ -130,6 +130,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             for(Room existingRoom : solution.getRoomList()){
                 if(stringList.contains(String.valueOf(existingRoom.getIdRoom()))){
                     roomList.add(existingRoom);
+                    existingRoom.setUsable(true);
                 }
             }
 
@@ -316,6 +317,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
 
                     continue;
                 }
+
                 Audiencia audiencia = new Audiencia();
                 AudienciaAssignment audienciaAssignment = new AudienciaAssignment();
                 audienciaAssignment.setFechaCorrida(solution.getFechaCorrida());
@@ -325,6 +327,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                 if(!readAudienciaDuration(audiencia)){
                     continue;
                 }
+
                 int tipoRead = (int)nextNumericCell().getNumericCellValue();
                 int juezRead = (int)nextNumericCell().getNumericCellValue();
                 int defensorRead = (int)nextNumericCell().getNumericCellValue();
@@ -378,6 +381,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                 if(sala.getCellTypeEnum() == CellType.NUMERIC){
                     int salaRead = (int)sala.getNumericCellValue();
                     LocalDate fechaCalendarizado = nextCell().getDateCellValue().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
+                    audiencia.setFechaRealizacion(fechaCalendarizado);
                     String horaMinutosRead = nextStringCell().getStringCellValue();
                     String[] splitString = horaMinutosRead.split(":");
                     int horaRead = Integer.parseInt(splitString[0]);
@@ -385,15 +389,16 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
 
                     //For timegrain 10 minutes
 
-//                    if (String.valueOf(minutosRead).endsWith("5")){
-//                        minutosRead += 5;
-//                        if(minutosRead == 60){
-//                            minutosRead = 0;
-//                            horaRead += 1;
-//                        }1
-//                    }
+                    if (String.valueOf(minutosRead).endsWith("5")){
+                        minutosRead += 5;
+                        if(minutosRead == 60){
+                            minutosRead = 0;
+                            horaRead += 1;
+                        }
+                    }
 
                     int startingMinute = horaRead * 60 + minutosRead;
+                    audiencia.setStartingMinuteOfDay(startingMinute);
                     containsSala(solution.getRoomList(), salaRead, audienciaAssignment);
 
                     if(solution.getRoomList().stream().filter(r -> !solution.getPossibleRooms().contains(r)).collect(Collectors.toList()).contains(audienciaAssignment.getRoom())){
@@ -571,9 +576,12 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                 return false;
             }
             if (totalMinutes % TimeGrain.GRAIN_LENGTH_IN_MINUTES != 0) {
-                return false;
+                audiencia.setNumTimeGrains((totalMinutes + 5) / TimeGrain.GRAIN_LENGTH_IN_MINUTES);
+                audiencia.setDurationMinutes(totalMinutes + 5);
+                return true;
             }
             audiencia.setNumTimeGrains(totalMinutes / TimeGrain.GRAIN_LENGTH_IN_MINUTES);
+            audiencia.setDurationMinutes(totalMinutes);
             return true;
         }
 
@@ -634,6 +642,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             nextRow();
             nextHeaderCell("Room");
             writeTimeGrainHoursHeaders();
+
             for (Room room : solution.getRoomList()) {
                 nextRow();
                 currentRow.setHeightInPoints(2 * currentSheet.getDefaultRowHeightInPoints());

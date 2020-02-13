@@ -17,7 +17,6 @@ public class Tipo {
         this.nombreTipo = nombreTipo;
         this.tiempoRealizacionMinimo = tiempoRealizacionMinimo;
         this.tiempoRealizacionMaximo = tiempoRealizacionMaximo;
-        this.tiempoFijacion = tiempoFijacion;
     }
 
     public Tipo(){}
@@ -54,13 +53,5 @@ public class Tipo {
 
     public void setTiempoRealizacionMaximo(int tiempoRealizacionMaximo) {
         this.tiempoRealizacionMaximo = tiempoRealizacionMaximo;
-    }
-
-    public int getTiempoFijacion() {
-        return tiempoFijacion;
-    }
-
-    public void setTiempoFijacion(int tiempoFijacion) {
-        this.tiempoFijacion = tiempoFijacion;
     }
 }

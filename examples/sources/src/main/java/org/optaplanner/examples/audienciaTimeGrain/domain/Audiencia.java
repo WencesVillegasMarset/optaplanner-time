@@ -6,6 +6,7 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlElementWrapper;
 import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,6 +16,9 @@ public class Audiencia {
 
     private int idAudiencia;
     private int numTimeGrains; //Cantidad de TimeGrains que necesita
+    private int durationMinutes;
+    private LocalDate fechaRealizacion;
+    private int startingMinuteOfDay;
     private Tipo tipo; //Tipo de Audiencia
     private List<Juez> juezList = new ArrayList<>(); //Juez
     private List<Defensor> defensorList = new ArrayList<>(); //Defensor
@@ -217,6 +221,31 @@ public class Audiencia {
 
     public void setBoulogne(boolean boulogne) {
         this.boulogne = boulogne;
+    }
+
+    @XmlJavaTypeAdapter(value = LocalDateAdapter.class)
+    public LocalDate getFechaRealizacion() {
+        return fechaRealizacion;
+    }
+
+    public void setFechaRealizacion(LocalDate fechaRealizacion) {
+        this.fechaRealizacion = fechaRealizacion;
+    }
+
+    public int getStartingMinuteOfDay() {
+        return startingMinuteOfDay;
+    }
+
+    public void setStartingMinuteOfDay(int startingMinuteOfDay) {
+        this.startingMinuteOfDay = startingMinuteOfDay;
+    }
+
+    public int getDurationMinutes() {
+        return durationMinutes;
+    }
+
+    public void setDurationMinutes(int durationMinutes) {
+        this.durationMinutes = durationMinutes;
     }
 
     public boolean containsJuez(int idJuez){

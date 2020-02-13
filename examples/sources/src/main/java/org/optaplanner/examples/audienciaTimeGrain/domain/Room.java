@@ -9,6 +9,7 @@ public class Room {
     @PlanningId
     private int idRoom;
     private String nombreRoom;
+    private boolean usable;
     private boolean almaFuerte = false;
     private boolean boulogne = false;
 
@@ -17,7 +18,6 @@ public class Room {
     public Room(Integer idRoom, String nombreRoom, int ubicacion){
         this.idRoom = idRoom;
         this.nombreRoom = nombreRoom;
-//        this.ubicacion = ubicacion;
     }
 
     public Room(){}
@@ -55,4 +55,13 @@ public class Room {
     public void setBoulogne(boolean boulogne) {
         this.boulogne = boulogne;
     }
+
+    public boolean isUsable() {
+        return usable;
+    }
+
+    public void setUsable(boolean usable) {
+        this.usable = usable;
+    }
+
 }

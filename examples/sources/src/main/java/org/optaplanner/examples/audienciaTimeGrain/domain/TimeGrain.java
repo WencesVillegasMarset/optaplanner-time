@@ -11,7 +11,7 @@ public class TimeGrain {
 
     /* Granularidad de los TimeGrains */
 
-    public static final int GRAIN_LENGTH_IN_MINUTES = 5;
+    public static final int GRAIN_LENGTH_IN_MINUTES = 10;
 
     /* Variables */
 

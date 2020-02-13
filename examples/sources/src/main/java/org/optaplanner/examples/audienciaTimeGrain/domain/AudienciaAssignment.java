@@ -73,11 +73,11 @@ public class AudienciaAssignment implements Comparable<AudienciaAssignment> {
         return pinned;
     }
 
+    @XmlJavaTypeAdapter(value = LocalDateAdapter.class)
     public LocalDate getFechaCorrida() {
         return fechaCorrida;
     }
 
-    @XmlJavaTypeAdapter(value = LocalDateAdapter.class)
     public void setFechaCorrida(LocalDate fechaCorrida) {
         this.fechaCorrida = fechaCorrida;
     }

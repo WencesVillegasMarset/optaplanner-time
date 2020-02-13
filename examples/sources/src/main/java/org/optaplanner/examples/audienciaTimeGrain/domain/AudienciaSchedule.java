@@ -28,7 +28,7 @@ public class AudienciaSchedule {
     /* Constraint Configuration */
 
     @ConstraintConfigurationProvider
-    private AudienciaScheduleConstraintConfiguration constraintConfiguration;
+    private AudienciaScheduleConstraintConfiguration constraintConfiguration = new AudienciaScheduleConstraintConfiguration();
 
     public AudienciaScheduleConstraintConfiguration getConstraintConfiguration() {
         return constraintConfiguration;
@@ -43,28 +43,28 @@ public class AudienciaSchedule {
     private LocalDate fechaCorrida;
 
     @ProblemFactCollectionProperty
-    private List<Day> dayList;
+    private List<Day> dayList = new ArrayList<>();
 
     @ProblemFactCollectionProperty
-    private List<Juez> juezList;
+    private List<Juez> juezList = new ArrayList<>();
 
     @ProblemFactCollectionProperty
-    private List<Audiencia> audienciaList;
+    private List<Audiencia> audienciaList = new ArrayList<>();
 
     @ProblemFactCollectionProperty
-    private List<Tipo> tipoList;
+    private List<Tipo> tipoList = new ArrayList<>();
 
     @ProblemFactCollectionProperty
-    private List<Defensor> defensorList;
+    private List<Defensor> defensorList = new ArrayList<>();
 
     @ProblemFactCollectionProperty
-    private List<Fiscal> fiscalList;
+    private List<Fiscal> fiscalList = new ArrayList<>();
 
     @ProblemFactCollectionProperty
-    private List<TimeGrain> timeGrainList;
+    private List<TimeGrain> timeGrainList = new ArrayList<>();
 
     @ProblemFactCollectionProperty
-    private List<Room> roomList;
+    private List<Room> roomList = new ArrayList<>();
 
     @ProblemFactCollectionProperty
     private List<Querellante> querellanteList = new ArrayList<>();
@@ -73,18 +73,18 @@ public class AudienciaSchedule {
     private List<Asesor> asesorList = new ArrayList<>();
 
     @ValueRangeProvider(id = "roomRange")
-    private List<Room> possibleRooms;
+    private List<Room> possibleRooms = new ArrayList<>();
 
     @PlanningEntityCollectionProperty
-    private List<AudienciaAssignment> audienciaAssignmentList;
+    private List<AudienciaAssignment> audienciaAssignmentList = new ArrayList<>();
 
     @PlanningScore(bendableHardLevelsSize = 2, bendableSoftLevelsSize = 3)
     private BendableScore score;
 
-    private Table<Juez, Day, Integer> table = HashBasedTable.create();
-
     /* Setters y Getters */
 
+    @XmlElementWrapper(name = "dayList")
+    @XmlElement(name = "Day")
     public List<Day> getDayList() {
         return dayList;
     }
@@ -93,6 +93,8 @@ public class AudienciaSchedule {
         this.dayList = dayList;
     }
 
+    @XmlElementWrapper(name = "timeGrainList")
+    @XmlElement(name = "TimeGrain")
     public List<TimeGrain> getTimeGrainList() {
         return timeGrainList;
     }
@@ -101,6 +103,8 @@ public class AudienciaSchedule {
         this.timeGrainList = timeGrainList;
     }
 
+    @XmlElementWrapper(name = "roomList")
+    @XmlElement(name = "Room")
     public List<Room> getRoomList() {
         return roomList;
     }
@@ -109,6 +113,7 @@ public class AudienciaSchedule {
         this.roomList = roomList;
     }
 
+    @XmlElementWrapper(name = "audienciaAssignmentList")
     @XmlElement(name = "AudienciaAssignment")
     public List<AudienciaAssignment> getAudienciaAssignmentList() {
         return audienciaAssignmentList;
@@ -118,6 +123,8 @@ public class AudienciaSchedule {
         this.audienciaAssignmentList = audienciaAssignmentList;
     }
 
+    @XmlElementWrapper(name = "juezList")
+    @XmlElement(name = "Juez")
     public List<Juez> getJuezList() {
         return juezList;
     }
@@ -126,6 +133,8 @@ public class AudienciaSchedule {
         this.juezList = juezList;
     }
 
+    @XmlElementWrapper(name = "audienciaList")
+    @XmlElement(name = "Audiencia")
     public List<Audiencia> getAudienciaList() {
         return audienciaList;
     }
@@ -134,6 +143,8 @@ public class AudienciaSchedule {
         this.audienciaList = audienciaList;
     }
 
+    @XmlElementWrapper(name = "tipoList")
+    @XmlElement(name = "Tipo")
     public List<Tipo> getTipoList() {
         return tipoList;
     }
@@ -142,6 +153,8 @@ public class AudienciaSchedule {
         this.tipoList = tipoList;
     }
 
+    @XmlElementWrapper(name = "defensorList")
+    @XmlElement(name = "Defensor")
     public List<Defensor> getDefensorList() {
         return defensorList;
     }
@@ -150,6 +163,8 @@ public class AudienciaSchedule {
         this.defensorList = defensorList;
     }
 
+    @XmlElementWrapper(name = "fiscalList")
+    @XmlElement(name = "Fiscal")
     public List<Fiscal> getFiscalList() {
         return fiscalList;
     }
@@ -177,6 +192,8 @@ public class AudienciaSchedule {
         this.fechaCorrida = fechaCorrida;
     }
 
+    @XmlElementWrapper(name = "possibleRoomsList")
+    @XmlElement(name = "Room")
     public List<Room> getPossibleRooms() {
         return possibleRooms;
     }
@@ -187,9 +204,11 @@ public class AudienciaSchedule {
 
     @ValueRangeProvider(id = "timeGrainRange")
     public List<TimeGrain> getPossibleTimeGrains(){
-        return this.timeGrainList.stream().filter(timeGrain -> timeGrain.getDay().toDate().isBefore(this.fechaCorrida.plusDays(25))).collect(Collectors.toList());
+        return this.timeGrainList;
     }
 
+    @XmlElementWrapper(name = "querellanteList")
+    @XmlElement(name = "Querellante")
     public List<Querellante> getQuerellanteList() {
         return querellanteList;
     }
@@ -198,6 +217,8 @@ public class AudienciaSchedule {
         this.querellanteList = querellanteList;
     }
 
+    @XmlElementWrapper(name = "asesorList")
+    @XmlElement(name = "Asesor")
     public List<Asesor> getAsesorList() {
         return asesorList;
     }

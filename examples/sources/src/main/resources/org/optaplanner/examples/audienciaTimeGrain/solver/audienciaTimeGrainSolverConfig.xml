@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <solver>
-    <!--<environmentMode>FULL_ASSERT</environmentMode>--><!-- To slowly prove there are no bugs in this code -->
+    <environmentMode>NON_REPRODUCIBLE</environmentMode>
     <moveThreadCount>AUTO</moveThreadCount>
 
     <solutionClass>org.optaplanner.examples.audienciaTimeGrain.domain.AudienciaSchedule</solutionClass>
@@ -8,8 +8,8 @@
     <!--  <scanAnnotatedClasses/>-->
 
     <scoreDirectorFactory>
-    <scoreDrl>org/optaplanner/examples/audienciaTimeGrain/solver/audienciaTimeGrainScoreRules.drl</scoreDrl>
-    <initializingScoreTrend>ONLY_DOWN</initializingScoreTrend>
+        <scoreDrl>org/optaplanner/examples/audienciaTimeGrain/solver/audienciaTimeGrainScoreRules.drl</scoreDrl>
+        <initializingScoreTrend>ONLY_DOWN</initializingScoreTrend>
     </scoreDirectorFactory>
 
     <constructionHeuristic>
@@ -27,21 +27,6 @@
 
     <localSearch>
         <acceptor>
-            <lateAcceptanceSize>200</lateAcceptanceSize>
-            <entityTabuRatio>0.2</entityTabuRatio>
-        </acceptor>
-        <forager>
-            <acceptedCountLimit>1</acceptedCountLimit>
-        </forager>
-        <termination>
-            <unimprovedSecondsSpentLimit>200</unimprovedSecondsSpentLimit>
-            <unimprovedScoreDifferenceThreshold>[0/0]hard/[5/0/0]soft</unimprovedScoreDifferenceThreshold>
-            <minutesSpentLimit>5</minutesSpentLimit>
-        </termination>
-    </localSearch>
-
-    <localSearch>
-        <acceptor>
             <entityTabuRatio>0.2</entityTabuRatio>
             <moveTabuSize>14</moveTabuSize>
             <undoMoveTabuSize>14</undoMoveTabuSize>
@@ -51,8 +36,8 @@
         </forager>
         <termination>
             <unimprovedSecondsSpentLimit>400</unimprovedSecondsSpentLimit>
-            <unimprovedScoreDifferenceThreshold>[0/0]hard/[5/0/0]soft</unimprovedScoreDifferenceThreshold>
-            <minutesSpentLimit>10</minutesSpentLimit>
+            <unimprovedScoreDifferenceThreshold>[0/1]hard/[0/0/0]soft</unimprovedScoreDifferenceThreshold>
+            <minutesSpentLimit>15</minutesSpentLimit>
         </termination>
     </localSearch>
 

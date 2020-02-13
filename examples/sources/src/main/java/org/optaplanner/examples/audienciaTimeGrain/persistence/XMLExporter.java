@@ -27,8 +27,10 @@ public class XMLExporter {
 
         LocalDate fechaCorrida = audienciaSchedule.getFechaCorrida();
 
-        for(AudienciaAssignment audienciaAssignment : audienciaSchedule.getAudienciaAssignmentList()){
-            audienciaAssignment.setPinned(true);
+        if (this.directory.equals("data/audienciascheduling")){
+            for(AudienciaAssignment audienciaAssignment : audienciaSchedule.getAudienciaAssignmentList()){
+                audienciaAssignment.setPinned(true);
+            }
         }
 
         JAXBContext jaxbContext = JAXBContext.newInstance(AudienciaSchedule.class);
@@ -36,12 +38,17 @@ public class XMLExporter {
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
 
         String fileName;
-        int counter = 1;
-        do{
-            fileName = fechaCorrida.toString() +"-number-" + counter;
-            counter++;
-        }while (new File(directory + fileName).exists());
-
+        if (this.directory.equals("data/audienciascheduling")){
+            int counter = 1;
+            do{
+                fileName = fechaCorrida.toString() +"-number-" + counter;
+                counter++;
+            }while (new File(directory + fileName).exists());
+        } else{
+            fileName = "Result.xml";
+            int counter = 1;
+            new File(directory + fileName);
+        }
 
         marshaller.marshal(audienciaSchedule, new File(directory + fileName));
     }

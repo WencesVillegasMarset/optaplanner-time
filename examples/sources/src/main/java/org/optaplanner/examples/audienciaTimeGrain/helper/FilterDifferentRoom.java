@@ -8,12 +8,15 @@ import org.optaplanner.examples.audienciaTimeGrain.domain.AudienciaAssignment;
 import org.optaplanner.examples.audienciaTimeGrain.domain.AudienciaSchedule;
 import org.optaplanner.examples.audienciaTimeGrain.domain.Room;
 
+import java.util.List;
+
 public class FilterDifferentRoom implements SelectionFilter<AudienciaSchedule, ChangeMove> {
 
     @Override
     public boolean accept(ScoreDirector<AudienciaSchedule> scoreDirector, ChangeMove move){
         AudienciaAssignment audienciaAssignment = (AudienciaAssignment) move.getEntity();
-        Room room = (Room) move.getToPlanningValue();
+        Room room = (Room) move.getPlanningValues().toArray()[0];
+
         boolean audienciaBoulogne = audienciaAssignment.getAudiencia().isBoulogne();
         boolean audienciaAlmaFuerte = audienciaAssignment.getAudiencia().isAlmaFuerte();
         boolean roomBoulogne = room.isBoulogne();

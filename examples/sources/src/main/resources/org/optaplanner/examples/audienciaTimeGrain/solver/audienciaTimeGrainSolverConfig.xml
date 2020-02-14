@@ -5,7 +5,6 @@
 
     <solutionClass>org.optaplanner.examples.audienciaTimeGrain.domain.AudienciaSchedule</solutionClass>
     <entityClass>org.optaplanner.examples.audienciaTimeGrain.domain.AudienciaAssignment</entityClass>
-    <!--  <scanAnnotatedClasses/>-->
 
     <scoreDirectorFactory>
         <scoreDrl>org/optaplanner/examples/audienciaTimeGrain/solver/audienciaTimeGrainScoreRules.drl</scoreDrl>
@@ -14,7 +13,6 @@
 
     <constructionHeuristic>
         <constructionHeuristicType>FIRST_FIT_DECREASING</constructionHeuristicType>
-<!--        <constructionHeuristicType>FIRST_FIT</constructionHeuristicType>-->
         <changeMoveSelector>
             <filterClass>org.optaplanner.examples.audienciaTimeGrain.helper.FilterInvalidDays</filterClass>
             <valueSelector variableName="startingTimeGrain"/>

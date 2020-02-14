@@ -17,7 +17,6 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
-import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
@@ -27,9 +26,9 @@ import java.util.stream.Collectors;
 
 public class OGAPSolver {
 
-//    public static final String SOLVER_CONFIG = "data/solver/audienciaTimeGrainSolverConfig.xml";
-    public static final String SOLVER_CONFIG = "org/optaplanner/examples/audienciaTimeGrain/solver/audienciaTimeGrainSolverConfig.xml";
+    /* DIRECTORIOS */
 
+    public static final String SOLVER_CONFIG = "org/optaplanner/examples/audienciaTimeGrain/solver/audienciaTimeGrainSolverConfig.xml";
 
     public static final String XML_OUTPUT_DIR_NAME = "data/xml/";
 
@@ -42,6 +41,8 @@ public class OGAPSolver {
         createDirectories();
 
         AudienciaSchedule audienciaSchedule = new AudienciaSchedule();
+
+        /* LECTURA DE XML (SOLICITUDES) */
 
         File folder = new File(UNSOLVED_DIR);
         File[] fileEntry = folder.listFiles();
@@ -61,7 +62,7 @@ public class OGAPSolver {
             e.printStackTrace();
         }
 
-
+        /* OBTENCIÓN DE DATOS DE AUDIENCIAS Y CONFIGURACION BÁSICA */
 
         audienciaSchedule.setPossibleRooms(audienciaSchedule.getRoomList().stream().filter(Room::isUsable).collect(Collectors.toList()));
         if (audienciaSchedule.getConstraintConfiguration() == null){
@@ -81,8 +82,9 @@ public class OGAPSolver {
 
         createDaysAndTimeGrains(audienciaSchedule);
 
+        /* BORRADO DE AUDIENCIAS QUE NO CORRESPONDEN CON DIAS A CALENDARIZAR */
+
         List<AudienciaAssignment> audienciaAssignmentsToDelete = new ArrayList<>();
-        List<Audiencia> audienciasToDelete = new ArrayList<>();
 
         for (AudienciaAssignment audienciaAssignment : audienciaSchedule.getAudienciaAssignmentList()){
             if (audienciaAssignment.isPinned()){
@@ -101,7 +103,6 @@ public class OGAPSolver {
                 if (dayToUse == null){
                     System.out.println("No existe el dia " + audiencia.getFechaRealizacion().toString() + " para la audiencia con id " + audiencia.getIdAudiencia());
                     audienciaAssignmentsToDelete.add(audienciaAssignment);
-                    audienciasToDelete.add(audiencia);
                     continue;
                 }
 
@@ -116,28 +117,31 @@ public class OGAPSolver {
                 if (timeGrainToUse == null){
                     System.out.println("No existe el timegrain para el minuto" + audiencia.getStartingMinuteOfDay() + " del día, para la audiencia con id " + audiencia.getIdAudiencia());
                     audienciaAssignmentsToDelete.add(audienciaAssignment);
-                    audienciasToDelete.add(audiencia);
                 }
             }
         }
 
         if (!audienciaAssignmentsToDelete.isEmpty()){
             List<AudienciaAssignment> currentAudienciaAssignments = audienciaSchedule.getAudienciaAssignmentList();
-            List<Audiencia> currentAudiencias = audienciaSchedule.getAudienciaList();
 
             audienciaSchedule.setAudienciaAssignmentList(currentAudienciaAssignments.stream().filter(a -> !audienciaAssignmentsToDelete.contains(a)).collect(Collectors.toList()));
         }
+
+        /* CREACION DE LISTAS PARA EL SOLVER Y HORARIOS RESTRINGIDOS DE JUECES */
 
         createActorLists(audienciaSchedule);
 
         JuezTimeGrainRestrictionLoader restrictionLoader = new JuezTimeGrainRestrictionLoader();
         audienciaSchedule = restrictionLoader.loadRestrictions(audienciaSchedule);
 
+        /* CREACIÓN, CONFIGURACIÓN Y EJECUCIÓN DEL SOLVER */
 
         SolverFactory<AudienciaSchedule> solverFactory = SolverFactory.createFromXmlResource(SOLVER_CONFIG);
         Solver<AudienciaSchedule> solver = solverFactory.buildSolver();
 
         audienciaSchedule = solver.solve(audienciaSchedule);
+
+        /* GUARDADO DE SOLUCIÓN EN EXCEL Y XML */
 
         String excelFileName = "Result.xlsx";
         excelReader.write(audienciaSchedule, new File(EXCEL_OUTPUT_DIR_NAME + excelFileName));
@@ -153,10 +157,11 @@ public class OGAPSolver {
             e.printStackTrace();
         }
 
-//        file.delete();
+        file.delete();
 
     }
 
+    /* VERIFICACIÓN DE LA EXISTENCIA DE DIRECTORIOS NECESARIOS */
     private static void createDirectories(){
 
         File directory = new File("data/");
@@ -180,6 +185,7 @@ public class OGAPSolver {
         }
     }
 
+    /* CREACION DE TIMEGRAINS PARA LA RESOLUCIÓN */
     private static void createDaysAndTimeGrains(AudienciaSchedule audienciaSchedule){
 
         List<Day> dayList = new ArrayList<>(75);
@@ -255,6 +261,7 @@ public class OGAPSolver {
         audienciaSchedule.setTimeGrainList(timeGrainList);
     }
 
+    /* CONEXIÓN CON API PARA OBTENER FERIADOS Y DIAS NO LABORABLES */
     private static List<LocalDate> getFeriados(LocalDate date) {
 
         int anoActual = date.getYear();
@@ -327,6 +334,7 @@ public class OGAPSolver {
         return feriadosList;
     }
 
+    /* CREACION DE LISTAS DE ACTORES PARA UTILIZACIÓN DEL SOLVER */
     private static void createActorLists(AudienciaSchedule audienciaSchedule){
 
         List<Juez> juezList = new ArrayList<>();
@@ -476,6 +484,7 @@ public class OGAPSolver {
 
     }
 
+    /* LIMPIEZA DE SOLUCIÓN PARA EXPORTAR AL XML */
     private static void cleanForXml(AudienciaSchedule audienciaSchedule){
         audienciaSchedule.setAudienciaList(null);
         audienciaSchedule.setTipoList(null);

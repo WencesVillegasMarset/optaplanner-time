@@ -1,6 +1,7 @@
 package org.optaplanner.examples.audienciaTimeGrain.helper;
 
 import org.optaplanner.examples.audienciaTimeGrain.domain.AudienciaSchedule;
+import org.optaplanner.examples.audienciaTimeGrain.domain.Day;
 import org.optaplanner.examples.audienciaTimeGrain.domain.Juez;
 import org.optaplanner.examples.audienciaTimeGrain.domain.TimeGrain;
 import org.w3c.dom.Document;
@@ -8,17 +9,20 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
+import org.xml.sax.SAXParseException;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Time;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 public class JuezTimeGrainRestrictionLoader {
@@ -75,8 +79,14 @@ public class JuezTimeGrainRestrictionLoader {
 
                 }
             }
+        } catch (NullPointerException | FileNotFoundException e){
+            System.out.println("No se encontró el archivo JuezTimeGrainLicence.xml, se continuará con la ejecución del programa");
+        } catch (SAXParseException e){
+            System.out.println("El archivo JuezTimeGrainLicence esta vacío, se continuará con la ejecución del programa");
         } catch (Exception e) {
+            System.out.println("Ocurrió un fallo leyendo el archivo JuezTimeGrainLicence.xml, posiblemente exista un error en el mismo");
             e.printStackTrace();
+            System.exit(1);
         }
     }
 
@@ -147,8 +157,14 @@ public class JuezTimeGrainRestrictionLoader {
                     }
                 }
             }
-        } catch (SAXException | IOException e) {
+        } catch (NullPointerException | FileNotFoundException e){
+            System.out.println("No se encontró el archivo JuezTimeGrainSpecial.xml, se continuará con la ejecución del programa");
+        } catch (SAXParseException e){
+            System.out.println("El archivo JuezTimeGrainSpecial esta vacío, se continuará con la ejecución del programa");
+        } catch (Exception e) {
+            System.out.println("Ocurrió un fallo leyendo el archivo JuezTimeGrainSpecial.xml, posiblemente exista un error en el mismo");
             e.printStackTrace();
+            System.exit(1);
         }
     }
 
@@ -164,9 +180,12 @@ public class JuezTimeGrainRestrictionLoader {
 
         Document document;
 
+        List<Day> existingDays = new ArrayList<>();
+
         try {
             document = documentBuilder.parse(file);
             NodeList dayNodes = document.getElementsByTagName("Day");
+
             for(int i=0; i<dayNodes.getLength(); i++) {
                 Node dayNode = dayNodes.item(i);
                 if(dayNode.getNodeType() == Node.ELEMENT_NODE) {
@@ -177,6 +196,10 @@ public class JuezTimeGrainRestrictionLoader {
                     LocalDate localDate = LocalDate.of(Integer.parseInt(dateString[2]), Integer.parseInt(dateString[1]), Integer.parseInt(dateString[0]));
 
                     List<TimeGrain> timeGrainList = audienciaSchedule.getTimeGrainList().stream().filter(t -> t.getDate().isEqual(localDate) && t.getStartingMinuteOfDay() >= 780).collect(Collectors.toList());
+
+                    Optional<Day> day = audienciaSchedule.getDayList().stream().filter(day1 -> day1.toDate().isEqual(localDate)).findFirst();
+
+                    day.ifPresent(existingDays::add);
 
                     if(!timeGrainList.isEmpty()){
                         Element juecesElement = (Element) dayElement.getElementsByTagName("Jueces").item(0);
@@ -191,12 +214,25 @@ public class JuezTimeGrainRestrictionLoader {
                         }
 
                         audienciaSchedule.getJuezList().stream().filter(j -> !juezIdList.contains(j.getIdJuez())).forEach(juez -> timeGrainList.forEach(juez::addProhibitedTimeGrains));
+                    } else{
+                        System.out.println("No existe el dia " + localDate.toString() + " especificado en el archivo JuezTimeGrainAfternoon, se ignorará las restricciones de horarios de jueces para este día");
                     }
 
                 }
             }
+
+        } catch (NullPointerException | FileNotFoundException e){
+            System.out.println("No se encontró el archivo JuezTimeGrainAfternoon.xml, se continuará con la ejecución del programa");
+        } catch (SAXParseException e){
+            System.out.println("El archivo JuezTimeGrainAfternoon esta vacío, se continuará con la ejecución del programa");
         } catch (Exception e) {
+            System.out.println("Ocurrió un fallo leyendo el archivo JuezTimeGrainAfternoon.xml, posiblemente exista un error en el mismo");
             e.printStackTrace();
+            System.exit(1);
+        } finally {
+            List<Day> dayList = audienciaSchedule.getDayList().stream().filter(d -> !existingDays.contains(d)).collect(Collectors.toList());
+
+            audienciaSchedule.getTimeGrainList().stream().filter(t -> t.getStartingMinuteOfDay() >= 780 && dayList.contains(t.getDay())).forEach(t -> audienciaSchedule.getJuezList().forEach(juez -> juez.addProhibitedTimeGrains(t)));
         }
     }
 

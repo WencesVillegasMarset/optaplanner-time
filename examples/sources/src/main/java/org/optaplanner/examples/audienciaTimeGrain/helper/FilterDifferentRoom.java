@@ -27,9 +27,6 @@ public class FilterDifferentRoom implements SelectionFilter<AudienciaSchedule, C
         if (audienciaAlmaFuerte && roomAlmaFuerte){
             return true;
         }
-        if ((!audienciaAlmaFuerte && !audienciaBoulogne) && (!roomAlmaFuerte && !roomBoulogne)){
-            return true;
-        }
-        return false;
+        return (!audienciaAlmaFuerte && !audienciaBoulogne) && (!roomAlmaFuerte && !roomBoulogne);
     }
 }

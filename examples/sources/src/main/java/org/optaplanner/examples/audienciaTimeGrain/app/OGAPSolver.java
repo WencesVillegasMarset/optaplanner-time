@@ -47,7 +47,16 @@ public class OGAPSolver {
         File folder = new File(UNSOLVED_DIR);
         File[] fileEntry = folder.listFiles();
         assert fileEntry != null;
-        File file = fileEntry[0];
+        File file = null;
+
+        try{
+            file = fileEntry[0];
+        } catch (ArrayIndexOutOfBoundsException e){
+            System.out.println("No existe el archivo que contiene las solicitudes de calendarizacion");
+            e.printStackTrace();
+            System.exit(1);
+        }
+
         String[] dateString = file.getName().split("-");
         LocalDate date = LocalDate.of(Integer.parseInt(dateString[0]), Integer.parseInt(dateString[1]), Integer.parseInt(dateString[2].substring(0, 2)));
 
@@ -59,7 +68,9 @@ public class OGAPSolver {
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
             audienciaSchedule = (AudienciaSchedule) jaxbUnmarshaller.unmarshal(file);
         } catch (JAXBException e) {
+            System.out.println("Hubo un error al parsear el archivo con solicitudes");
             e.printStackTrace();
+            System.exit(1);
         }
 
         /* OBTENCIÓN DE DATOS DE AUDIENCIAS Y CONFIGURACION BÁSICA */
@@ -154,6 +165,7 @@ public class OGAPSolver {
         try{
             xmlExporter.write(audienciaSchedule);
         } catch (FileNotFoundException | JAXBException e) {
+            System.out.println("Hubo un error al exportar el excel");
             e.printStackTrace();
         }
 
@@ -192,9 +204,15 @@ public class OGAPSolver {
         List<TimeGrain> timeGrainList = new ArrayList<>();
         int dayId = 0, timeGrainId = 0;
 
-        List<LocalDate> feriados;
+        List<LocalDate> feriados = new ArrayList<>();
 
-        feriados = getFeriados(audienciaSchedule.getFechaCorrida());
+        try {
+            feriados = getFeriados(audienciaSchedule.getFechaCorrida());
+        } catch (IOException e) {
+            System.out.println("Hubo un error al intentar obtener los feriados");
+            e.printStackTrace();
+            System.exit(1);
+        }
 
         boolean isDateBehind = audienciaSchedule.getAudienciaAssignmentList().stream().filter(assignment -> assignment.getRoom() == null)
                 .min(Comparator.comparingInt(a -> a.getFechaPedido().getYear() + a.getFechaPedido().getDayOfYear())).isPresent();
@@ -262,7 +280,7 @@ public class OGAPSolver {
     }
 
     /* CONEXIÓN CON API PARA OBTENER FERIADOS Y DIAS NO LABORABLES */
-    private static List<LocalDate> getFeriados(LocalDate date) {
+    private static List<LocalDate> getFeriados(LocalDate date) throws IOException {
 
         int anoActual = date.getYear();
         List<LocalDate> feriadosList = new ArrayList<>();
@@ -272,53 +290,41 @@ public class OGAPSolver {
             try {
                 url = new URL("http://nolaborables.com.ar/api/v2/feriados/" + anoActual);
             } catch (MalformedURLException e) {
+                System.out.println("La URL para la obtención de feriados está mal construída");
                 e.printStackTrace();
+                System.exit(1);
             }
             HttpURLConnection con = null;
-            try {
-                assert url != null;
-                con = (HttpURLConnection) url.openConnection();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            con = (HttpURLConnection) url.openConnection();
+
             try {
                 assert con != null;
                 con.setRequestMethod("GET");
             } catch (ProtocolException e) {
+                System.out.println("Error en el protocolo de la conexión con la API de feriados");
                 e.printStackTrace();
+                System.exit(1);
             }
             con.setRequestProperty("Content-Type", "application/json");
             con.setConnectTimeout(10000);
             con.setReadTimeout(10000);
-            try {
-                if(con.getResponseCode() == 404){
-                    continue;
-                }
-            } catch (IOException e) {
-                e.printStackTrace();
+
+            if(con.getResponseCode() == 404) {
+                continue;
             }
             BufferedReader in = null;
-            try {
-                in = new BufferedReader(new InputStreamReader(con.getInputStream()));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+
+            in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+
             String inputLine = null;
             StringBuilder response = new StringBuilder();
             while (true){
-                try {
-                    assert in != null;
-                    if ((inputLine = in.readLine()) == null) break;
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
+                if ((inputLine = in.readLine()) == null) break;
                 response.append(inputLine);
             }
-            try {
-                in.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+
+            in.close();
+
 
             JSONArray jsonArray = new JSONArray(response.toString());
 

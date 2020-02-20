@@ -585,7 +585,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             workbook.write(out);
         } catch (IOException | RuntimeException e) {
             throw new IllegalStateException("Failed writing outputScheduleFile (" + outputScheduleFile
-                    + ") for schedule (" + solution + ").", e);
+                    + ") for schedule from day (" + solution.getFechaCorrida().toString() + ").", e);
         }
     }
 

@@ -50,6 +50,9 @@ public class Juez{
     }
 
     public void addProhibitedTimeGrains(TimeGrain timeGrain) {
-        this.prohibitedTimeGrains.add(timeGrain);
+        if (!this.prohibitedTimeGrains.contains(timeGrain)){
+            this.prohibitedTimeGrains.add(timeGrain);
+        }
+
     }
 }

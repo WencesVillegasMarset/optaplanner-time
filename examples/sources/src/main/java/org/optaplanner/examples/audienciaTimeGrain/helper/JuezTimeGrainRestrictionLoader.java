@@ -63,15 +63,20 @@ public class JuezTimeGrainRestrictionLoader {
                     String dayFrom = juezElement.getElementsByTagName("dayfrom").item(0).getTextContent();
                     String dayTo = juezElement.getElementsByTagName("dayto").item(0).getTextContent();
                     String[] stringDayFrom = dayFrom.split("-");
-                    String[] stringDayTo = dayFrom.split("-");
-                    LocalDate dateDayFrom = LocalDate.of(Integer.parseInt(stringDayFrom[2]), Integer.parseInt(stringDayFrom[1]), Integer.parseInt(stringDayFrom[0]));
-                    LocalDate dateDayTo = LocalDate.of(Integer.parseInt(stringDayTo[2]), Integer.parseInt(stringDayTo[1]), Integer.parseInt(stringDayTo[0]));
+                    String[] stringDayTo = dayTo.split("-");
+                    LocalDate dateDayFrom = LocalDate.of(Integer.parseInt(stringDayFrom[0]), Integer.parseInt(stringDayFrom[1])
+                            , Integer.parseInt(stringDayFrom[2]));
+                    LocalDate dateDayTo = LocalDate.of(Integer.parseInt(stringDayTo[0]), Integer.parseInt(stringDayTo[1]),
+                                                       Integer.parseInt(stringDayTo[2]));
 
                     List<TimeGrain> timeGrainList = audienciaSchedule.getTimeGrainList().stream().filter(t -> (t.getDate().isEqual(dateDayFrom) || t.getDate().isAfter(dateDayFrom)) && (t.getDate().isEqual(dateDayTo) || t.getDate().isBefore(dateDayTo))).collect(Collectors.toList());
                     List<Juez> juezList = audienciaSchedule.getJuezList().stream().filter(j -> j.getIdJuez() == id).collect(Collectors.toList());
 
                     if(juezList.isEmpty()){
                         throw new Exception("No existe el juez con id " + id);
+                    }
+                    if(timeGrainList.isEmpty()){
+                        System.out.println("No existen TimeGrains entre las fechas " + dateDayFrom.toString() + " a " + dateDayTo.toString() + " especificados en el archivo JuezTimeGrainLicense.xml");
                     }
                     for(Juez juez : juezList){
                         timeGrainList.forEach(juez::addProhibitedTimeGrains);
@@ -122,7 +127,8 @@ public class JuezTimeGrainRestrictionLoader {
                             String juezEndingTime = dayElement.getElementsByTagName("endingTime").item(0).getTextContent();
                             String date = dayElement.getElementsByTagName("date").item(0).getTextContent();
                             String[] splitDate = date.split("-");
-                            LocalDate localDate = LocalDate.of(Integer.parseInt(splitDate[2]), Integer.parseInt(splitDate[1]), Integer.parseInt(splitDate[0]));
+                            LocalDate localDate = LocalDate.of(Integer.parseInt(splitDate[0]), Integer.parseInt(splitDate[1]),
+                                                               Integer.parseInt(splitDate[2]));
 
 
                             String[] stringStartingTime = juezStartingTime.split(":");
@@ -131,28 +137,11 @@ public class JuezTimeGrainRestrictionLoader {
                             int startingTime = Integer.parseInt(stringStartingTime[0]) * 60 + Integer.parseInt(stringStartingTime[1]);
                             int endingTime = Integer.parseInt(stringEndingTime[0]) * 60 + Integer.parseInt(stringEndingTime[1]);
 
-                            for(Juez juez : audienciaSchedule.getJuezList()){
-                                if(juez.getIdJuez() == id){
-                                    ArrayList<TimeGrain> timeGrainArrayList = new ArrayList<>();
-                                    for(TimeGrain timeGrain : audienciaSchedule.getTimeGrainList()){
-                                        if(timeGrain.getDate().isEqual(localDate) && timeGrain.getStartingMinuteOfDay() >= startingTime && timeGrain.getStartingMinuteOfDay() <= endingTime ){
-                                            timeGrainArrayList.add(timeGrain);
-                                        }
-                                    }
+                            audienciaSchedule.getJuezList().stream().filter(ju -> ju.getIdJuez() == id)
+                                    .forEach(juez1 -> audienciaSchedule.getTimeGrainList().stream()
+                                            .filter(t -> t.getDate().isEqual(localDate) && t.getStartingMinuteOfDay() >= startingTime && t.getStartingMinuteOfDay() <= endingTime)
+                                            .forEach(juez1::addProhibitedTimeGrains));
 
-                                    ArrayList<TimeGrain> oldArray = juez.getProhibitedTimeGrains();
-
-                                    if(!timeGrainArrayList.isEmpty()){
-                                        for(TimeGrain timeGrain : timeGrainArrayList){
-                                            if(!oldArray.contains(timeGrain)){
-                                                oldArray.add(timeGrain);
-                                            }
-                                        }
-                                        juez.setProhibitedTimeGrains(oldArray);
-                                        break;
-                                    }
-                                }
-                            }
                         }
                     }
                 }
@@ -193,7 +182,8 @@ public class JuezTimeGrainRestrictionLoader {
 
                     String date = dayElement.getElementsByTagName("date").item(0).getTextContent();
                     String[] dateString = date.split("-");
-                    LocalDate localDate = LocalDate.of(Integer.parseInt(dateString[2]), Integer.parseInt(dateString[1]), Integer.parseInt(dateString[0]));
+                    LocalDate localDate = LocalDate.of(Integer.parseInt(dateString[0]), Integer.parseInt(dateString[1]),
+                                                       Integer.parseInt(dateString[2]));
 
                     List<TimeGrain> timeGrainList = audienciaSchedule.getTimeGrainList().stream().filter(t -> t.getDate().isEqual(localDate) && t.getStartingMinuteOfDay() >= 780).collect(Collectors.toList());
 

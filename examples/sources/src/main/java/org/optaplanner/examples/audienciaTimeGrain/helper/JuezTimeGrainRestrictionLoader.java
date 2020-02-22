@@ -73,7 +73,7 @@ public class JuezTimeGrainRestrictionLoader {
                     List<Juez> juezList = audienciaSchedule.getJuezList().stream().filter(j -> j.getIdJuez() == id).collect(Collectors.toList());
 
                     if(juezList.isEmpty()){
-                        throw new Exception("No existe el juez con id " + id);
+                        System.out.println("No existe el juez con id " + id);
                     }
                     if(timeGrainList.isEmpty()){
                         System.out.println("No existen TimeGrains entre las fechas " + dateDayFrom.toString() + " a " + dateDayTo.toString() + " especificados en el archivo JuezTimeGrainLicense.xml");
@@ -141,7 +141,6 @@ public class JuezTimeGrainRestrictionLoader {
                                     .forEach(juez1 -> audienciaSchedule.getTimeGrainList().stream()
                                             .filter(t -> t.getDate().isEqual(localDate) && t.getStartingMinuteOfDay() >= startingTime && t.getStartingMinuteOfDay() <= endingTime)
                                             .forEach(juez1::addProhibitedTimeGrains));
-
                         }
                     }
                 }

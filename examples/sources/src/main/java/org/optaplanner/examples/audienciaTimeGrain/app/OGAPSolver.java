@@ -150,7 +150,13 @@ public class OGAPSolver {
         SolverFactory<AudienciaSchedule> solverFactory = SolverFactory.createFromXmlResource(SOLVER_CONFIG);
         Solver<AudienciaSchedule> solver = solverFactory.buildSolver();
 
-        audienciaSchedule = solver.solve(audienciaSchedule);
+        try{
+            audienciaSchedule = solver.solve(audienciaSchedule);
+        } catch (IllegalStateException e){
+            e.printStackTrace();
+            System.exit(1);
+        }
+
 
         /* GUARDADO DE SOLUCIÓN EN EXCEL Y XML */
 
@@ -289,6 +295,7 @@ public class OGAPSolver {
             URL url = null;
             try {
                 url = new URL("http://nolaborables.com.ar/api/v2/feriados/" + anoActual);
+//                url = new URL("http://0.0.0.0:5000/v1/feriados/" + anoActual);
             } catch (MalformedURLException e) {
                 System.out.println("La URL para la obtención de feriados está mal construída");
                 e.printStackTrace();
@@ -309,7 +316,8 @@ public class OGAPSolver {
             con.setConnectTimeout(10000);
             con.setReadTimeout(10000);
 
-            if(con.getResponseCode() == 404) {
+            if(con.getResponseCode() == 404){
+//            if(con.getResponseCode() == 400) {
                 continue;
             }
             BufferedReader in = null;
@@ -318,8 +326,7 @@ public class OGAPSolver {
 
             String inputLine = null;
             StringBuilder response = new StringBuilder();
-            while (true){
-                if ((inputLine = in.readLine()) == null) break;
+            while ((inputLine = in.readLine()) != null) {
                 response.append(inputLine);
             }
 
@@ -373,7 +380,7 @@ public class OGAPSolver {
             for (Defensor defensor : audiencia.getDefensorList()){
                 boolean defensorExists = false;
                 for (Defensor defensor1 : defensorList){
-                    if (defensor.getIdDefensor().equals(defensor1.getIdDefensor())){
+                    if (defensor.getIdDefensor() == defensor1.getIdDefensor()){
                         defensoresToAdd.add(defensor1);
                         defensorExists = true;
                         break;

@@ -21,12 +21,15 @@ public class FilterDifferentRoom implements SelectionFilter<AudienciaSchedule, C
         boolean audienciaAlmaFuerte = audienciaAssignment.getAudiencia().isAlmaFuerte();
         boolean roomBoulogne = room.isBoulogne();
         boolean roomAlmaFuerte = room.isAlmaFuerte();
-        if (audienciaBoulogne && roomBoulogne){
-            return true;
+        if (audienciaBoulogne && !roomBoulogne){
+            return false;
         }
-        if (audienciaAlmaFuerte && roomAlmaFuerte){
-            return true;
+        if (audienciaAlmaFuerte && !roomAlmaFuerte){
+            return false;
         }
-        return (!audienciaAlmaFuerte && !audienciaBoulogne) && (!roomAlmaFuerte && !roomBoulogne);
+        if ((!audienciaAlmaFuerte && !audienciaBoulogne) && (!roomAlmaFuerte && !roomBoulogne)){
+            return false;
+        }
+        return true;
     }
 }

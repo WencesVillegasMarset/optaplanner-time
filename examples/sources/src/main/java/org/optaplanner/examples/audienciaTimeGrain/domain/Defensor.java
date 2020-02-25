@@ -4,13 +4,13 @@ public class Defensor{
 
     /* Variables */
 
-    private String idDefensor;
+    private int idDefensor;
     private String nombreDefensor;
     private int idNegocio;
 
     /* Constructor */
 
-    public Defensor(String idDefensor, String nombreDefensor, int idNegocio) {
+    public Defensor(int idDefensor, String nombreDefensor, int idNegocio) {
         this.idDefensor = idDefensor;
         this.nombreDefensor = nombreDefensor;
         this.idNegocio = idNegocio;
@@ -20,11 +20,11 @@ public class Defensor{
 
     /* Setters y Getters */
 
-    public String getIdDefensor() {
+    public int getIdDefensor() {
         return idDefensor;
     }
 
-    public void setIdDefensor(String idDefensor) {
+    public void setIdDefensor(int idDefensor) {
         this.idDefensor = idDefensor;
     }
 

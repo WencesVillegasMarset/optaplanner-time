@@ -284,12 +284,12 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                         int juezRead = (int)juezCell.getNumericCellValue();
                         containsJuez(solution.getJuezList(), juezRead, audiencia);
                     }
-                    nextCell();
                     XSSFCell defensorCell = nextCell();
                     if(defensorCell.getCellTypeEnum() != CellType.BLANK){
-                        String defensorRead =  Base64.getEncoder().encodeToString(defensorCell.getStringCellValue().getBytes());
+                        int defensorRead =  (int) defensorCell.getNumericCellValue();
                         containsDefensor(solution.getDefensorList(), defensorRead, audiencia);
                     }
+                    nextCell();
                     XSSFCell fiscalCell = nextCell();
                     if(fiscalCell.getCellTypeEnum() != CellType.BLANK){
                         int fiscalRead = (int)fiscalCell.getNumericCellValue();
@@ -359,7 +359,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
 
                 containsTipo(solution.getTipoList(), tipoRead, audiencia);
                 containsJuez(solution.getJuezList(), juezRead, audiencia);
-                containsDefensor(solution.getDefensorList(), defensorNombre, audiencia);
+                containsDefensor(solution.getDefensorList(), defensorRead, audiencia);
                 containsFiscal(solution.getFiscalList(), fiscalRead, audiencia);
                 if(querellanteRead != 0){
                     containsQuerellante(solution.getQuerellanteList(), querellanteRead, audiencia);
@@ -469,11 +469,11 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             }
         }
 
-        private void containsDefensor(final List<Defensor> list, final String nombre, Audiencia audiencia){
-            boolean existe = list.stream().anyMatch(o -> o.getIdDefensor().equals(nombre));
+        private void containsDefensor(final List<Defensor> list, final int id, Audiencia audiencia){
+            boolean existe = list.stream().anyMatch(o -> o.getIdDefensor() == id);
             if(existe){
                 for (Defensor defensor : solution.getDefensorList()) {
-                    if (defensor.getIdDefensor().equals(nombre)){
+                    if (defensor.getIdDefensor() == id){
                         if(!audiencia.getDefensorList().contains(defensor)){
                             audiencia.addDefensor(defensor);
                         }
@@ -482,7 +482,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
                 }
             } else {
                 throw new IllegalStateException(
-                        currentPosition() + ": The defensor with id (" + nombre
+                        currentPosition() + ": The defensor with id (" + id
                                 + ") does not exist.");
             }
         }
@@ -637,7 +637,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
             for (Room room : solution.getRoomList()) {
                 nextRow();
                 currentRow.setHeightInPoints(2 * currentSheet.getDefaultRowHeightInPoints());
-                nextCell().setCellValue(room.getNombreRoom());
+                nextCell().setCellValue(room.getIdRoom());
                 List<AudienciaAssignment> roomAudienciaAssignmentList = solution.getAudienciaAssignmentList().stream().filter(audienciaAssignment -> audienciaAssignment.getRoom() == room).collect(toList());
                 writeAudienciaAssignmentList(roomAudienciaAssignmentList);
             }
@@ -878,7 +878,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
         private void writeJuezAudienciaList(Juez juez){
             nextRow();
             currentRow.setHeightInPoints(2 * currentSheet.getDefaultRowHeightInPoints());
-            nextHeaderCell(juez.getNombre());
+            nextHeaderCell(juez.getIdJuez());
 
             List<Audiencia> juezAudienciaList;
 
@@ -923,7 +923,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
         private void writeFiscalAudienciaList(Fiscal fiscal){
             nextRow();
             currentRow.setHeightInPoints(2 * currentSheet.getDefaultRowHeightInPoints());
-            nextHeaderCell(fiscal.getNombreFiscal());
+            nextHeaderCell(fiscal.getIdFiscal());
 
             List<Audiencia> fiscalAudienciaList;
 
@@ -967,7 +967,7 @@ public class ExcelReader extends AbstractXlsxSolutionFileIO<AudienciaSchedule>{
         private void writeDefensorAudienciaList(Defensor defensor){
             nextRow();
             currentRow.setHeightInPoints(2 * currentSheet.getDefaultRowHeightInPoints());
-            nextHeaderCell(defensor.getNombreDefensor());
+            nextHeaderCell(defensor.getIdDefensor());
 
             List<Audiencia> defensorAudienciaList;
 

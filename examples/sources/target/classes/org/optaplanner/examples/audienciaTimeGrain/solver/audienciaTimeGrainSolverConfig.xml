@@ -14,11 +14,11 @@
     <constructionHeuristic>
         <constructionHeuristicType>FIRST_FIT_DECREASING</constructionHeuristicType>
         <changeMoveSelector>
-            <filterClass>org.optaplanner.examples.audienciaTimeGrain.helper.FilterInvalidDays</filterClass>
+<!--            <filterClass>org.optaplanner.examples.audienciaTimeGrain.helper.FilterInvalidDays</filterClass>-->
             <valueSelector variableName="startingTimeGrain"/>
         </changeMoveSelector>
         <changeMoveSelector>
-            <filterClass>org.optaplanner.examples.audienciaTimeGrain.helper.FilterDifferentRoom</filterClass>
+<!--            <filterClass>org.optaplanner.examples.audienciaTimeGrain.helper.FilterDifferentRoom</filterClass>-->
             <valueSelector variableName="room"/>
         </changeMoveSelector>
     </constructionHeuristic>

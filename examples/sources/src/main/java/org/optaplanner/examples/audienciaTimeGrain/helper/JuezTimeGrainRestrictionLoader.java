@@ -38,18 +38,19 @@ public class JuezTimeGrainRestrictionLoader {
     }
 
     private void juezTimeGrainLicence(){
-        File file = new File("data/JuezTimeGrainLicence.xml");
-        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder documentBuilder = null;
-        try {
-            documentBuilder = documentBuilderFactory.newDocumentBuilder();
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        }
-
-        Document document;
 
         try {
+            File file = new File("data/JuezTimeGrainLicence.xml");
+            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder documentBuilder = null;
+            try {
+                documentBuilder = documentBuilderFactory.newDocumentBuilder();
+            } catch (ParserConfigurationException e) {
+                e.printStackTrace();
+            }
+
+            Document document;
+
             document = documentBuilder.parse(file);
             NodeList juezNodes = document.getElementsByTagName("Juez");
             for(int i=0; i<juezNodes.getLength(); i++) {
@@ -96,18 +97,17 @@ public class JuezTimeGrainRestrictionLoader {
     }
 
     private void juezTimeGrainSpecialRestrictions(){
-        File file = new File("data/JuezTimeGrainSpecial.xml");
-        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder documentBuilder = null;
         try {
-            documentBuilder = documentBuilderFactory.newDocumentBuilder();
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        }
+            File file = new File("data/JuezTimeGrainSpecial.xml");
+            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder documentBuilder = null;
+            try {
+                documentBuilder = documentBuilderFactory.newDocumentBuilder();
+            } catch (ParserConfigurationException e) {
+                e.printStackTrace();
+            }
 
-        Document document;
-
-        try {
+            Document document;
             document = documentBuilder.parse(file);
             NodeList juezNodes = document.getElementsByTagName("Juez");
             for(int i=0; i<juezNodes.getLength(); i++) {
@@ -157,20 +157,21 @@ public class JuezTimeGrainRestrictionLoader {
     }
 
     private void juezTimeGrainAfternoon(){
-        File file = new File("data/JuezTimeGrainAfternoon.xml");
-        DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
-        DocumentBuilder documentBuilder = null;
-        try {
-            documentBuilder = documentBuilderFactory.newDocumentBuilder();
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        }
-
-        Document document;
 
         List<Day> existingDays = new ArrayList<>();
 
         try {
+            File file = new File("data/JuezTimeGrainAfternoon.xml");
+            DocumentBuilderFactory documentBuilderFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder documentBuilder = null;
+            try {
+                documentBuilder = documentBuilderFactory.newDocumentBuilder();
+            } catch (ParserConfigurationException e) {
+                e.printStackTrace();
+            }
+
+            Document document;
+
             document = documentBuilder.parse(file);
             NodeList dayNodes = document.getElementsByTagName("Day");
 

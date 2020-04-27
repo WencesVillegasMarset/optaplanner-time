@@ -75,6 +75,8 @@ public class OGAPSolver {
 
         /* OBTENCIÓN DE DATOS DE AUDIENCIAS Y CONFIGURACION BÁSICA */
 
+        audienciaSchedule.getRoomList().forEach(r -> r.setNombreRoom(String.valueOf(r.getIdRoom())));
+
         audienciaSchedule.setPossibleRooms(audienciaSchedule.getRoomList().stream().filter(Room::isUsable).collect(Collectors.toList()));
         if (audienciaSchedule.getConstraintConfiguration() == null){
             audienciaSchedule.setConstraintConfiguration(new AudienciaScheduleConstraintConfiguration());
@@ -82,7 +84,7 @@ public class OGAPSolver {
 
         audienciaSchedule.setFechaCorrida(date);
         audienciaSchedule.getAudienciaAssignmentList().forEach(a -> a.setFechaCorrida(date));
-
+        
         for (AudienciaAssignment audienciaAssignment : audienciaSchedule.getAudienciaAssignmentList()){
             if (audienciaAssignment.getAudiencia().getDurationMinutes() % TimeGrain.GRAIN_LENGTH_IN_MINUTES == 0){
                 audienciaAssignment.getAudiencia().setNumTimeGrains(audienciaAssignment.getAudiencia().getDurationMinutes() / TimeGrain.GRAIN_LENGTH_IN_MINUTES);
@@ -235,7 +237,7 @@ public class OGAPSolver {
         int maximumStartingMinuteOfDay = lastStartingMinute.getHour() * 60 + lastStartingMinute.getMinute();
 
 
-        for(int j=0; j<75; j++){
+        while(true){
             if (minimumDate.isAfter(audienciaSchedule.getFechaCorrida().plusMonths(2))){
                 break;
             }
@@ -262,7 +264,6 @@ public class OGAPSolver {
             day.setDayOfYear(minimumDate.getDayOfYear());
             day.setDate(minimumDate);
             dayList.add(day);
-
             dayId++;
             minimumDate = minimumDate.plusDays(1);
 

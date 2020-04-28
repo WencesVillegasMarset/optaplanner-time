@@ -295,8 +295,8 @@ public class OGAPSolver {
         for (int j = 0; j<2; j++){
             URL url = null;
             try {
-                url = new URL("http://nolaborables.com.ar/api/v2/feriados/" + anoActual);
-//                url = new URL("http://0.0.0.0:5000/v1/feriados/" + anoActual);
+//                url = new URL("http://nolaborables.com.ar/api/v2/feriados/" + anoActual);
+                url = new URL("0.0.0.0:5000/v1/feriados/" + anoActual);
             } catch (MalformedURLException e) {
                 System.out.println("La URL para la obtención de feriados está mal construída");
                 e.printStackTrace();
@@ -317,8 +317,7 @@ public class OGAPSolver {
             con.setConnectTimeout(10000);
             con.setReadTimeout(10000);
 
-            if(con.getResponseCode() == 404){
-//            if(con.getResponseCode() == 400) {
+            if(con.getResponseCode() == 404 || con.getResponseCode() == 400){
                 continue;
             }
             BufferedReader in = null;

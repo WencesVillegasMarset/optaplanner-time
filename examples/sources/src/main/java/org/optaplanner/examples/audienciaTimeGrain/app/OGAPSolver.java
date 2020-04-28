@@ -296,7 +296,7 @@ public class OGAPSolver {
             URL url = null;
             try {
 //                url = new URL("http://nolaborables.com.ar/api/v2/feriados/" + anoActual);
-                url = new URL("0.0.0.0:5000/v1/feriados/" + anoActual);
+                url = new URL("http://0.0.0.0:5000/v1/feriados/" + anoActual);
             } catch (MalformedURLException e) {
                 System.out.println("La URL para la obtención de feriados está mal construída");
                 e.printStackTrace();

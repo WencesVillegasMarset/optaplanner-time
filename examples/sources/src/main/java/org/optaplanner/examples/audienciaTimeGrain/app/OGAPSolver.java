@@ -8,6 +8,8 @@ import org.optaplanner.examples.audienciaTimeGrain.domain.*;
 import org.optaplanner.examples.audienciaTimeGrain.helper.JuezTimeGrainRestrictionLoader;
 import org.optaplanner.examples.audienciaTimeGrain.persistence.ExcelReader;
 import org.optaplanner.examples.audienciaTimeGrain.persistence.XMLExporter;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -36,6 +38,8 @@ public class OGAPSolver {
 
     public static final String UNSOLVED_DIR = "data/unsolved";
 
+    public static final Logger logger = LoggerFactory.getLogger(OGAPSolver.class);
+
     public static void main(String[] args){
 
         createDirectories();
@@ -52,8 +56,7 @@ public class OGAPSolver {
         try{
             file = fileEntry[0];
         } catch (ArrayIndexOutOfBoundsException e){
-            System.out.println("No existe el archivo que contiene las solicitudes de calendarizacion");
-            e.printStackTrace();
+            logger.error("No existe el archivo que contiene las solicitudes de calendarizacion", e);
             System.exit(1);
         }
 
@@ -68,8 +71,7 @@ public class OGAPSolver {
             Unmarshaller jaxbUnmarshaller = jaxbContext.createUnmarshaller();
             audienciaSchedule = (AudienciaSchedule) jaxbUnmarshaller.unmarshal(file);
         } catch (JAXBException e) {
-            System.out.println("Hubo un error al parsear el archivo con solicitudes");
-            e.printStackTrace();
+            logger.error("Hubo un error al parsear el archivo con solicitudes", e);
             System.exit(1);
         }
 
@@ -114,7 +116,7 @@ public class OGAPSolver {
                     }
                 }
                 if (dayToUse == null){
-                    System.out.println("No existe el dia " + audiencia.getFechaRealizacion().toString() + " para la audiencia con id " + audiencia.getIdAudiencia());
+                    logger.warn("No existe el dia " + audiencia.getFechaRealizacion().toString() + " para la audiencia con id " + audiencia.getIdAudiencia());
                     audienciaAssignmentsToDelete.add(audienciaAssignment);
                     continue;
                 }
@@ -128,7 +130,7 @@ public class OGAPSolver {
                     }
                 }
                 if (timeGrainToUse == null){
-                    System.out.println("No existe el timegrain para el minuto" + audiencia.getStartingMinuteOfDay() + " del día, para la audiencia con id " + audiencia.getIdAudiencia());
+                    logger.warn("No existe el timegrain para el minuto" + audiencia.getStartingMinuteOfDay() + " del día, para la audiencia con id " + audiencia.getIdAudiencia());
                     audienciaAssignmentsToDelete.add(audienciaAssignment);
                 }
             }
@@ -155,7 +157,7 @@ public class OGAPSolver {
         try{
             audienciaSchedule = solver.solve(audienciaSchedule);
         } catch (IllegalStateException e){
-            e.printStackTrace();
+            logger.error("Error al intentar correr solver", e);
             System.exit(1);
         }
 
@@ -173,8 +175,7 @@ public class OGAPSolver {
         try{
             xmlExporter.write(audienciaSchedule);
         } catch (FileNotFoundException | JAXBException e) {
-            System.out.println("Hubo un error al exportar el excel");
-            e.printStackTrace();
+            logger.warn("Hubo un error al exportar el archivo en excel", e);
         }
 
         file.delete();
@@ -217,8 +218,7 @@ public class OGAPSolver {
         try {
             feriados = getFeriados(audienciaSchedule.getFechaCorrida());
         } catch (IOException e) {
-            System.out.println("Hubo un error al intentar obtener los feriados");
-            e.printStackTrace();
+            logger.error("Hubo un error al intentar obtener los feriados", e);
             System.exit(1);
         }
 
@@ -289,28 +289,31 @@ public class OGAPSolver {
     /* CONEXIÓN CON API PARA OBTENER FERIADOS Y DIAS NO LABORABLES */
     private static List<LocalDate> getFeriados(LocalDate date) throws IOException {
 
-        int anoActual = date.getYear();
+        int anioActual = date.getYear();
         List<LocalDate> feriadosList = new ArrayList<>();
 
         for (int j = 0; j<2; j++){
             URL url = null;
             try {
-//                url = new URL("http://nolaborables.com.ar/api/v2/feriados/" + anoActual);
-                url = new URL("http://0.0.0.0:5000/v1/feriados/" + anoActual);
-            } catch (MalformedURLException e) {
-                System.out.println("La URL para la obtención de feriados está mal construída");
-                e.printStackTrace();
+                File urlFile = new File("local/log/config.txt");
+                BufferedReader br = new BufferedReader(new FileReader(urlFile));
+//                url = new URL("http://nolaborables.com.ar/api/v2/feriados/" + anioActual);
+//                url = new URL("http://0.0.0.0:5000/v1/feriados/" + anioActual);
+                String readURL = br.readLine();
+                url = new URL(readURL + anioActual);
+                System.out.println(readURL);
+            } catch (IOException e) {
+                logger.error("La URL para la obtención de feriados está mal construída o hay un error en el archivo config.txt", e);
                 System.exit(1);
             }
-            HttpURLConnection con = null;
+            HttpURLConnection con;
             con = (HttpURLConnection) url.openConnection();
 
             try {
                 assert con != null;
                 con.setRequestMethod("GET");
             } catch (ProtocolException e) {
-                System.out.println("Error en el protocolo de la conexión con la API de feriados");
-                e.printStackTrace();
+                logger.error("Error en el protocolo de la conexión con la API de feriados", e);
                 System.exit(1);
             }
             con.setRequestProperty("Content-Type", "application/json");
@@ -318,13 +321,14 @@ public class OGAPSolver {
             con.setReadTimeout(10000);
 
             if(con.getResponseCode() == 404 || con.getResponseCode() == 400){
+                logger.warn("La API de feriados devuelve un error " + con.getResponseCode() + " para el año " + anioActual);
                 continue;
             }
-            BufferedReader in = null;
+            BufferedReader in;
 
             in = new BufferedReader(new InputStreamReader(con.getInputStream()));
 
-            String inputLine = null;
+            String inputLine;
             StringBuilder response = new StringBuilder();
             while ((inputLine = in.readLine()) != null) {
                 response.append(inputLine);
@@ -337,11 +341,11 @@ public class OGAPSolver {
 
             for (int i = 0; i< jsonArray.length(); i++){
                 JSONObject jsonObject = jsonArray.getJSONObject(i);
-                LocalDate feriado = LocalDate.of(anoActual, jsonObject.getInt("mes"), jsonObject.getInt("dia"));
+                LocalDate feriado = LocalDate.of(anioActual, jsonObject.getInt("mes"), jsonObject.getInt("dia"));
                 feriadosList.add(feriado);
             }
 
-            anoActual++;
+            anioActual++;
         }
 
         return feriadosList;

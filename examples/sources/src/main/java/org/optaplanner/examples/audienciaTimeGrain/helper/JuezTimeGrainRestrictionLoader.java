@@ -1,9 +1,12 @@
 package org.optaplanner.examples.audienciaTimeGrain.helper;
 
+import org.optaplanner.examples.audienciaTimeGrain.app.OGAPSolver;
 import org.optaplanner.examples.audienciaTimeGrain.domain.AudienciaSchedule;
 import org.optaplanner.examples.audienciaTimeGrain.domain.Day;
 import org.optaplanner.examples.audienciaTimeGrain.domain.Juez;
 import org.optaplanner.examples.audienciaTimeGrain.domain.TimeGrain;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
@@ -28,6 +31,7 @@ import java.util.stream.Collectors;
 public class JuezTimeGrainRestrictionLoader {
 
     private AudienciaSchedule audienciaSchedule;
+    public static final Logger logger = LoggerFactory.getLogger(JuezTimeGrainRestrictionLoader.class);
 
     public AudienciaSchedule loadRestrictions(AudienciaSchedule audienciaSchedule){
         this.audienciaSchedule = audienciaSchedule;
@@ -74,10 +78,10 @@ public class JuezTimeGrainRestrictionLoader {
                     List<Juez> juezList = audienciaSchedule.getJuezList().stream().filter(j -> j.getIdJuez() == id).collect(Collectors.toList());
 
                     if(juezList.isEmpty()){
-                        System.out.println("No existe el juez con id " + id);
+                        logger.warn("En la carga de licencias de Juez, no existe el juez con id " + id);
                     }
                     if(timeGrainList.isEmpty()){
-                        System.out.println("No existen TimeGrains entre las fechas " + dateDayFrom.toString() + " a " + dateDayTo.toString() + " especificados en el archivo JuezTimeGrainLicense.xml");
+                        logger.warn("En la carga de licencias de Juez, no existen TimeGrains entre las fechas " + dateDayFrom.toString() + " a " + dateDayTo.toString() + " especificados en el archivo JuezTimeGrainLicense.xml");
                     }
                     for(Juez juez : juezList){
                         timeGrainList.forEach(juez::addProhibitedTimeGrains);
@@ -86,12 +90,11 @@ public class JuezTimeGrainRestrictionLoader {
                 }
             }
         } catch (NullPointerException | FileNotFoundException e){
-            System.out.println("No se encontró el archivo JuezTimeGrainLicence.xml, se continuará con la ejecución del programa");
+            logger.warn("No se encontró el archivo JuezTimeGrainLicence.xml, se continuará con la ejecución del programa", e);
         } catch (SAXParseException e){
-            System.out.println("El archivo JuezTimeGrainLicence esta vacío, se continuará con la ejecución del programa");
+            logger.warn("El archivo JuezTimeGrainLicence esta vacío, se continuará con la ejecución del programa", e);
         } catch (Exception e) {
-            System.out.println("Ocurrió un fallo leyendo el archivo JuezTimeGrainLicence.xml, posiblemente exista un error en el mismo");
-            e.printStackTrace();
+            logger.error("Ocurrió un fallo leyendo el archivo JuezTimeGrainLicence.xml, posiblemente exista un error en el mismo", e);
             System.exit(1);
         }
     }
@@ -146,12 +149,11 @@ public class JuezTimeGrainRestrictionLoader {
                 }
             }
         } catch (NullPointerException | FileNotFoundException e){
-            System.out.println("No se encontró el archivo JuezTimeGrainSpecial.xml, se continuará con la ejecución del programa");
+            logger.warn("No se encontró el archivo JuezTimeGrainSpecial.xml, se continuará con la ejecución del programa", e);
         } catch (SAXParseException e){
-            System.out.println("El archivo JuezTimeGrainSpecial esta vacío, se continuará con la ejecución del programa");
+            logger.warn("El archivo JuezTimeGrainSpecial esta vacío, se continuará con la ejecución del programa", e);
         } catch (Exception e) {
-            System.out.println("Ocurrió un fallo leyendo el archivo JuezTimeGrainSpecial.xml, posiblemente exista un error en el mismo");
-            e.printStackTrace();
+            logger.error("Ocurrió un fallo leyendo el archivo JuezTimeGrainSpecial.xml, posiblemente exista un error en el mismo", e);
             System.exit(1);
         }
     }
@@ -205,19 +207,18 @@ public class JuezTimeGrainRestrictionLoader {
 
                         audienciaSchedule.getJuezList().stream().filter(j -> !juezIdList.contains(j.getIdJuez())).forEach(juez -> timeGrainList.forEach(juez::addProhibitedTimeGrains));
                     } else{
-                        System.out.println("No existe el dia " + localDate.toString() + " especificado en el archivo JuezTimeGrainAfternoon, se ignorará las restricciones de horarios de jueces para este día");
+                        logger.warn("No existe el dia " + localDate.toString() + " especificado en el archivo JuezTimeGrainAfternoon, se ignorará las restricciones de horarios de jueces para este día");
                     }
 
                 }
             }
 
         } catch (NullPointerException | FileNotFoundException e){
-            System.out.println("No se encontró el archivo JuezTimeGrainAfternoon.xml, se continuará con la ejecución del programa");
+            logger.warn("No se encontró el archivo JuezTimeGrainAfternoon.xml, se continuará con la ejecución del programa", e);
         } catch (SAXParseException e){
-            System.out.println("El archivo JuezTimeGrainAfternoon esta vacío, se continuará con la ejecución del programa");
+            logger.warn("El archivo JuezTimeGrainAfternoon esta vacío, se continuará con la ejecución del programa", e);
         } catch (Exception e) {
-            System.out.println("Ocurrió un fallo leyendo el archivo JuezTimeGrainAfternoon.xml, posiblemente exista un error en el mismo");
-            e.printStackTrace();
+            logger.error("Ocurrió un fallo leyendo el archivo JuezTimeGrainAfternoon.xml, posiblemente exista un error en el mismo", e);
             System.exit(1);
         } finally {
             List<Day> dayList = audienciaSchedule.getDayList().stream().filter(d -> !existingDays.contains(d)).collect(Collectors.toList());

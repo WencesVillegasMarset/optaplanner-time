@@ -301,7 +301,6 @@ public class OGAPSolver {
 //                url = new URL("http://0.0.0.0:5000/v1/feriados/" + anioActual);
                 String readURL = br.readLine();
                 url = new URL(readURL + anioActual);
-                System.out.println(readURL);
             } catch (IOException e) {
                 logger.error("La URL para la obtención de feriados está mal construída o hay un error en el archivo config.txt", e);
                 System.exit(1);

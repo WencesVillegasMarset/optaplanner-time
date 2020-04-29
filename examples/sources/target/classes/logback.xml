@@ -7,6 +7,7 @@
       <pattern>%d{dd-MM-yyyy HH:mm:ss} %-5p %m%n</pattern>
     </encoder>
   </appender>
+
   <appender name="fileAppender" class="ch.qos.logback.core.rolling.RollingFileAppender">
     <file>local/log/optaplanner.log</file>
     <rollingPolicy class="ch.qos.logback.core.rolling.FixedWindowRollingPolicy">
@@ -23,7 +24,7 @@
   </appender>
 
   <!-- To override the debug log level from the command line, use the VM option "-Dlogback.level.org.optaplanner=trace" -->
-  <logger name="org.optaplanner" level="${logback.level.org.optaplanner:-info}"/>
+  <logger name="org.optaplanner" level="${logback.level.org.optaplanner:-debug}"/>
 
   <root level="warn">
     <appender-ref ref="consoleAppender" />
